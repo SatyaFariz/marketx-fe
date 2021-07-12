@@ -4,6 +4,7 @@ import FixedAddressBar from './Mobile/Components/FixedAddressBar'
 import SearchBar from './Mobile/Components/SearchBar'
 import BottomNav from './Mobile/Components/BottomNav'
 import Categories from './Mobile/Components/Categories'
+import LatestProductsList from './Mobile/Components/LatestProductsList'
 
 function App() {
   // return (
@@ -27,8 +28,6 @@ function App() {
   return (
     <FixedAddressBar>
       <div style={{
-        overflow: 'scroll',
-        height: '100%',
         marginBottom: 68
       }}>
         <img
@@ -40,6 +39,7 @@ function App() {
           }}
         />
         <Categories/>
+        <LatestProductsList/>
       </div>
       
       {/* <div style={{
