@@ -14,7 +14,9 @@ const Component = props => {
       justifyContent: 'center',
       backgroundColor: 'white'
     }}>
-      <div style={{
+      <div 
+      onClick={() => props?.onIndexChange(0)}
+      style={{
         width: '25%',
         height: 47,
         justifyContent: 'space-between',
@@ -26,7 +28,9 @@ const Component = props => {
         <span style={{ fontSize: 14 }}>Explore</span>
       </div>
 
-      <div style={{
+      <div 
+      onClick={() => props?.onIndexChange(1)}
+      style={{
         width: '25%',
         height: 47,
         justifyContent: 'space-between',
@@ -35,10 +39,12 @@ const Component = props => {
         flexDirection: 'column'
       }}>
         <IoDocumentTextOutline size={24} color={'#FF385C'}/>
-        <span style={{ fontSize: 14 }}>My Rents</span>
+        <span style={{ fontSize: 14 }}>Rented</span>
       </div>
 
-      <div style={{
+      <div 
+      onClick={() => props?.onIndexChange(2)}
+      style={{
         width: '25%',
         height: 47,
         justifyContent: 'space-between',
@@ -47,10 +53,12 @@ const Component = props => {
         flexDirection: 'column'
       }}>
         <IoMailOutline size={24} color={'#FF385C'}/>
-        <span style={{ fontSize: 14 }}>Message</span>
+        <span style={{ fontSize: 14 }}>Notification</span>
       </div>
 
-      <div style={{
+      <div 
+      onClick={() => props?.onIndexChange(3)}
+      style={{
         width: '25%',
         height: 47,
         justifyContent: 'space-between',

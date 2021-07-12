@@ -3,10 +3,14 @@ import Categories from '../../Components/Categories'
 import LatestProductsList from '../../Components/LatestProductsList'
 
 const Component = props => {
+  const { active } = props
   return (
-    <>
+    <div style={{
+      display: active ? undefined : 'none',
+      marginBottom: 68
+    }}>
       <div style={{
-        marginBottom: 68
+        
       }}>
         <img
           src="https://www.lesitedelasneaker.com/wp-content/images/2019/11/air-jordan-1-high-bloodline-banner.jpg"
@@ -21,7 +25,7 @@ const Component = props => {
       </div>
 
       <SearchBar/>
-    </>
+    </div>
   )
 }
 
