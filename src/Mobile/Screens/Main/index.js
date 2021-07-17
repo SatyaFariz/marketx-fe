@@ -1,7 +1,7 @@
 // import graphql from 'babel-plugin-relay/macro'
 
 const chunk = {
-  path: '',
+  path: '/',
   components: () => [import('./MainScreen')],
   // query: graphql`
   //   query MainScreenAdminQuery($id: String!) {

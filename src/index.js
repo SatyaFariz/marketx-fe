@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './Mobile/Screens/Main/MainScreen';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 import createRelay from './Mobile/createRelay';
 import { createBrowserHistory as createHistory } from 'history';
