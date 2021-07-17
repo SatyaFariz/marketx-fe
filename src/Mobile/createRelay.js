@@ -59,7 +59,7 @@ export default function createRelay() {
     
 
     
-    return fetch('/graphql', request).then(response => {
+    return fetch('http://localhost:4000/graphql', request).then(response => {
       return response.json()
     })
     
@@ -72,7 +72,7 @@ export default function createRelay() {
     observer
   ) {
     // const subscriptionsEndpoint = REACT_APP_SUBSCRIPTION_URL
-    const subscriptionsEndpoint = 'ws://tuan-rumah.herokuapp.com/subscriptions'
+    const subscriptionsEndpoint = 'ws://localhost:4000/subscriptions'
     let query = config.text
     let { onNext, onError, onCompleted } = observer
     let subscriptionClient = new SubscriptionClient(subscriptionsEndpoint, { reconnect: true })

@@ -1,5 +1,25 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sat Jul 17 2021 20:48:04 GMT+0700 (Western Indonesia Time)
+# timestamp: Sat Jul 17 2021 21:31:52 GMT+0700 (Western Indonesia Time)
+
+type Category {
+  id: ID
+  name: String
+  code: String
+  level: Int
+  published: Boolean
+  icon: [Image]
+}
+
+type Image {
+  id: ID
+  url: String
+  height: Float
+  width: Float
+  aspectRatio: Float
+  bytes: Float
+  format: String
+  display: Int
+}
 
 type Mutation {
   login: String
@@ -7,6 +27,7 @@ type Mutation {
 
 type Query {
   test: ID
+  categories: [Category]
 }
 
 type Subscription {

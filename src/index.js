@@ -11,7 +11,7 @@ import {
 
 ReactDOM.render(
   <React.StrictMode>
-    {isMobile ?
+    {true ?
     <App history={createHistory()} createRelay={createRelay}/>
     :
     <div></div>
