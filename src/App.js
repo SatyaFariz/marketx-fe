@@ -11,6 +11,7 @@ import AppContext from './Mobile/AppContext'
 
 class App extends Component {
   state = {
+    queryID: 0,
     query: null,
     variables: null,
     render: () => <AppRenderer ref={this.rendererRef} />,
@@ -74,7 +75,8 @@ class App extends Component {
 
   fetchQuery = (query, variables) => {
     return new Promise((resolve, reject) => {
-      this.setState({
+      this.setState((prevState) => ({
+        queryID: prevState + 1,
         query,
         variables,
         render: ({ error, props, retry }) => {
@@ -87,7 +89,7 @@ class App extends Component {
           }
           return <AppRenderer ref={this.rendererRef}/>;
         },
-      });
+      }));
     });
   };
 
@@ -100,7 +102,7 @@ class App extends Component {
   };
 
   render() {
-    const { relay, query, variables, render } = this.state;
+    const { relay, query, variables, render, queryID } = this.state;
 
     return (
       <AppContext.Provider value={{
@@ -121,6 +123,7 @@ class App extends Component {
           />
         </MuiThemeProvider> */}
         <QueryRenderer
+          key={queryID}
           environment={relay}
           query={query}
           variables={variables || {}}
