@@ -7,7 +7,8 @@ const chunk = {
   query: graphql`
     query MainScreenQuery {
       categories {
-        id
+        id,
+        ...ExploreTab_categories
       },
     }
   `,
@@ -19,6 +20,7 @@ const chunk = {
       component: (
         <FixedAddressBar>
           <MainScreen
+            categories={data.categories}
           />
         </FixedAddressBar>
       )

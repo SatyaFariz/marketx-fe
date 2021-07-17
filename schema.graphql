@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sat Jul 17 2021 21:31:52 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Jul 18 2021 00:27:10 GMT+0700 (Western Indonesia Time)
 
 type Category {
   id: ID
@@ -7,7 +7,7 @@ type Category {
   code: String
   level: Int
   published: Boolean
-  icon: [Image]
+  icon: Image
 }
 
 type Image {
@@ -23,6 +23,7 @@ type Image {
 
 type Mutation {
   login: String
+  addIcon(id: String!, url: String!): String
 }
 
 type Query {

@@ -6,12 +6,12 @@ import NotificationTab from './NotificationTab/NotificationTab'
 import ProfileTab from './ProfileTab/ProfileTab'
 import { useState } from 'react'
 
-function App() {
+function App(props) {
   const [index, setIndex] = useState(0)
   const onIndexChange = index => setIndex(index)
   return (
     <>
-      <ExploreTab active={index === 0}/>
+      <ExploreTab active={index === 0} categories={props.categories}/>
       <RentedTab active={index === 1}/>
       <NotificationTab active={index === 2}/>
       <ProfileTab active={index === 3}/>
