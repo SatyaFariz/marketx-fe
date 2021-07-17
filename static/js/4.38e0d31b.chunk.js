@@ -1,0 +1,2 @@
+(this["webpackJsonprental-app-web"]=this["webpackJsonprental-app-web"]||[]).push([[4],{178:function(e,t,n){"use strict";n.r(t);var i=n(0);t.default=function(e){return Object(i.jsx)("div",{style:{height:2e4},children:"Login"})}}}]);
+//# sourceMappingURL=4.38e0d31b.chunk.js.map

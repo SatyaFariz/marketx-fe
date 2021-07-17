@@ -1,0 +1,26 @@
+{
+  "files": {
+    "admin.js": "/rental_pwa/static/js/admin.a2d5ba6f.chunk.js",
+    "admin.js.map": "/rental_pwa/static/js/admin.a2d5ba6f.chunk.js.map",
+    "main.css": "/rental_pwa/static/css/main.96bc04c1.chunk.css",
+    "main.js": "/rental_pwa/static/js/main.d9008ddf.chunk.js",
+    "main.js.map": "/rental_pwa/static/js/main.d9008ddf.chunk.js.map",
+    "runtime-main.js": "/rental_pwa/static/js/runtime-main.e597b90b.js",
+    "runtime-main.js.map": "/rental_pwa/static/js/runtime-main.e597b90b.js.map",
+    "static/js/3.f81bcf87.chunk.js": "/rental_pwa/static/js/3.f81bcf87.chunk.js",
+    "static/js/3.f81bcf87.chunk.js.map": "/rental_pwa/static/js/3.f81bcf87.chunk.js.map",
+    "static/js/4.38e0d31b.chunk.js": "/rental_pwa/static/js/4.38e0d31b.chunk.js",
+    "static/js/4.38e0d31b.chunk.js.map": "/rental_pwa/static/js/4.38e0d31b.chunk.js.map",
+    "static/js/5.29a0035b.chunk.js": "/rental_pwa/static/js/5.29a0035b.chunk.js",
+    "static/js/5.29a0035b.chunk.js.map": "/rental_pwa/static/js/5.29a0035b.chunk.js.map",
+    "index.html": "/rental_pwa/index.html",
+    "static/css/main.96bc04c1.chunk.css.map": "/rental_pwa/static/css/main.96bc04c1.chunk.css.map",
+    "static/js/3.f81bcf87.chunk.js.LICENSE.txt": "/rental_pwa/static/js/3.f81bcf87.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e597b90b.js",
+    "static/js/3.f81bcf87.chunk.js",
+    "static/css/main.96bc04c1.chunk.css",
+    "static/js/main.d9008ddf.chunk.js"
+  ]
+}
