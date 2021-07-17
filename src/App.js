@@ -79,7 +79,7 @@ class App extends Component {
         queryID: prevState + 1,
         query,
         variables,
-        render: ({ error, props, retry }) => {
+        render: ({ error, props, retry }) => {console.log(error)
           if (error) {
             const err = new Error(error.message);
             err.code = error.code;
