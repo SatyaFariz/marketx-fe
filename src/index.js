@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './Mobile/Screens/Main/MainScreen';
 import reportWebVitals from './reportWebVitals';
+import createRelay from './Mobile/createRelay';
+import { createBrowserHistory as createHistory } from 'history';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App history={createHistory()} createRelay={createRelay}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

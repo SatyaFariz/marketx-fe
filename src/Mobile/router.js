@@ -1,11 +1,13 @@
 import UniversalRouter from 'universal-router';
 import ErrorScreen from './Screens/ErrorScreen';
+import MainScreen from './Screens/MainScreen'
 
 const routes = [
   {
     path: '/admin',
     children: () => import(/* webpackChunkName: 'admin' */ './pages'),
   },
+  MainScreen
 ];
 
 function resolveRoute(ctx) {
