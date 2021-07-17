@@ -1,0 +1,14 @@
+# source: http://localhost:4000/graphql
+# timestamp: Sat Jul 17 2021 20:48:04 GMT+0700 (Western Indonesia Time)
+
+type Mutation {
+  login: String
+}
+
+type Query {
+  test: ID
+}
+
+type Subscription {
+  test: String
+}
