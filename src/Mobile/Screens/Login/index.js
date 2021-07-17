@@ -2,8 +2,8 @@
 import FixedAddressBar from '../../Components/FixedAddressBar'
 
 const chunk = {
-  path: '/',
-  components: () => [import('./MainScreen')],
+  path: '/login',
+  components: () => [import('./LoginScreen')],
   // query: graphql`
   //   query MainScreenAdminQuery($id: String!) {
   //     me {
@@ -19,15 +19,16 @@ const chunk = {
   //   }
   // `,
   // prepareVariables: ({ params }) => params,
-  render: ([MainScreen], data, context) => {
+  render: ([LoginScreen], data, context) => {
     
     return {
       title: 'Rental App',
       component: (
         <FixedAddressBar>
-          <MainScreen
+          <LoginScreen
           />
         </FixedAddressBar>
+        
       )
     }
   }

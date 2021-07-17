@@ -1,6 +1,7 @@
 import SearchBar from '../../../Components/SearchBar'
 import Categories from '../../../Components/Categories'
 import LatestProductsList from '../../../Components/LatestProductsList'
+import Link from '../../../Components/Link'
 
 const Component = props => {
   const { active } = props
@@ -22,6 +23,12 @@ const Component = props => {
         />
         <Categories/>
         <LatestProductsList/>
+      </div>
+
+      <div>
+        <Link href='/login'>
+          Login
+        </Link>
       </div>
 
       <SearchBar/>
