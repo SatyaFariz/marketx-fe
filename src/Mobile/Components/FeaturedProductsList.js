@@ -1,38 +1,7 @@
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
+import formatCurrency from '../../helpers/formatCurrency'
 
-const products = [
-  {
-    name: 'Toyota Innova',
-    image: 'https://www.cumi.id/media/items-photos/42be6a1fe5ca56c562e35975974ffc18-m.jpg',
-    price: 'Rp600.000 / day'
-  },
-  {
-    name: 'Toyota Innova',
-    image: 'https://www.cumi.id/media/items-photos/42be6a1fe5ca56c562e35975974ffc18-m.jpg',
-    price: 'Rp600.000 / day'
-  },
-  {
-    name: 'Toyota Innova',
-    image: 'https://www.cumi.id/media/items-photos/42be6a1fe5ca56c562e35975974ffc18-m.jpg',
-    price: 'Rp600.000 / day'
-  },
-  {
-    name: 'Toyota Innova',
-    image: 'https://www.cumi.id/media/items-photos/42be6a1fe5ca56c562e35975974ffc18-m.jpg',
-    price: 'Rp600.000 / day'
-  },
-  {
-    name: 'Toyota Innova',
-    image: 'https://www.cumi.id/media/items-photos/42be6a1fe5ca56c562e35975974ffc18-m.jpg',
-    price: 'Rp600.000 / day'
-  },
-  {
-    name: 'Toyota Innova',
-    image: 'https://www.cumi.id/media/items-photos/42be6a1fe5ca56c562e35975974ffc18-m.jpg',
-    price: 'Rp600.000 / day'
-  }
-]
 const Component = props => {
   const { featuredProducts } = props
   return (
@@ -73,7 +42,7 @@ const Component = props => {
               }}>{item.name}</span>
               <span style={{
                 fontSize: 16
-              }}>{item.price}</span>
+              }}>{formatCurrency(item.price)} / {item.rentalPeriodUnit.display}</span>
             </div>
           )
         })}
@@ -90,6 +59,9 @@ export default createFragmentContainer(Component, {
       price,
       images {
         url
+      },
+      rentalPeriodUnit {
+        display
       }
     }
   `

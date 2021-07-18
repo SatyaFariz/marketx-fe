@@ -67,6 +67,10 @@ fragment FeaturedProductsList_featuredProducts on Product {
     url
     id
   }
+  rentalPeriodUnit {
+    display
+    id
+  }
 }
 */
 
@@ -195,6 +199,25 @@ return {
             "plural": true,
             "selections": (v2/*: any*/),
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Unit",
+            "kind": "LinkedField",
+            "name": "rentalPeriodUnit",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "display",
+                "storageKey": null
+              },
+              (v0/*: any*/)
+            ],
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -202,12 +225,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7563ab6531443b03e1bd5a4cb6483d6e",
+    "cacheID": "6564bf2244a10d05adb38def303ce98d",
     "id": null,
     "metadata": {},
     "name": "MainScreenQuery",
     "operationKind": "query",
-    "text": "query MainScreenQuery {\n  categories {\n    id\n    ...ExploreTab_categories\n  }\n  featuredProducts {\n    id\n    ...ExploreTab_featuredProducts\n  }\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  icon {\n    url\n    id\n  }\n}\n\nfragment ExploreTab_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment ExploreTab_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  name\n  price\n  images {\n    url\n    id\n  }\n}\n"
+    "text": "query MainScreenQuery {\n  categories {\n    id\n    ...ExploreTab_categories\n  }\n  featuredProducts {\n    id\n    ...ExploreTab_featuredProducts\n  }\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  icon {\n    url\n    id\n  }\n}\n\nfragment ExploreTab_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment ExploreTab_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  name\n  price\n  images {\n    url\n    id\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n}\n"
   }
 };
 })();

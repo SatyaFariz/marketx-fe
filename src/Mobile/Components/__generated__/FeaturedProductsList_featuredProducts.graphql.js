@@ -18,6 +18,9 @@ export type FeaturedProductsList_featuredProducts = $ReadOnlyArray<{|
   +images: ?$ReadOnlyArray<?{|
     +url: ?string
   |}>,
+  +rentalPeriodUnit: ?{|
+    +display: ?string
+  |},
   +$refType: FeaturedProductsList_featuredProducts$ref,
 |}>;
 export type FeaturedProductsList_featuredProducts$data = FeaturedProductsList_featuredProducts;
@@ -75,12 +78,30 @@ const node/*: ReaderFragment*/ = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Unit",
+      "kind": "LinkedField",
+      "name": "rentalPeriodUnit",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "display",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Product",
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = '095fbd7f37f8bd09d0c2f906fe7302bb';
+(node/*: any*/).hash = 'ab7785d105a86f2bd2bae7c0d3b729ed';
 
 module.exports = node;
