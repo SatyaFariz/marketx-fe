@@ -10,6 +10,10 @@ const chunk = {
         id,
         ...ExploreTab_categories
       },
+      featuredProducts {
+        id,
+        ...ExploreTab_featuredProducts
+      }
     }
   `,
   // prepareVariables: ({ params }) => params,
@@ -21,6 +25,7 @@ const chunk = {
         <FixedAddressBar>
           <MainScreen
             categories={data.categories}
+            featuredProducts={data.featuredProducts}
           />
         </FixedAddressBar>
       )

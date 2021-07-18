@@ -1,4 +1,5 @@
-
+import { createFragmentContainer } from 'react-relay'
+import graphql from 'babel-plugin-relay/macro'
 
 const products = [
   {
@@ -33,6 +34,7 @@ const products = [
   }
 ]
 const Component = props => {
+  const { featuredProducts } = props
   return (
     <div style={{
       paddingTop: 20,
@@ -53,14 +55,14 @@ const Component = props => {
         gridColumnGap: 20,
         gridRowGap: 15
       }}>
-        {products.map((item, i) => {
+        {featuredProducts.map((item, i) => {
           return (
             <div style={{
               display: 'flex',
               flexDirection: 'column'
             }}>
               <img
-                src={item.image}
+                src={item.images[0]?.url}
                 alt={item.name}
                 style={{ width: '100%', aspectRatio: 1, borderRadius: 10, marginBottom: 10 }}
               />
@@ -80,4 +82,15 @@ const Component = props => {
   )
 }
 
-export default Component
+export default createFragmentContainer(Component, {
+  featuredProducts: graphql`
+    fragment FeaturedProductsList_featuredProducts on Product @relay(plural: true) {
+      id,
+      name,
+      price,
+      images {
+        url
+      }
+    }
+  `
+})

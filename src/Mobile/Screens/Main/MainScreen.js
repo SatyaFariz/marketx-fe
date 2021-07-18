@@ -11,7 +11,11 @@ function App(props) {
   const onIndexChange = index => setIndex(index)
   return (
     <>
-      <ExploreTab active={index === 0} categories={props.categories}/>
+      <ExploreTab 
+        active={index === 0} 
+        categories={props.categories}
+        featuredProducts={props.featuredProducts}
+      />
       <RentedTab active={index === 1}/>
       <NotificationTab active={index === 2}/>
       <ProfileTab active={index === 3}/>

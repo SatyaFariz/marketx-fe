@@ -1,12 +1,13 @@
 import SearchBar from '../../../Components/SearchBar'
 import Categories from '../../../Components/Categories'
-import LatestProductsList from '../../../Components/LatestProductsList'
+import FeaturedProductsList from '../../../Components/FeaturedProductsList'
 import Link from '../../../Components/Link'
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 
 const Component = props => {
-  const { active, categories } = props
+  const { active, categories, featuredProducts } = props
+  console.log('FEATURED PRODUCTS', featuredProducts)
   return (
     <div style={{
       display: active ? undefined : 'none',
@@ -24,7 +25,7 @@ const Component = props => {
           }}
         />
         <Categories categories={categories}/>
-        <LatestProductsList/>
+        <FeaturedProductsList featuredProducts={featuredProducts}/>
       </div>
 
       <div>
@@ -43,6 +44,12 @@ export default createFragmentContainer(Component, {
     fragment ExploreTab_categories on Category @relay(plural: true) {
       id,
       ...Categories_categories
+    }
+  `,
+  featuredProducts: graphql`
+    fragment ExploreTab_featuredProducts on Product @relay(plural: true) {
+      id,
+      ...FeaturedProductsList_featuredProducts
     }
   `
 })

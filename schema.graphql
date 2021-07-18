@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Jul 18 2021 00:27:10 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Jul 18 2021 22:29:17 GMT+0700 (Western Indonesia Time)
 
 type Category {
   id: ID
@@ -24,13 +24,39 @@ type Image {
 type Mutation {
   login: String
   addIcon(id: String!, url: String!): String
+  createProduct(name: String!, desc: String!, categoryId: String!, ownerId: String!, rentalPeriodUnitId: String!, price: Float!): String
+  setProductImage(id: String!, url: String!): String
+}
+
+type Product {
+  id: ID
+  name: String
+  desc: String
+  price: Float
+  published: Boolean
+  stock: Int
+  images: [Image]
 }
 
 type Query {
   test: ID
+  me: User
   categories: [Category]
+  units: [Unit]
+  product(id: String!): Product
+  featuredProducts: [Product]
 }
 
 type Subscription {
   test: String
+}
+
+type Unit {
+  id: ID
+  display: String
+}
+
+type User {
+  id: ID
+  name: String
 }
