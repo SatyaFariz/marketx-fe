@@ -23,7 +23,7 @@ const LoadingView = () => {
 
 const defaultStates = {
   title: null,
-  component: <LoadingView/>,
+  component: null,
   error: null
 }
 

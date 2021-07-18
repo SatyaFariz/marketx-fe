@@ -1,7 +1,9 @@
-import MainScreen from './Main'
-import LoginScreen from './Login'
+import Main from './Main'
+import Login from './Login'
+import Product from './Product'
 
 export default [
-  MainScreen,
-  LoginScreen
+  Main,
+  Login,
+  Product
 ]
