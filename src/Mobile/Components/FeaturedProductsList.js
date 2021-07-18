@@ -16,7 +16,7 @@ const Component = props => {
         fontSize: 24,
         // lineHeight: 27,
         fontWeight: 'bold',
-      }}>Newest Additions</h1>
+      }}>Featured Products</h1>
 
       <div style={{
         display: 'grid',
