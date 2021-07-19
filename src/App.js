@@ -104,7 +104,7 @@ class App extends Component {
 
     return (
       <AppContext.Provider 
-      key={query?.hash}
+      // key={query?.hash}
       value={{
         queryParams: this.state.queryParams,
         pathname: this.state.pathname,
@@ -123,7 +123,7 @@ class App extends Component {
           />
         </MuiThemeProvider> */}
         <QueryRenderer
-          key={query?.hash}
+          // key={query?.hash}
           environment={relay}
           query={query}
           variables={variables || {}}

@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Jul 18 2021 22:47:54 GMT+0700 (Western Indonesia Time)
+# timestamp: Mon Jul 19 2021 12:32:09 GMT+0700 (Western Indonesia Time)
 
 type Category {
   id: ID
@@ -28,6 +28,21 @@ type Mutation {
   setProductImage(id: String!, url: String!): String
 }
 
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
 type Product {
   id: ID
   name: String
@@ -39,6 +54,24 @@ type Product {
   images: [Image]
 }
 
+"""A connection to a list of items."""
+type ProductConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ProductEdge]
+}
+
+"""An edge in a connection."""
+type ProductEdge {
+  """The item at the end of the edge"""
+  node: Product
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
 type Query {
   test: ID
   me: User
@@ -46,6 +79,7 @@ type Query {
   units: [Unit]
   product(id: String!): Product
   featuredProducts: [Product]
+  search(q: String!, categoryId: String, published: Boolean, after: String, first: Int): ProductConnection
 }
 
 type Subscription {
