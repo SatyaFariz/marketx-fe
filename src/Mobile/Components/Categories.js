@@ -1,5 +1,6 @@
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
+import Link from '../Components/Link'
 
 const Component = props => {
   const { categories } = props
@@ -20,6 +21,7 @@ const Component = props => {
       }}>
         {categories.map((item, i) => {
           return (
+            <Link href={`/category/${item.id}`}>
             <div key={i} style={{
               width: 118,
               display: 'flex',
@@ -39,6 +41,7 @@ const Component = props => {
               />
               <span style={{ textAlign: 'center' }}>{item.name}</span>
             </div>
+            </Link>
           )
         })}
       </div>
