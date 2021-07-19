@@ -1,3 +1,4 @@
+import { HEADER_HEIGHT } from '../../../Constants'
 
 const Component = props => {
   const { active } = props
@@ -8,7 +9,7 @@ const Component = props => {
       marginBottom: 68
     }}>
       <div style={{
-        height: 64,
+        height: HEADER_HEIGHT,
         backgroundColor: 'white',
         width: '100%',
         display: 'flex',

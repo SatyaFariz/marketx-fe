@@ -1,8 +1,6 @@
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
-import formatCurrency from '../../helpers/formatCurrency'
 import ProductItem from './ProductItem'
-import Link from '../Components/Link'
 
 const Component = props => {
   const { featuredProducts } = props
