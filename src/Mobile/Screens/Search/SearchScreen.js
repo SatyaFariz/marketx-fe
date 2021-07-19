@@ -13,7 +13,7 @@ const query = graphql`
 `
 
 const Component = props => {
-  const { environment } = useAppContext()
+  const { environment, history } = useAppContext()
   return (
     <div>
       <div style={{
@@ -26,7 +26,9 @@ const Component = props => {
         position: 'absolute',
         top: 0
       }}>
-        <div style={{
+        <div 
+        onClick={() => history.goBack()}
+        style={{
           paddingRight: 10,
           paddingLeft: 10
         }}>
