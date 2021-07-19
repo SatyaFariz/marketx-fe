@@ -1,5 +1,6 @@
 import { HEADER_HEIGHT } from '../../Constants'
 import { IoChevronBackSharp } from 'react-icons/io5'
+import { LinearProgress } from '@material-ui/core'
 
 const Component = props => {
   return (
@@ -46,6 +47,12 @@ const Component = props => {
             }}
           />
         </div>
+      </div>
+
+      <div style={{
+        marginTop: HEADER_HEIGHT
+      }}>
+        <LinearProgress />
       </div>
     </div>
   )
