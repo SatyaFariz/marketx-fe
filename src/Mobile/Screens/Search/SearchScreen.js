@@ -15,8 +15,8 @@ const query = graphql`
 `
 
 const Component = props => {
-  const { environment, history } = useAppContext()
-  const [searchTerm, setSearchTerm] = useState('')
+  const { environment, history, queryParams } = useAppContext()
+  const [searchTerm, setSearchTerm] = useState(queryParams.q || '')
   const [searchTermDebounced] = useDebounce(searchTerm, 500)
 
   useEffect(() => {
@@ -92,7 +92,7 @@ const Component = props => {
       }}>
         <QueryRenderer
           environment={environment}
-          variables={{ q: '', first: 24 }}
+          variables={{ q: queryParams.q || '', first: 24 }}
           query={query}
           render={({ error, props }) => {
             if(error) {
