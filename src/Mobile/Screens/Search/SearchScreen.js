@@ -1,5 +1,5 @@
 import { HEADER_HEIGHT } from '../../Constants'
-import { IoChevronBackSharp } from 'react-icons/io5'
+import { IoChevronBackSharp, IoCloseSharp } from 'react-icons/io5'
 import { LinearProgress } from '@material-ui/core'
 import graphql from 'babel-plugin-relay/macro'
 import { QueryRenderer } from 'react-relay'
@@ -57,7 +57,7 @@ const Component = props => {
             style={{
               height: '100%',
               backgroundColor: 'transparent',
-              paddingRight: 10,
+              // paddingRight: 10,
               paddingLeft: 10,
               flexGrow: 1,
               borderRadius: 8,
@@ -70,6 +70,20 @@ const Component = props => {
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
+          {searchTerm.length > 0 &&
+          <div 
+          onClick={() => setSearchTerm('')}
+          style={{
+            height: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingLeft: 10,
+            paddingRight: 10,
+            display: 'flex'
+          }}>
+            <IoCloseSharp size={24}/>
+          </div>
+          }
         </div>
       </div>
 
