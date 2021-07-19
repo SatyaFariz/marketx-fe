@@ -45,6 +45,8 @@ class App extends Component {
     const { history } = this.props;
     this.unlisten = history.listen(this.renderLocation);
     this.renderLocation(history.location);
+    // disable context menu
+    document.oncontextmenu = () => false
   }
 
   componentWillUnmount() {
