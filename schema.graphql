@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Mon Jul 19 2021 12:32:09 GMT+0700 (Western Indonesia Time)
+# timestamp: Tue Jul 20 2021 01:55:52 GMT+0700 (Western Indonesia Time)
 
 type Category {
   id: ID
@@ -76,6 +76,7 @@ type Query {
   test: ID
   me: User
   categories: [Category]
+  category(id: String!): Category
   units: [Unit]
   product(id: String!): Product
   featuredProducts: [Product]
