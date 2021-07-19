@@ -5,6 +5,8 @@ import graphql from 'babel-plugin-relay/macro'
 import { QueryRenderer } from 'react-relay'
 import useAppContext from '../../hooks/useAppContext'
 import SearchResultsList from './SearchResultsList'
+import { useState, useEffect } from 'react'
+import { useDebounce } from 'use-debounce'
 
 const query = graphql`
   query SearchScreenQuery($q: String!, $first: Int!) {
@@ -14,6 +16,13 @@ const query = graphql`
 
 const Component = props => {
   const { environment, history } = useAppContext()
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTermDebounced] = useDebounce(searchTerm, 500)
+
+  useEffect(() => {
+    history.replace(`/search?q=${searchTermDebounced}`)
+  }, [searchTermDebounced])
+
   return (
     <div>
       <div style={{
@@ -58,6 +67,8 @@ const Component = props => {
               fontSize: 16,
               caretColor: '#FF385C'
             }}
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
           />
         </div>
       </div>
