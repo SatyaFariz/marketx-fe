@@ -8,19 +8,13 @@
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
+type ProductItem_product$ref = any;
 import type { FragmentReference } from "relay-runtime";
 declare export opaque type FeaturedProductsList_featuredProducts$ref: FragmentReference;
 declare export opaque type FeaturedProductsList_featuredProducts$fragmentType: FeaturedProductsList_featuredProducts$ref;
 export type FeaturedProductsList_featuredProducts = $ReadOnlyArray<{|
   +id: ?string,
-  +name: ?string,
-  +price: ?number,
-  +images: ?$ReadOnlyArray<?{|
-    +url: ?string
-  |}>,
-  +rentalPeriodUnit: ?{|
-    +display: ?string
-  |},
+  +$fragmentRefs: ProductItem_product$ref,
   +$refType: FeaturedProductsList_featuredProducts$ref,
 |}>;
 export type FeaturedProductsList_featuredProducts$data = FeaturedProductsList_featuredProducts;
@@ -48,60 +42,15 @@ const node/*: ReaderFragment*/ = {
       "storageKey": null
     },
     {
-      "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "name",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "price",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "Image",
-      "kind": "LinkedField",
-      "name": "images",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "url",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "Unit",
-      "kind": "LinkedField",
-      "name": "rentalPeriodUnit",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "display",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
+      "kind": "FragmentSpread",
+      "name": "ProductItem_product"
     }
   ],
   "type": "Product",
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = 'ab7785d105a86f2bd2bae7c0d3b729ed';
+(node/*: any*/).hash = 'd5232e9a7c5e869a938317725d362026';
 
 module.exports = node;

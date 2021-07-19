@@ -61,6 +61,11 @@ fragment ExploreTab_featuredProducts on Product {
 
 fragment FeaturedProductsList_featuredProducts on Product {
   id
+  ...ProductItem_product
+}
+
+fragment ProductItem_product on Product {
+  id
   name
   price
   images {
@@ -225,12 +230,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6564bf2244a10d05adb38def303ce98d",
+    "cacheID": "efb82d82ec7ca8b1b250aaffd170772d",
     "id": null,
     "metadata": {},
     "name": "MainScreenQuery",
     "operationKind": "query",
-    "text": "query MainScreenQuery {\n  categories {\n    id\n    ...ExploreTab_categories\n  }\n  featuredProducts {\n    id\n    ...ExploreTab_featuredProducts\n  }\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  icon {\n    url\n    id\n  }\n}\n\nfragment ExploreTab_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment ExploreTab_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  name\n  price\n  images {\n    url\n    id\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n}\n"
+    "text": "query MainScreenQuery {\n  categories {\n    id\n    ...ExploreTab_categories\n  }\n  featuredProducts {\n    id\n    ...ExploreTab_featuredProducts\n  }\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  icon {\n    url\n    id\n  }\n}\n\nfragment ExploreTab_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment ExploreTab_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  ...ProductItem_product\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  images {\n    url\n    id\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n}\n"
   }
 };
 })();
