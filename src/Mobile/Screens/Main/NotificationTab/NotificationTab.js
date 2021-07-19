@@ -27,7 +27,7 @@ const Component = props => {
       </div>
 
       <div style={{
-        marginTop: 64
+        marginTop: HEADER_HEIGHT
       }}>
         {new Array(100).fill(null).map((item, i) => {
           return (
