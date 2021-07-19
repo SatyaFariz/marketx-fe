@@ -1,29 +1,76 @@
 import { createPaginationContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 import ProductItem from '../../Components/ProductItem'
+import { useBottomScrollListener } from 'react-bottom-scroll-listener'
+import { useState } from 'react'
+import { CircularProgress } from '@material-ui/core'
 
 const Component = props => {
+  const [errorLoadingMore, setErrorLoadingMore] = useState(false)
   const { edges } = props.search.search
-  return (
-    <div style={{
-      paddingTop: 20,
-      paddingBottom: 20,
-      paddingLeft: 20,
-      paddingRight: 20,
-      marginTop: 20,
-    }}>
+  
+  const loadMore = () => {
+    const { relay } = props
+    if(!relay.hasMore())
+      return
+    else if(relay.isLoading())
+      return
+    
+    relay.loadMore(null, err => {
+      if(err)
+        setErrorLoadingMore(true)
+    })
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(2, 1fr)',
-        gridColumnGap: 20,
-        gridRowGap: 15
+    setErrorLoadingMore(false)
+  }
+
+  const onEndReached = () => !errorLoadingMore && loadMore()
+
+  const scrollRef = useBottomScrollListener(onEndReached)
+
+  return (
+    <div 
+    ref={scrollRef}
+    style={{
+      // backgroundColor: 'pink',
+      overflow: 'scroll',
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 0,
+      top: 56
+    }}>
+      <div
+      style={{
+        paddingTop: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
       }}>
-        {edges.map((edge, i) => {
-          return (
-            <ProductItem product={edge.node}/>
-          )
-        })}
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gridColumnGap: 20,
+          gridRowGap: 15
+        }}>
+          {edges.map((edge, i) => {
+            return (
+              <ProductItem product={edge.node}/>
+            )
+          })}
+        </div>
+
+        {props.relay.hasMore() &&
+          <div 
+            style={{ 
+              paddingTop: 20,
+              display: 'flex',
+              justifyContent: 'center'
+          }}>
+            <CircularProgress />
+          </div>
+        }
       </div>
     </div>
   )
