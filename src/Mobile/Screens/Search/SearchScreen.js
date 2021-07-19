@@ -2,7 +2,9 @@ import { HEADER_HEIGHT } from '../../Constants'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import { LinearProgress } from '@material-ui/core'
 import graphql from 'babel-plugin-relay/macro'
-// import { Query }
+import { QueryRenderer } from 'react-relay'
+import useAppContext from '../../hooks/useAppContext'
+import SearchResultsList from './SearchResultsList'
 
 const query = graphql`
   query SearchScreenQuery($q: String!, $first: Int!) {
@@ -11,6 +13,7 @@ const query = graphql`
 `
 
 const Component = props => {
+  const { environment } = useAppContext()
   return (
     <div>
       <div style={{
@@ -60,7 +63,23 @@ const Component = props => {
       <div style={{
         marginTop: HEADER_HEIGHT
       }}>
-        <LinearProgress />
+        <QueryRenderer
+          environment={environment}
+          variables={{ q: '', first: 24 }}
+          query={query}
+          render={({ error, props }) => {
+            if(error) {
+              console.log(error)
+              return null
+            } else if(props) {
+              return (
+                <SearchResultsList search={props}/>
+              )
+            }
+
+            return <LinearProgress />
+          }}
+        />
       </div>
     </div>
   )

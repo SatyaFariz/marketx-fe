@@ -8,6 +8,7 @@
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
+type ProductItem_product$ref = any;
 import type { FragmentReference } from "relay-runtime";
 declare export opaque type SearchResultsList_search$ref: FragmentReference;
 declare export opaque type SearchResultsList_search$fragmentType: SearchResultsList_search$ref;
@@ -16,7 +17,8 @@ export type SearchResultsList_search = {|
     +edges: ?$ReadOnlyArray<?{|
       +cursor: string,
       +node: ?{|
-        +id: ?string
+        +id: ?string,
+        +$fragmentRefs: ProductItem_product$ref,
       |},
     |}>,
     +pageInfo: {|
@@ -112,6 +114,11 @@ const node/*: ReaderFragment*/ = {
                   "kind": "ScalarField",
                   "name": "__typename",
                   "storageKey": null
+                },
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "ProductItem_product"
                 }
               ],
               "storageKey": null
@@ -152,6 +159,6 @@ const node/*: ReaderFragment*/ = {
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = '4bbcddaca045679aeca4f31a74bea573';
+(node/*: any*/).hash = 'deb9a8028208dc8c9ff197faf5e96056';
 
 module.exports = node;

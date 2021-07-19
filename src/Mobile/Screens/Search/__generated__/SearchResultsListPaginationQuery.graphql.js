@@ -33,12 +33,27 @@ query SearchResultsListPaginationQuery(
   ...SearchResultsList_search_LZQM4
 }
 
+fragment ProductItem_product on Product {
+  id
+  name
+  price
+  images {
+    url
+    id
+  }
+  rentalPeriodUnit {
+    display
+    id
+  }
+}
+
 fragment SearchResultsList_search_LZQM4 on Query {
   search(first: $first, after: $after, q: $q) {
     edges {
       cursor
       node {
         id
+        ...ProductItem_product
         __typename
       }
     }
@@ -82,7 +97,14 @@ v3 = [
     "name": "q",
     "variableName": "q"
   }
-];
+],
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -144,11 +166,57 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "id",
+                    "name": "name",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "price",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Image",
+                    "kind": "LinkedField",
+                    "name": "images",
+                    "plural": true,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "url",
+                        "storageKey": null
+                      },
+                      (v4/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Unit",
+                    "kind": "LinkedField",
+                    "name": "rentalPeriodUnit",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "display",
+                        "storageKey": null
+                      },
+                      (v4/*: any*/)
+                    ],
                     "storageKey": null
                   },
                   {
@@ -204,12 +272,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "42598efb024f06943b150ce116146104",
+    "cacheID": "443268c13e099fda7c8bf7d6d549c265",
     "id": null,
     "metadata": {},
     "name": "SearchResultsListPaginationQuery",
     "operationKind": "query",
-    "text": "query SearchResultsListPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n) {\n  ...SearchResultsList_search_LZQM4\n}\n\nfragment SearchResultsList_search_LZQM4 on Query {\n  search(first: $first, after: $after, q: $q) {\n    edges {\n      cursor\n      node {\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+    "text": "query SearchResultsListPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n) {\n  ...SearchResultsList_search_LZQM4\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  images {\n    url\n    id\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n}\n\nfragment SearchResultsList_search_LZQM4 on Query {\n  search(first: $first, after: $after, q: $q) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
   }
 };
 })();

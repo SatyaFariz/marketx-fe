@@ -1,10 +1,30 @@
 import { createPaginationContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
+import ProductItem from '../../Components/ProductItem'
 
 const Component = props => {
+  const { edges } = props.search.search
   return (
-    <div>
+    <div style={{
+      paddingTop: 20,
+      paddingBottom: 20,
+      paddingLeft: 20,
+      paddingRight: 20,
+      marginTop: 20,
+    }}>
 
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gridColumnGap: 20,
+        gridRowGap: 15
+      }}>
+        {edges.map((edge, i) => {
+          return (
+            <ProductItem product={edge.node}/>
+          )
+        })}
+      </div>
     </div>
   )
 }
@@ -24,7 +44,8 @@ export default createPaginationContainer(Component, {
         edges {
           cursor,
           node {
-            id
+            id,
+            ...ProductItem_product
           }
         },
         pageInfo {
