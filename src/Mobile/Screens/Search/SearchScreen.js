@@ -1,6 +1,14 @@
 import { HEADER_HEIGHT } from '../../Constants'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import { LinearProgress } from '@material-ui/core'
+import graphql from 'babel-plugin-relay/macro'
+// import { Query }
+
+const query = graphql`
+  query SearchScreenQuery($q: String!, $first: Int!) {
+    ...SearchResultsList_search @arguments(q: $q, first: $first)
+  }
+`
 
 const Component = props => {
   return (
