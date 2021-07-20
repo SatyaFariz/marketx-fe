@@ -214,6 +214,46 @@ const Component = props => {
               )
             })}
           </div>
+
+          <div style={{
+            borderTop: '1px solid rgb(233, 233, 233)',
+            marginTop: 8,
+            paddingTop: 16
+          }}>
+            <span style={{
+              color: 'rgb(118, 118, 118)',
+              fontSize: 16,
+              fontWeight: 500,
+              textTransform: 'uppercase'
+            }}>Merchant Information</span>
+
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginTop: 16
+            }}>
+              {product.merchant.profilePicture ?
+              null
+              :  
+              <div style={{
+                height: 40,
+                width: 40,
+                borderRadius: '50%',
+                backgroundColor: 'pink',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginRight: 15
+              }}>
+                <span style={{ textTransform: 'uppercase', fontWeight: 500, fontSize: 20, color: 'white' }}>{product.merchant.name[0]}</span>
+              </div>
+              }
+
+              <span style={{ fontSize: 16, fontWeight: 500 }}>{product.merchant.name}</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -285,6 +325,14 @@ export default createFragmentContainer(Component, {
           }
         },
         value
+      },
+      merchant {
+        id,
+        name,
+        profilePicture {
+          id,
+          url
+        }
       }
     }
   `

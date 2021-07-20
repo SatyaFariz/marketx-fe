@@ -39,6 +39,14 @@ export type ProductScreen_product = {|
     |},
     +value: ?string,
   |}>,
+  +merchant: ?{|
+    +id: ?string,
+    +name: ?string,
+    +profilePicture: ?{|
+      +id: ?string,
+      +url: ?string,
+    |},
+  |},
   +$refType: ProductScreen_product$ref,
 |};
 export type ProductScreen_product$data = ProductScreen_product;
@@ -179,6 +187,29 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "User",
+      "kind": "LinkedField",
+      "name": "merchant",
+      "plural": false,
+      "selections": [
+        (v0/*: any*/),
+        (v1/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Image",
+          "kind": "LinkedField",
+          "name": "profilePicture",
+          "plural": false,
+          "selections": (v2/*: any*/),
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Product",
@@ -186,6 +217,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'db8aa4ed0a361f6d1e3ceb8021bb5227';
+(node/*: any*/).hash = 'd6a11c7cce8e434736c726c86040fcb1';
 
 module.exports = node;

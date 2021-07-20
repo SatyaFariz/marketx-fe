@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Tue Jul 20 2021 18:38:56 GMT+0700 (Western Indonesia Time)
+# timestamp: Tue Jul 20 2021 21:24:27 GMT+0700 (Western Indonesia Time)
 
 type Attribute {
   id: ID
@@ -12,7 +12,7 @@ type Category {
   name: String
   code: String
   level: Int
-  published: Boolean
+  isPublished: Boolean
   icon: Image
 }
 
@@ -59,7 +59,8 @@ type Product {
   price: Float
   rentalPeriodUnit: Unit
   category: Category
-  published: Boolean
+  merchant: User
+  isPublished: Boolean
   stock: Int
   images: [Image]
   specs: [Specification]
@@ -113,4 +114,5 @@ type Unit {
 type User {
   id: ID
   name: String
+  profilePicture: Image
 }
