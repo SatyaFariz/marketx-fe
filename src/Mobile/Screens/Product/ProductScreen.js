@@ -19,7 +19,10 @@ const Component = props => {
   const [showHeader, setShowHeader] = useState(false)
   const [carouselPos, setCarouselPos] = useState(0)
 
-  const handleCarouselChange = (value) => setCarouselPos(value)
+  const handleCarouselChange = (value) => {
+    if(!isNaN(value))
+      setCarouselPos(value)
+  }
 
   useEffect(() => {
     scrollRef.current.onscroll = () => {
