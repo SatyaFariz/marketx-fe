@@ -1,13 +1,36 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
+import { HEADER_HEIGHT } from '../../Constants'
+import { IoChevronBackSharp } from 'react-icons/io5'
+import useAppContext from '../../hooks/useAppContext'
 
 const Component = props => {
+  const { history } = useAppContext()
   const { product } = props
   return (
     <div style={{
       height: 2000,
       // backgroundColor: 'pink'
     }}>
+      <div style={{
+        height: HEADER_HEIGHT,
+        position: 'absolute',
+        width: '100%',
+        backgroundImage: 'linear-gradient(rgb(76, 76, 76), transparent)',
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row'
+      }}>
+        <div 
+        onClick={() => history.goBack()}
+        style={{
+          paddingRight: 10,
+          paddingLeft: 10
+        }}>
+          <IoChevronBackSharp size={32} color={'white'}/>
+        </div>
+      </div>
+
       <div style={{
         width: '100vw',
         backgroundColor: 'red',
