@@ -5,7 +5,7 @@ const chunk = {
   path: '/category/:id',
   components: () => [import('./CategoryScreen')],
   query: graphql`
-    query CategoryScreenQuery($id: String!) {
+    query CategorySearchScreenQuery($id: String!) {
       category(id: $id) {
         id,
         ...CategoryScreen_category

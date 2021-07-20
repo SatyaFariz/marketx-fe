@@ -38,7 +38,7 @@ const Component = props => {
       left: 0,
       right: 0,
       bottom: 0,
-      top: 56
+      top: props.marginTop
     }}>
       <div
       style={{
@@ -82,11 +82,13 @@ export default createPaginationContainer(Component, {
       first: { type: "Int", defaultValue: 10 },
       after: { type: "String", defaultValue: null },
       q: { type: "String!" },
+      categoryId: { type: "String" }
     ) {
       search(
         first: $first,
         after: $after,
-        q: $q
+        q: $q,
+        categoryId: $categoryId
       ) @connection(key: "SearchResultsList_search", filters: []){
         edges {
           cursor,
@@ -121,8 +123,8 @@ export default createPaginationContainer(Component, {
     }
   },
   query: graphql`
-    query SearchResultsListPaginationQuery($first: Int, $after: String, $q: String!) {      
-      ...SearchResultsList_search @arguments(first: $first, after: $after, q: $q)        
+    query SearchResultsListPaginationQuery($first: Int, $after: String, $q: String!, $categoryId: String) {      
+      ...SearchResultsList_search @arguments(first: $first, after: $after, q: $q, categoryId: $categoryId)        
     }
   `
 })

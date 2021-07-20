@@ -13,6 +13,7 @@ export type SearchResultsListPaginationQueryVariables = {|
   first?: ?number,
   after?: ?string,
   q: string,
+  categoryId?: ?string,
 |};
 export type SearchResultsListPaginationQueryResponse = {|
   +$fragmentRefs: SearchResultsList_search$ref
@@ -29,8 +30,9 @@ query SearchResultsListPaginationQuery(
   $first: Int
   $after: String
   $q: String!
+  $categoryId: String
 ) {
-  ...SearchResultsList_search_LZQM4
+  ...SearchResultsList_search_3dEwcg
 }
 
 fragment ProductItem_product on Product {
@@ -47,8 +49,8 @@ fragment ProductItem_product on Product {
   }
 }
 
-fragment SearchResultsList_search_LZQM4 on Query {
-  search(first: $first, after: $after, q: $q) {
+fragment SearchResultsList_search_3dEwcg on Query {
+  search(first: $first, after: $after, q: $q, categoryId: $categoryId) {
     edges {
       cursor
       node {
@@ -74,18 +76,28 @@ var v0 = {
 v1 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "first"
+  "name": "categoryId"
 },
 v2 = {
   "defaultValue": null,
   "kind": "LocalArgument",
+  "name": "first"
+},
+v3 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
   "name": "q"
 },
-v3 = [
+v4 = [
   {
     "kind": "Variable",
     "name": "after",
     "variableName": "after"
+  },
+  {
+    "kind": "Variable",
+    "name": "categoryId",
+    "variableName": "categoryId"
   },
   {
     "kind": "Variable",
@@ -98,7 +110,7 @@ v3 = [
     "variableName": "q"
   }
 ],
-v4 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -110,14 +122,15 @@ return {
     "argumentDefinitions": [
       (v0/*: any*/),
       (v1/*: any*/),
-      (v2/*: any*/)
+      (v2/*: any*/),
+      (v3/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
     "name": "SearchResultsListPaginationQuery",
     "selections": [
       {
-        "args": (v3/*: any*/),
+        "args": (v4/*: any*/),
         "kind": "FragmentSpread",
         "name": "SearchResultsList_search"
       }
@@ -128,16 +141,17 @@ return {
   "kind": "Request",
   "operation": {
     "argumentDefinitions": [
-      (v1/*: any*/),
+      (v2/*: any*/),
       (v0/*: any*/),
-      (v2/*: any*/)
+      (v3/*: any*/),
+      (v1/*: any*/)
     ],
     "kind": "Operation",
     "name": "SearchResultsListPaginationQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v3/*: any*/),
+        "args": (v4/*: any*/),
         "concreteType": "ProductConnection",
         "kind": "LinkedField",
         "name": "search",
@@ -166,7 +180,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v4/*: any*/),
+                  (v5/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -196,7 +210,7 @@ return {
                         "name": "url",
                         "storageKey": null
                       },
-                      (v4/*: any*/)
+                      (v5/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -215,7 +229,7 @@ return {
                         "name": "display",
                         "storageKey": null
                       },
-                      (v4/*: any*/)
+                      (v5/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -262,7 +276,7 @@ return {
       },
       {
         "alias": null,
-        "args": (v3/*: any*/),
+        "args": (v4/*: any*/),
         "filters": [],
         "handle": "connection",
         "key": "SearchResultsList_search",
@@ -272,16 +286,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "443268c13e099fda7c8bf7d6d549c265",
+    "cacheID": "67220fd36ba00a2fb1e70fa883907777",
     "id": null,
     "metadata": {},
     "name": "SearchResultsListPaginationQuery",
     "operationKind": "query",
-    "text": "query SearchResultsListPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n) {\n  ...SearchResultsList_search_LZQM4\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  images {\n    url\n    id\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n}\n\nfragment SearchResultsList_search_LZQM4 on Query {\n  search(first: $first, after: $after, q: $q) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+    "text": "query SearchResultsListPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n  $categoryId: String\n) {\n  ...SearchResultsList_search_3dEwcg\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  images {\n    url\n    id\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n}\n\nfragment SearchResultsList_search_3dEwcg on Query {\n  search(first: $first, after: $after, q: $q, categoryId: $categoryId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '94998377c4e0fa50bca23b9843c156e2';
+(node/*: any*/).hash = 'dc2a2f5cea32518469ff913d16f882af';
 
 module.exports = node;

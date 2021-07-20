@@ -89,7 +89,7 @@ const Component = props => {
       </div>
 
       <div style={{
-        marginTop: HEADER_HEIGHT
+        // marginTop: HEADER_HEIGHT
       }}>
         <QueryRenderer
           environment={environment}
@@ -101,7 +101,7 @@ const Component = props => {
               return null
             } else if(props) {
               return (
-                <SearchResultsList search={props}/>
+                <SearchResultsList search={props} marginTop={HEADER_HEIGHT}/>
               )
             }
 
