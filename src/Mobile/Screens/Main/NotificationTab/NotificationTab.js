@@ -16,7 +16,8 @@ const Component = props => {
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
-        top: 0
+        top: 0,
+        borderBottom: '1px solid #f1f1f1f1'
       }}>
         <h1 style={{
           margin: 0,
