@@ -5,6 +5,7 @@ import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
 import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
+import Link from '../../Components/Link'
 
 const FOOTER_HEIGHT = 75
 
@@ -107,10 +108,14 @@ const Component = props => {
           paddingBottom: 20,
           height: 2000
         }}>
+          <Link href={`/category/${product.category.id}`}>
+            <span>{product.category.name}</span>
+          </Link>
           <span style={{
-            display: 'inline-block',
+            display: 'block',
             fontSize: 24,
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            marginTop: 15
           }}>{product.name}</span>
 
           <div style={{
@@ -162,6 +167,10 @@ export default createFragmentContainer(Component, {
       images {
         id,
         url
+      },
+      category {
+        id,
+        name
       },
       rentalPeriodUnit {
         display

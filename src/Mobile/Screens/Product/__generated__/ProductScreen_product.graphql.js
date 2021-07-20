@@ -19,6 +19,10 @@ export type ProductScreen_product = {|
     +id: ?string,
     +url: ?string,
   |}>,
+  +category: ?{|
+    +id: ?string,
+    +name: ?string,
+  |},
   +rentalPeriodUnit: ?{|
     +display: ?string
   |},
@@ -40,6 +44,13 @@ var v0 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
 };
 return {
   "argumentDefinitions": [],
@@ -48,13 +59,7 @@ return {
   "name": "ProductScreen_product",
   "selections": [
     (v0/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "name",
-      "storageKey": null
-    },
+    (v1/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -84,6 +89,19 @@ return {
     {
       "alias": null,
       "args": null,
+      "concreteType": "Category",
+      "kind": "LinkedField",
+      "name": "category",
+      "plural": false,
+      "selections": [
+        (v0/*: any*/),
+        (v1/*: any*/)
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "Unit",
       "kind": "LinkedField",
       "name": "rentalPeriodUnit",
@@ -105,6 +123,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '7c395ed70f46c3b3f1dea237bf445e18';
+(node/*: any*/).hash = 'b49e4383cb078e22b8878a78e5c15dd8';
 
 module.exports = node;
