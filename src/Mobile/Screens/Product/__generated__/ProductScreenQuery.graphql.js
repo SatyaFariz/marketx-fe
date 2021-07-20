@@ -38,6 +38,7 @@ query ProductScreenQuery(
 fragment ProductScreen_product on Product {
   id
   name
+  desc
   price
   images {
     id
@@ -131,6 +132,13 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
+            "name": "desc",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "price",
             "storageKey": null
           },
@@ -191,12 +199,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a148b657f3813f617ed93bbc74f03c0e",
+    "cacheID": "a8d846220772cc2075ff434d8634af37",
     "id": null,
     "metadata": {},
     "name": "ProductScreenQuery",
     "operationKind": "query",
-    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  price\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n}\n"
+    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n}\n"
   }
 };
 })();

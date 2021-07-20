@@ -14,6 +14,7 @@ declare export opaque type ProductScreen_product$fragmentType: ProductScreen_pro
 export type ProductScreen_product = {|
   +id: ?string,
   +name: ?string,
+  +desc: ?string,
   +price: ?number,
   +images: ?$ReadOnlyArray<?{|
     +id: ?string,
@@ -60,6 +61,13 @@ return {
   "selections": [
     (v0/*: any*/),
     (v1/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "desc",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -123,6 +131,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'b49e4383cb078e22b8878a78e5c15dd8';
+(node/*: any*/).hash = 'a2b2883dee45130c51de6d4f524729c8';
 
 module.exports = node;

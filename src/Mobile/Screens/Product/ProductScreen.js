@@ -124,7 +124,7 @@ const Component = props => {
             padding: '16px 0px',
             margin: '16px 0px'
           }}>
-
+            <p style={{ margin: 0, whiteSpace: 'pre-line' }}>{product.desc}</p>
           </div>
         </div>
       </div>
@@ -173,6 +173,7 @@ export default createFragmentContainer(Component, {
     fragment ProductScreen_product on Product {
       id,
       name,
+      desc,
       price,
       images {
         id,
