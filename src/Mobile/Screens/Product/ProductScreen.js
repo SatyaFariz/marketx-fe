@@ -132,7 +132,7 @@ const Component = props => {
                   height: 8,
                   width: 8,
                   borderRadius: 4,
-                  backgroundColor: i === carouselPos ? 'pink' : 'white',
+                  backgroundColor: i === carouselPos ? 'rgb(118, 118, 118)' : 'white',
                   marginLeft: 2,
                   marginRight: 2
                 }}/>
