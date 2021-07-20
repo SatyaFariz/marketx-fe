@@ -6,6 +6,7 @@ import useAppContext from '../../hooks/useAppContext'
 import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
 import Link from '../../Components/Link'
+import { Button } from '@material-ui/core'
 
 const FOOTER_HEIGHT = 75
 
@@ -136,22 +137,31 @@ const Component = props => {
         position: 'absolute',
         bottom: 0,
         width: '100%',
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingLeft: 15,
-        paddingRight: 15
       }}>
-        <div>
-          <span style={{
-            display: 'block'
-          }}>Price per {product.rentalPeriodUnit.display}</span>
-          <span style={{
-            fontSize: 16,
-            fontWeight: '500',
-            marginTop: 5,
-            display: 'block'
-          }}>{formatCurrency(product.price)}</span>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          height: '100%',
+          paddingLeft: 15,
+          paddingRight: 15,
+          justifyContent: 'space-between'
+        }}>
+          <div>
+            <span style={{
+              display: 'block'
+            }}>Price per {product.rentalPeriodUnit.display}</span>
+            <span style={{
+              fontSize: 16,
+              fontWeight: '500',
+              marginTop: 5,
+              display: 'block'
+            }}>{formatCurrency(product.price)}</span>
+          </div>
+
+          <Button variant="contained" disableElevation>
+            Rent
+          </Button>
         </div>
       </div>
     </div>
