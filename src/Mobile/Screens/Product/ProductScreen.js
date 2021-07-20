@@ -11,10 +11,7 @@ const Component = props => {
   const { history } = useAppContext()
   const { product } = props
   return (
-    <div style={{
-      height: 2000,
-      // backgroundColor: 'pink'
-    }}>
+    <div>
       <div style={{
         height: HEADER_HEIGHT,
         position: 'absolute',
@@ -22,7 +19,8 @@ const Component = props => {
         backgroundImage: 'linear-gradient(rgb(76, 76, 76), transparent)',
         display: 'flex',
         alignItems: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        zIndex: 2
       }}>
         <div 
         onClick={() => history.goBack()}
@@ -35,33 +33,43 @@ const Component = props => {
       </div>
 
       <div style={{
-        width: '100vw',
-        backgroundColor: 'red',
-        height: 'calc(100vw * 77/137)',
-        backgroundImage: `url("${product.images[0].url}")`,
-        backgroundPosition:'center'
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: FOOTER_HEIGHT,
+        overflow: 'auto'
       }}>
-        
-      </div>
-
-      <div style={{
-        paddingTop: 20,
-        paddingRight: 15,
-        paddingLeft: 15,
-        paddingBottom: 20
-      }}>
-        <span style={{
-          display: 'inline-block',
-          fontSize: 24,
-          fontWeight: 'bold'
-        }}>{product.name}</span>
+        <div style={{
+          width: '100vw',
+          backgroundColor: 'red',
+          height: 'calc(100vw * 77/137)',
+          backgroundImage: `url("${product.images[0].url}")`,
+          backgroundPosition:'center'
+        }}>
+          
+        </div>
 
         <div style={{
-          borderTop: '1px solid rgb(233, 233, 233)',
-          padding: '16px 0px',
-          margin: '16px 0px'
+          paddingTop: 20,
+          paddingRight: 15,
+          paddingLeft: 15,
+          paddingBottom: 20,
+          height: 2000
         }}>
+          <span style={{
+            display: 'inline-block',
+            fontSize: 24,
+            fontWeight: 'bold'
+          }}>{product.name}</span>
 
+          <div style={{
+            borderTop: '1px solid rgb(233, 233, 233)',
+            padding: '16px 0px',
+            margin: '16px 0px'
+          }}>
+
+          </div>
         </div>
       </div>
 
