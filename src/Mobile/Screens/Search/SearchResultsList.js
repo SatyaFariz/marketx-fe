@@ -33,7 +33,7 @@ const Component = props => {
     ref={scrollRef}
     style={{
       // backgroundColor: 'pink',
-      overflow: 'scroll',
+      overflow: 'auto',
       position: 'absolute',
       left: 0,
       right: 0,
