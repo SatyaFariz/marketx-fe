@@ -17,14 +17,12 @@ const query = graphql`
 
 const Component = props => {
   const { category } = props
-  const { environment, history, queryParams, pathname } = useAppContext()
-  const parts = pathname.split('/')
-  const categoryId = parts[parts.length - 1]
+  const { environment, history, queryParams } = useAppContext()
   const [searchTerm, setSearchTerm] = useState(queryParams.q || '')
   const [searchTermDebounced] = useDebounce(searchTerm, 500)
 
   useEffect(() => {
-    history.replace(`/category/${categoryId}?q=${searchTermDebounced}`)
+    history.replace(`/category/${category.id}?q=${searchTermDebounced}`)
   }, [searchTermDebounced])
 
   return (
@@ -114,7 +112,7 @@ const Component = props => {
       }}>
         <QueryRenderer
           environment={environment}
-          variables={{ categoryId, q: queryParams.q || '', first: 24 }}
+          variables={{ categoryId: category.id, q: queryParams.q || '', first: 24 }}
           query={query}
           render={({ error, props }) => {
             if(error) {
