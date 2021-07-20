@@ -7,7 +7,8 @@ const chunk = {
   query: graphql`
     query CategoryScreenQuery($id: String!) {
       category(id: $id) {
-        id
+        id,
+        ...CategoryScreen_category
       }
     }
   `,
@@ -19,6 +20,7 @@ const chunk = {
       component: (
         <FixedAddressBar>
           <CategoryScreen
+            category={data.category}
           />
         </FixedAddressBar>
       )

@@ -8,12 +8,14 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type CategoryScreen_category$ref = any;
 export type CategoryScreenQueryVariables = {|
   id: string
 |};
 export type CategoryScreenQueryResponse = {|
   +category: ?{|
-    +id: ?string
+    +id: ?string,
+    +$fragmentRefs: CategoryScreen_category$ref,
   |}
 |};
 export type CategoryScreenQuery = {|
@@ -29,7 +31,13 @@ query CategoryScreenQuery(
 ) {
   category(id: $id) {
     id
+    ...CategoryScreen_category
   }
+}
+
+fragment CategoryScreen_category on Category {
+  id
+  name
 }
 */
 
@@ -43,37 +51,43 @@ var v0 = [
 ],
 v1 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "id",
-        "variableName": "id"
-      }
-    ],
-    "concreteType": "Category",
-    "kind": "LinkedField",
-    "name": "category",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "Variable",
+    "name": "id",
+    "variableName": "id"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "CategoryScreenQuery",
-    "selections": (v1/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Category",
+        "kind": "LinkedField",
+        "name": "category",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CategoryScreen_category"
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Query",
     "abstractKey": null
   },
@@ -82,19 +96,39 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CategoryScreenQuery",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Category",
+        "kind": "LinkedField",
+        "name": "category",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "name",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "5cd1dd9ed733e756450b3a69730414ba",
+    "cacheID": "dafe4a9e16e1c23f72dab9cbc7a9a1a1",
     "id": null,
     "metadata": {},
     "name": "CategoryScreenQuery",
     "operationKind": "query",
-    "text": "query CategoryScreenQuery(\n  $id: String!\n) {\n  category(id: $id) {\n    id\n  }\n}\n"
+    "text": "query CategoryScreenQuery(\n  $id: String!\n) {\n  category(id: $id) {\n    id\n    ...CategoryScreen_category\n  }\n}\n\nfragment CategoryScreen_category on Category {\n  id\n  name\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '8c55a3a1e2ec2017c9d0ce5eb9172f00';
+(node/*: any*/).hash = '4e4679d7ab3320fe67b46b43e7aa23d4';
 
 module.exports = node;
