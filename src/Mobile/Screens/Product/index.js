@@ -7,7 +7,8 @@ const chunk = {
   query: graphql`
     query ProductScreenQuery($id: String!) {
       product(id: $id) {
-        id
+        id,
+        ...ProductScreen_product
       }
     }
   `,
@@ -19,6 +20,7 @@ const chunk = {
       component: (
         <FixedAddressBar>
           <ProductScreen
+            product={data.product}
           />
         </FixedAddressBar>
       )
