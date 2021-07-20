@@ -4,12 +4,22 @@ import { HEADER_HEIGHT } from '../../Constants'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
 import formatCurrency from '../../../helpers/formatCurrency'
+import { useRef, useEffect, useState } from 'react'
 
 const FOOTER_HEIGHT = 75
 
 const Component = props => {
+  const scrollRef = useRef()
   const { history } = useAppContext()
   const { product } = props
+  const [showHeader, setShowHeader] = useState(false)
+
+  useEffect(() => {
+    scrollRef.current.onscroll = () => {
+      const pageYOffset = scrollRef.current.scrollTop
+      setShowHeader(pageYOffset > 230)
+    }
+  }, [])
   return (
     <div>
       <div style={{
@@ -33,6 +43,46 @@ const Component = props => {
       </div>
 
       <div style={{
+        height: HEADER_HEIGHT,
+        position: 'absolute',
+        width: '100%',
+        backgroundColor: 'white',
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
+        zIndex: 3,
+        display: showHeader ? 'flex' : 'none',
+        borderBottom: '1px solid #f1f1f1f1'
+      }}>
+        <div 
+        onClick={() => history.goBack()}
+        style={{
+          paddingRight: 10,
+          paddingLeft: 10
+        }}>
+          <IoChevronBackSharp size={32}/>
+        </div>
+        <div style={{
+          position: 'absolute',
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <h1 style={{
+            margin: 0,
+            fontSize: 20,
+            fontWeight: 500,
+            textAlign: 'center'
+          }}>{product.name}</h1>
+        </div>
+        
+      </div>
+
+      <div 
+      ref={scrollRef}
+      style={{
         position: 'absolute',
         left: 0,
         right: 0,
