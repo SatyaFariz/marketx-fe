@@ -43,6 +43,10 @@ fragment ProductScreen_product on Product {
     id
     url
   }
+  rentalPeriodUnit {
+    display
+    id
+  }
 }
 */
 
@@ -143,6 +147,25 @@ return {
               }
             ],
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Unit",
+            "kind": "LinkedField",
+            "name": "rentalPeriodUnit",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "display",
+                "storageKey": null
+              },
+              (v2/*: any*/)
+            ],
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -150,12 +173,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c004e4e802dcfb5ea105049f78e77c9d",
+    "cacheID": "10014be2698a6544337d19cdbdadf0b7",
     "id": null,
     "metadata": {},
     "name": "ProductScreenQuery",
     "operationKind": "query",
-    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  price\n  images {\n    id\n    url\n  }\n}\n"
+    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  price\n  images {\n    id\n    url\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n}\n"
   }
 };
 })();

@@ -3,6 +3,9 @@ import { createFragmentContainer } from 'react-relay'
 import { HEADER_HEIGHT } from '../../Constants'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
+import formatCurrency from '../../../helpers/formatCurrency'
+
+const FOOTER_HEIGHT = 75
 
 const Component = props => {
   const { history } = useAppContext()
@@ -61,6 +64,33 @@ const Component = props => {
 
         </div>
       </div>
+
+
+      <div style={{
+        height: FOOTER_HEIGHT,
+        backgroundColor: 'white',
+        boxShadow: 'rgb(0 0 0 / 10%) 0px -2px 6px 0px',
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingLeft: 15,
+        paddingRight: 15
+      }}>
+        <div>
+          <span style={{
+            display: 'block'
+          }}>Price per {product.rentalPeriodUnit.display}</span>
+          <span style={{
+            fontSize: 16,
+            fontWeight: '500',
+            marginTop: 5,
+            display: 'block'
+          }}>{formatCurrency(product.price)}</span>
+        </div>
+      </div>
     </div>
   )
 }
@@ -74,6 +104,9 @@ export default createFragmentContainer(Component, {
       images {
         id,
         url
+      },
+      rentalPeriodUnit {
+        display
       }
     }
   `

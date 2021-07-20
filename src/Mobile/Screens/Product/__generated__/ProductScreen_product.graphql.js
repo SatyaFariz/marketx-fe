@@ -19,6 +19,9 @@ export type ProductScreen_product = {|
     +id: ?string,
     +url: ?string,
   |}>,
+  +rentalPeriodUnit: ?{|
+    +display: ?string
+  |},
   +$refType: ProductScreen_product$ref,
 |};
 export type ProductScreen_product$data = ProductScreen_product;
@@ -77,6 +80,24 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Unit",
+      "kind": "LinkedField",
+      "name": "rentalPeriodUnit",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "display",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Product",
@@ -84,6 +105,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '4bac6ce8a9f9086bc8e7630c4ed48cae';
+(node/*: any*/).hash = '7c395ed70f46c3b3f1dea237bf445e18';
 
 module.exports = node;
