@@ -7,6 +7,8 @@ import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
 import Link from '../../Components/Link'
 import { Button } from '@material-ui/core'
+import Carousel from '@brainhubeu/react-carousel'
+import '@brainhubeu/react-carousel/lib/style.css'
 
 const FOOTER_HEIGHT = 75
 
@@ -92,7 +94,20 @@ const Component = props => {
         bottom: FOOTER_HEIGHT,
         overflow: 'auto'
       }}>
-        <div style={{
+        <Carousel>
+          {product.images.map((item, i) => {
+            return (
+              <div key={i} style={{
+                width: '100vw',
+                backgroundColor: 'red',
+                height: 'calc(100vw * 77/137)',
+                backgroundImage: `url("${item.url}")`,
+                backgroundPosition:'center'
+              }}/>
+            )
+          })}
+        </Carousel>
+        {/* <div style={{
           width: '100vw',
           backgroundColor: 'red',
           height: 'calc(100vw * 77/137)',
@@ -100,7 +115,7 @@ const Component = props => {
           backgroundPosition:'center'
         }}>
           
-        </div>
+        </div> */}
 
         <div style={{
           paddingTop: 20,
