@@ -27,6 +27,18 @@ export type ProductScreen_product = {|
   +rentalPeriodUnit: ?{|
     +display: ?string
   |},
+  +specs: ?$ReadOnlyArray<?{|
+    +id: ?string,
+    +attribute: ?{|
+      +id: ?string,
+      +name: ?string,
+      +icon: ?{|
+        +id: ?string,
+        +url: ?string,
+      |},
+    |},
+    +value: ?string,
+  |}>,
   +$refType: ProductScreen_product$ref,
 |};
 export type ProductScreen_product$data = ProductScreen_product;
@@ -52,7 +64,17 @@ v1 = {
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
-};
+},
+v2 = [
+  (v0/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "url",
+    "storageKey": null
+  }
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -82,16 +104,7 @@ return {
       "kind": "LinkedField",
       "name": "images",
       "plural": true,
-      "selections": [
-        (v0/*: any*/),
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "url",
-          "storageKey": null
-        }
-      ],
+      "selections": (v2/*: any*/),
       "storageKey": null
     },
     {
@@ -124,6 +137,48 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Specification",
+      "kind": "LinkedField",
+      "name": "specs",
+      "plural": true,
+      "selections": [
+        (v0/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Attribute",
+          "kind": "LinkedField",
+          "name": "attribute",
+          "plural": false,
+          "selections": [
+            (v0/*: any*/),
+            (v1/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "Image",
+              "kind": "LinkedField",
+              "name": "icon",
+              "plural": false,
+              "selections": (v2/*: any*/),
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "value",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Product",
@@ -131,6 +186,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a2b2883dee45130c51de6d4f524729c8';
+(node/*: any*/).hash = 'db8aa4ed0a361f6d1e3ceb8021bb5227';
 
 module.exports = node;

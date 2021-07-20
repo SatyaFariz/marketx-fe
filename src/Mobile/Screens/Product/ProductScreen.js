@@ -107,7 +107,7 @@ const Component = props => {
           paddingRight: 15,
           paddingLeft: 15,
           paddingBottom: 20,
-          height: 2000
+          // height: 2000
         }}>
           <Link href={`/category/${product.category.id}`}>
             <span>{product.category.name}</span>
@@ -121,10 +121,50 @@ const Component = props => {
 
           <div style={{
             borderTop: '1px solid rgb(233, 233, 233)',
+            borderBottom: '1px solid rgb(233, 233, 233)',
             padding: '16px 0px',
             margin: '16px 0px'
           }}>
             <p style={{ margin: 0, whiteSpace: 'pre-line' }}>{product.desc}</p>
+          </div>
+
+          <span style={{
+            color: 'rgb(118, 118, 118)',
+            fontSize: 16,
+            fontWeight: 500,
+            textTransform: 'uppercase'
+          }}>Specifications</span>
+
+          <div style={{ marginTop: 15, marginBottom: 15 }}>
+            {product.specs.map((item, i) => {
+              return (
+                <div key={i} style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingTop: 10,
+                  paddingBottom: 10
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                  }}>
+                    <img
+                      src={item.attribute.icon.url}
+                      style={{
+                        height: 24,
+                        width: 24,
+                        marginRight: 10
+                      }}
+                    />
+                    <span>{item.attribute.name}</span>
+                  </div>
+                  <span>{item.value}</span>
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>
@@ -185,6 +225,18 @@ export default createFragmentContainer(Component, {
       },
       rentalPeriodUnit {
         display
+      },
+      specs {
+        id,
+        attribute {
+          id,
+          name,
+          icon {
+            id,
+            url
+          }
+        },
+        value
       }
     }
   `
