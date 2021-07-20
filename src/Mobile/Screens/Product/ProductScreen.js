@@ -230,31 +230,34 @@ const Component = props => {
               textTransform: 'uppercase'
             }}>Merchant Information</span>
 
-            <div style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginTop: 16
-            }}>
-              {product.merchant.profilePicture ?
-              null
-              :  
-              <div style={{
-                height: 40,
-                width: 40,
-                borderRadius: '50%',
-                backgroundColor: 'pink',
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginRight: 15
-              }}>
-                <span style={{ textTransform: 'uppercase', fontWeight: 500, fontSize: 20, color: 'white' }}>{product.merchant.name[0]}</span>
-              </div>
-              }
+            <div style={{ marginTop: 16 }}>
+              <Link href={`/merchant/${product.merchant.id}`}>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center'
+                }}>
+                  {product.merchant.profilePicture ?
+                  null
+                  :  
+                  <div style={{
+                    height: 40,
+                    width: 40,
+                    borderRadius: '50%',
+                    backgroundColor: 'pink',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginRight: 15
+                  }}>
+                    <span style={{ textTransform: 'uppercase', fontWeight: 500, fontSize: 20, color: 'white' }}>{product.merchant.name[0]}</span>
+                  </div>
+                  }
 
-              <span style={{ fontSize: 16, fontWeight: 500 }}>{product.merchant.name}</span>
+                  <span style={{ fontSize: 16, fontWeight: 500 }}>{product.merchant.name}</span>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
