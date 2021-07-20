@@ -17,6 +17,9 @@ const Component = props => {
   const { history } = useAppContext()
   const { product } = props
   const [showHeader, setShowHeader] = useState(false)
+  const [carouselPos, setCarouselPos] = useState(0)
+
+  const handleCarouselChange = (value) => setCarouselPos(value)
 
   useEffect(() => {
     scrollRef.current.onscroll = () => {
@@ -94,19 +97,49 @@ const Component = props => {
         bottom: FOOTER_HEIGHT,
         overflow: 'auto'
       }}>
-        <Carousel>
-          {product.images.map((item, i) => {
-            return (
-              <div key={i} style={{
-                width: '100vw',
-                backgroundColor: 'red',
-                height: 'calc(100vw * 77/137)',
-                backgroundImage: `url("${item.url}")`,
-                backgroundPosition:'center'
-              }}/>
-            )
-          })}
-        </Carousel>
+        <div style={{
+          position: 'relative',
+          width: '100vw',
+          // backgroundColor: 'red',
+          height: 'calc(100vw * 77/137)',
+        }}>
+          <Carousel onChange={handleCarouselChange} value={carouselPos}>
+            {product.images.map((item, i) => {
+              return (
+                <div key={i} style={{
+                  width: '100vw',
+                  backgroundColor: 'red',
+                  height: 'calc(100vw * 77/137)',
+                  backgroundImage: `url("${item.url}")`,
+                  backgroundPosition:'center'
+                }}/>
+              )
+            })}
+          </Carousel>
+          <div style={{
+            position: 'absolute',
+            width: '100%',
+            bottom: 15,
+            height: 0,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            backgroundColor: 'white',
+          }} pointerEvents="none">
+            {product.images.map((item, i) => {
+              return (
+                <div key={i} style={{
+                  height: 8,
+                  width: 8,
+                  borderRadius: 4,
+                  backgroundColor: i === carouselPos ? 'pink' : 'white',
+                  marginLeft: 2,
+                  marginRight: 2
+                }}/>
+              )
+            })}
+          </div>
+        </div>
         {/* <div style={{
           width: '100vw',
           backgroundColor: 'red',
