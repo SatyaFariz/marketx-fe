@@ -1,9 +1,18 @@
 import { LOGO_URL } from '../../Constants'
 import { TextField, Button } from '@material-ui/core'
-import Color from '../../Constants/Color'
-import Link from '../../Components/Link'
+import { useState } from 'react'
 
 const Component = props => {
+  const [phoneNumber, setPhoneNumber] = useState('')
+
+  const handleChange = (e) => {
+    const allowedChars = '1234567890'
+    const { value } = e.target
+    if(value.length && !value.startsWith('0')) return
+    if(value.length && !allowedChars.includes(value[value.length - 1])) return
+    setPhoneNumber(value)
+  }
+
   return (
     <div style={{
       paddingTop: 20,
@@ -23,7 +32,7 @@ const Component = props => {
       <h1 style={{
         marginTop: 30,
         marginBottom: 10
-      }}>Log in to RentX</h1>
+      }}>Log in to RentX {phoneNumber}</h1>
 
       <TextField
         variant="outlined"
@@ -33,6 +42,10 @@ const Component = props => {
           marginTop: 10,
           marginBottom: 10
         }}
+        onChange={handleChange}
+        value={phoneNumber}
+        placeholder="Ex: 082322343005"
+        type="tel"
       />
 
       <Button
@@ -48,22 +61,7 @@ const Component = props => {
       >
         Log in
       </Button>
-
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        width: '100%',
-        justifyContent: 'center',
-        paddingTop: 20
-      }}>
-        <Link
-          href='/register'
-          style={{ color: Color.link }}
-        >
-        <span>Create an account</span>
-        </Link>
-        
-      </div>
+      
     </div>
   )
 }
