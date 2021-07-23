@@ -1,9 +1,11 @@
 import { LOGO_URL } from '../../Constants'
 import { TextField, Button } from '@material-ui/core'
 import { useState } from 'react'
+import useAppContext from '../../hooks/useAppContext'
 
 const Component = props => {
-  const [phoneNumber, setPhoneNumber] = useState('')
+  const { history, queryParams } = useAppContext()
+  const [phoneNumber, setPhoneNumber] = useState(queryParams?.phoneNumber || '')
 
   const handleChange = (e) => {
     const allowedChars = '1234567890'
@@ -11,6 +13,14 @@ const Component = props => {
     if(value.length && !value.startsWith('0')) return
     if(value.length && !allowedChars.includes(value[value.length - 1])) return
     setPhoneNumber(value)
+  }
+
+  const proceed = () => {
+    history.replace(`/login?phoneNumber=${phoneNumber}`)
+    setTimeout(() => {
+      history.push(`/otp/${phoneNumber}`)
+    }, 1000)
+    
   }
 
   return (
@@ -32,7 +42,7 @@ const Component = props => {
       <h1 style={{
         marginTop: 30,
         marginBottom: 10
-      }}>Log in to RentX {phoneNumber}</h1>
+      }}>Log in to RentX</h1>
 
       <TextField
         variant="outlined"
@@ -58,6 +68,7 @@ const Component = props => {
         }}
         disableElevation
         fullWidth
+        onClick={proceed}
       >
         Log in
       </Button>

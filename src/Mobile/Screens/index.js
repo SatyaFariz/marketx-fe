@@ -4,6 +4,7 @@ import Product from './Product'
 import Search from './Search'
 import Category from './Category'
 import Merchant from './Merchant'
+import OTP from './OTP'
 
 export default [
   Main,
@@ -11,5 +12,6 @@ export default [
   Product,
   Search,
   Category,
-  Merchant
+  Merchant,
+  OTP
 ]
