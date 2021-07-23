@@ -8,11 +8,12 @@ const Component = props => {
       width: '100%',
       left: 0,
       bottom: 0,
-      boxShadow: '0px -2px 4px 0px rgb(230 223 230 / 75%)',
+      // boxShadow: '0px -2px 4px 0px rgb(230 223 230 / 75%)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: 'white'
+      backgroundColor: 'white',
+      borderTop: '1px solid rgb(239, 243, 244)'
     }}>
       <div 
       onClick={() => props?.onIndexChange(0)}

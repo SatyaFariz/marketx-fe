@@ -267,10 +267,11 @@ const Component = props => {
       <div style={{
         height: FOOTER_HEIGHT,
         backgroundColor: 'white',
-        boxShadow: 'rgb(0 0 0 / 10%) 0px -2px 6px 0px',
+        // boxShadow: 'rgb(0 0 0 / 10%) 0px -2px 6px 0px',
         position: 'absolute',
         bottom: 0,
         width: '100%',
+        borderTop: '1px solid rgb(239, 243, 244)'
       }}>
         <div style={{
           display: 'flex',
