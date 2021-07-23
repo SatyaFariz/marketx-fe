@@ -1,3 +1,3 @@
 module.exports = {
-  primary: '#1BA0E2'
+  primary: 'rgba(29,161,242,1.00)'//'#1BA0E2'
 }
