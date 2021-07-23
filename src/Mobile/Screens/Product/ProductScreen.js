@@ -1,6 +1,7 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
+import Color from '../../Constants/Color'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
 import formatCurrency from '../../../helpers/formatCurrency'
@@ -132,12 +133,13 @@ const Component = props => {
             {product.images.map((item, i) => {
               return (
                 <div key={i} style={{
-                  height: 8,
-                  width: 8,
-                  borderRadius: 4,
-                  backgroundColor: i === carouselPos ? 'rgb(118, 118, 118)' : 'white',
+                  height: 5,
+                  width: 5,
+                  borderRadius: '50%',
+                  backgroundColor: i === carouselPos ? Color.primary : 'white',
                   marginLeft: 2,
-                  marginRight: 2
+                  marginRight: 2,
+                  // border: `1px solid ${Color.primary}`,
                 }}/>
               )
             })}
