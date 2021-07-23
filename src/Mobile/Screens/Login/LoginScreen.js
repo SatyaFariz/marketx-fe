@@ -16,6 +16,7 @@ const Component = props => {
   }
 
   const proceed = () => {
+    if(phoneNumber.length === 0) return
     history.replace(`/login?phoneNumber=${phoneNumber}`)
     setTimeout(() => {
       history.push(`/otp/${phoneNumber}`)
