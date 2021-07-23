@@ -26,8 +26,8 @@ const Component = props => {
               width: 'calc(100% / 3)',
               border: 'none',
               backgroundColor: 'transparent',
-              paddingTop: 30,
-              paddingBottom: 30
+              paddingTop: 25,
+              paddingBottom: 25
             }}>
               {key === 'backspace' ?
               <IoBackspaceOutline size={24}/>
