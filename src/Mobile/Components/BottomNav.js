@@ -1,5 +1,6 @@
 import { IoSearchOutline, IoPersonOutline, IoMailOutline, IoDocumentTextOutline } from 'react-icons/io5'
 import { DIVIDER_COLOR } from '../Constants'
+import Link from '../Components/Link'
 
 const Component = props => {
   return (
@@ -16,7 +17,7 @@ const Component = props => {
       backgroundColor: 'white',
       borderTop: `1px solid ${DIVIDER_COLOR}`
     }}>
-      <div 
+      <Link 
       onClick={() => props?.onIndexChange(0)}
       style={{
         width: '25%',
@@ -28,7 +29,7 @@ const Component = props => {
       }}>
         <IoSearchOutline size={24} color={'#FF385C'}/>
         <span style={{ fontSize: 14 }}>Explore</span>
-      </div>
+      </Link>
 
       <div 
       onClick={() => props?.onIndexChange(1)}
@@ -58,8 +59,9 @@ const Component = props => {
         <span style={{ fontSize: 14 }}>Notification</span>
       </div>
 
-      <div 
-      onClick={() => props?.onIndexChange(3)}
+      <Link 
+      href="/login"
+      // onClick={() => props?.onIndexChange(3)}
       style={{
         width: '25%',
         height: 47,
@@ -70,7 +72,7 @@ const Component = props => {
       }}>
         <IoPersonOutline size={24} color={'#FF385C'}/>
         <span style={{ fontSize: 14 }}>Profile</span>
-      </div>
+      </Link>
     </div>
   )
 }

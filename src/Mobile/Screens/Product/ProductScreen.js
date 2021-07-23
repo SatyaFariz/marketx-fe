@@ -246,7 +246,7 @@ const Component = props => {
                     height: 40,
                     width: 40,
                     borderRadius: '50%',
-                    backgroundColor: 'pink',
+                    backgroundColor: Color.primary,
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'center',
