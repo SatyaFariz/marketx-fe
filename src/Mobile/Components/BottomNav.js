@@ -1,4 +1,5 @@
 import { IoSearchOutline, IoPersonOutline, IoMailOutline, IoDocumentTextOutline } from 'react-icons/io5'
+import { DIVIDER_COLOR } from '../Constants'
 
 const Component = props => {
   return (
@@ -13,7 +14,7 @@ const Component = props => {
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: 'white',
-      borderTop: '1px solid rgb(239, 243, 244)'
+      borderTop: `1px solid ${DIVIDER_COLOR}`
     }}>
       <div 
       onClick={() => props?.onIndexChange(0)}

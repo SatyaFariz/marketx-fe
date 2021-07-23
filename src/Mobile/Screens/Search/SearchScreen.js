@@ -1,4 +1,4 @@
-import { HEADER_HEIGHT } from '../../Constants'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import { IoChevronBackSharp, IoCloseSharp } from 'react-icons/io5'
 import { LinearProgress } from '@material-ui/core'
 import graphql from 'babel-plugin-relay/macro'
@@ -34,7 +34,7 @@ const Component = props => {
         alignItems: 'center',
         position: 'absolute',
         top: 0,
-        borderBottom: '1px solid #f1f1f1f1'
+        borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
         <div 
         onClick={() => history.goBack()}

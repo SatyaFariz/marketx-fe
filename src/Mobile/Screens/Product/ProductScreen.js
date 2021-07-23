@@ -1,6 +1,6 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
-import { HEADER_HEIGHT } from '../../Constants'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
 import formatCurrency from '../../../helpers/formatCurrency'
@@ -62,7 +62,7 @@ const Component = props => {
         flexDirection: 'row',
         zIndex: 3,
         display: showHeader ? 'flex' : 'none',
-        borderBottom: '1px solid #f1f1f1f1'
+        borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
         <div 
         onClick={() => history.goBack()}
@@ -171,8 +171,8 @@ const Component = props => {
           }}>{product.name}</span>
 
           <div style={{
-            borderTop: '1px solid rgb(233, 233, 233)',
-            borderBottom: '1px solid rgb(233, 233, 233)',
+            borderTop: `1px solid ${DIVIDER_COLOR}`,
+            borderBottom: `1px solid ${DIVIDER_COLOR}`,
             padding: '16px 0px',
             margin: '16px 0px'
           }}>
@@ -219,7 +219,7 @@ const Component = props => {
           </div>
 
           <div style={{
-            borderTop: '1px solid rgb(233, 233, 233)',
+            borderTop: `1px solid ${DIVIDER_COLOR}`,
             marginTop: 8,
             paddingTop: 16
           }}>

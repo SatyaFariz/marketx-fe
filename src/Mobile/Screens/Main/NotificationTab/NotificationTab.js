@@ -1,4 +1,4 @@
-import { HEADER_HEIGHT } from '../../../Constants'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../../Constants'
 
 const Component = props => {
   const { active } = props
@@ -17,7 +17,7 @@ const Component = props => {
         alignItems: 'center',
         position: 'absolute',
         top: 0,
-        borderBottom: '1px solid #f1f1f1f1'
+        borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
         <h1 style={{
           margin: 0,
@@ -39,7 +39,7 @@ const Component = props => {
               paddingRight: 15,
               display: 'flex',
               flexDirection: 'row',
-              borderBottom: '1px solid #f1f1f1'
+              borderBottom: `1px solid ${DIVIDER_COLOR}`
             }}>
               <img
                 src="https://www.cumi.id/media/items-photos/42be6a1fe5ca56c562e35975974ffc18-m.jpg"
