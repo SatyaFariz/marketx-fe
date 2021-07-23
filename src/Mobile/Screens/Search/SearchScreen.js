@@ -93,7 +93,7 @@ const Component = props => {
       }}>
         <QueryRenderer
           environment={environment}
-          variables={{ q: queryParams.q || '', first: 24 }}
+          variables={{ q: searchTermDebounced || '', first: 24 }}
           query={query}
           render={({ error, props }) => {
             if(error) {
