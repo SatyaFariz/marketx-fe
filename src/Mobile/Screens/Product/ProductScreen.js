@@ -107,7 +107,7 @@ const Component = props => {
           // backgroundColor: 'red',
           height: 'calc(100vw * 77/137)',
         }}>
-          <Carousel onChange={handleCarouselChange} value={carouselPos}>
+          <Carousel onChange={handleCarouselChange} value={carouselPos} draggable={product.images.length > 1}>
             {product.images.map((item, i) => {
               return (
                 <div key={i} style={{
@@ -120,6 +120,7 @@ const Component = props => {
               )
             })}
           </Carousel>
+          {product.images.length > 1 &&
           <div style={{
             position: 'absolute',
             width: '100%',
@@ -144,6 +145,7 @@ const Component = props => {
               )
             })}
           </div>
+          }
         </div>
         {/* <div style={{
           width: '100vw',
