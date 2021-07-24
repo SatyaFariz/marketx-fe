@@ -6,7 +6,7 @@ import SendOtpCode from '../../../mutations/SendOtpCode'
 
 const Component = props => {
   const { history, queryParams, environment } = useAppContext()
-  const [phoneNumber, setPhoneNumber] = useState(queryParams?.phoneNumber || '')
+  const [mobileNumber, setPhoneNumber] = useState(queryParams?.mobileNumber || '')
   const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
@@ -18,11 +18,11 @@ const Component = props => {
   }
 
   const proceed = () => {
-    const number = phoneNumber
+    const number = mobileNumber
     if(number.length > 0 && !loading) {
       setLoading(true)
-      history.replace(`/login?phoneNumber=${number}`)
-      SendOtpCode(environment, { phoneNumber: number }, (payload, error) => {
+      history.replace(`/login?mobileNumber=${number}`)
+      SendOtpCode(environment, { mobileNumber: number }, (payload, error) => {
         if(error) {
           console.log(error)
         } else if(payload) {
@@ -30,7 +30,7 @@ const Component = props => {
           if(hasError) {
             alert(message)
           } else {
-            history.push(`/otp?phoneNumber${number}`)
+            history.push(`/otp?mobileNumber${number}`)
           }
         }
 
@@ -62,14 +62,14 @@ const Component = props => {
 
       <TextField
         variant="outlined"
-        label="Phone Number"
+        label="Mobile Number"
         fullWidth
         style={{
           marginTop: 10,
           marginBottom: 10
         }}
         onChange={handleChange}
-        value={phoneNumber}
+        value={mobileNumber}
         placeholder="Ex: 082322343005"
         type="tel"
       />

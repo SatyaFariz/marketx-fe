@@ -8,29 +8,31 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type SendOtpCodeMutationVariables = {|
-  mobileNumber: string
+export type LoginMutationVariables = {|
+  loginId: string,
+  password: string,
 |};
-export type SendOtpCodeMutationResponse = {|
-  +sendOtpCode: ?{|
+export type LoginMutationResponse = {|
+  +login: ?{|
     +actionInfo: ?{|
       +hasError: ?boolean,
       +message: ?string,
     |}
   |}
 |};
-export type SendOtpCodeMutation = {|
-  variables: SendOtpCodeMutationVariables,
-  response: SendOtpCodeMutationResponse,
+export type LoginMutation = {|
+  variables: LoginMutationVariables,
+  response: LoginMutationResponse,
 |};
 */
 
 
 /*
-mutation SendOtpCodeMutation(
-  $mobileNumber: String!
+mutation LoginMutation(
+  $loginId: String!
+  $password: String!
 ) {
-  sendOtpCode(mobileNumber: $mobileNumber) {
+  login(loginId: $loginId, password: $password) {
     actionInfo {
       hasError
       message
@@ -44,7 +46,12 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "mobileNumber"
+    "name": "loginId"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "password"
   }
 ],
 v1 = [
@@ -53,13 +60,18 @@ v1 = [
     "args": [
       {
         "kind": "Variable",
-        "name": "mobileNumber",
-        "variableName": "mobileNumber"
+        "name": "loginId",
+        "variableName": "loginId"
+      },
+      {
+        "kind": "Variable",
+        "name": "password",
+        "variableName": "password"
       }
     ],
-    "concreteType": "SendOtpPayload",
+    "concreteType": "ActionOnUserPayload",
     "kind": "LinkedField",
-    "name": "sendOtpCode",
+    "name": "login",
     "plural": false,
     "selections": [
       {
@@ -96,7 +108,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "SendOtpCodeMutation",
+    "name": "LoginMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -105,20 +117,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "SendOtpCodeMutation",
+    "name": "LoginMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "5fba4758216e54de5f740756eb848cc9",
+    "cacheID": "204639d0b6940d423cc0e49663498981",
     "id": null,
     "metadata": {},
-    "name": "SendOtpCodeMutation",
+    "name": "LoginMutation",
     "operationKind": "mutation",
-    "text": "mutation SendOtpCodeMutation(\n  $mobileNumber: String!\n) {\n  sendOtpCode(mobileNumber: $mobileNumber) {\n    actionInfo {\n      hasError\n      message\n    }\n  }\n}\n"
+    "text": "mutation LoginMutation(\n  $loginId: String!\n  $password: String!\n) {\n  login(loginId: $loginId, password: $password) {\n    actionInfo {\n      hasError\n      message\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '58c84a4ed655ab10382bdd896bcc68a8';
+(node/*: any*/).hash = '5a081043fac2e9015f54dd4433d23ec1';
 
 module.exports = node;

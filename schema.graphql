@@ -1,9 +1,14 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sat Jul 24 2021 11:40:24 GMT+0700 (Western Indonesia Time)
+# timestamp: Sat Jul 24 2021 14:39:05 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
   message: String
+}
+
+type ActionOnUserPayload {
+  actionInfo: ActionInfo
+  user: User
 }
 
 type Attribute {
@@ -33,14 +38,14 @@ type Image {
 }
 
 type Mutation {
-  login: String
+  login(loginId: String!, password: String!): ActionOnUserPayload
   addIcon(id: String!, url: String!): String
   createProduct(name: String!, desc: String!, categoryId: String!, ownerId: String!, rentalPeriodUnitId: String!, price: Float!): String
   setProductImage(id: String!, url: String!): String
   setAttributeIcon(id: String!, url: String!): String
   updateDescription(id: String!, desc: String!): String
   addSpec(id: String!, attributeId: String!, value: String!): String
-  sendOtpCode(phoneNumber: String!): SendOtpPayload
+  sendOtpCode(mobileNumber: String!): SendOtpPayload
 }
 
 """Information about pagination in a connection."""
