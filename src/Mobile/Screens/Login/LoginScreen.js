@@ -2,10 +2,12 @@ import { LOGO_URL } from '../../Constants'
 import { TextField, Button } from '@material-ui/core'
 import { useState } from 'react'
 import useAppContext from '../../hooks/useAppContext'
+import SendOtpCode from '../../../mutations/SendOtpCode'
 
 const Component = props => {
-  const { history, queryParams } = useAppContext()
+  const { history, queryParams, environment } = useAppContext()
   const [phoneNumber, setPhoneNumber] = useState(queryParams?.phoneNumber || '')
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
     const allowedChars = '1234567890'
@@ -16,12 +18,25 @@ const Component = props => {
   }
 
   const proceed = () => {
-    if(phoneNumber.length === 0) return
-    history.replace(`/login?phoneNumber=${phoneNumber}`)
-    setTimeout(() => {
-      history.push(`/otp/${phoneNumber}`)
-    }, 1000)
-    
+    const number = phoneNumber
+    if(number.length > 0 && !loading) {
+      setLoading(true)
+      history.replace(`/login?phoneNumber=${number}`)
+      SendOtpCode(environment, { phoneNumber: number }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload
+          if(hasError) {
+            alert(message)
+          } else {
+            history.push(`/otp?phoneNumber${number}`)
+          }
+        }
+
+        setLoading(false)
+      })
+    }
   }
 
   return (

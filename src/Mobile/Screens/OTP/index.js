@@ -2,7 +2,7 @@
 import FixedAddressBar from '../../Components/FixedAddressBar'
 
 const chunk = {
-  path: '/otp/:phoneNumber',
+  path: '/otp',
   components: () => [import('./OTPScreen')],
   // query: graphql`
   //   query MainScreenAdminQuery($id: String!) {

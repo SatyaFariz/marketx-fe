@@ -1,5 +1,10 @@
 # source: http://localhost:4000/graphql
-# timestamp: Tue Jul 20 2021 22:22:14 GMT+0700 (Western Indonesia Time)
+# timestamp: Sat Jul 24 2021 11:22:01 GMT+0700 (Western Indonesia Time)
+
+type ActionInfo {
+  hasError: Boolean
+  message: String
+}
 
 type Attribute {
   id: ID
@@ -35,6 +40,7 @@ type Mutation {
   setAttributeIcon(id: String!, url: String!): String
   updateDescription(id: String!, desc: String!): String
   addSpec(id: String!, attributeId: String!, value: String!): String
+  sendOtpCode(phoneNumber: String!): ActionInfo
 }
 
 """Information about pagination in a connection."""
