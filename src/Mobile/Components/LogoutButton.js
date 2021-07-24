@@ -17,7 +17,7 @@ const Component = props => {
         } else if(payload) {
           const { hasError } = payload
           if(!hasError) {
-            history.push('/') 
+            history.push('/')
             resetEnvironment()   
           }
 

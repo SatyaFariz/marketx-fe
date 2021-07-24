@@ -16,9 +16,11 @@ const chunk = {
       title: 'Rental App',
       component: (
         <FixedAddressBar>
+          {data &&
           <MainScreen
             data={data}
           />
+          }
         </FixedAddressBar>
       )
     }

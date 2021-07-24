@@ -9,21 +9,24 @@ import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 
 function App(props) {
+  const { categories, featuredProducts, me } = props.data
   const { queryParams } = useAppContext()
   const tab = queryParams.tab ? parseInt(queryParams.tab) : 0
   return (
     <>
+      {categories && featuredProducts &&
       <ExploreTab 
         active={tab === 0} 
-        categories={props.data.categories}
-        featuredProducts={props.data.featuredProducts}
+        categories={categories}
+        featuredProducts={featuredProducts}
       />
+      }
       <RentedTab active={tab === 1}/>
       <NotificationTab active={tab === 2}/>
       <ProfileTab active={tab === 3}/>
       
       <BottomNav 
-        me={props.data.me}
+        me={me}
       />
 
     </>
