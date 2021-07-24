@@ -30,7 +30,7 @@ const Component = props => {
           if(hasError) {
             alert(message)
           } else {
-            history.push(`/otp?mobileNumber${number}`)
+            history.push(`/otp?mobileNumber=${number}`)
           }
         }
 
