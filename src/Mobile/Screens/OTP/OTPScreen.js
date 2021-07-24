@@ -17,7 +17,7 @@ const codeLen = 4
 const Component = props => {
   const _isMounted = useRef(true)
   const { history, queryParams, environment, resetEnvironment } = useAppContext()
-  const { mobileNumber } = queryParams
+  const [mobileNumber] = useState(queryParams.mobileNumber)
   const [code, setCode] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -82,7 +82,7 @@ const Component = props => {
         paddingRight: 20
       }}>
         <h1 style={{ fontSize: 26 }}>Enter code sent to your number</h1>
-        <p>We have sent 4-digit code to number {queryParams.mobileNumber}</p>
+        <p>We have sent 4-digit code to number {mobileNumber}</p>
 
         <div style={{
           display: 'grid',
