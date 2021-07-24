@@ -2,7 +2,7 @@ import { IoBackspaceOutline, IoChevronBackSharp } from 'react-icons/io5'
 import { HEADER_HEIGHT } from '../../Constants'
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Login from '../../../mutations/Login'
 
 const keys = [
@@ -15,6 +15,7 @@ const keys = [
 const codeLen = 4
 
 const Component = props => {
+  const _isMounted = useRef(true)
   const { history, queryParams, environment } = useAppContext()
   const { mobileNumber } = queryParams
   const [code, setCode] = useState('')
@@ -46,10 +47,14 @@ const Component = props => {
           }
         }
 
-        setLoading(false)
+        _isMounted.current && setLoading(false)
       })
     }
   }, [code, environment, mobileNumber])
+
+  useEffect(() => {
+    return () => _isMounted.current = false
+  }, [])
 
   return (
     <div>

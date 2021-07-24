@@ -1,10 +1,11 @@
 import { LOGO_URL } from '../../Constants'
 import { TextField, Button } from '@material-ui/core'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import SendOtpCode from '../../../mutations/SendOtpCode'
 
 const Component = props => {
+  const _isMounted = useRef(true)
   const { history, queryParams, environment } = useAppContext()
   const [mobileNumber, setPhoneNumber] = useState(queryParams?.mobileNumber || '')
   const [loading, setLoading] = useState(false)
@@ -34,10 +35,14 @@ const Component = props => {
           }
         }
 
-        setLoading(false)
+        _isMounted.current && setLoading(false)
       })
     }
   }
+
+  useEffect(() => {
+    return () => _isMounted.current = false
+  }, [])
 
   return (
     <div style={{
