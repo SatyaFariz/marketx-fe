@@ -6,14 +6,7 @@ const chunk = {
   components: () => [import('./MainScreen')],
   query: graphql`
     query MainScreenQuery {
-      categories {
-        id,
-        ...ExploreTab_categories
-      },
-      featuredProducts {
-        id,
-        ...ExploreTab_featuredProducts
-      }
+      ...MainScreen_data
     }
   `,
   // prepareVariables: ({ params }) => params,
@@ -24,8 +17,7 @@ const chunk = {
       component: (
         <FixedAddressBar>
           <MainScreen
-            categories={data.categories}
-            featuredProducts={data.featuredProducts}
+            data={data}
           />
         </FixedAddressBar>
       )

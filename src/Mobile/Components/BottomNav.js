@@ -1,6 +1,8 @@
 import { IoSearchOutline, IoPersonOutline, IoMailOutline, IoDocumentTextOutline } from 'react-icons/io5'
 import { DIVIDER_COLOR } from '../Constants'
 import Link from '../Components/Link'
+import { createFragmentContainer } from 'react-relay'
+import graphql from 'babel-plugin-relay/macro'
 
 const Component = props => {
   return (
@@ -77,4 +79,11 @@ const Component = props => {
   )
 }
 
-export default Component
+export default createFragmentContainer(Component, {
+  me: graphql`
+    fragment BottomNav_me on User {
+      id,
+      name
+    }
+  `
+})

@@ -8,18 +8,10 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type ExploreTab_categories$ref = any;
-type ExploreTab_featuredProducts$ref = any;
+type MainScreen_data$ref = any;
 export type MainScreenQueryVariables = {||};
 export type MainScreenQueryResponse = {|
-  +categories: ?$ReadOnlyArray<?{|
-    +id: ?string,
-    +$fragmentRefs: ExploreTab_categories$ref,
-  |}>,
-  +featuredProducts: ?$ReadOnlyArray<?{|
-    +id: ?string,
-    +$fragmentRefs: ExploreTab_featuredProducts$ref,
-  |}>,
+  +$fragmentRefs: MainScreen_data$ref
 |};
 export type MainScreenQuery = {|
   variables: MainScreenQueryVariables,
@@ -30,14 +22,12 @@ export type MainScreenQuery = {|
 
 /*
 query MainScreenQuery {
-  categories {
-    id
-    ...ExploreTab_categories
-  }
-  featuredProducts {
-    id
-    ...ExploreTab_featuredProducts
-  }
+  ...MainScreen_data
+}
+
+fragment BottomNav_me on User {
+  id
+  name
 }
 
 fragment Categories_categories on Category {
@@ -62,6 +52,21 @@ fragment ExploreTab_featuredProducts on Product {
 fragment FeaturedProductsList_featuredProducts on Product {
   id
   ...ProductItem_product
+}
+
+fragment MainScreen_data on Query {
+  me {
+    id
+    ...BottomNav_me
+  }
+  categories {
+    id
+    ...ExploreTab_categories
+  }
+  featuredProducts {
+    id
+    ...ExploreTab_featuredProducts
+  }
 }
 
 fragment ProductItem_product on Product {
@@ -112,38 +117,9 @@ return {
     "name": "MainScreenQuery",
     "selections": [
       {
-        "alias": null,
         "args": null,
-        "concreteType": "Category",
-        "kind": "LinkedField",
-        "name": "categories",
-        "plural": true,
-        "selections": [
-          (v0/*: any*/),
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "ExploreTab_categories"
-          }
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "Product",
-        "kind": "LinkedField",
-        "name": "featuredProducts",
-        "plural": true,
-        "selections": [
-          (v0/*: any*/),
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "ExploreTab_featuredProducts"
-          }
-        ],
-        "storageKey": null
+        "kind": "FragmentSpread",
+        "name": "MainScreen_data"
       }
     ],
     "type": "Query",
@@ -155,6 +131,19 @@ return {
     "kind": "Operation",
     "name": "MainScreenQuery",
     "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v0/*: any*/),
+          (v1/*: any*/)
+        ],
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": null,
@@ -230,16 +219,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "efb82d82ec7ca8b1b250aaffd170772d",
+    "cacheID": "c0609de4781b52f5bf99767a4e97a5c9",
     "id": null,
     "metadata": {},
     "name": "MainScreenQuery",
     "operationKind": "query",
-    "text": "query MainScreenQuery {\n  categories {\n    id\n    ...ExploreTab_categories\n  }\n  featuredProducts {\n    id\n    ...ExploreTab_featuredProducts\n  }\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  icon {\n    url\n    id\n  }\n}\n\nfragment ExploreTab_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment ExploreTab_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  ...ProductItem_product\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  images {\n    url\n    id\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n}\n"
+    "text": "query MainScreenQuery {\n  ...MainScreen_data\n}\n\nfragment BottomNav_me on User {\n  id\n  name\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  icon {\n    url\n    id\n  }\n}\n\nfragment ExploreTab_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment ExploreTab_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  ...ProductItem_product\n}\n\nfragment MainScreen_data on Query {\n  me {\n    id\n    ...BottomNav_me\n  }\n  categories {\n    id\n    ...ExploreTab_categories\n  }\n  featuredProducts {\n    id\n    ...ExploreTab_featuredProducts\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  images {\n    url\n    id\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '72233cd1c14705db477ce768114ff6e0';
+(node/*: any*/).hash = '7b9bb10b3f3320386e2118b029d1129c';
 
 module.exports = node;
