@@ -15,6 +15,7 @@ const LoadingView = () => {
       alignItems: 'center'
     }}>
       <img
+        alt='applogo'
         src={Logo}
       />
     </div>
@@ -23,7 +24,7 @@ const LoadingView = () => {
 
 const defaultStates = {
   title: null,
-  component: null,
+  component: () => <LoadingView/>,
   error: null
 }
 

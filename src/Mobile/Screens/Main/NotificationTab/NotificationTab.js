@@ -42,6 +42,7 @@ const Component = props => {
               borderBottom: `1px solid ${DIVIDER_COLOR}`
             }}>
               <img
+                alt='product'
                 src="https://www.cumi.id/media/items-photos/42be6a1fe5ca56c562e35975974ffc18-m.jpg"
                 style={{
                   height: 40,

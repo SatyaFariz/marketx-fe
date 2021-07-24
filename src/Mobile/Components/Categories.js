@@ -21,26 +21,26 @@ const Component = props => {
       }}>
         {categories.map((item, i) => {
           return (
-            <Link href={`/category/${item.id}`}>
-            <div key={i} style={{
-              width: 118,
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-              marginBottom: 15
-            }}>
-              <img
-                alt={item.name}
-                src={item.icon.url}
-                style={{
-                  height: 70,
-                  width: 70,
-                  marginBottom: 10
-                }}
-              />
-              <span style={{ textAlign: 'center' }}>{item.name}</span>
-            </div>
+            <Link href={`/category/${item.id}`} key={item.id}>
+              <div key={i} style={{
+                width: 118,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+                marginBottom: 15
+              }}>
+                <img
+                  alt={item.name}
+                  src={item.icon.url}
+                  style={{
+                    height: 70,
+                    width: 70,
+                    marginBottom: 10
+                  }}
+                />
+                <span style={{ textAlign: 'center' }}>{item.name}</span>
+              </div>
             </Link>
           )
         })}

@@ -102,7 +102,7 @@ class App extends Component {
   };
 
   render() {
-    const { relay, query, variables, render, queryID } = this.state;
+    const { relay, query, variables, render } = this.state;
 
     return (
       <AppContext.Provider 

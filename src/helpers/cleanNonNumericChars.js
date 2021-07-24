@@ -1,4 +1,4 @@
-export default (text, options) => {
+const cleanNonNumericChars = (text, options) => {
   const allowNegative = options?.allowNegative
   const precision = options?.precision || 0
   const removeLeadingZeroes = options?.removeLeadingZeroes
@@ -22,7 +22,7 @@ export default (text, options) => {
         break
         
       var char = text.substr(i,1)
-      if(char == '-')
+      if(char === '-')
       {
           text = text.substr(0,i) + text.substr(i+1)
           // decrement value to avoid skipping character
@@ -35,3 +35,5 @@ export default (text, options) => {
 
   return text
 }
+
+export default cleanNonNumericChars
