@@ -5,6 +5,7 @@ import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 
 const Component = props => {
+  const { me } = props
   return (
     <div style={{
       position: 'fixed',
@@ -62,7 +63,7 @@ const Component = props => {
       </Link>
 
       <Link 
-      href="/login"
+      href={me ? '/?tab=3' : "/login"}
       style={{
         width: '25%',
         height: 47,

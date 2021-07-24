@@ -16,7 +16,7 @@ const codeLen = 4
 
 const Component = props => {
   const _isMounted = useRef(true)
-  const { history, queryParams, environment } = useAppContext()
+  const { history, queryParams, environment, resetEnvironment } = useAppContext()
   const { mobileNumber } = queryParams
   const [code, setCode] = useState('')
   const [loading, setLoading] = useState(false)
@@ -44,13 +44,15 @@ const Component = props => {
           alert(message)
           if(!hasError) {
             // do sth
+            history.push('/')
+            resetEnvironment()
           }
         }
 
         _isMounted.current && setLoading(false)
       })
     }
-  }, [code, environment, mobileNumber])
+  }, [code, environment, mobileNumber, history, resetEnvironment])
 
   useEffect(() => {
     return () => _isMounted.current = false
