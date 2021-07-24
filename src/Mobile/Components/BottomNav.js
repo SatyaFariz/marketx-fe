@@ -20,7 +20,7 @@ const Component = props => {
       borderTop: `1px solid ${DIVIDER_COLOR}`
     }}>
       <Link 
-      onClick={() => props?.onIndexChange(0)}
+      href='/'
       style={{
         width: '25%',
         height: 47,
@@ -33,8 +33,8 @@ const Component = props => {
         <span style={{ fontSize: 14 }}>Explore</span>
       </Link>
 
-      <div 
-      onClick={() => props?.onIndexChange(1)}
+      <Link 
+      href='/?tab=1'
       style={{
         width: '25%',
         height: 47,
@@ -45,10 +45,10 @@ const Component = props => {
       }}>
         <IoDocumentTextOutline size={24} color={'#FF385C'}/>
         <span style={{ fontSize: 14 }}>Rented</span>
-      </div>
+      </Link>
 
-      <div 
-      onClick={() => props?.onIndexChange(2)}
+      <Link
+      href='/?tab=2'
       style={{
         width: '25%',
         height: 47,
@@ -59,11 +59,10 @@ const Component = props => {
       }}>
         <IoMailOutline size={24} color={'#FF385C'}/>
         <span style={{ fontSize: 14 }}>Notification</span>
-      </div>
+      </Link>
 
       <Link 
       href="/login"
-      // onClick={() => props?.onIndexChange(3)}
       style={{
         width: '25%',
         height: 47,
