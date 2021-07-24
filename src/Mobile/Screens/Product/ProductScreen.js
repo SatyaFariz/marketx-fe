@@ -58,7 +58,6 @@ const Component = props => {
         position: 'absolute',
         width: '100%',
         backgroundColor: 'white',
-        display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
         zIndex: 3,
@@ -207,6 +206,7 @@ const Component = props => {
                     alignItems: 'center'
                   }}>
                     <img
+                      alt='product'
                       src={item.attribute.icon.url}
                       style={{
                         height: 24,

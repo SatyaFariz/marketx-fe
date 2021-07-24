@@ -1,6 +1,5 @@
 import UniversalRouter from 'universal-router';
-import ErrorScreen from './Screens/ErrorScreen';
-import MainScreen from './Screens/Main/MainScreen'
+// import ErrorScreen from './Screens/ErrorScreen';
 
 const routes = [
   {
@@ -42,17 +41,17 @@ function resolveRoute(ctx) {
   });
 }
 
-function errorHandler(error) {
-  if ([401, 403].includes(error.code)) {
-    return { redirect: `/login?error=${error.message}` };
-  }
+// function errorHandler(error) {
+//   if ([401, 403].includes(error.code)) {
+//     return { redirect: `/login?error=${error.message}` };
+//   }
 
-  return {
-    title: error.code === '404' ? 'Page not found' : 'System Error',
-    status: error.code || 404,
-    component: <ErrorScreen error={error} />,
-  };
-}
+//   return {
+//     title: error.code === '404' ? 'Page not found' : 'System Error',
+//     status: error.code || 404,
+//     component: <ErrorScreen error={error} />,
+//   };
+// }
 
 export default new UniversalRouter(routes, {
   resolveRoute,

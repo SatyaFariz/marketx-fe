@@ -17,13 +17,14 @@ const query = graphql`
 
 const Component = props => {
   const { category } = props
+  const { id } = category
   const { environment, history, queryParams } = useAppContext()
   const [searchTerm, setSearchTerm] = useState(queryParams.q || '')
   const [searchTermDebounced] = useDebounce(searchTerm, 500)
 
   useEffect(() => {
-    history.replace(`/category/${category.id}?q=${searchTermDebounced}`)
-  }, [searchTermDebounced])
+    history.replace(`/category/${id}?q=${searchTermDebounced}`)
+  }, [searchTermDebounced, id, history])
 
   return (
     <div>

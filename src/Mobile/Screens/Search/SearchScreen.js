@@ -21,7 +21,7 @@ const Component = props => {
 
   useEffect(() => {
     history.replace(`/search?q=${searchTermDebounced}`)
-  }, [searchTermDebounced])
+  }, [searchTermDebounced, history])
 
   return (
     <div>

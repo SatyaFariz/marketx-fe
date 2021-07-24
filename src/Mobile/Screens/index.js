@@ -6,7 +6,7 @@ import Category from './Category'
 import Merchant from './Merchant'
 import OTP from './OTP'
 
-export default [
+const screens = [
   Main,
   Login,
   Product,
@@ -15,3 +15,5 @@ export default [
   Merchant,
   OTP
 ]
+
+export default screens

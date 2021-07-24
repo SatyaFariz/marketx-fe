@@ -12,7 +12,7 @@ const mutation = graphql`
   }
 `
 
-export default (environment, variables, callback) => {
+const Login = (environment, variables, callback) => {
   commitMutation(
     environment,
     {
@@ -32,3 +32,5 @@ export default (environment, variables, callback) => {
     }
   )
 }
+
+export default Login
