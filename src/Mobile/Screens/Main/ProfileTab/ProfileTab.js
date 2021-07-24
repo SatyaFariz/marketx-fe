@@ -1,4 +1,4 @@
-
+import LogoutButton from '../../../Components/LogoutButton'
 const Component = props => {
   const { active } = props
   return (
@@ -7,7 +7,7 @@ const Component = props => {
       backgroundColor: 'red',
       height: '100%'
     }}>
-
+      <LogoutButton/>
     </div>
   )
 }

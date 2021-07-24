@@ -44,6 +44,7 @@ const Component = props => {
           alert(message)
           if(!hasError) {
             // do sth
+            setCode(prev => `${prev}0`)
             history.push('/')
             resetEnvironment()
           }
