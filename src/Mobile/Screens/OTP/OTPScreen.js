@@ -2,7 +2,8 @@ import { IoBackspaceOutline, IoChevronBackSharp } from 'react-icons/io5'
 import { HEADER_HEIGHT } from '../../Constants'
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Login from '../../../mutations/Login'
 
 const keys = [
   1, 2, 3,
@@ -14,18 +15,41 @@ const keys = [
 const codeLen = 4
 
 const Component = props => {
-  const { history, queryParams } = useAppContext()
+  const { history, queryParams, environment } = useAppContext()
+  const { mobileNumber } = queryParams
   const [code, setCode] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const enterKey = key => {
-    if(code.length < codeLen && Number.isInteger(key)) {
-      setCode(prev => `${prev}${key}`)
-    } else if(code.length > 0 && key === 'backspace') {
-      setCode(prev => prev.substr(0, prev.length - 1))
-    } else if(key === 'C') {
-      setCode('')
+    if(!loading) {
+      if(code.length < codeLen && Number.isInteger(key)) {
+        setCode(prev => `${prev}${key}`)
+      } else if(code.length > 0 && key === 'backspace') {
+        setCode(prev => prev.substr(0, prev.length - 1))
+      } else if(key === 'C') {
+        setCode('')
+      }
     }
   }
+
+  useEffect(() => {
+    if(code.length === codeLen) {
+      setLoading(true)
+      Login(environment, { loginId: mobileNumber, password: code }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            // do sth
+          }
+        }
+
+        setLoading(false)
+      })
+    }
+  }, [code, environment, mobileNumber])
 
   return (
     <div>
@@ -49,7 +73,7 @@ const Component = props => {
         paddingLeft: 20,
         paddingRight: 20
       }}>
-        <h1>Enter code sent to your number</h1>
+        <h1 style={{ fontSize: 26 }}>Enter code sent to your number</h1>
         <p>We have sent 4-digit code to number {queryParams.mobileNumber}</p>
 
         <div style={{
