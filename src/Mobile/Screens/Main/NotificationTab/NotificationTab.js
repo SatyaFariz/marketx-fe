@@ -32,7 +32,7 @@ const Component = props => {
       }}>
         {new Array(100).fill(null).map((item, i) => {
           return (
-            <div style={{
+            <div key={i} style={{
               paddingLeft: 15,
               paddingTop: 10,
               paddingBottom: 10,
