@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sat Jul 24 2021 11:22:01 GMT+0700 (Western Indonesia Time)
+# timestamp: Sat Jul 24 2021 11:40:24 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -40,7 +40,7 @@ type Mutation {
   setAttributeIcon(id: String!, url: String!): String
   updateDescription(id: String!, desc: String!): String
   addSpec(id: String!, attributeId: String!, value: String!): String
-  sendOtpCode(phoneNumber: String!): ActionInfo
+  sendOtpCode(phoneNumber: String!): SendOtpPayload
 }
 
 """Information about pagination in a connection."""
@@ -101,6 +101,10 @@ type Query {
   user(id: String!): User
   featuredProducts: [Product]
   search(q: String!, categoryId: String, published: Boolean, after: String, first: Int): ProductConnection
+}
+
+type SendOtpPayload {
+  actionInfo: ActionInfo
 }
 
 type Specification {

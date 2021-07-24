@@ -13,8 +13,10 @@ export type SendOtpCodeMutationVariables = {|
 |};
 export type SendOtpCodeMutationResponse = {|
   +sendOtpCode: ?{|
-    +hasError: ?boolean,
-    +message: ?string,
+    +actionInfo: ?{|
+      +hasError: ?boolean,
+      +message: ?string,
+    |}
   |}
 |};
 export type SendOtpCodeMutation = {|
@@ -29,8 +31,10 @@ mutation SendOtpCodeMutation(
   $phoneNumber: String!
 ) {
   sendOtpCode(phoneNumber: $phoneNumber) {
-    hasError
-    message
+    actionInfo {
+      hasError
+      message
+    }
   }
 }
 */
@@ -53,7 +57,7 @@ v1 = [
         "variableName": "phoneNumber"
       }
     ],
-    "concreteType": "ActionInfo",
+    "concreteType": "SendOtpPayload",
     "kind": "LinkedField",
     "name": "sendOtpCode",
     "plural": false,
@@ -61,15 +65,26 @@ v1 = [
       {
         "alias": null,
         "args": null,
-        "kind": "ScalarField",
-        "name": "hasError",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "message",
+        "concreteType": "ActionInfo",
+        "kind": "LinkedField",
+        "name": "actionInfo",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "hasError",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "message",
+            "storageKey": null
+          }
+        ],
         "storageKey": null
       }
     ],
@@ -94,16 +109,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "352bce45c62693763de118c0afbe77ec",
+    "cacheID": "25e5756d3ccc8cbb21f44c45fbbfce48",
     "id": null,
     "metadata": {},
     "name": "SendOtpCodeMutation",
     "operationKind": "mutation",
-    "text": "mutation SendOtpCodeMutation(\n  $phoneNumber: String!\n) {\n  sendOtpCode(phoneNumber: $phoneNumber) {\n    hasError\n    message\n  }\n}\n"
+    "text": "mutation SendOtpCodeMutation(\n  $phoneNumber: String!\n) {\n  sendOtpCode(phoneNumber: $phoneNumber) {\n    actionInfo {\n      hasError\n      message\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5c9aa87a584e8c4b9183ffffe30a43ff';
+(node/*: any*/).hash = 'e5a400519f22e48daf9cd6978c07985a';
 
 module.exports = node;

@@ -26,7 +26,7 @@ const Component = props => {
         if(error) {
           console.log(error)
         } else if(payload) {
-          const { hasError, message } = payload
+          const { hasError, message } = payload.actionInfo
           if(hasError) {
             alert(message)
           } else {

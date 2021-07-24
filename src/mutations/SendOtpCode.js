@@ -4,8 +4,10 @@ import graphql from 'babel-plugin-relay/macro'
 const mutation = graphql`
   mutation SendOtpCodeMutation($phoneNumber: String!) {
     sendOtpCode(phoneNumber: $phoneNumber) {
-      hasError,
-      message
+      actionInfo {
+        hasError,
+        message
+      }
     }
   }
 `
