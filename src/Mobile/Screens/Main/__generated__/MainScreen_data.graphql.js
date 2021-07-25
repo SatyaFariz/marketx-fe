@@ -8,17 +8,17 @@
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
+type AccountTab_me$ref = any;
 type BottomNav_me$ref = any;
 type ExploreTab_categories$ref = any;
 type ExploreTab_featuredProducts$ref = any;
-type ProfileTab_me$ref = any;
 import type { FragmentReference } from "relay-runtime";
 declare export opaque type MainScreen_data$ref: FragmentReference;
 declare export opaque type MainScreen_data$fragmentType: MainScreen_data$ref;
 export type MainScreen_data = {|
   +me: ?{|
     +id: ?string,
-    +$fragmentRefs: BottomNav_me$ref & ProfileTab_me$ref,
+    +$fragmentRefs: BottomNav_me$ref & AccountTab_me$ref,
   |},
   +categories: ?$ReadOnlyArray<?{|
     +id: ?string,
@@ -70,7 +70,7 @@ return {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "ProfileTab_me"
+          "name": "AccountTab_me"
         }
       ],
       "storageKey": null
@@ -115,6 +115,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0c7465bd06ffc54d011ac5b411dcfb2d';
+(node/*: any*/).hash = 'b680f4e58678887719c2827e8f70a346';
 
 module.exports = node;

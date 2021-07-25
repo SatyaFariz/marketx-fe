@@ -3,7 +3,7 @@ import BottomNav from '../../Components/BottomNav'
 import ExploreTab from './ExploreTab/ExploreTab'
 import RentedTab from './RentedTab/RentedTab'
 import NotificationTab from './NotificationTab/NotificationTab'
-import ProfileTab from './ProfileTab/ProfileTab'
+import AccountTab from './AccountTab/AccountTab'
 import useAppContext from '../../hooks/useAppContext'
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
@@ -23,7 +23,7 @@ function App(props) {
       }
       <RentedTab active={tab === 1}/>
       <NotificationTab active={tab === 2}/>
-      <ProfileTab 
+      <AccountTab 
         active={tab === 3}
         me={me}
       />
@@ -42,7 +42,7 @@ export default createFragmentContainer(App, {
       me {
         id,
         ...BottomNav_me,
-        ...ProfileTab_me
+        ...AccountTab_me
       }
       categories {
         id,

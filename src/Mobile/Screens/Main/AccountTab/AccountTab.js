@@ -82,7 +82,7 @@ const Component = props => {
 
 export default createFragmentContainer(Component, {
   me: graphql`
-    fragment ProfileTab_me on User {
+    fragment AccountTab_me on User {
       id,
       name,
       mobileNumber,
