@@ -34,8 +34,12 @@ const Component = props => {
     <Button
       variant="contained"
       onClick={logout}
+      style={{
+        textTransform: 'none'
+      }}
+      disableElevation
     >
-      Logout
+      Log out
     </Button>
   )
 }

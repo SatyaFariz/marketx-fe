@@ -11,6 +11,7 @@ import Validator from '../../../helpers/validator'
 import { isEmail } from 'validator'
 import MobileNumberChecker from '../../../helpers/MobileNumberChecker'
 import { useDebounce } from 'use-debounce'
+import LogoutButton from '../../Components/LogoutButton'
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -85,7 +86,7 @@ const Component = props => {
     if(mobileNumberDebounced.length < 12) {
       setNumberExistance(null)
     } else {
-      if(mobileNumberDebounced !== myCurrentMobileNumber) {
+      if(myCurrentMobileNumber && mobileNumberDebounced !== myCurrentMobileNumber) {
         const checker = new MobileNumberChecker(environment)
         checker.checkExistance(mobileNumberDebounced, (data) => {
           setNumberExistance(data)
@@ -103,7 +104,7 @@ const Component = props => {
         backgroundColor: 'white',
         width: '100%',
         display: 'flex',
-        // justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
         position: 'absolute',
         top: 0,
@@ -118,6 +119,10 @@ const Component = props => {
         }}>
           <IoChevronBackSharp size={32}/>
         </div>
+        <div style={{ marginRight: 15, zIndex: 1 }}>
+          <LogoutButton/>
+        </div>
+        
         <div style={{
           position: 'absolute',
           height: '100%',
