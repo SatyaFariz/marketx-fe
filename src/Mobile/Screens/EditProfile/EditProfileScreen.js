@@ -16,11 +16,11 @@ import LogoutButton from '../../Components/LogoutButton'
 const Component = props => {
   const _isMounted = useRef(true)
   const { me } = props
-  const myCurrentMobileNumber = me.mobileNumber
+  const myCurrentMobileNumber = me?.mobileNumber
   const { history, queryParams, environment } = useAppContext()
-  const [name, setName] = useState(me.name)
+  const [name, setName] = useState(me?.name)
   const [mobileNumber, setMobileNumber] = useState(myCurrentMobileNumber)
-  const [email, setEmail] = useState(me.email || '')
+  const [email, setEmail] = useState(me?.email || '')
   const [mobileNumberDebounced] = useDebounce(mobileNumber, 500)
   const [validation, setValidation] = useState({ isValid: false })
   const [numberExistance, setNumberExistance] = useState(null)
@@ -59,7 +59,7 @@ const Component = props => {
         validWhen: false,
         message: 'Fill in your mobile number.'
       },
-      ...(email.length > 0 ? [{
+      ...(email?.length > 0 ? [{
         field: 'email',
         method: isEmail,
         validWhen: true,
@@ -83,7 +83,7 @@ const Component = props => {
   }, [])
 
   useEffect(() => {
-    if(mobileNumberDebounced.length < 12) {
+    if(mobileNumberDebounced?.length < 12) {
       setNumberExistance(null)
     } else {
       if(myCurrentMobileNumber && mobileNumberDebounced !== myCurrentMobileNumber) {
@@ -97,6 +97,7 @@ const Component = props => {
     }
   }, [mobileNumberDebounced, myCurrentMobileNumber, environment])
 
+  if(!me) return null
   return (
     <div>
       <div style={{

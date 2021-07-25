@@ -5,6 +5,9 @@ import useAppContext from '../../hooks/useAppContext'
 import SendOtpCode from '../../../mutations/SendOtpCode'
 import Link from '../../Components/Link'
 import Color from '../../Constants/Color'
+import Validator from '../../../helpers/validator'
+import MobileNumberChecker from '../../../helpers/MobileNumberChecker'
+import { useDebounce } from 'use-debounce'
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -12,6 +15,9 @@ const Component = props => {
   const [mobileNumber, setMobileNumber] = useState(queryParams?.mobileNumber || '')
   const [name, setName] = useState(queryParams?.name || '')
   const [loading, setLoading] = useState(false)
+  const [mobileNumberDebounced] = useDebounce(mobileNumber, 500)
+  const [validation, setValidation] = useState({ isValid: false })
+  const [numberExistance, setNumberExistance] = useState(null)
 
   const handleChange = (e) => {
     const allowedChars = '1234567890'
@@ -26,10 +32,31 @@ const Component = props => {
     setName(value)
   }
 
+  const isValid = () => {
+    const validator = new Validator([
+      {
+        field: 'name',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'Fill in your name.'
+      },
+      {
+        field: 'mobileNumber',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'Fill in your mobile number.'
+      },
+    ])
+
+    const validation = validator.validate({ name, mobileNumber })
+    setValidation(validation)
+    return validation.isValid && numberExistance?.exists !== true
+  }
+
   const proceed = () => {
-    const number = mobileNumber
-    const fullname = name
-    if(number.length > 0 && !loading) {
+    if(isValid() > 0 && !loading) {
+      const number = mobileNumber
+      const fullname = name
       setLoading(true)
       history.replace(`/register?mobileNumber=${number}&name=${fullname}`)
       SendOtpCode(environment, { mobileNumber: number, action: 'register' }, (payload, error) => {
@@ -52,6 +79,17 @@ const Component = props => {
   useEffect(() => {
     return () => _isMounted.current = false
   }, [])
+
+  useEffect(() => {
+    if(mobileNumberDebounced.length < 12) {
+      setNumberExistance(null)
+    } else {
+      const checker = new MobileNumberChecker(environment)
+      checker.checkExistance(mobileNumberDebounced, (data) => {
+        setNumberExistance(data)
+      })
+    }
+  }, [mobileNumberDebounced, environment])
 
   return (
     <div style={{
@@ -84,6 +122,8 @@ const Component = props => {
         }}
         onChange={setFullname}
         value={name}
+        error={validation?.name?.isInvalid}
+        helperText={validation?.name?.message}
       />
 
       <TextField
@@ -98,6 +138,8 @@ const Component = props => {
         value={mobileNumber}
         placeholder="Ex: 082322343005"
         type="tel"
+        error={numberExistance?.exists || validation?.mobileNumber?.isInvalid}
+        helperText={numberExistance?.exists ? 'This number has already been registered.' : validation?.mobileNumber?.message}
       />
 
       <Button
