@@ -5,6 +5,7 @@ import Search from './Search'
 import Category from './Category'
 import Merchant from './Merchant'
 import OTP from './OTP'
+import Register from './Register'
 
 const screens = [
   Main,
@@ -13,7 +14,8 @@ const screens = [
   Search,
   Category,
   Merchant,
-  OTP
+  OTP,
+  Register
 ]
 
 export default screens

@@ -3,6 +3,8 @@ import { TextField, Button } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import SendOtpCode from '../../../mutations/SendOtpCode'
+import Link from '../../Components/Link'
+import Color from '../../Constants/Color'
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -93,6 +95,17 @@ const Component = props => {
       >
         Log in
       </Button>
+
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20
+      }}>
+        <Link href='/register' style={{ color: Color.link }}>
+          <span>Create a new account</span>
+        </Link>
+      </div>
       
     </div>
   )
