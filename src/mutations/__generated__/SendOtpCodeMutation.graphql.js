@@ -8,8 +8,10 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+export type UserActionEnum = "login" | "register" | "%future added value";
 export type SendOtpCodeMutationVariables = {|
-  mobileNumber: string
+  mobileNumber: string,
+  action?: ?UserActionEnum,
 |};
 export type SendOtpCodeMutationResponse = {|
   +sendOtpCode: ?{|
@@ -29,8 +31,9 @@ export type SendOtpCodeMutation = {|
 /*
 mutation SendOtpCodeMutation(
   $mobileNumber: String!
+  $action: UserActionEnum
 ) {
-  sendOtpCode(mobileNumber: $mobileNumber) {
+  sendOtpCode(mobileNumber: $mobileNumber, action: $action) {
     actionInfo {
       hasError
       message
@@ -40,17 +43,25 @@ mutation SendOtpCodeMutation(
 */
 
 const node/*: ConcreteRequest*/ = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "mobileNumber"
-  }
-],
-v1 = [
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "action"
+},
+v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "mobileNumber"
+},
+v2 = [
   {
     "alias": null,
     "args": [
+      {
+        "kind": "Variable",
+        "name": "action",
+        "variableName": "action"
+      },
       {
         "kind": "Variable",
         "name": "mobileNumber",
@@ -93,32 +104,38 @@ v1 = [
 ];
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "SendOtpCodeMutation",
-    "selections": (v1/*: any*/),
+    "selections": (v2/*: any*/),
     "type": "Mutation",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v1/*: any*/),
+      (v0/*: any*/)
+    ],
     "kind": "Operation",
     "name": "SendOtpCodeMutation",
-    "selections": (v1/*: any*/)
+    "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "5fba4758216e54de5f740756eb848cc9",
+    "cacheID": "8d3daea9669e418b3cc3a84f8ca10d60",
     "id": null,
     "metadata": {},
     "name": "SendOtpCodeMutation",
     "operationKind": "mutation",
-    "text": "mutation SendOtpCodeMutation(\n  $mobileNumber: String!\n) {\n  sendOtpCode(mobileNumber: $mobileNumber) {\n    actionInfo {\n      hasError\n      message\n    }\n  }\n}\n"
+    "text": "mutation SendOtpCodeMutation(\n  $mobileNumber: String!\n  $action: UserActionEnum\n) {\n  sendOtpCode(mobileNumber: $mobileNumber, action: $action) {\n    actionInfo {\n      hasError\n      message\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '58c84a4ed655ab10382bdd896bcc68a8';
+(node/*: any*/).hash = 'c945ce61df7ac837357a11ae2498adac';
 
 module.exports = node;

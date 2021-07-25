@@ -2,8 +2,8 @@ import { commitMutation } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 
 const mutation = graphql`
-  mutation SendOtpCodeMutation($mobileNumber: String!) {
-    sendOtpCode(mobileNumber: $mobileNumber) {
+  mutation SendOtpCodeMutation($mobileNumber: String!, $action: UserActionEnum) {
+    sendOtpCode(mobileNumber: $mobileNumber, action: $action) {
       actionInfo {
         hasError,
         message

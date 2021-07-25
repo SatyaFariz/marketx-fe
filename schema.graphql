@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Jul 25 2021 17:13:13 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Jul 25 2021 17:38:03 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -45,7 +45,7 @@ type Mutation {
   setAttributeIcon(id: String!, url: String!): String
   updateDescription(id: String!, desc: String!): String
   addSpec(id: String!, attributeId: String!, value: String!): String
-  sendOtpCode(mobileNumber: String!): SendOtpPayload
+  sendOtpCode(mobileNumber: String!, action: UserActionEnum): SendOtpPayload
   register(name: String!, loginId: String!, password: String!): ActionOnUserPayload
   logout: ActionInfo
 }
@@ -133,4 +133,9 @@ type User {
   id: ID
   name: String
   profilePicture: Image
+}
+
+enum UserActionEnum {
+  login
+  register
 }

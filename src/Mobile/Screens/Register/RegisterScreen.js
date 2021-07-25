@@ -9,7 +9,8 @@ import Color from '../../Constants/Color'
 const Component = props => {
   const _isMounted = useRef(true)
   const { history, queryParams, environment } = useAppContext()
-  const [mobileNumber, setPhoneNumber] = useState(queryParams?.mobileNumber || '')
+  const [mobileNumber, setMobileNumber] = useState(queryParams?.mobileNumber || '')
+  const [name, setName] = useState(queryParams?.name || '')
   const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
@@ -17,15 +18,21 @@ const Component = props => {
     const { value } = e.target
     if(value.length && !value.startsWith('0')) return
     if(value.length && !allowedChars.includes(value[value.length - 1])) return
-    setPhoneNumber(value)
+    setMobileNumber(value)
+  }
+
+  const setFullname = (e) => {
+    const { value } = e.target
+    setName(value)
   }
 
   const proceed = () => {
     const number = mobileNumber
+    const fullname = name
     if(number.length > 0 && !loading) {
       setLoading(true)
-      history.replace(`/login?mobileNumber=${number}`)
-      SendOtpCode(environment, { mobileNumber: number }, (payload, error) => {
+      history.replace(`/register?mobileNumber=${number}&name=${fullname}`)
+      SendOtpCode(environment, { mobileNumber: number, action: 'register' }, (payload, error) => {
         if(error) {
           console.log(error)
         } else if(payload) {
@@ -33,7 +40,7 @@ const Component = props => {
           if(hasError) {
             alert(message)
           } else {
-            history.push(`/otp?mobileNumber=${number}`)
+            history.push(`/otp?mobileNumber=${number}&name=${fullname}`)
           }
         }
 
@@ -75,8 +82,8 @@ const Component = props => {
           marginTop: 10,
           marginBottom: 10
         }}
-        onChange={handleChange}
-        value={mobileNumber}
+        onChange={setFullname}
+        value={name}
       />
 
       <TextField
