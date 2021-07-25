@@ -1,4 +1,5 @@
-import { fetchQuery, graphql } from 'react-relay'
+import { fetchQuery } from 'react-relay'
+import graphql from 'babel-plugin-relay/macro'
 
 const query = graphql`
   query MobileNumberCheckerQuery($mobileNumber: String!) {
@@ -31,7 +32,7 @@ class MobileNumberChecker {
     else if(cached) {
       cb(cached)
     } else {
-      fetchQuery(this.environment, query, { mobileNumber }).toPromise().then(data => {
+      fetchQuery(this.environment, query, { mobileNumber }).then(data => {
         const exists = data.mobileNumberExists
         if(this.waitingFor === mobileNumber)
           cb({

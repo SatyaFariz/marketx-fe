@@ -9,15 +9,20 @@ import graphql from 'babel-plugin-relay/macro'
 import { useState, useEffect, useRef } from 'react'
 import Validator from '../../../helpers/validator'
 import { isEmail } from 'validator'
+import MobileNumberChecker from '../../../helpers/MobileNumberChecker'
+import { useDebounce } from 'use-debounce'
 
 const Component = props => {
   const _isMounted = useRef(true)
   const { me } = props
-  const { history, queryParams } = useAppContext()
+  const myCurrentMobileNumber = me.mobileNumber
+  const { history, queryParams, environment } = useAppContext()
   const [name, setName] = useState(me.name)
-  const [mobileNumber, setMobileNumber] = useState(me.mobileNumber)
+  const [mobileNumber, setMobileNumber] = useState(myCurrentMobileNumber)
   const [email, setEmail] = useState(me.email || '')
+  const [mobileNumberDebounced] = useDebounce(mobileNumber, 500)
   const [validation, setValidation] = useState({ isValid: false })
+  const [numberExistance, setNumberExistance] = useState(null)
 
   const _setName = (e) => {
     setName(e.target.value.trimLeft())
@@ -63,7 +68,7 @@ const Component = props => {
 
     const validation = validator.validate({ name, email, mobileNumber })
     setValidation(validation)
-    return validation.isValid
+    return validation.isValid && numberExistance?.exists !== true
   }
 
   const save = () => {
@@ -75,6 +80,22 @@ const Component = props => {
   useEffect(() => {
     return () => _isMounted.current = false
   }, [])
+
+  useEffect(() => {
+    if(mobileNumberDebounced.length < 12) {
+      setNumberExistance(null)
+    } else {
+      if(mobileNumberDebounced !== myCurrentMobileNumber) {
+        const checker = new MobileNumberChecker(environment)
+        checker.checkExistance(mobileNumberDebounced, (data) => {
+          setNumberExistance(data)
+        })
+      } else {
+        setNumberExistance(null)
+      }
+    }
+  }, [mobileNumberDebounced, myCurrentMobileNumber, environment])
+
   return (
     <div>
       <div style={{
@@ -176,8 +197,8 @@ const Component = props => {
             onChange={_setMobileNumber}
             type="tel"
             placeholder="Ex: 082322343005"
-            error={validation?.mobileNumber?.isInvalid}
-            helperText={validation?.mobileNumber?.message}
+            error={numberExistance?.exists || validation?.mobileNumber?.isInvalid}
+            helperText={numberExistance?.exists ? 'This number has already been registered.' : validation?.mobileNumber?.message}
           />
 
           <TextField
