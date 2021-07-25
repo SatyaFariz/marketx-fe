@@ -7,24 +7,33 @@ import AccountTab from './AccountTab/AccountTab'
 import useAppContext from '../../hooks/useAppContext'
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
+import { useState, useEffect } from 'react'
 
 function App(props) {
   const { categories, featuredProducts, me } = props.data
-  const { queryParams } = useAppContext()
+  const { queryParams, pathname } = useAppContext()
   const tab = queryParams.tab ? parseInt(queryParams.tab) : 0
+  const [currentTab, setCurrentTab] = useState(tab)
+
+  useEffect(() => {
+    if(pathname === '/') {
+      setCurrentTab(tab)
+    }
+  }, [tab, pathname])
   return (
     <>
       {categories && featuredProducts &&
       <ExploreTab 
-        active={tab === 0} 
+        active={currentTab === 0} 
         categories={categories}
         featuredProducts={featuredProducts}
       />
       }
-      <RentedTab active={tab === 1}/>
-      <NotificationTab active={tab === 2}/>
+      <RentedTab active={currentTab === 1}/>
+      <NotificationTab active={currentTab === 2}/>
+      
       <AccountTab 
-        active={tab === 3}
+        active={currentTab === 3}
         me={me}
       />
       

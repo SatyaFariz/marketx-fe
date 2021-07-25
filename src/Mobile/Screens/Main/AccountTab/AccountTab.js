@@ -8,6 +8,7 @@ import Link from '../../../Components/Link'
 
 const Component = props => {
   const { active, me } = props
+  if(!me) return null
   return (
     <div style={{
       display: active ? undefined : 'none',
