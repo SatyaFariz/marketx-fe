@@ -45,7 +45,7 @@ const Component = props => {
         flexDirection: 'column'
       }}>
         <IoDocumentTextOutline size={24} color={'#FF385C'}/>
-        <span style={{ fontSize: 14 }}>Rented</span>
+        <span style={{ fontSize: 14 }}>Items</span>
       </Link>
 
       <Link
@@ -73,7 +73,7 @@ const Component = props => {
         flexDirection: 'column'
       }}>
         <IoPersonOutline size={24} color={'#FF385C'}/>
-        <span style={{ fontSize: 14 }}>Profile</span>
+        <span style={{ fontSize: 14 }}>Account</span>
       </Link>
     </div>
   )
