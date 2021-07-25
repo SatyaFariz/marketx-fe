@@ -23,7 +23,10 @@ function App(props) {
       }
       <RentedTab active={tab === 1}/>
       <NotificationTab active={tab === 2}/>
-      <ProfileTab active={tab === 3}/>
+      <ProfileTab 
+        active={tab === 3}
+        me={me}
+      />
       
       <BottomNav 
         me={me}
@@ -38,7 +41,8 @@ export default createFragmentContainer(App, {
     fragment MainScreen_data on Query {
       me {
         id,
-        ...BottomNav_me
+        ...BottomNav_me,
+        ...ProfileTab_me
       }
       categories {
         id,
