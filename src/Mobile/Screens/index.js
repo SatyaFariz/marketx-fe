@@ -6,6 +6,7 @@ import Category from './Category'
 import Merchant from './Merchant'
 import OTP from './OTP'
 import Register from './Register'
+import EditProfile from './EditProfile'
 
 const screens = [
   Main,
@@ -15,7 +16,8 @@ const screens = [
   Category,
   Merchant,
   OTP,
-  Register
+  Register,
+  EditProfile
 ]
 
 export default screens
