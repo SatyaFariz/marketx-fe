@@ -7,7 +7,8 @@ const chunk = {
   query: graphql`
     query EditProfileQuery {
       me {
-        id
+        id,
+        ...EditProfileScreen_me
       }
     }
   `,
@@ -19,6 +20,7 @@ const chunk = {
       component: (
         <FixedAddressBar>
           <EditProfileScreen
+            me={data.me}
           />
         </FixedAddressBar>
         

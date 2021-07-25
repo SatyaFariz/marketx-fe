@@ -4,13 +4,41 @@ import { Button, TextField } from '@material-ui/core'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
 import OTPView from '../../Components/OTPView'
+import { createFragmentContainer } from 'react-relay'
+import graphql from 'babel-plugin-relay/macro'
+import { useState, useEffect, useRef } from 'react'
 
 const Component = props => {
+  const _isMounted = useRef(true)
+  const { me } = props
   const { history, queryParams } = useAppContext()
+  const [name, setName] = useState(me.name)
+  const [mobileNumber, setMobileNumber] = useState(me.mobileNumber)
+  const [email, setEmail] = useState(me.email || '')
+
+  const _setName = (e) => {
+    setName(e.target.value.trimLeft())
+  }
+
+  const _setMobileNumber = (e) => {
+    const allowedChars = '1234567890'
+    const { value } = e.target
+    if(value.length && !value.startsWith('0')) return
+    if(value.length && !allowedChars.includes(value[value.length - 1])) return
+    setMobileNumber(value)
+  }
+
+  const _setEmail = (e) => {
+    setEmail(e.target.value.trim())
+  }
 
   const showOTPModal = () => {
     history.push(`/profile?mobileNumber=${'082322343005'}`)
   }
+
+  useEffect(() => {
+    return () => _isMounted.current = false
+  }, [])
   return (
     <div>
       <div style={{
@@ -95,6 +123,8 @@ const Component = props => {
             style={{
               marginBottom: 25
             }}
+            value={name}
+            onChange={_setName}
           />
 
           <TextField
@@ -104,6 +134,10 @@ const Component = props => {
             style={{
               marginBottom: 25
             }}
+            value={mobileNumber}
+            onChange={_setMobileNumber}
+            type="tel"
+            placeholder="Ex: 082322343005"
           />
 
           <TextField
@@ -113,6 +147,9 @@ const Component = props => {
             style={{
               marginBottom: 25
             }}
+            value={email}
+            onChange={_setEmail}
+            type="email"
           />
 
           <Button
@@ -147,4 +184,15 @@ const Component = props => {
   )
 }
 
-export default Component
+export default createFragmentContainer(Component, {
+  me: graphql`
+    fragment EditProfileScreen_me on User {
+      id,
+      name,
+      mobileNumber,
+      profilePicture {
+        url
+      }
+    }
+  `
+})
