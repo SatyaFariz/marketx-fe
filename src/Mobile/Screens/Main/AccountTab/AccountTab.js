@@ -75,6 +75,52 @@ const Component = props => {
             </div>
           </Link>
         </div>
+
+        <div style={{
+          padding: '10px 15px'
+        }}>
+          <div style={{
+            padding: '15px 0',
+            borderBottom: `1px solid ${DIVIDER_COLOR}`
+          }}>
+            <span>About Us</span>
+          </div>
+
+          <div style={{
+            padding: '15px 0',
+            borderBottom: `1px solid ${DIVIDER_COLOR}`
+          }}>
+            <span>Terms of Service</span>
+          </div>
+
+          <div style={{
+            padding: '15px 0',
+            borderBottom: `1px solid ${DIVIDER_COLOR}`
+          }}>
+            <span>Privacy Policy</span>
+          </div>
+
+          <div style={{
+            padding: '15px 0',
+            borderBottom: `1px solid ${DIVIDER_COLOR}`
+          }}>
+            <span>Frequently Asked Questions</span>
+          </div>
+
+          <div style={{
+            padding: '15px 0',
+            borderBottom: `1px solid ${DIVIDER_COLOR}`
+          }}>
+            <span>My Rental History</span>
+          </div>
+
+          <div style={{
+            padding: '10px 0',
+            borderBottom: `1px solid ${DIVIDER_COLOR}`
+          }}>
+            <span>Become a Merchant</span>
+          </div>
+        </div>
       </div>
     </div>
   )
