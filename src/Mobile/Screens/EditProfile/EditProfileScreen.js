@@ -3,7 +3,7 @@ import Color from '../../Constants/Color'
 import { Button, TextField } from '@material-ui/core'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
-import OTPScreen from '../OTP/OTPScreen'
+import OTPView from '../../Components/OTPView'
 
 const Component = props => {
   const { history, queryParams } = useAppContext()
@@ -136,7 +136,11 @@ const Component = props => {
         width: '100%',
         height: '100%'
       }}>
-        <OTPScreen/>
+        <OTPView
+          onSubmit={() => alert('Aduh')}
+          loading={false}
+          mobileNumber={queryParams.mobileNumber}
+        />
       </div>
       }
     </div>
