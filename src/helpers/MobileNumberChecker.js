@@ -38,11 +38,13 @@ class MobileNumberChecker {
             mobileNumber: this.waitingFor,
             exists
           })
-
-        this.setCache(mobileNumber, {
-          mobileNumber,
-          exists
-        })
+        
+        if(exists) {
+          this.setCache(mobileNumber, {
+            mobileNumber,
+            exists
+          })
+        }
       })
     }
   }
