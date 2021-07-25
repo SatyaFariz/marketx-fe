@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Jul 25 2021 22:50:38 GMT+0700 (Western Indonesia Time)
+# timestamp: Mon Jul 26 2021 01:43:50 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -104,7 +104,7 @@ type ProductEdge {
 }
 
 type Query {
-  test: ID
+  mobileNumberExists(mobileNumber: String!): Boolean
   me: User
   attributes: [Attribute]
   categories: [Category]
