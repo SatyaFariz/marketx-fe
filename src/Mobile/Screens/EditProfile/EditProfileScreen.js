@@ -3,9 +3,14 @@ import Color from '../../Constants/Color'
 import { Button, TextField } from '@material-ui/core'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
+import OTPScreen from '../OTP/OTPScreen'
 
 const Component = props => {
-  const { history } = useAppContext()
+  const { history, queryParams } = useAppContext()
+
+  const showOTPModal = () => {
+    history.push(`/profile?mobileNumber=${'082322343005'}`)
+  }
   return (
     <div>
       <div style={{
@@ -115,11 +120,25 @@ const Component = props => {
             variant="contained"
             fullWidth
             style={{ textTransform: 'none' }}
+            onClick={showOTPModal}
           >
             Save
           </Button>
         </div>
       </div>
+
+      {queryParams.mobileNumber &&
+      <div style={{
+        position: 'absolute',
+        backgroundColor: 'white',
+        left: 0,
+        top: 0,
+        width: '100%',
+        height: '100%'
+      }}>
+        <OTPScreen/>
+      </div>
+      }
     </div>
   )
 }
