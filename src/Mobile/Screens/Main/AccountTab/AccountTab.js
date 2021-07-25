@@ -116,10 +116,17 @@ const Component = props => {
           </div>
 
           <div style={{
-            padding: '10px 0',
+            padding: '15px 0',
             borderBottom: `1px solid ${DIVIDER_COLOR}`
           }}>
             <span>Become a Merchant</span>
+          </div>
+
+          <div style={{
+            padding: '15px 0',
+            borderBottom: `1px solid ${DIVIDER_COLOR}`
+          }}>
+            <span>Login Using Email</span>
           </div>
         </div>
       </div>
