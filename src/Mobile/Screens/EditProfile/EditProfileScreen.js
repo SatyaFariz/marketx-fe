@@ -7,6 +7,8 @@ import OTPView from '../../Components/OTPView'
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 import { useState, useEffect, useRef } from 'react'
+import Validator from '../../../helpers/validator'
+import { isEmail } from 'validator'
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -15,6 +17,7 @@ const Component = props => {
   const [name, setName] = useState(me.name)
   const [mobileNumber, setMobileNumber] = useState(me.mobileNumber)
   const [email, setEmail] = useState(me.email || '')
+  const [validation, setValidation] = useState({ isValid: false })
 
   const _setName = (e) => {
     setName(e.target.value.trimLeft())
@@ -34,6 +37,39 @@ const Component = props => {
 
   const showOTPModal = () => {
     history.push(`/profile?mobileNumber=${'082322343005'}`)
+  }
+
+  const isValid = () => {
+    const validator = new Validator([
+      {
+        field: 'name',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'Fill in your name.'
+      },
+      {
+        field: 'mobileNumber',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'Fill in your mobile number.'
+      },
+      ...(email.length > 0 ? [{
+        field: 'email',
+        method: isEmail,
+        validWhen: true,
+        message: 'Email is not valid.'
+      }] : [])
+    ])
+
+    const validation = validator.validate({ name, email, mobileNumber })
+    setValidation(validation)
+    return validation.isValid
+  }
+
+  const save = () => {
+    if(isValid()) {
+
+    }
   }
 
   useEffect(() => {
@@ -125,6 +161,8 @@ const Component = props => {
             }}
             value={name}
             onChange={_setName}
+            error={validation?.name?.isInvalid}
+            helperText={validation?.name?.message}
           />
 
           <TextField
@@ -138,6 +176,8 @@ const Component = props => {
             onChange={_setMobileNumber}
             type="tel"
             placeholder="Ex: 082322343005"
+            error={validation?.mobileNumber?.isInvalid}
+            helperText={validation?.mobileNumber?.message}
           />
 
           <TextField
@@ -150,6 +190,8 @@ const Component = props => {
             value={email}
             onChange={_setEmail}
             type="email"
+            error={validation?.email?.isInvalid}
+            helperText={validation?.email?.message}
           />
 
           <Button
@@ -157,7 +199,7 @@ const Component = props => {
             variant="contained"
             fullWidth
             style={{ textTransform: 'none' }}
-            onClick={showOTPModal}
+            onClick={save}
           >
             Save
           </Button>
