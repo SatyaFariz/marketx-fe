@@ -5,6 +5,7 @@ import useAppContext from '../../hooks/useAppContext'
 import SendOtpCode from '../../../mutations/SendOtpCode'
 import Link from '../../Components/Link'
 import Color from '../../Constants/Color'
+import OTPView from '../../Components/OTPView'
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -13,19 +14,19 @@ const Component = props => {
   const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
-    const allowedChars = '1234567890'
-    const { value } = e.target
-    if(value.length && !value.startsWith('0')) return
-    if(value.length && !allowedChars.includes(value[value.length - 1])) return
-    setPhoneNumber(value)
+    if(!loading) {
+      const allowedChars = '1234567890'
+      const { value } = e.target
+      if(value.length && !value.startsWith('0')) return
+      if(value.length && !allowedChars.includes(value[value.length - 1])) return
+      setPhoneNumber(value)
+    }
   }
 
   const proceed = () => {
-    const number = mobileNumber
-    if(number.length > 0 && !loading) {
+    if(mobileNumber.length > 0 && !loading) {
       setLoading(true)
-      history.replace(`/login?mobileNumber=${number}`)
-      SendOtpCode(environment, { mobileNumber: number, action: 'login' }, (payload, error) => {
+      SendOtpCode(environment, { mobileNumber, action: 'login' }, (payload, error) => {
         if(error) {
           console.log(error)
         } else if(payload) {
@@ -33,7 +34,7 @@ const Component = props => {
           if(hasError) {
             alert(message)
           } else {
-            history.push(`/otp?mobileNumber=${number}`)
+            history.push(`/login?otp=1`)
           }
         }
 
@@ -47,66 +48,87 @@ const Component = props => {
   }, [])
 
   return (
-    <div style={{
-      paddingTop: 20,
-      paddingBottom: 20,
-      paddingLeft: 30,
-      paddingRight: 30
-    }}>
-      <img
-        alt="twitter"
-        src={LOGO_URL}
-        style={{
-          height: 38,
-          width: 38
-        }}
-      />
-
-      <h1 style={{
-        marginTop: 30,
-        marginBottom: 10
-      }}>Log in to RentX</h1>
-
-      <TextField
-        variant="outlined"
-        label="Mobile Number"
-        fullWidth
-        style={{
-          marginTop: 10,
-          marginBottom: 10
-        }}
-        onChange={handleChange}
-        value={mobileNumber}
-        placeholder="Ex: 082322343005"
-        type="tel"
-      />
-
-      <Button
-        variant="contained"
-        style={{
-          marginTop: 10,
-          marginBottom: 10,
-          textTransform: 'none',
-          height: 44
-        }}
-        disableElevation
-        fullWidth
-        onClick={proceed}
-      >
-        Log in
-      </Button>
-
+    <div>
       <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 20
+        paddingTop: 20,
+        paddingBottom: 20,
+        paddingLeft: 30,
+        paddingRight: 30
       }}>
-        <Link href='/register' style={{ color: Color.link }}>
-          <span>Create a new account</span>
-        </Link>
+        <img
+          alt="twitter"
+          src={LOGO_URL}
+          style={{
+            height: 38,
+            width: 38
+          }}
+        />
+
+        <h1 style={{
+          marginTop: 30,
+          marginBottom: 10
+        }}>Log in to RentX</h1>
+
+        <TextField
+          variant="outlined"
+          label="Mobile Number"
+          fullWidth
+          style={{
+            marginTop: 10,
+            marginBottom: 10
+          }}
+          onChange={handleChange}
+          value={mobileNumber}
+          placeholder="Ex: 082322343005"
+          type="tel"
+        />
+
+        <Button
+          variant="contained"
+          style={{
+            marginTop: 10,
+            marginBottom: 10,
+            textTransform: 'none',
+            height: 44
+          }}
+          disableElevation
+          fullWidth
+          onClick={proceed}
+          disabled={mobileNumber.length < 12}
+        >
+          Log in
+        </Button>
+
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 20
+        }}>
+          <Link href='/register' style={{ color: Color.link }}>
+            <span>Create a new account</span>
+          </Link>
+        </div>
+        
       </div>
-      
+
+      {queryParams.otp === '1' &&
+      <div style={{
+        position: 'absolute',
+        backgroundColor: 'white',
+        left: 0,
+        top: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 999
+      }}>
+        <OTPView
+          onSubmit={() => alert('Aduh')}
+          loading={false}
+          mobileNumber={mobileNumber}
+        />
+      </div>
+      }
     </div>
   )
 }
