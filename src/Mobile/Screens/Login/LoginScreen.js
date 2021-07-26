@@ -134,7 +134,7 @@ const Component = props => {
         
       </div>
 
-      {queryParams.otp === '1' &&
+      {mobileNumber.length > 0 && queryParams.otp === '1' &&
       <div style={{
         position: 'absolute',
         backgroundColor: 'white',
