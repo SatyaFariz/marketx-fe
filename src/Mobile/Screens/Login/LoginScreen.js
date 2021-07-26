@@ -25,7 +25,7 @@ const Component = props => {
     if(number.length > 0 && !loading) {
       setLoading(true)
       history.replace(`/login?mobileNumber=${number}`)
-      SendOtpCode(environment, { mobileNumber: number }, (payload, error) => {
+      SendOtpCode(environment, { mobileNumber: number, action: 'login' }, (payload, error) => {
         if(error) {
           console.log(error)
         } else if(payload) {
