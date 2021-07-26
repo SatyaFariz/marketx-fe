@@ -6,10 +6,11 @@ import SendOtpCode from '../../../mutations/SendOtpCode'
 import Link from '../../Components/Link'
 import Color from '../../Constants/Color'
 import OTPView from '../../Components/OTPView'
+import Login from '../../../mutations/Login'
 
 const Component = props => {
   const _isMounted = useRef(true)
-  const { history, queryParams, environment } = useAppContext()
+  const { history, queryParams, environment, resetEnvironment } = useAppContext()
   const [mobileNumber, setPhoneNumber] = useState(queryParams?.mobileNumber || '')
   const [loading, setLoading] = useState(false)
 
@@ -35,6 +36,27 @@ const Component = props => {
             alert(message)
           } else {
             history.push(`/login?otp=1`)
+          }
+        }
+
+        _isMounted.current && setLoading(false)
+      })
+    }
+  }
+
+  const login = (code) => {
+    if(!loading) {
+      setLoading(true)
+      Login(environment, { loginId: mobileNumber, password: code }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            // do sth
+            history.push('/')
+            resetEnvironment()
           }
         }
 
@@ -123,7 +145,7 @@ const Component = props => {
         zIndex: 999
       }}>
         <OTPView
-          onSubmit={() => alert('Aduh')}
+          onSubmit={login}
           loading={false}
           mobileNumber={mobileNumber}
         />

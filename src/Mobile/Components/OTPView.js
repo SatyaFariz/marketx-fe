@@ -33,7 +33,7 @@ const Component = props => {
 
   useEffect(() => {
     if(code.length === codeLen) {
-      onSubmit()
+      onSubmit(code)
     }
   }, [code])
 
