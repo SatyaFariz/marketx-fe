@@ -16,6 +16,7 @@ const keys = [
 const codeLen = 4
 
 const Component = props => {
+  const { expiry } = props
   const _isMounted = useRef(true)
   const { history } = useAppContext()
   const { mobileNumber, loading, onSubmit } = props
@@ -43,6 +44,10 @@ const Component = props => {
   useEffect(() => {
     return () => _isMounted.current = false
   }, [])
+
+  useEffect(() => {
+    setExpired(false)
+  }, [expiry])
 
   return (
     <div>
@@ -135,8 +140,8 @@ const Component = props => {
                 display: 'block',
               }}>Your code will expire in</span>
               <Countdown
-                key={props.date}
-                date={new Date(props.date)}
+                key={expiry}
+                date={expiry}
                 onComplete={() => setExpired(true)}
                 renderer={({ minutes, seconds }) => {
                   return (

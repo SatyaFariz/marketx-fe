@@ -150,7 +150,7 @@ const Component = props => {
       }}>
         <OTPView
           onSubmit={login}
-          date={expiry}
+          expiry={expiry}
           loading={false}
           mobileNumber={mobileNumber}
           resend={sendOtpCode}
