@@ -3,6 +3,8 @@ import { HEADER_HEIGHT } from '../Constants'
 import Color from '../Constants/Color'
 import useAppContext from '../hooks/useAppContext'
 import { useState, useEffect, useRef } from 'react'
+import Countdown from 'react-countdown'
+import { Button } from '@material-ui/core'
 
 const keys = [
   1, 2, 3,
@@ -18,6 +20,7 @@ const Component = props => {
   const { history } = useAppContext()
   const { mobileNumber, loading, onSubmit } = props
   const [code, setCode] = useState('')
+  const [expired, setExpired] = useState(false)
 
   const enterKey = key => {
     if(!loading) {
@@ -47,7 +50,8 @@ const Component = props => {
         height: HEADER_HEIGHT,
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'space-between'
       }}>
         <div 
         onClick={() => history.goBack()}
@@ -57,6 +61,17 @@ const Component = props => {
         }}>
           <IoChevronBackSharp size={32}/>
         </div>
+        <Button
+          variant="contained"
+          disableElevation
+          style={{
+            textTransform: 'none',
+            marginRight: 15
+          }}
+          onClick={props.resend}
+        >
+          Resend
+        </Button>
       </div>
       
       <div style={{
@@ -90,6 +105,47 @@ const Component = props => {
               </div>
             )
           })}
+        </div>
+
+        <div style={{ 
+          marginTop: 40,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          {expired ?
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column'
+            }}>
+              <span style={{
+                display: 'block'
+              }}>Your code has already expired.</span>
+            </div>
+            :
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column'
+            }}>
+              <span style={{
+                display: 'block',
+              }}>Your code will expire in</span>
+              <Countdown
+                key={props.date}
+                date={new Date(props.date)}
+                onComplete={() => setExpired(true)}
+                renderer={({ minutes, seconds }) => {
+                  return (
+                    <span style={{ marginTop: 5, color: minutes < 1 ? 'red' : 'black' }}>{` ${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}</span>
+                  )
+                }}
+              />
+            </div>
+          }
         </div>
       </div>
       

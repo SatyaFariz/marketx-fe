@@ -13,6 +13,8 @@ const Component = props => {
   const { history, queryParams, environment, resetEnvironment } = useAppContext()
   const [mobileNumber, setPhoneNumber] = useState(queryParams?.mobileNumber || '')
   const [loading, setLoading] = useState(false)
+  const [sendingCode, setSendingCode] = useState(false)
+  const [expiry, setExpiry] = useState(null)
 
   const handleChange = (e) => {
     if(!loading) {
@@ -25,8 +27,8 @@ const Component = props => {
   }
 
   const sendOtpCode = () => {
-    if(mobileNumber.length > 0 && !loading) {
-      setLoading(true)
+    if(mobileNumber.length > 0 && !sendingCode) {
+      setSendingCode(true)
       SendOtpCode(environment, { mobileNumber, action: 'login' }, (payload, error) => {
         if(error) {
           console.log(error)
@@ -35,11 +37,13 @@ const Component = props => {
           if(hasError) {
             alert(message)
           } else {
+            const { expiry } = payload
+            setExpiry(expiry)
             history.push(`/login?otp=1`)
           }
         }
 
-        _isMounted.current && setLoading(false)
+        _isMounted.current && setSendingCode(false)
       })
     }
   }
@@ -134,7 +138,7 @@ const Component = props => {
         
       </div>
 
-      {mobileNumber.length > 0 && queryParams.otp === '1' &&
+      {queryParams.otp === '1' &&
       <div style={{
         position: 'absolute',
         backgroundColor: 'white',
@@ -146,9 +150,11 @@ const Component = props => {
       }}>
         <OTPView
           onSubmit={login}
+          date={expiry}
           loading={false}
           mobileNumber={mobileNumber}
           resend={sendOtpCode}
+          sending={sendingCode}
         />
       </div>
       }

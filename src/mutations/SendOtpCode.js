@@ -7,7 +7,8 @@ const mutation = graphql`
       actionInfo {
         hasError,
         message
-      }
+      },
+      expiry
     }
   }
 `

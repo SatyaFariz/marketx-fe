@@ -18,7 +18,8 @@ export type SendOtpCodeMutationResponse = {|
     +actionInfo: ?{|
       +hasError: ?boolean,
       +message: ?string,
-    |}
+    |},
+    +expiry: ?string,
   |}
 |};
 export type SendOtpCodeMutation = {|
@@ -38,6 +39,7 @@ mutation SendOtpCodeMutation(
       hasError
       message
     }
+    expiry
   }
 }
 */
@@ -97,6 +99,13 @@ v2 = [
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "expiry",
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -126,16 +135,16 @@ return {
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "8d3daea9669e418b3cc3a84f8ca10d60",
+    "cacheID": "a5d53f209656b5f3ebcffec698278b7b",
     "id": null,
     "metadata": {},
     "name": "SendOtpCodeMutation",
     "operationKind": "mutation",
-    "text": "mutation SendOtpCodeMutation(\n  $mobileNumber: String!\n  $action: UserActionEnum\n) {\n  sendOtpCode(mobileNumber: $mobileNumber, action: $action) {\n    actionInfo {\n      hasError\n      message\n    }\n  }\n}\n"
+    "text": "mutation SendOtpCodeMutation(\n  $mobileNumber: String!\n  $action: UserActionEnum\n) {\n  sendOtpCode(mobileNumber: $mobileNumber, action: $action) {\n    actionInfo {\n      hasError\n      message\n    }\n    expiry\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c945ce61df7ac837357a11ae2498adac';
+(node/*: any*/).hash = 'cce87c17a5f828cd08631e770e09c070';
 
 module.exports = node;

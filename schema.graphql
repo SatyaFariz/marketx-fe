@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Mon Jul 26 2021 01:43:50 GMT+0700 (Western Indonesia Time)
+# timestamp: Tue Jul 27 2021 00:15:10 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -124,6 +124,8 @@ input RecipeInput {
 
 type SendOtpPayload {
   actionInfo: ActionInfo
+  cooldownExpiry: String
+  expiry: String
 }
 
 type Specification {
