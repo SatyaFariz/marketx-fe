@@ -39,7 +39,8 @@ const Component = props => {
           } else {
             const { expiry } = payload
             setExpiry(expiry)
-            history.push(`/login?otp=1`)
+            if(!queryParams.otp)
+              history.push(`/login?otp=1`)
           }
         }
 
