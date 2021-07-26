@@ -24,7 +24,7 @@ const Component = props => {
     }
   }
 
-  const proceed = () => {
+  const sendOtpCode = () => {
     if(mobileNumber.length > 0 && !loading) {
       setLoading(true)
       SendOtpCode(environment, { mobileNumber, action: 'login' }, (payload, error) => {
@@ -115,7 +115,7 @@ const Component = props => {
           }}
           disableElevation
           fullWidth
-          onClick={proceed}
+          onClick={sendOtpCode}
           disabled={mobileNumber.length < 12}
         >
           Log in
@@ -148,6 +148,7 @@ const Component = props => {
           onSubmit={login}
           loading={false}
           mobileNumber={mobileNumber}
+          resend={sendOtpCode}
         />
       </div>
       }
