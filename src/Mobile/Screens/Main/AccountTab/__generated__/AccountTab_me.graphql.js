@@ -18,6 +18,9 @@ export type AccountTab_me = {|
   +profilePicture: ?{|
     +url: ?string
   |},
+  +store: ?{|
+    +id: ?string
+  |},
   +$refType: AccountTab_me$ref,
 |};
 export type AccountTab_me$data = AccountTab_me;
@@ -29,19 +32,21 @@ export type AccountTab_me$key = {
 */
 
 
-const node/*: ReaderFragment*/ = {
+const node/*: ReaderFragment*/ = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "AccountTab_me",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "id",
-      "storageKey": null
-    },
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -73,12 +78,25 @@ const node/*: ReaderFragment*/ = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Store",
+      "kind": "LinkedField",
+      "name": "store",
+      "plural": false,
+      "selections": [
+        (v0/*: any*/)
+      ],
+      "storageKey": null
     }
   ],
   "type": "User",
   "abstractKey": null
 };
+})();
 // prettier-ignore
-(node/*: any*/).hash = '2d7da709cc8e3b37a80b653f1cbc7d9c';
+(node/*: any*/).hash = 'f73818033de72fc6c377a86265387440';
 
 module.exports = node;

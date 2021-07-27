@@ -115,7 +115,7 @@ const Component = props => {
             <span>My Rental History</span>
           </div>
 
-          <Link href='/store/new'>
+          <Link href={me.store ? '/store' : '/store/new'}>
             <div style={{
               padding: '15px 0',
               borderBottom: `1px solid ${DIVIDER_COLOR}`
@@ -144,6 +144,9 @@ export default createFragmentContainer(Component, {
       mobileNumber,
       profilePicture {
         url
+      },
+      store {
+        id
       }
     }
   `
