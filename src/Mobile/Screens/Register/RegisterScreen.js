@@ -8,6 +8,7 @@ import Color from '../../Constants/Color'
 import Validator from '../../../helpers/validator'
 import MobileNumberChecker from '../../../helpers/MobileNumberChecker'
 import { useDebounce } from 'use-debounce'
+import OTPView from '../../Components/OTPView'
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -18,6 +19,8 @@ const Component = props => {
   const [mobileNumberDebounced] = useDebounce(mobileNumber, 500)
   const [validation, setValidation] = useState({ isValid: false })
   const [numberExistance, setNumberExistance] = useState(null)
+  const [sendingCode, setSendingCode] = useState(false)
+  const [expiry, setExpiry] = useState(null)
 
   const handleChange = (e) => {
     const allowedChars = '1234567890'
@@ -53,13 +56,10 @@ const Component = props => {
     return validation.isValid && numberExistance?.exists !== true
   }
 
-  const proceed = () => {
+  const sendOtpCode = () => {
     if(isValid() > 0 && !loading) {
-      const number = mobileNumber
-      const fullname = name
       setLoading(true)
-      history.replace(`/register?mobileNumber=${number}&name=${fullname}`)
-      SendOtpCode(environment, { mobileNumber: number, action: 'register' }, (payload, error) => {
+      SendOtpCode(environment, { mobileNumber, action: 'register' }, (payload, error) => {
         if(error) {
           console.log(error)
         } else if(payload) {
@@ -67,13 +67,20 @@ const Component = props => {
           if(hasError) {
             alert(message)
           } else {
-            history.push(`/otp?mobileNumber=${number}&name=${fullname}`)
+            const { expiry } = payload
+            setExpiry(expiry)
+            if(!queryParams.otp)
+              history.push(`/register?otp=1`)
           }
         }
 
         _isMounted.current && setLoading(false)
       })
     }
+  }
+
+  const register = () => {
+    
   }
 
   useEffect(() => {
@@ -92,71 +99,94 @@ const Component = props => {
   }, [mobileNumberDebounced, environment])
 
   return (
-    <div style={{
-      paddingTop: 20,
-      paddingBottom: 20,
-      paddingLeft: 30,
-      paddingRight: 30
-    }}>
-      <img
-        alt="twitter"
-        src={LOGO_URL}
-        style={{
-          height: 38,
-          width: 38
-        }}
-      />
+    <div>
+      <div style={{
+        paddingTop: 20,
+        paddingBottom: 20,
+        paddingLeft: 30,
+        paddingRight: 30
+      }}>
+        <img
+          alt="twitter"
+          src={LOGO_URL}
+          style={{
+            height: 38,
+            width: 38
+          }}
+        />
 
-      <h1 style={{
-        marginTop: 30,
-        marginBottom: 10
-      }}>Create a new account</h1>
-
-      <TextField
-        variant="outlined"
-        label="Full Name"
-        fullWidth
-        style={{
-          marginTop: 10,
+        <h1 style={{
+          marginTop: 30,
           marginBottom: 10
-        }}
-        onChange={setFullname}
-        value={name}
-        error={validation?.name?.isInvalid}
-        helperText={validation?.name?.message}
-      />
+        }}>Create a new account</h1>
 
-      <TextField
-        variant="outlined"
-        label="Mobile Number"
-        fullWidth
-        style={{
-          marginTop: 10,
-          marginBottom: 10
-        }}
-        onChange={handleChange}
-        value={mobileNumber}
-        placeholder="Ex: 082322343005"
-        type="tel"
-        error={numberExistance?.exists || validation?.mobileNumber?.isInvalid}
-        helperText={numberExistance?.exists ? 'This number has already been registered.' : validation?.mobileNumber?.message}
-      />
+        <TextField
+          variant="outlined"
+          label="Full Name"
+          fullWidth
+          style={{
+            marginTop: 10,
+            marginBottom: 10
+          }}
+          onChange={setFullname}
+          value={name}
+          error={validation?.name?.isInvalid}
+          helperText={validation?.name?.message}
+        />
 
-      <Button
-        variant="contained"
-        style={{
-          marginTop: 10,
-          marginBottom: 10,
-          textTransform: 'none',
-          height: 44
-        }}
-        disableElevation
-        fullWidth
-        onClick={proceed}
-      >
-        Create Account
-      </Button>
-      
+        <TextField
+          variant="outlined"
+          label="Mobile Number"
+          fullWidth
+          style={{
+            marginTop: 10,
+            marginBottom: 10
+          }}
+          onChange={handleChange}
+          value={mobileNumber}
+          placeholder="Ex: 082322343005"
+          type="tel"
+          error={numberExistance?.exists || validation?.mobileNumber?.isInvalid}
+          helperText={numberExistance?.exists ? 'This number has already been registered.' : validation?.mobileNumber?.message}
+        />
+
+        <Button
+          variant="contained"
+          style={{
+            marginTop: 10,
+            marginBottom: 10,
+            textTransform: 'none',
+            height: 44
+          }}
+          disableElevation
+          fullWidth
+          onClick={sendOtpCode}
+        >
+          Create Account
+        </Button>
+        
+      </div>
+
+      {queryParams.otp === '1' &&
+      <div style={{
+        position: 'absolute',
+        backgroundColor: 'white',
+        left: 0,
+        top: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 999
+      }}>
+        <OTPView
+          onSubmit={register}
+          expiry={expiry}
+          loading={false}
+          mobileNumber={mobileNumber}
+          resend={sendOtpCode}
+          sending={sendingCode}
+        />
+      </div>
+      }
     </div>
   )
 }
