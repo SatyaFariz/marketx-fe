@@ -5,6 +5,7 @@ import useAppContext from '../../hooks/useAppContext'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import OTPView from '../../Components/OTPView'
 import SendOtpCode from '../../../mutations/SendOtpCode'
+import CreateStore from '../../../mutations/CreateStore'
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -53,7 +54,23 @@ const Component = props => {
   }
 
   const createStore = () => {
+    if(!loading) {
+      setLoading(true)
+      CreateStore(environment, { name: storeName, whatsappNumber }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            const { id } = payload.store
+            history.replace(`/store/${id}`)
+          }
+        }
 
+        _isMounted.current && setLoading(false)
+      })
+    }
   }
 
   useEffect(() => {
