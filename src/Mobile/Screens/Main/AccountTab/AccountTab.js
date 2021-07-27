@@ -115,12 +115,14 @@ const Component = props => {
             <span>My Rental History</span>
           </div>
 
-          <div style={{
-            padding: '15px 0',
-            borderBottom: `1px solid ${DIVIDER_COLOR}`
-          }}>
-            <span>Become a Merchant</span>
-          </div>
+          <Link href='/store/new'>
+            <div style={{
+              padding: '15px 0',
+              borderBottom: `1px solid ${DIVIDER_COLOR}`
+            }}>
+              <span>Become a Merchant</span>
+            </div>
+          </Link>
 
           <div style={{
             padding: '15px 0',
