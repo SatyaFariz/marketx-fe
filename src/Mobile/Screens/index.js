@@ -8,6 +8,7 @@ import OTP from './OTP'
 import Register from './Register'
 import EditProfile from './EditProfile'
 import CreateStore from './CreateStore'
+import Store from './Store'
 
 const screens = [
   Main,
@@ -19,7 +20,8 @@ const screens = [
   OTP,
   Register,
   EditProfile,
-  CreateStore
+  CreateStore,
+  Store
 ]
 
 export default screens
