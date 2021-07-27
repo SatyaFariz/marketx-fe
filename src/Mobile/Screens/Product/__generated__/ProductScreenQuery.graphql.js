@@ -72,6 +72,11 @@ fragment ProductScreen_product on Product {
       url
     }
   }
+  store {
+    id
+    name
+    whatsappLink
+  }
 }
 */
 
@@ -278,6 +283,26 @@ return {
               }
             ],
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Store",
+            "kind": "LinkedField",
+            "name": "store",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "whatsappLink",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -285,12 +310,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "58cf044e2d86784fff7d0c0596cc491a",
+    "cacheID": "b701e89b71d5eacaa6eb8f918385ea16",
     "id": null,
     "metadata": {},
     "name": "ProductScreenQuery",
     "operationKind": "query",
-    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n  }\n  merchant {\n    id\n    name\n    profilePicture {\n      id\n      url\n    }\n  }\n}\n"
+    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n  }\n  merchant {\n    id\n    name\n    profilePicture {\n      id\n      url\n    }\n  }\n  store {\n    id\n    name\n    whatsappLink\n  }\n}\n"
   }
 };
 })();

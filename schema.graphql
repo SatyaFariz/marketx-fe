@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Wed Jul 28 2021 01:37:23 GMT+0700 (Western Indonesia Time)
+# timestamp: Wed Jul 28 2021 02:45:36 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -85,6 +85,7 @@ type Product {
   rentalPeriodUnit: Unit
   category: Category
   merchant: User
+  store: Store
   isPublished: Boolean
   stock: Int
   images: [Image]
@@ -144,6 +145,7 @@ type Store {
   id: ID
   name: String
   whatsappNumber: String
+  whatsappLink: String
 }
 
 type Subscription {

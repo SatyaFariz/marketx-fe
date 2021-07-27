@@ -47,6 +47,11 @@ export type ProductScreen_product = {|
       +url: ?string,
     |},
   |},
+  +store: ?{|
+    +id: ?string,
+    +name: ?string,
+    +whatsappLink: ?string,
+  |},
   +$refType: ProductScreen_product$ref,
 |};
 export type ProductScreen_product$data = ProductScreen_product;
@@ -210,6 +215,26 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Store",
+      "kind": "LinkedField",
+      "name": "store",
+      "plural": false,
+      "selections": [
+        (v0/*: any*/),
+        (v1/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "whatsappLink",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Product",
@@ -217,6 +242,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'd6a11c7cce8e434736c726c86040fcb1';
+(node/*: any*/).hash = '2dd6891f79169e162159d35a09cca067';
 
 module.exports = node;

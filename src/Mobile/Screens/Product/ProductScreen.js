@@ -298,7 +298,11 @@ const Component = props => {
             }}>{formatCurrency(product.price)}</span>
           </div>
 
-          <Button variant="contained" disableElevation>
+          <Button 
+            variant="contained" 
+            disableElevation
+            onClick={() => window.open(product.store.whatsappLink)}
+          >
             Rent
           </Button>
         </div>
@@ -344,6 +348,11 @@ export default createFragmentContainer(Component, {
           id,
           url
         }
+      },
+      store {
+        id,
+        name,
+        whatsappLink
       }
     }
   `
