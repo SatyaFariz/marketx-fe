@@ -9,7 +9,6 @@ const Component = props => {
   const { history } = useAppContext()
   return (
     <div style={{
-      backgroundColor: 'pink',
       height: '100%'
     }}>
       <div style={{
