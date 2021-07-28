@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Wed Jul 28 2021 02:45:36 GMT+0700 (Western Indonesia Time)
+# timestamp: Wed Jul 28 2021 23:56:56 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -14,6 +14,12 @@ type ActionOnStorePayload {
 type ActionOnUserPayload {
   actionInfo: ActionInfo
   user: User
+}
+
+input AddressInput {
+  fullAddress: String!
+  lat: Int!
+  lng: Int!
 }
 
 type Attribute {
@@ -60,6 +66,7 @@ type Mutation {
   logout: ActionInfo
   updateProfile(input: RecipeInput!): ActionOnUserPayload
   createStore(name: String!, whatsappNumber: String!): ActionOnStorePayload
+  updateStoreAddress(id: String!, address: AddressInput!): ActionOnStorePayload
 }
 
 """Information about pagination in a connection."""
