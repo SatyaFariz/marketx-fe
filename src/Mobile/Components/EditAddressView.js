@@ -1,19 +1,34 @@
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import CenterMarker from '../../assets/marker.svg'
 import { TextField, Button } from '@material-ui/core'
+import { useRef } from 'react'
 
 const FOOTER_HEIGHT = 210
 
-const MyMapComponent = withScriptjs(withGoogleMap((props) =>
-  <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: -34.397, lng: 150.644 }}
-  >
-    {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
-  </GoogleMap>
-))
+const MyMapComponent = withScriptjs(withGoogleMap((props) => {
+  const onCenterChanged = () => {
+    const obj = props.mapRef.current.getCenter()
+    const lat = obj.lat()
+    const lng = obj.lng()
+    props.onCenterChanged({ lat, lng })
+  }
+
+  return (
+    <GoogleMap
+      ref={props.mapRef}
+      defaultZoom={8}
+      defaultCenter={{ lat: -34.397, lng: 150.644 }}
+      onCenterChanged={onCenterChanged}
+    >
+      {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
+    </GoogleMap>
+  )
+}))
 
 const Component = props => {
+  const mapRef = useRef()
+  const onCenterChanged = ({ lat, lng }) => {
+  }
   return (
     <div style={{
       height: '100%'
@@ -26,11 +41,13 @@ const Component = props => {
         width: '100%'
       }}>
         <MyMapComponent 
+          mapRef={mapRef}
           isMarkerShown={false} 
           googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}
+          onCenterChanged={onCenterChanged}
         />
         <div 
         
