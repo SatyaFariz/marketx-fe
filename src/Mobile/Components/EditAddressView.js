@@ -19,6 +19,7 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) => {
       defaultZoom={8}
       defaultCenter={{ lat: -34.397, lng: 150.644 }}
       onCenterChanged={onCenterChanged}
+      // center={{ lat: -7.431391, lng: 109.247833 }}
     >
       {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
     </GoogleMap>
@@ -29,6 +30,11 @@ const Component = props => {
   const mapRef = useRef()
   const onCenterChanged = ({ lat, lng }) => {
   }
+
+  const moveToLocation = (lat, lng) => {
+    mapRef.current.panTo({ lat, lng });
+  }
+
   return (
     <div style={{
       height: '100%'
@@ -146,6 +152,7 @@ const Component = props => {
               marginBottom: 20,
               marginTop: 10
             }}
+            onClick={() => moveToLocation(-7.431391, 109.247833)}
           >
             Save
           </Button>
