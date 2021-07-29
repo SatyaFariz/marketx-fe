@@ -1,8 +1,12 @@
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
-import CenterMarker from '../../assets/marker.svg'
 import { TextField, Button } from '@material-ui/core'
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
+import UpdateStoreAddress from '../../mutations/UpdateStoreAddress'
+import useAppContext from '../hooks/useAppContext'
+import graphql from 'babel-plugin-relay/macro'
+import { createFragmentContainer } from 'react-relay'
 
+const initialLatLng = { lat: -7.431391, lng: 109.247833 }
 const FOOTER_HEIGHT = 210
 
 const MyMapComponent = withScriptjs(withGoogleMap((props) => {
@@ -17,23 +21,60 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) => {
     <GoogleMap
       ref={props.mapRef}
       defaultZoom={18}
-      defaultCenter={{ lat: -34.397, lng: 150.644 }}
+      defaultCenter={initialLatLng}
       onCenterChanged={onCenterChanged}
-      // center={{ lat: -7.431391, lng: 109.247833 }}
     >
-      {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
     </GoogleMap>
   )
 }))
 
 const Component = props => {
+  const _isMounted = useRef(true)
+  const { store } = props
+  const { environment } = useAppContext()
+  const [latLng, setLatLng] = useState(initialLatLng)
+  const [fullAddress, setFullAddress] = useState('')
+  const [loading, setLoading] = useState(false)
   const mapRef = useRef()
-  const onCenterChanged = ({ lat, lng }) => {
+
+  const onCenterChanged = (latLng) => {
+    setLatLng(latLng)
   }
 
-  const moveToLocation = (lat, lng) => {
-    mapRef.current.panTo({ lat, lng });
+  const _setFullAddress = e => {
+    setFullAddress(e.target.value.trimLeft())
   }
+
+  const moveToLocation = (latLng) => {
+    mapRef.current.panTo(latLng);
+  }
+
+  const save = () => {
+    if(!loading) {
+      const address = {
+        ...latLng,
+        fullAddress
+      }
+      setLoading(true)
+      UpdateStoreAddress(environment, { id: store.id, address }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            // do sth
+          }
+        }
+
+        _isMounted.current && setLoading(false)
+      })
+    }
+  }
+
+  useEffect(() => {
+    return () => _isMounted.current = false
+  }, [])
 
   return (
     <div style={{
@@ -137,6 +178,8 @@ const Component = props => {
             style={{
               margin: '10px 15px',
             }}
+            value={fullAddress}
+            onChange={_setFullAddress}
           />
 
           <div style={{
@@ -152,7 +195,8 @@ const Component = props => {
               marginBottom: 20,
               marginTop: 10
             }}
-            onClick={() => moveToLocation(-7.431391, 109.247833)}
+            onClick={save}
+            disabled={fullAddress.length === 0}
           >
             Save
           </Button>
@@ -163,4 +207,15 @@ const Component = props => {
   )
 }
 
-export default Component
+export default createFragmentContainer(Component, {
+  store: graphql`
+    fragment EditAddressView_store on Store {
+      id,
+      address {
+        fullAddress,
+        lat,
+        lng
+      }
+    }
+  `
+})

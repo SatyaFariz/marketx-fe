@@ -9,9 +9,10 @@ const chunk = {
       me {
         id,
         store {
-          id
+          id,
+          ...StoreScreen_store
         }
-      }
+      },
     }
   `,
   // prepareVariables: ({ params }) => params,
@@ -23,7 +24,7 @@ const chunk = {
         <FixedAddressBar>
           {data &&
           <StoreScreen
-            data={data}
+            store={data.me?.store}
           />
           }
         </FixedAddressBar>

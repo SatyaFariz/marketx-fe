@@ -4,8 +4,11 @@ import { TextField, Button } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import { IoChevronBackSharp } from 'react-icons/io5'
+import graphql from 'babel-plugin-relay/macro'
+import { createFragmentContainer } from 'react-relay'
 
 const Component = props => {
+  const store = props.store
   const { history } = useAppContext()
   return (
     <div style={{
@@ -56,10 +59,17 @@ const Component = props => {
         right: 0,
         bottom: 0
       }}>
-        <EditAddressView/>
+        <EditAddressView store={store}/>
       </div>
     </div>
   )
 }
 
-export default Component
+export default createFragmentContainer(Component, {
+  store: graphql`
+    fragment StoreScreen_store on Store {
+      id,
+      ...EditAddressView_store
+    }
+  `
+})
