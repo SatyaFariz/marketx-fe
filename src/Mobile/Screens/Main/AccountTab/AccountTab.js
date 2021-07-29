@@ -120,7 +120,7 @@ const Component = props => {
               padding: '15px 0',
               borderBottom: `1px solid ${DIVIDER_COLOR}`
             }}>
-              <span>Become a Merchant</span>
+              <span>{me.store ? 'My Store' : 'Become a Merchant'}</span>
             </div>
           </Link>
 
