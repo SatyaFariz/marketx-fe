@@ -6,10 +6,12 @@ import useAppContext from '../../hooks/useAppContext'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
+import SelectTypeAndCategoryView from '../../Components/SelectTypeAndCategoryView'
 
 const Component = props => {
   const store = props.store
-  const { history } = useAppContext()
+  const { categories } = props
+  const { history, queryParams } = useAppContext()
 
   if(store?.address) {
     return (
@@ -67,11 +69,24 @@ const Component = props => {
         bottom: 0
       }}>
         <Button
-          onClick={() => history.push('/new/product')}
+          onClick={() => history.push(/*'/new/product'*/ '/store?selectCategory=1')}
         >
           Add a product
 
         </Button>
+      </div>
+
+      <div style={{
+        position: 'absolute',
+        backgroundColor: 'white',
+        left: 0,
+        top: 0,
+        width: '100%',
+        height: '100%',
+        display: queryParams.selectCategory === '1' ? undefined : 'none',
+        zIndex: 9999
+      }}>
+        <SelectTypeAndCategoryView categories={categories}/>
       </div>
     </div>
   )
@@ -83,6 +98,12 @@ export default createFragmentContainer(Component, {
       id,
       name,
       ...EditAddressView_store
+    }
+  `,
+  categories: graphql`
+    fragment StoreScreen_categories on Category @relay(plural: true) {
+      id,
+      ...SelectTypeAndCategoryView_categories
     }
   `
 })

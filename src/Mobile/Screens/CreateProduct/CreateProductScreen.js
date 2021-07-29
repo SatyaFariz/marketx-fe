@@ -147,6 +147,18 @@ const Component = props => {
               marginBottom: 10
             }}
           />
+
+          <Button
+            disableElevation
+            variant="contained"
+            fullWidth
+            style={{
+              fontTransform: 'none',
+              marginTop: 10
+            }}
+          >
+            Create
+          </Button>
         </div>
       </div>
     </div>

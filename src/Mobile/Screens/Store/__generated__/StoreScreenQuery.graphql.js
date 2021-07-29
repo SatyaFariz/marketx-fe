@@ -8,6 +8,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type StoreScreen_categories$ref = any;
 type StoreScreen_store$ref = any;
 export type StoreScreenQueryVariables = {||};
 export type StoreScreenQueryResponse = {|
@@ -17,7 +18,10 @@ export type StoreScreenQueryResponse = {|
       +id: ?string,
       +$fragmentRefs: StoreScreen_store$ref,
     |},
-  |}
+  |},
+  +categories: ?$ReadOnlyArray<?{|
+    +$fragmentRefs: StoreScreen_categories$ref
+  |}>,
 |};
 export type StoreScreenQuery = {|
   variables: StoreScreenQueryVariables,
@@ -35,6 +39,10 @@ query StoreScreenQuery {
       ...StoreScreen_store
     }
   }
+  categories {
+    ...StoreScreen_categories
+    id
+  }
 }
 
 fragment EditAddressView_store on Store {
@@ -44,6 +52,16 @@ fragment EditAddressView_store on Store {
     lat
     lng
   }
+}
+
+fragment SelectTypeAndCategoryView_categories on Category {
+  id
+  name
+}
+
+fragment StoreScreen_categories on Category {
+  id
+  ...SelectTypeAndCategoryView_categories
 }
 
 fragment StoreScreen_store on Store {
@@ -59,6 +77,13 @@ var v0 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 };
 return {
@@ -96,6 +121,22 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Category",
+        "kind": "LinkedField",
+        "name": "categories",
+        "plural": true,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "StoreScreen_categories"
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -125,13 +166,7 @@ return {
             "plural": false,
             "selections": [
               (v0/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "name",
-                "storageKey": null
-              },
+              (v1/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -169,20 +204,33 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Category",
+        "kind": "LinkedField",
+        "name": "categories",
+        "plural": true,
+        "selections": [
+          (v0/*: any*/),
+          (v1/*: any*/)
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "b62ada253b797337b3d589c3635cc1cf",
+    "cacheID": "fee635d0cd1da1dfb0fa112f69918d6f",
     "id": null,
     "metadata": {},
     "name": "StoreScreenQuery",
     "operationKind": "query",
-    "text": "query StoreScreenQuery {\n  me {\n    id\n    store {\n      id\n      ...StoreScreen_store\n    }\n  }\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  ...EditAddressView_store\n}\n"
+    "text": "query StoreScreenQuery {\n  me {\n    id\n    store {\n      id\n      ...StoreScreen_store\n    }\n  }\n  categories {\n    ...StoreScreen_categories\n    id\n  }\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment SelectTypeAndCategoryView_categories on Category {\n  id\n  name\n}\n\nfragment StoreScreen_categories on Category {\n  id\n  ...SelectTypeAndCategoryView_categories\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  ...EditAddressView_store\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'ea05aa4da811372f3041f980a2b5df88';
+(node/*: any*/).hash = '93941a3f9d6ac357be6d8a0647ae738e';
 
 module.exports = node;
