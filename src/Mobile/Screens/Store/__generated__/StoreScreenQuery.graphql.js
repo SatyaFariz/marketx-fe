@@ -48,6 +48,7 @@ fragment EditAddressView_store on Store {
 
 fragment StoreScreen_store on Store {
   id
+  name
   ...EditAddressView_store
 }
 */
@@ -127,6 +128,13 @@ return {
               {
                 "alias": null,
                 "args": null,
+                "kind": "ScalarField",
+                "name": "name",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "concreteType": "Address",
                 "kind": "LinkedField",
                 "name": "address",
@@ -165,12 +173,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "012967853637db4073fca0c915eb8e92",
+    "cacheID": "b62ada253b797337b3d589c3635cc1cf",
     "id": null,
     "metadata": {},
     "name": "StoreScreenQuery",
     "operationKind": "query",
-    "text": "query StoreScreenQuery {\n  me {\n    id\n    store {\n      id\n      ...StoreScreen_store\n    }\n  }\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment StoreScreen_store on Store {\n  id\n  ...EditAddressView_store\n}\n"
+    "text": "query StoreScreenQuery {\n  me {\n    id\n    store {\n      id\n      ...StoreScreen_store\n    }\n  }\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  ...EditAddressView_store\n}\n"
   }
 };
 })();

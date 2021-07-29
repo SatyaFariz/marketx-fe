@@ -14,6 +14,7 @@ declare export opaque type StoreScreen_store$ref: FragmentReference;
 declare export opaque type StoreScreen_store$fragmentType: StoreScreen_store$ref;
 export type StoreScreen_store = {|
   +id: ?string,
+  +name: ?string,
   +$fragmentRefs: EditAddressView_store$ref,
   +$refType: StoreScreen_store$ref,
 |};
@@ -40,6 +41,13 @@ const node/*: ReaderFragment*/ = {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "name",
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "EditAddressView_store"
@@ -49,6 +57,6 @@ const node/*: ReaderFragment*/ = {
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = '30829ed37b64c9160b7e3b7a352ab7a7';
+(node/*: any*/).hash = 'e1d4939e5ad0fdc8bdd2043220b03fdf';
 
 module.exports = node;

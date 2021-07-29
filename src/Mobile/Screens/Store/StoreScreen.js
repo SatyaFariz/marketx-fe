@@ -10,6 +10,13 @@ import { createFragmentContainer } from 'react-relay'
 const Component = props => {
   const store = props.store
   const { history } = useAppContext()
+
+  if(store?.address) {
+    return (
+      <EditAddressView store={store}/>
+    )
+  } 
+
   return (
     <div style={{
       height: '100%'
@@ -48,7 +55,7 @@ const Component = props => {
             fontSize: 20,
             fontWeight: 500,
             textAlign: 'center',
-          }}>Create Store</h1>
+          }}>{store.name}</h1>
         </div>
       </div>
 
@@ -59,7 +66,12 @@ const Component = props => {
         right: 0,
         bottom: 0
       }}>
-        <EditAddressView store={store}/>
+        <Button
+          onClick={() => history.push('/new/product')}
+        >
+          Add a product
+
+        </Button>
       </div>
     </div>
   )
@@ -69,6 +81,7 @@ export default createFragmentContainer(Component, {
   store: graphql`
     fragment StoreScreen_store on Store {
       id,
+      name,
       ...EditAddressView_store
     }
   `

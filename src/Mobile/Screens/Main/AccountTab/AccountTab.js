@@ -115,7 +115,7 @@ const Component = props => {
             <span>My Rental History</span>
           </div>
 
-          <Link href={me.store ? '/store' : '/store/new'}>
+          <Link href={me.store ? '/store' : '/new/store'}>
             <div style={{
               padding: '15px 0',
               borderBottom: `1px solid ${DIVIDER_COLOR}`

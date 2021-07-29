@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Thu Jul 29 2021 12:43:57 GMT+0700 (Western Indonesia Time)
+# timestamp: Thu Jul 29 2021 13:06:04 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -24,8 +24,8 @@ type Address {
 
 input AddressInput {
   fullAddress: String!
-  lat: Int!
-  lng: Int!
+  lat: Float!
+  lng: Float!
 }
 
 type Attribute {

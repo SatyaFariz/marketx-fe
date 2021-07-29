@@ -2,13 +2,13 @@
 import FixedAddressBar from '../../Components/FixedAddressBar'
 
 const chunk = {
-  path: '/new/store',
-  components: () => [import('./CreateStoreScreen')],
+  path: '/new/product',
+  components: () => [import('./CreateProductScreen')],
   // query: graphql`
   //   query MainScreenAdminQuery($id: String!) {
   //     me {
   //       id,
-  //       ...RequiresCreateStoreContainer_user
+  //       ...RequiresCreateProductContainer_user
   //     },
   //     recipe(id: $id) {
   //       ...MainScreen_recipe
@@ -19,13 +19,13 @@ const chunk = {
   //   }
   // `,
   // prepareVariables: ({ params }) => params,
-  render: ([CreateStoreScreen], data, context) => {
+  render: ([CreateProductScreen], data, context) => {
     
     return {
       title: 'Rental App',
       component: (
         <FixedAddressBar>
-          <CreateStoreScreen
+          <CreateProductScreen
           />
         </FixedAddressBar>
         

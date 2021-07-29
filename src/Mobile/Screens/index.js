@@ -1,6 +1,5 @@
 import Main from './Main'
 import Login from './Login'
-import Product from './Product'
 import Search from './Search'
 import Category from './Category'
 import Merchant from './Merchant'
@@ -9,6 +8,8 @@ import Register from './Register'
 import EditProfile from './EditProfile'
 import CreateStore from './CreateStore'
 import Store from './Store'
+import CreateProduct from './CreateProduct'
+import Product from './Product'
 
 const screens = [
   Main,
@@ -21,7 +22,8 @@ const screens = [
   Register,
   EditProfile,
   CreateStore,
-  Store
+  Store,
+  CreateProduct
 ]
 
 export default screens
