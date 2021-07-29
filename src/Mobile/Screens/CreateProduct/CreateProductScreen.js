@@ -150,6 +150,23 @@ const Component = props => {
             }}
           />
 
+          <h3 style={{ margin: '10px 0'}}>Specifications</h3>
+
+          {category.specFields.map((field) => {
+            return (
+              <TextField
+                key={field.id}
+                variant="outlined"
+                label={field.attribute.name}
+                fullWidth
+                style={{
+                  marginTop: 10,
+                  marginBottom: 10
+                }}
+              />
+            )
+          })}
+
           <Button
             disableElevation
             variant="contained"
@@ -173,6 +190,7 @@ export default createFragmentContainer(Component, {
       id,
       name,
       specFields {
+        id,
         attribute {
           id,
           name

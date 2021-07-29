@@ -15,6 +15,7 @@ export type CreateProductScreen_category = {|
   +id: ?string,
   +name: ?string,
   +specFields: ?$ReadOnlyArray<?{|
+    +id: ?string,
     +attribute: ?{|
       +id: ?string,
       +name: ?string,
@@ -63,6 +64,7 @@ return {
       "name": "specFields",
       "plural": true,
       "selections": [
+        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -92,6 +94,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5cbd01595ca8a8d43d70e62c776242df';
+(node/*: any*/).hash = 'b291b8187ddafdd2449aa4cbdce07311';
 
 module.exports = node;

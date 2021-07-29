@@ -39,12 +39,12 @@ fragment CreateProductScreen_category on Category {
   id
   name
   specFields {
+    id
     attribute {
       id
       name
     }
     isRequired
-    id
   }
 }
 */
@@ -130,6 +130,7 @@ return {
             "name": "specFields",
             "plural": true,
             "selections": [
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -149,8 +150,7 @@ return {
                 "kind": "ScalarField",
                 "name": "isRequired",
                 "storageKey": null
-              },
-              (v2/*: any*/)
+              }
             ],
             "storageKey": null
           }
@@ -160,12 +160,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6104f914a40d7a2fc89de766193ceedf",
+    "cacheID": "7878d72ab9b79e584683543f7dd32c3b",
     "id": null,
     "metadata": {},
     "name": "CreateProductScreenQuery",
     "operationKind": "query",
-    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  specFields {\n    attribute {\n      id\n      name\n    }\n    isRequired\n    id\n  }\n}\n"
+    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isRequired\n  }\n}\n"
   }
 };
 })();
