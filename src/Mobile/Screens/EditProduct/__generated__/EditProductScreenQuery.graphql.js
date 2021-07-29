@@ -38,6 +38,8 @@ query EditProductScreenQuery(
 fragment EditProductScreen_product on Product {
   id
   name
+  price
+  desc
   category {
     id
     name
@@ -129,6 +131,20 @@ return {
           {
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
+            "name": "price",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "desc",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "Category",
             "kind": "LinkedField",
             "name": "category",
@@ -177,12 +193,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a0ae4ebed52b4ba7f52f43dc001a36e7",
+    "cacheID": "5b397875d67c285de4786081686c476c",
     "id": null,
     "metadata": {},
     "name": "EditProductScreenQuery",
     "operationKind": "query",
-    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  category {\n    id\n    name\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isRequired\n    }\n  }\n}\n"
+    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  category {\n    id\n    name\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isRequired\n    }\n  }\n}\n"
   }
 };
 })();

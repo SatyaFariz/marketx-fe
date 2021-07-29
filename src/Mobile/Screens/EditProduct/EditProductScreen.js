@@ -7,7 +7,7 @@ import useAppContext from '../../hooks/useAppContext'
 import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
 import Link from '../../Components/Link'
-import { Button, TextField } from '@material-ui/core'
+import { Button, TextField, InputAdornment } from '@material-ui/core'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 
@@ -16,6 +16,9 @@ const Component = props => {
   const scrollRef = useRef()
   const [showHeader, setShowHeader] = useState(false)
   const { history } = useAppContext()
+  const [name, setName] = useState(product.name)
+  const [price, setPrice] = useState(product.price.toString())
+  const [desc, setDesc] = useState(product.desc)
 
   useEffect(() => {
     scrollRef.current.onscroll = () => {
@@ -122,6 +125,8 @@ const Component = props => {
           <TextField
             variant="outlined"
             label="Product Name"
+            value={name}
+            onChange={e => setName(e.target.value.trimLeft())}
             fullWidth
             style={{
               marginTop: 10,
@@ -132,16 +137,23 @@ const Component = props => {
           <TextField
             variant="outlined"
             label="Product Price"
+            value={price}
+            onChange={e => {}}
             fullWidth
             style={{
               marginTop: 10,
               marginBottom: 10
+            }}
+            InputProps={{
+              startAdornment: <InputAdornment position="start">Rp</InputAdornment>,
             }}
           />
 
           <TextField
             variant="outlined"
             label="Product Description"
+            value={desc}
+            onChange={e => setDesc(e.target.value.trimLeft())}
             multiline
             rows="8"
             fullWidth
@@ -190,6 +202,8 @@ export default createFragmentContainer(Component, {
     fragment EditProductScreen_product on Product {
       id,
       name,
+      price,
+      desc,
       category {
         id,
         name,
