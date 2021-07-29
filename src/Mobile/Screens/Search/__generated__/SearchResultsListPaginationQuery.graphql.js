@@ -43,7 +43,7 @@ fragment ProductItem_product on Product {
     url
     id
   }
-  rentalPeriodUnit {
+  rentalDuration {
     display
     id
   }
@@ -219,7 +219,7 @@ return {
                     "args": null,
                     "concreteType": "Unit",
                     "kind": "LinkedField",
-                    "name": "rentalPeriodUnit",
+                    "name": "rentalDuration",
                     "plural": false,
                     "selections": [
                       {
@@ -286,12 +286,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "67220fd36ba00a2fb1e70fa883907777",
+    "cacheID": "f4424d98892557f2b5d712555ef5bc2e",
     "id": null,
     "metadata": {},
     "name": "SearchResultsListPaginationQuery",
     "operationKind": "query",
-    "text": "query SearchResultsListPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n  $categoryId: String\n) {\n  ...SearchResultsList_search_3dEwcg\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  images {\n    url\n    id\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n}\n\nfragment SearchResultsList_search_3dEwcg on Query {\n  search(first: $first, after: $after, q: $q, categoryId: $categoryId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+    "text": "query SearchResultsListPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n  $categoryId: String\n) {\n  ...SearchResultsList_search_3dEwcg\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  images {\n    url\n    id\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment SearchResultsList_search_3dEwcg on Query {\n  search(first: $first, after: $after, q: $q, categoryId: $categoryId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
   }
 };
 })();

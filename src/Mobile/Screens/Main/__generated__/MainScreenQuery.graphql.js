@@ -91,7 +91,7 @@ fragment ProductItem_product on Product {
     url
     id
   }
-  rentalPeriodUnit {
+  rentalDuration {
     display
     id
   }
@@ -242,7 +242,7 @@ return {
             "args": null,
             "concreteType": "Unit",
             "kind": "LinkedField",
-            "name": "rentalPeriodUnit",
+            "name": "rentalDuration",
             "plural": false,
             "selections": [
               {
@@ -262,12 +262,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "58f88036d7304cc3cb262721c11c6afa",
+    "cacheID": "2620f83945bd1f581f7bb07f1c98c258",
     "id": null,
     "metadata": {},
     "name": "MainScreenQuery",
     "operationKind": "query",
-    "text": "query MainScreenQuery {\n  ...MainScreen_data\n}\n\nfragment AccountTab_me on User {\n  id\n  name\n  mobileNumber\n  profilePicture {\n    url\n    id\n  }\n  store {\n    id\n  }\n}\n\nfragment BottomNav_me on User {\n  id\n  name\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  icon {\n    url\n    id\n  }\n}\n\nfragment ExploreTab_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment ExploreTab_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  ...ProductItem_product\n}\n\nfragment MainScreen_data on Query {\n  me {\n    id\n    ...BottomNav_me\n    ...AccountTab_me\n  }\n  categories {\n    id\n    ...ExploreTab_categories\n  }\n  featuredProducts {\n    id\n    ...ExploreTab_featuredProducts\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  images {\n    url\n    id\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n}\n"
+    "text": "query MainScreenQuery {\n  ...MainScreen_data\n}\n\nfragment AccountTab_me on User {\n  id\n  name\n  mobileNumber\n  profilePicture {\n    url\n    id\n  }\n  store {\n    id\n  }\n}\n\nfragment BottomNav_me on User {\n  id\n  name\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  icon {\n    url\n    id\n  }\n}\n\nfragment ExploreTab_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment ExploreTab_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  ...ProductItem_product\n}\n\nfragment MainScreen_data on Query {\n  me {\n    id\n    ...BottomNav_me\n    ...AccountTab_me\n  }\n  categories {\n    id\n    ...ExploreTab_categories\n  }\n  featuredProducts {\n    id\n    ...ExploreTab_featuredProducts\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  images {\n    url\n    id\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n"
   }
 };
 })();

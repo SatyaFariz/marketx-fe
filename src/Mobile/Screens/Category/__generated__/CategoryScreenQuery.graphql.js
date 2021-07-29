@@ -41,7 +41,7 @@ fragment ProductItem_product on Product {
     url
     id
   }
-  rentalPeriodUnit {
+  rentalDuration {
     display
     id
   }
@@ -205,7 +205,7 @@ return {
                     "args": null,
                     "concreteType": "Unit",
                     "kind": "LinkedField",
-                    "name": "rentalPeriodUnit",
+                    "name": "rentalDuration",
                     "plural": false,
                     "selections": [
                       {
@@ -272,12 +272,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "91c31f50cf3db88c4e8efe2bff9d7d36",
+    "cacheID": "7ef81cdb1d82949aa40a6c33128af892",
     "id": null,
     "metadata": {},
     "name": "CategoryScreenQuery",
     "operationKind": "query",
-    "text": "query CategoryScreenQuery(\n  $q: String!\n  $first: Int!\n  $categoryId: String!\n) {\n  ...SearchResultsList_search_1oyKJr\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  images {\n    url\n    id\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n}\n\nfragment SearchResultsList_search_1oyKJr on Query {\n  search(first: $first, q: $q, categoryId: $categoryId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+    "text": "query CategoryScreenQuery(\n  $q: String!\n  $first: Int!\n  $categoryId: String!\n) {\n  ...SearchResultsList_search_1oyKJr\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  images {\n    url\n    id\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment SearchResultsList_search_1oyKJr on Query {\n  search(first: $first, q: $q, categoryId: $categoryId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
   }
 };
 })();

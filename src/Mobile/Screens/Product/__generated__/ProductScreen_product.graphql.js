@@ -24,7 +24,7 @@ export type ProductScreen_product = {|
     +id: ?string,
     +name: ?string,
   |},
-  +rentalPeriodUnit: ?{|
+  +rentalDuration: ?{|
     +display: ?string
   |},
   +specs: ?$ReadOnlyArray<?{|
@@ -138,7 +138,7 @@ return {
       "args": null,
       "concreteType": "Unit",
       "kind": "LinkedField",
-      "name": "rentalPeriodUnit",
+      "name": "rentalDuration",
       "plural": false,
       "selections": [
         {
@@ -242,6 +242,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '2dd6891f79169e162159d35a09cca067';
+(node/*: any*/).hash = 'e642fb3b4ed94d2d41707dd0115d9ab6';
 
 module.exports = node;

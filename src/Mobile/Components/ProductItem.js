@@ -24,7 +24,7 @@ const Component = props => {
         }}>{product.name}</span>
         <span style={{
           fontSize: 16
-        }}>{formatCurrency(product.price)} / {product.rentalPeriodUnit.display}</span>
+        }}>{formatCurrency(product.price)} / {product.rentalDuration.display}</span>
       </div>
     </Link>
   )
@@ -39,7 +39,7 @@ export default createFragmentContainer(Component, {
       images {
         url
       },
-      rentalPeriodUnit {
+      rentalDuration {
         display
       }
     }

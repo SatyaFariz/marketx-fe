@@ -48,7 +48,7 @@ fragment ProductScreen_product on Product {
     id
     name
   }
-  rentalPeriodUnit {
+  rentalDuration {
     display
     id
   }
@@ -205,7 +205,7 @@ return {
             "args": null,
             "concreteType": "Unit",
             "kind": "LinkedField",
-            "name": "rentalPeriodUnit",
+            "name": "rentalDuration",
             "plural": false,
             "selections": [
               {
@@ -310,12 +310,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b701e89b71d5eacaa6eb8f918385ea16",
+    "cacheID": "05a1b78208913766915b19698771d171",
     "id": null,
     "metadata": {},
     "name": "ProductScreenQuery",
     "operationKind": "query",
-    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalPeriodUnit {\n    display\n    id\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n  }\n  merchant {\n    id\n    name\n    profilePicture {\n      id\n      url\n    }\n  }\n  store {\n    id\n    name\n    whatsappLink\n  }\n}\n"
+    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalDuration {\n    display\n    id\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n  }\n  merchant {\n    id\n    name\n    profilePicture {\n      id\n      url\n    }\n  }\n  store {\n    id\n    name\n    whatsappLink\n  }\n}\n"
   }
 };
 })();

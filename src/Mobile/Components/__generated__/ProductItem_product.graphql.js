@@ -18,7 +18,7 @@ export type ProductItem_product = {|
   +images: ?$ReadOnlyArray<?{|
     +url: ?string
   |}>,
-  +rentalPeriodUnit: ?{|
+  +rentalDuration: ?{|
     +display: ?string
   |},
   +$refType: ProductItem_product$ref,
@@ -82,7 +82,7 @@ const node/*: ReaderFragment*/ = {
       "args": null,
       "concreteType": "Unit",
       "kind": "LinkedField",
-      "name": "rentalPeriodUnit",
+      "name": "rentalDuration",
       "plural": false,
       "selections": [
         {
@@ -100,6 +100,6 @@ const node/*: ReaderFragment*/ = {
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = '79ca828f5c513dafa8f4eaf2fb89ad12';
+(node/*: any*/).hash = 'ee4bead850a3b1bb42efe0c48191b872';
 
 module.exports = node;

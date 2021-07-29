@@ -289,7 +289,7 @@ const Component = props => {
           <div>
             <span style={{
               display: 'block'
-            }}>Price per {product.rentalPeriodUnit.display}</span>
+            }}>Price per {product.rentalDuration.display}</span>
             <span style={{
               fontSize: 16,
               fontWeight: '500',
@@ -326,7 +326,7 @@ export default createFragmentContainer(Component, {
         id,
         name
       },
-      rentalPeriodUnit {
+      rentalDuration {
         display
       },
       specs {
