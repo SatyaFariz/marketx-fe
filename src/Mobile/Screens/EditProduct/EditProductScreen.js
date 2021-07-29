@@ -12,6 +12,7 @@ import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 
 const Component = props => {
+  const { product } = props
   const scrollRef = useRef()
   const [showHeader, setShowHeader] = useState(false)
   const { history } = useAppContext()
@@ -116,7 +117,7 @@ const Component = props => {
         <div style={{
           padding: '10px 15px'
         }}>
-          <h3 style={{ margin: '10px 0'}}>Automotive</h3>
+          <h3 style={{ margin: '10px 0'}}>{product.category.name}</h3>
           <TextField
             variant="outlined"
             label="Product Name"
@@ -149,6 +150,23 @@ const Component = props => {
             }}
           />
 
+          <h3 style={{ margin: '10px 0'}}>Specifications</h3>
+
+          {product.category.specFields.map((field) => {
+            return (
+              <TextField
+                key={field.id}
+                variant="outlined"
+                label={field.attribute.name}
+                fullWidth
+                style={{
+                  marginTop: 10,
+                  marginBottom: 10
+                }}
+              />
+            )
+          })}
+
           <Button
             disableElevation
             variant="contained"
@@ -170,7 +188,19 @@ export default createFragmentContainer(Component, {
   product: graphql`
     fragment EditProductScreen_product on Product {
       id,
-      name
+      name,
+      category {
+        id,
+        name,
+        specFields {
+          id,
+          attribute {
+            id,
+            name
+          },
+          isRequired
+        }
+      },
     }
   `
 })

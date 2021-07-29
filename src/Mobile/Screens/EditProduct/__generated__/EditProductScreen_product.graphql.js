@@ -14,6 +14,18 @@ declare export opaque type EditProductScreen_product$fragmentType: EditProductSc
 export type EditProductScreen_product = {|
   +id: ?string,
   +name: ?string,
+  +category: ?{|
+    +id: ?string,
+    +name: ?string,
+    +specFields: ?$ReadOnlyArray<?{|
+      +id: ?string,
+      +attribute: ?{|
+        +id: ?string,
+        +name: ?string,
+      |},
+      +isRequired: ?boolean,
+    |}>,
+  |},
   +$refType: EditProductScreen_product$ref,
 |};
 export type EditProductScreen_product$data = EditProductScreen_product;
@@ -25,31 +37,80 @@ export type EditProductScreen_product$key = {
 */
 
 
-const node/*: ReaderFragment*/ = {
+const node/*: ReaderFragment*/ = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "EditProductScreen_product",
   "selections": [
+    (v0/*: any*/),
+    (v1/*: any*/),
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "id",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "name",
+      "concreteType": "Category",
+      "kind": "LinkedField",
+      "name": "category",
+      "plural": false,
+      "selections": [
+        (v0/*: any*/),
+        (v1/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "SpecificationField",
+          "kind": "LinkedField",
+          "name": "specFields",
+          "plural": true,
+          "selections": [
+            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "Attribute",
+              "kind": "LinkedField",
+              "name": "attribute",
+              "plural": false,
+              "selections": [
+                (v0/*: any*/),
+                (v1/*: any*/)
+              ],
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "isRequired",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
   "type": "Product",
   "abstractKey": null
 };
+})();
 // prettier-ignore
-(node/*: any*/).hash = '5e4a6d8e06aacba4512ad0e2b3ce12a9';
+(node/*: any*/).hash = 'b1f58394d82648b7eae7d93012060114';
 
 module.exports = node;

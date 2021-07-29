@@ -38,6 +38,18 @@ query EditProductScreenQuery(
 fragment EditProductScreen_product on Product {
   id
   name
+  category {
+    id
+    name
+    specFields {
+      id
+      attribute {
+        id
+        name
+      }
+      isRequired
+    }
+  }
 }
 */
 
@@ -61,6 +73,13 @@ v2 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 };
 return {
@@ -106,11 +125,50 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
-            "kind": "ScalarField",
-            "name": "name",
+            "concreteType": "Category",
+            "kind": "LinkedField",
+            "name": "category",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "SpecificationField",
+                "kind": "LinkedField",
+                "name": "specFields",
+                "plural": true,
+                "selections": [
+                  (v2/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Attribute",
+                    "kind": "LinkedField",
+                    "name": "attribute",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/),
+                      (v3/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "isRequired",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
             "storageKey": null
           }
         ],
@@ -119,12 +177,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "907c83db0fcd708e2e10107e03f37638",
+    "cacheID": "a0ae4ebed52b4ba7f52f43dc001a36e7",
     "id": null,
     "metadata": {},
     "name": "EditProductScreenQuery",
     "operationKind": "query",
-    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n}\n"
+    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  category {\n    id\n    name\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isRequired\n    }\n  }\n}\n"
   }
 };
 })();
