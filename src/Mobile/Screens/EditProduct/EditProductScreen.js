@@ -7,7 +7,7 @@ import useAppContext from '../../hooks/useAppContext'
 import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
 import Link from '../../Components/Link'
-import { Button, TextField, InputAdornment } from '@material-ui/core'
+import { Button, TextField, InputAdornment, Input } from '@material-ui/core'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 
@@ -17,8 +17,15 @@ const Component = props => {
   const [showHeader, setShowHeader] = useState(false)
   const { history } = useAppContext()
   const [name, setName] = useState(product.name)
-  const [price, setPrice] = useState(product.price.toString())
+  const [price, setPrice] = useState('')
   const [desc, setDesc] = useState(product.desc)
+
+  const _setPrice = (e) => {
+    const { value } = e.target
+    const allowedChars = '0123456789'
+    if(value !== '0' && (value === '' || allowedChars.includes(value[value.length - 1])))
+      setPrice(value)
+  }
 
   useEffect(() => {
     scrollRef.current.onscroll = () => {
@@ -138,17 +145,22 @@ const Component = props => {
             variant="outlined"
             label="Product Price"
             value={price}
-            onChange={e => {}}
+            onChange={_setPrice}
             fullWidth
             style={{
               marginTop: 10,
               marginBottom: 10
             }}
             InputProps={{
-              startAdornment: <InputAdornment position="start">Rp</InputAdornment>,
+              startAdornment: <InputAdornment position="start">Rp</InputAdornment>
+            }}
+            inputProps={{
+              pattern: "[0-9]*",
+              type: "text",
+              inputMode: "numeric"
             }}
           />
-
+          
           <TextField
             variant="outlined"
             label="Product Description"
