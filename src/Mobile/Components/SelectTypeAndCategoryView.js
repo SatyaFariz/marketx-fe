@@ -24,7 +24,7 @@ const Component = props => {
       }}>
         {categories.map(category => {
           return (
-            <Link key={category.id} href={`/new/product?categoryId=${category.id}`}>
+            <Link key={category.id} href={`/new/product/${category.id}`}>
               <div style={{
                 padding: '15px 0'
               }}>
