@@ -16,13 +16,21 @@ const FOOTER_HEIGHT = 75
 const Component = props => {
   const scrollRef = useRef()
   const { history } = useAppContext()
-  const { product } = props
+  const { product, me } = props
   const [showHeader, setShowHeader] = useState(false)
   const [carouselPos, setCarouselPos] = useState(0)
 
   const handleCarouselChange = (value) => {
     if(!isNaN(value))
       setCarouselPos(value)
+  }
+
+  const onActionButtonClick = () => {
+    if(me?.id === product.merchant.id) {
+      history.push(`/edit/product/${product.id}`)
+    } else {
+      window.open(product.store.whatsappLink)
+    }
   }
 
   useEffect(() => {
@@ -301,9 +309,9 @@ const Component = props => {
           <Button 
             variant="contained" 
             disableElevation
-            onClick={() => window.open(product.store.whatsappLink)}
+            onClick={onActionButtonClick}
           >
-            Rent
+            {me?.id === product.merchant.id ? 'Edit' : 'Rent'}
           </Button>
         </div>
       </div>
@@ -354,6 +362,11 @@ export default createFragmentContainer(Component, {
         name,
         whatsappLink
       }
+    }
+  `,
+  me: graphql`
+    fragment ProductScreen_me on User {
+      id
     }
   `
 })

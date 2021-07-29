@@ -8,6 +8,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type ProductScreen_me$ref = any;
 type ProductScreen_product$ref = any;
 export type ProductScreenQueryVariables = {|
   id: string
@@ -16,7 +17,11 @@ export type ProductScreenQueryResponse = {|
   +product: ?{|
     +id: ?string,
     +$fragmentRefs: ProductScreen_product$ref,
-  |}
+  |},
+  +me: ?{|
+    +id: ?string,
+    +$fragmentRefs: ProductScreen_me$ref,
+  |},
 |};
 export type ProductScreenQuery = {|
   variables: ProductScreenQueryVariables,
@@ -33,6 +38,14 @@ query ProductScreenQuery(
     id
     ...ProductScreen_product
   }
+  me {
+    id
+    ...ProductScreen_me
+  }
+}
+
+fragment ProductScreen_me on User {
+  id
 }
 
 fragment ProductScreen_product on Product {
@@ -139,6 +152,23 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "ProductScreen_product"
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ProductScreen_me"
           }
         ],
         "storageKey": null
@@ -306,20 +336,32 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/)
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "05a1b78208913766915b19698771d171",
+    "cacheID": "d0977b751974eaa9457d76e0faed9c1c",
     "id": null,
     "metadata": {},
     "name": "ProductScreenQuery",
     "operationKind": "query",
-    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalDuration {\n    display\n    id\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n  }\n  merchant {\n    id\n    name\n    profilePicture {\n      id\n      url\n    }\n  }\n  store {\n    id\n    name\n    whatsappLink\n  }\n}\n"
+    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n  me {\n    id\n    ...ProductScreen_me\n  }\n}\n\nfragment ProductScreen_me on User {\n  id\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalDuration {\n    display\n    id\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n  }\n  merchant {\n    id\n    name\n    profilePicture {\n      id\n      url\n    }\n  }\n  store {\n    id\n    name\n    whatsappLink\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'd3040c209754b15ab0f7ed5b42ecf79e';
+(node/*: any*/).hash = 'bcf789c6e6bb3ee992d937c59a6a7666';
 
 module.exports = node;
