@@ -17,8 +17,17 @@ const Component = props => {
   const [showHeader, setShowHeader] = useState(false)
   const { history } = useAppContext()
   const [name, setName] = useState(product.name)
-  const [price, setPrice] = useState('')
+  const [price, setPrice] = useState(product.price.toString())
   const [desc, setDesc] = useState(product.desc)
+  const [specs, setSpecs] = useState(product.category.specFields.reduce((obj, currentVal) => {
+    obj[currentVal.attribute.id] = product.specs.find(item => item.attribute.id === currentVal.attribute.id)?.value || ''
+    return obj
+  }, {}))
+
+  const _setSpecs = field => e => {
+    const value = e.target.value.trimLeft()
+    setSpecs(prev => ({ ...prev, [field.attribute.id]: value }))
+  }
 
   const _setPrice = (e) => {
     const { value } = e.target
@@ -184,6 +193,8 @@ const Component = props => {
                 variant="outlined"
                 label={field.attribute.name}
                 fullWidth
+                value={specs[field.attribute.id]}
+                onChange={_setSpecs(field)}
                 style={{
                   marginTop: 10,
                   marginBottom: 10
@@ -216,6 +227,13 @@ export default createFragmentContainer(Component, {
       name,
       price,
       desc,
+      specs {
+        id,
+        attribute {
+          id
+        },
+        value
+      },
       category {
         id,
         name,
