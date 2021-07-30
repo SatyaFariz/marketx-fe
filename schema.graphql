@@ -1,9 +1,15 @@
 # source: http://localhost:4000/graphql
-# timestamp: Thu Jul 29 2021 20:23:49 GMT+0700 (Western Indonesia Time)
+# timestamp: Sat Jul 31 2021 00:12:39 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
   message: String
+}
+
+type ActionOnProductPayload {
+  actionInfo: ActionInfo
+  product: Product
+  cursor: String
 }
 
 type ActionOnStorePayload {
@@ -74,6 +80,8 @@ type Mutation {
   updateProfile(input: RecipeInput!): ActionOnUserPayload
   createStore(name: String!, whatsappNumber: String!): ActionOnStorePayload
   updateStoreAddress(id: String!, address: AddressInput!): ActionOnStorePayload
+  addSpecFieldToCategory(categoryId: String!, attributeId: String!, isRequired: Boolean): String
+  updateProduct(id: String!, input: ProductInput!): ActionOnProductPayload
 }
 
 """Information about pagination in a connection."""
@@ -124,6 +132,22 @@ type ProductEdge {
   cursor: String!
 }
 
+input ProductInput {
+  name: String!
+  desc: String!
+  price: Float!
+  type: ProductTypeEnum!
+  specs: [SpecificationInput!]!
+  categoryId: String
+  rentalDurationId: String
+}
+
+enum ProductTypeEnum {
+  for_rent
+  for_sale
+  service
+}
+
 type Query {
   mobileNumberExists(mobileNumber: String!): Boolean
   me: User
@@ -159,6 +183,11 @@ type SpecificationField {
   id: ID
   attribute: Attribute
   isRequired: Boolean
+}
+
+input SpecificationInput {
+  attributeId: String!
+  value: String!
 }
 
 type Store {
