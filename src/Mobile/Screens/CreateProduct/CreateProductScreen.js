@@ -259,13 +259,22 @@ const Component = props => {
             {files.map((item, i) => {
               return (
                 <div key={i} style={{
+                  position: 'relative',
                   width: '100vw',
-                  height: '100vw',
-                  backgroundImage: `url("${item.preview}")`,
-                  backgroundPosition:'center',
-                  // backgroundSize: 'contain',
-                  // backgroundRepeat: 'no-repeat'
-                }}/>
+                  paddingBottom: '100%'
+                }}>
+                  <img
+                    src={item.preview}
+                    style={{
+                      position: 'absolute',
+                      height: '100%',
+                      width: '100%',
+                      left: 0,
+                      bottom: 0,
+                      objectFit: 'cover'
+                    }}
+                  />
+                </div>
               )
             })}
           </Carousel>

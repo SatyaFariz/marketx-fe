@@ -111,7 +111,6 @@ const Component = props => {
         <div style={{
           position: 'relative',
           width: '100vw',
-          // backgroundColor: 'red',
           height: '100vw',
         }}>
           <Carousel onChange={handleCarouselChange} value={carouselPos} draggable={product.images.length > 1}>
@@ -120,10 +119,7 @@ const Component = props => {
                 <div key={i} style={{
                   position: 'relative',
                   width: '100vw',
-                  paddingBottom: '100%',
-                  // backgroundImage: `url("${item.url}")`,
-                  // backgroundPosition:'center',
-                  // backgroundSize: 'contain'
+                  paddingBottom: '100%'
                 }}>
                   <img
                     src={item.url}
