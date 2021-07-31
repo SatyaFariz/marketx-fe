@@ -105,26 +105,25 @@ const Component = props => {
 
       const input = {
         name,
-        price,
+        price: parseFloat(price),
         desc,
         specs: productSpecs
       }
 
-      alert(JSON.stringify(input, null, 2))
-      // setLoading(true)
-      // UpdateProduct(environment, { loginId: mobileNumber, password: code }, (payload, error) => {
-      //   if(error) {
-      //     console.log(error)
-      //   } else if(payload) {
-      //     const { hasError, message } = payload.actionInfo
-      //     alert(message)
-      //     if(!hasError) {
-      //       // do sth
-      //     }
-      //   }
+      setLoading(true)
+      UpdateProduct(environment, { id: product.id, input }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            // do sth
+          }
+        }
 
-      //   _isMounted.current && setLoading(false)
-      // })
+        _isMounted.current && setLoading(false)
+      })
     }
   }
 
