@@ -199,6 +199,7 @@ const Component = props => {
 
           <div style={{ marginTop: 15, marginBottom: 15 }}>
             {product.specs.map((item, i) => {
+              if(item.value?.trim() === '') return null
               return (
                 <div key={i} style={{
                   display: 'flex',
