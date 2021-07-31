@@ -4,15 +4,16 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../
 import Color from '../../Constants/Color'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
-import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
 import Link from '../../Components/Link'
-import { Button, TextField, InputAdornment, Input } from '@material-ui/core'
+import { Button, TextField, InputAdornment } from '@material-ui/core'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
+import Validator from '../../../helpers/validator'
 
 const Component = props => {
   const { product } = props
+  const _isMounted = useRef(true)
   const scrollRef = useRef()
   const [showHeader, setShowHeader] = useState(false)
   const { history } = useAppContext()
@@ -24,6 +25,8 @@ const Component = props => {
     return obj
   }, {}))
   const [carouselPos, setCarouselPos] = useState(0)
+  const [validation, setValidation] = useState({ isValid: false })
+  const [loading, setLoading] = useState(false)
 
   const handleCarouselChange = (value) => {
     if(!isNaN(value))
@@ -42,11 +45,66 @@ const Component = props => {
       setPrice(value)
   }
 
+  const isValid = () => {
+    const specsRules = product.category.specFields.reduce((rules, currentVal) => {
+      if(currentVal.isRequired) {
+        rules.push({
+          field: currentVal.attribute.id,
+          method: Validator.isEmpty,
+          validWhen: false,
+          message: 'This field is required.'
+        })
+      }
+      
+      return rules
+    }, [])
+
+    const validator = new Validator([
+      ...specsRules,
+      {
+        field: 'name',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'This field is required.'
+      },
+      {
+        field: 'price',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'This field is required.'
+      },
+      {
+        field: 'desc',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'This field is required.'
+      }
+    ])
+
+    const validation = validator.validate({
+      ...specs,
+      name,
+      price,
+      desc
+    })
+
+    setValidation(validation)
+    return validation.isValid
+  }
+
+  const save = () => {
+    if(isValid() && !loading) {
+
+    }
+  }
+
   useEffect(() => {
     scrollRef.current.onscroll = () => {
       const pageYOffset = scrollRef.current.scrollTop
       setShowHeader(pageYOffset > 230)
     }
+
+    return () => _isMounted.current = false
   }, [])
 
   return (
@@ -103,7 +161,7 @@ const Component = props => {
             fontSize: 20,
             fontWeight: 500,
             textAlign: 'center'
-          }}>Create Product</h1>
+          }}>Edit Product</h1>
         </div>
         
       </div>
@@ -193,6 +251,8 @@ const Component = props => {
               marginTop: 10,
               marginBottom: 10
             }}
+            error={validation?.name?.isInvalid}
+            helperText={validation?.name?.message}
           />
 
           <TextField
@@ -213,6 +273,8 @@ const Component = props => {
               type: "text",
               inputMode: "numeric"
             }}
+            error={validation?.price?.isInvalid}
+            helperText={validation?.price?.message}
           />
           
           <TextField
@@ -227,6 +289,8 @@ const Component = props => {
               marginTop: 10,
               marginBottom: 10
             }}
+            error={validation?.desc?.isInvalid}
+            helperText={validation?.desc?.message}
           />
 
           <h3 style={{ margin: '10px 0'}}>Specifications</h3>
@@ -244,6 +308,8 @@ const Component = props => {
                   marginTop: 10,
                   marginBottom: 10
                 }}
+                error={validation[field.attribute.id]?.isInvalid}
+                helperText={validation[field.attribute.id]?.message}
               />
             )
           })}
@@ -256,8 +322,9 @@ const Component = props => {
               fontTransform: 'none',
               marginTop: 10
             }}
+            onClick={save}
           >
-            Create
+            Save
           </Button>
         </div>
       </div>
