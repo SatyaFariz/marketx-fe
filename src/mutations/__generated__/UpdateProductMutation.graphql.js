@@ -8,14 +8,11 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type ProductTypeEnum = "for_rent" | "for_sale" | "service" | "%future added value";
 export type ProductInput = {|
   name: string,
   desc: string,
   price: number,
-  type: ProductTypeEnum,
   specs: $ReadOnlyArray<SpecificationInput>,
-  categoryId?: ?string,
   rentalDurationId?: ?string,
 |};
 export type SpecificationInput = {|

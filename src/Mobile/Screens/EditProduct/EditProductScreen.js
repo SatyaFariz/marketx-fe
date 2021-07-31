@@ -10,13 +10,14 @@ import { Button, TextField, InputAdornment } from '@material-ui/core'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 import Validator from '../../../helpers/validator'
+import UpdateProduct from '../../../mutations/UpdateProduct'
 
 const Component = props => {
   const { product } = props
   const _isMounted = useRef(true)
   const scrollRef = useRef()
   const [showHeader, setShowHeader] = useState(false)
-  const { history } = useAppContext()
+  const { history, environment } = useAppContext()
   const [name, setName] = useState(product.name)
   const [price, setPrice] = useState(product.price.toString())
   const [desc, setDesc] = useState(product.desc)
@@ -93,9 +94,55 @@ const Component = props => {
   }
 
   const save = () => {
-    if(isValid() && !loading) {
+    if(isValid() && !isClean() && !loading) {
+      const productSpecs = []
+      for(let key in specs) {
+        productSpecs.push({
+          attributeId: key,
+          value: specs[key]
+        })
+      }
 
+      const input = {
+        name,
+        price,
+        desc,
+        specs: productSpecs
+      }
+
+      alert(JSON.stringify(input, null, 2))
+      // setLoading(true)
+      // UpdateProduct(environment, { loginId: mobileNumber, password: code }, (payload, error) => {
+      //   if(error) {
+      //     console.log(error)
+      //   } else if(payload) {
+      //     const { hasError, message } = payload.actionInfo
+      //     alert(message)
+      //     if(!hasError) {
+      //       // do sth
+      //     }
+      //   }
+
+      //   _isMounted.current && setLoading(false)
+      // })
     }
+  }
+
+  const isClean = () => {
+    for(let i = 0; i < product.specs.length; i++) {
+      const spec = product.specs[i]
+      const attributeId = spec.attribute.id
+      const { value } = spec
+      if(value?.trim() !== specs[attributeId]?.trim()) {
+        return false
+      }
+    }
+
+    return (
+      product.name.trim() === name.trim() &&
+      product.desc.trim() === desc.trim() &&
+      product.price === parseFloat(price)
+    )
   }
 
   useEffect(() => {
