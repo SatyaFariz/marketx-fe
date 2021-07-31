@@ -123,6 +123,10 @@ const Component = props => {
     })
 
     setValidation(validation)
+    if(files.length === 0) {
+      alert('Set a photo')
+      return false
+    }
     return validation.isValid
   }
 
