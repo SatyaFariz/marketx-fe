@@ -32,8 +32,8 @@ const Component = props => {
           return new Promise(async (resolve) => {
             const tool = await fromImage(file)
             const image = await tool.quality(0.4).toFile(file.name)
-            const compressed = { preview: URL.createObjectURL(image), ...image }
-            resolve(file)
+            image.preview = URL.createObjectURL(image)
+            resolve(image)
           })
         }))
         setCarouselPos(0)
