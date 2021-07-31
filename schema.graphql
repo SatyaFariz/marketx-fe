@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sat Jul 31 2021 20:29:31 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Aug 01 2021 00:53:33 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -69,7 +69,7 @@ type Image {
 type Mutation {
   login(loginId: String!, password: String!): ActionOnUserPayload
   addIcon(id: String!, url: String!): String
-  createProduct(type: ProductTypeEnum!, categoryId: String, input: ProductInput!): ActionOnProductPayload
+  createProduct(type: ProductTypeEnum!, storeId: String!, categoryId: String, input: ProductInput!): ActionOnProductPayload
   setProductImage(id: String!, url: String!): String
   setAttributeIcon(id: String!, url: String!): String
   updateDescription(id: String!, desc: String!): String

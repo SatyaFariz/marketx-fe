@@ -21,6 +21,7 @@ export type SpecificationInput = {|
   value: string,
 |};
 export type CreateProductMutationVariables = {|
+  storeId: string,
   type: ProductTypeEnum,
   categoryId?: ?string,
   input: ProductInput,
@@ -84,11 +85,12 @@ export type CreateProductMutation = {|
 
 /*
 mutation CreateProductMutation(
+  $storeId: String!
   $type: ProductTypeEnum!
   $categoryId: String
   $input: ProductInput!
 ) {
-  createProduct(type: $type, categoryId: $categoryId, input: $input) {
+  createProduct(storeId: $storeId, type: $type, categoryId: $categoryId, input: $input) {
     actionInfo {
       hasError
       message
@@ -154,9 +156,14 @@ v1 = {
 v2 = {
   "defaultValue": null,
   "kind": "LocalArgument",
+  "name": "storeId"
+},
+v3 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
   "name": "type"
 },
-v3 = [
+v4 = [
   {
     "kind": "Variable",
     "name": "categoryId",
@@ -169,11 +176,16 @@ v3 = [
   },
   {
     "kind": "Variable",
+    "name": "storeId",
+    "variableName": "storeId"
+  },
+  {
+    "kind": "Variable",
     "name": "type",
     "variableName": "type"
   }
 ],
-v4 = {
+v5 = {
   "alias": null,
   "args": null,
   "concreteType": "ActionInfo",
@@ -198,36 +210,36 @@ v4 = {
   ],
   "storageKey": null
 },
-v5 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v6 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v7 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "desc",
   "storageKey": null
 },
-v8 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "price",
   "storageKey": null
 },
-v9 = [
-  (v5/*: any*/),
+v10 = [
+  (v6/*: any*/),
   {
     "alias": null,
     "args": null,
@@ -236,17 +248,17 @@ v9 = [
     "storageKey": null
   }
 ],
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "concreteType": "Image",
   "kind": "LinkedField",
   "name": "images",
   "plural": true,
-  "selections": (v9/*: any*/),
+  "selections": (v10/*: any*/),
   "storageKey": null
 },
-v11 = {
+v12 = {
   "alias": null,
   "args": null,
   "concreteType": "Category",
@@ -254,19 +266,19 @@ v11 = {
   "name": "category",
   "plural": false,
   "selections": [
-    (v5/*: any*/),
-    (v6/*: any*/)
+    (v6/*: any*/),
+    (v7/*: any*/)
   ],
   "storageKey": null
 },
-v12 = {
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "display",
   "storageKey": null
 },
-v13 = {
+v14 = {
   "alias": null,
   "args": null,
   "concreteType": "Specification",
@@ -274,7 +286,7 @@ v13 = {
   "name": "specs",
   "plural": true,
   "selections": [
-    (v5/*: any*/),
+    (v6/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -283,8 +295,8 @@ v13 = {
       "name": "attribute",
       "plural": false,
       "selections": [
-        (v5/*: any*/),
         (v6/*: any*/),
+        (v7/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -292,7 +304,7 @@ v13 = {
           "kind": "LinkedField",
           "name": "icon",
           "plural": false,
-          "selections": (v9/*: any*/),
+          "selections": (v10/*: any*/),
           "storageKey": null
         }
       ],
@@ -308,7 +320,7 @@ v13 = {
   ],
   "storageKey": null
 },
-v14 = {
+v15 = {
   "alias": null,
   "args": null,
   "concreteType": "User",
@@ -316,8 +328,8 @@ v14 = {
   "name": "merchant",
   "plural": false,
   "selections": [
-    (v5/*: any*/),
     (v6/*: any*/),
+    (v7/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -325,13 +337,13 @@ v14 = {
       "kind": "LinkedField",
       "name": "profilePicture",
       "plural": false,
-      "selections": (v9/*: any*/),
+      "selections": (v10/*: any*/),
       "storageKey": null
     }
   ],
   "storageKey": null
 },
-v15 = {
+v16 = {
   "alias": null,
   "args": null,
   "concreteType": "Store",
@@ -339,8 +351,8 @@ v15 = {
   "name": "store",
   "plural": false,
   "selections": [
-    (v5/*: any*/),
     (v6/*: any*/),
+    (v7/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -356,7 +368,8 @@ return {
     "argumentDefinitions": [
       (v0/*: any*/),
       (v1/*: any*/),
-      (v2/*: any*/)
+      (v2/*: any*/),
+      (v3/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
@@ -364,13 +377,13 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v3/*: any*/),
+        "args": (v4/*: any*/),
         "concreteType": "ActionOnProductPayload",
         "kind": "LinkedField",
         "name": "createProduct",
         "plural": false,
         "selections": [
-          (v4/*: any*/),
+          (v5/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -379,12 +392,12 @@ return {
             "name": "product",
             "plural": false,
             "selections": [
-              (v5/*: any*/),
               (v6/*: any*/),
               (v7/*: any*/),
               (v8/*: any*/),
-              (v10/*: any*/),
+              (v9/*: any*/),
               (v11/*: any*/),
+              (v12/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -393,13 +406,13 @@ return {
                 "name": "rentalDuration",
                 "plural": false,
                 "selections": [
-                  (v12/*: any*/)
+                  (v13/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v13/*: any*/),
               (v14/*: any*/),
-              (v15/*: any*/)
+              (v15/*: any*/),
+              (v16/*: any*/)
             ],
             "storageKey": null
           }
@@ -414,6 +427,7 @@ return {
   "operation": {
     "argumentDefinitions": [
       (v2/*: any*/),
+      (v3/*: any*/),
       (v0/*: any*/),
       (v1/*: any*/)
     ],
@@ -422,13 +436,13 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v3/*: any*/),
+        "args": (v4/*: any*/),
         "concreteType": "ActionOnProductPayload",
         "kind": "LinkedField",
         "name": "createProduct",
         "plural": false,
         "selections": [
-          (v4/*: any*/),
+          (v5/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -437,12 +451,12 @@ return {
             "name": "product",
             "plural": false,
             "selections": [
-              (v5/*: any*/),
               (v6/*: any*/),
               (v7/*: any*/),
               (v8/*: any*/),
-              (v10/*: any*/),
+              (v9/*: any*/),
               (v11/*: any*/),
+              (v12/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -451,14 +465,14 @@ return {
                 "name": "rentalDuration",
                 "plural": false,
                 "selections": [
-                  (v12/*: any*/),
-                  (v5/*: any*/)
+                  (v13/*: any*/),
+                  (v6/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v13/*: any*/),
               (v14/*: any*/),
-              (v15/*: any*/)
+              (v15/*: any*/),
+              (v16/*: any*/)
             ],
             "storageKey": null
           }
@@ -468,16 +482,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "418be923e58b41eacc090901a6c48f93",
+    "cacheID": "8a37438a437831a5566212a7ae15a562",
     "id": null,
     "metadata": {},
     "name": "CreateProductMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateProductMutation(\n  $type: ProductTypeEnum!\n  $categoryId: String\n  $input: ProductInput!\n) {\n  createProduct(type: $type, categoryId: $categoryId, input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      name\n      desc\n      price\n      images {\n        id\n        url\n      }\n      category {\n        id\n        name\n      }\n      rentalDuration {\n        display\n        id\n      }\n      specs {\n        id\n        attribute {\n          id\n          name\n          icon {\n            id\n            url\n          }\n        }\n        value\n      }\n      merchant {\n        id\n        name\n        profilePicture {\n          id\n          url\n        }\n      }\n      store {\n        id\n        name\n        whatsappLink\n      }\n    }\n  }\n}\n"
+    "text": "mutation CreateProductMutation(\n  $storeId: String!\n  $type: ProductTypeEnum!\n  $categoryId: String\n  $input: ProductInput!\n) {\n  createProduct(storeId: $storeId, type: $type, categoryId: $categoryId, input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      name\n      desc\n      price\n      images {\n        id\n        url\n      }\n      category {\n        id\n        name\n      }\n      rentalDuration {\n        display\n        id\n      }\n      specs {\n        id\n        attribute {\n          id\n          name\n          icon {\n            id\n            url\n          }\n        }\n        value\n      }\n      merchant {\n        id\n        name\n        profilePicture {\n          id\n          url\n        }\n      }\n      store {\n        id\n        name\n        whatsappLink\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '46b1915c2524866475e1974508f7a7cc';
+(node/*: any*/).hash = 'a8feb106c4b93d0b891e396729dfd37d';
 
 module.exports = node;

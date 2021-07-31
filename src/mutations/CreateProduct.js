@@ -2,8 +2,8 @@ import { commitMutation } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 
 const mutation = graphql`
-  mutation CreateProductMutation($type: ProductTypeEnum!, $categoryId: String, $input: ProductInput!) {
-    createProduct(type: $type, categoryId: $categoryId, input: $input) {
+  mutation CreateProductMutation($storeId: String!, $type: ProductTypeEnum!, $categoryId: String, $input: ProductInput!) {
+    createProduct(storeId: $storeId, type: $type, categoryId: $categoryId, input: $input) {
       actionInfo {
         hasError,
         message
