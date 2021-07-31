@@ -13,6 +13,7 @@ import '@brainhubeu/react-carousel/lib/style.css'
 import Validator from '../../../helpers/validator'
 import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
+import CreateProduct from '../../../mutations/CreateProduct'
 
 const megabytes = 1048576
 
@@ -32,7 +33,7 @@ const Component = props => {
             const tool = await fromImage(file)
             const image = await tool.quality(0.4).toFile(file.name)
             const compressed = { preview: URL.createObjectURL(image), ...image }
-            resolve(compressed)
+            resolve(file)
           })
         }))
         setCarouselPos(0)
@@ -45,7 +46,7 @@ const Component = props => {
   const _isMounted = useRef(true)
   const scrollRef = useRef()
   const [showHeader, setShowHeader] = useState(false)
-  const { history, environment } = useAppContext()
+  const { history, environment, queryParams } = useAppContext()
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
   const [desc, setDesc] = useState('')
@@ -132,7 +133,39 @@ const Component = props => {
 
   const create = () => {
     if(isValid() && !loading) {
+      const productSpecs = []
+      for(let key in specs) {
+        productSpecs.push({
+          attributeId: key,
+          value: specs[key]
+        })
+      }
 
+      const variables = {
+        type: 'for_sale',
+        categoryId: queryParams.categoryId,
+        input: {
+          name,
+          price: parseFloat(price, 10),
+          desc,
+          specs: productSpecs
+        }
+      }
+
+      setLoading(true)
+      CreateProduct(environment, variables, files, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          // const { hasError, message } = payload.actionInfo
+          // alert(message)
+          // if(!hasError) {
+          //   // do sth
+          // }
+        }
+
+        _isMounted.current && setLoading(false)
+      })
     }
   }
 
@@ -141,6 +174,8 @@ const Component = props => {
       const pageYOffset = scrollRef.current.scrollTop
       setShowHeader(pageYOffset > window.innerWidth)
     }
+
+    return () => _isMounted.current = false
   }, [])
   
   return (
