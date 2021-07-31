@@ -11,8 +11,37 @@ import { Button, TextField, InputAdornment } from '@material-ui/core'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 import Validator from '../../../helpers/validator'
+import { useDropzone } from 'react-dropzone'
+import { fromImage } from 'imtool'
+
+const megabytes = 1048576
 
 const Component = props => {
+  const [files, setFiles] = useState([])
+  const {getRootProps, getInputProps, open, acceptedFiles} = useDropzone({
+    // Disable click and keydown behavior
+    accept: 'image/jpeg',
+    noClick: true,
+    noKeyboard: true,
+    // maxSize: 2 * megabytes,
+    onDrop: async (acceptedFiles) => {
+      // var reader = new FileReader();
+      // var url = reader.readAsDataURL(acceptedFiles[0]);
+      // console.log(acceptedFiles[0])
+      // Process files
+      if(acceptedFiles.length > 0) {
+        const oneFile = acceptedFiles[0]
+        const tool = await fromImage(oneFile)
+        const image = await tool.quality(0.4).toFile(oneFile.name)
+        Object.assign(oneFile, { preview: URL.createObjectURL(oneFile) })
+        setFiles([{ preview: URL.createObjectURL(image), size: image.size }])
+        console.log(acceptedFiles[0])
+      }
+      
+      // setFiles(prev => [...prev, acceptedFiles[0].preview])
+    },
+    onDropRejected: () => alert('Rejected')
+  })
   const { category } = props
   const _isMounted = useRef(true)
   const scrollRef = useRef()
@@ -25,8 +54,14 @@ const Component = props => {
     obj[currentVal.attribute.id] = ''
     return obj
   }, {}))
+  const [carouselPos, setCarouselPos] = useState(0)
   const [validation, setValidation] = useState({ isValid: false })
   const [loading, setLoading] = useState(false)
+
+  const handleCarouselChange = (value) => {
+    if(!isNaN(value))
+      setCarouselPos(value)
+  }
 
   const _setSpecs = field => e => {
     const value = e.target.value.trimLeft()
@@ -183,7 +218,60 @@ const Component = props => {
           display: 'flex',
           justifyContent: 'flex-end',
           alignItems: 'flex-end'
-        }}>
+        }}
+        {...getRootProps({className: 'dropzone'})}
+        >
+          <input {...getInputProps()} />
+          <Carousel onChange={handleCarouselChange} value={carouselPos} draggable={acceptedFiles.length > 1}>
+            {acceptedFiles.map((item, i) => {
+              // return (
+              //   <div key={i} style={{
+              //     width: '100vw',
+              //     backgroundColor: 'red',
+              //     height: 'calc(100vw * 77/137)',
+              //     backgroundImage: `url("${item.path}")`,
+              //     backgroundPosition:'center',
+              //     zIndex: 999
+              //   }}/>
+              // )
+
+              return (
+                <img
+                  src={item.uri}
+                  style={{
+                    width:'100vw',
+                    height:'calc(100vw * 77/137)'
+                  }}
+                />
+              )
+            })}
+          </Carousel>
+          {acceptedFiles.length > 1 &&
+          <div style={{
+            position: 'absolute',
+            width: '100%',
+            bottom: 15,
+            height: 0,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            backgroundColor: 'white',
+          }} pointerEvents="none">
+            {acceptedFiles.map((item, i) => {
+              return (
+                <div key={i} style={{
+                  height: 5,
+                  width: 5,
+                  borderRadius: '50%',
+                  backgroundColor: i === carouselPos ? Color.primary : 'white',
+                  marginLeft: 2,
+                  marginRight: 2,
+                  // border: `1px solid ${Color.primary}`,
+                }}/>
+              )
+            })}
+          </div>
+          }
           <Button
             disableElevation
             variant="contained"
@@ -191,10 +279,37 @@ const Component = props => {
               backgroundColor: 'white',
               margin: 15
             }}
+            onClick={open}
           >
             Add Photo
           </Button>
         </div>
+
+        {files.map((item, i) => {
+              // return (
+              //   <div key={i} style={{
+              //     width: '100vw',
+              //     backgroundColor: 'red',
+              //     height: 'calc(100vw * 77/137)',
+              //     backgroundImage: `url("${item.path}")`,
+              //     backgroundPosition:'center',
+              //     zIndex: 999
+              //   }}/>
+              // )
+
+              return (
+                <>
+                <div>{item.size}</div>
+                <img
+                  src={item.preview}
+                  style={{
+                    width:100,
+                    height:100
+                  }}
+                />
+                </>
+              )
+            })}
 
         <div style={{
           padding: '10px 15px'
