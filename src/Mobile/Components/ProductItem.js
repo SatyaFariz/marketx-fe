@@ -22,9 +22,11 @@ const Component = props => {
           fontWeight: 500,
           marginBottom: 5
         }}>{product.name}</span>
+        {product.rentalDuration &&
         <span style={{
           fontSize: 16
         }}>{formatCurrency(product.price)} / {product.rentalDuration.display}</span>
+        }
       </div>
     </Link>
   )

@@ -9,6 +9,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type CreateProductScreen_category$ref = any;
+type CreateProductScreen_me$ref = any;
 export type CreateProductScreenQueryVariables = {|
   categoryId: string
 |};
@@ -16,7 +17,11 @@ export type CreateProductScreenQueryResponse = {|
   +category: ?{|
     +id: ?string,
     +$fragmentRefs: CreateProductScreen_category$ref,
-  |}
+  |},
+  +me: ?{|
+    +id: ?string,
+    +$fragmentRefs: CreateProductScreen_me$ref,
+  |},
 |};
 export type CreateProductScreenQuery = {|
   variables: CreateProductScreenQueryVariables,
@@ -33,6 +38,10 @@ query CreateProductScreenQuery(
     id
     ...CreateProductScreen_category
   }
+  me {
+    id
+    ...CreateProductScreen_me
+  }
 }
 
 fragment CreateProductScreen_category on Category {
@@ -45,6 +54,13 @@ fragment CreateProductScreen_category on Category {
       name
     }
     isRequired
+  }
+}
+
+fragment CreateProductScreen_me on User {
+  id
+  store {
+    id
   }
 }
 */
@@ -98,6 +114,23 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "CreateProductScreen_category"
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CreateProductScreen_me"
           }
         ],
         "storageKey": null
@@ -156,20 +189,44 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Store",
+            "kind": "LinkedField",
+            "name": "store",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "7878d72ab9b79e584683543f7dd32c3b",
+    "cacheID": "5a50221eaaedb745475d2a8767933d2f",
     "id": null,
     "metadata": {},
     "name": "CreateProductScreenQuery",
     "operationKind": "query",
-    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isRequired\n  }\n}\n"
+    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isRequired\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'ca1aba0b75a682b0785e9287da78071b';
+(node/*: any*/).hash = '5592b10131d449fe11cf0d3205d81d5c';
 
 module.exports = node;

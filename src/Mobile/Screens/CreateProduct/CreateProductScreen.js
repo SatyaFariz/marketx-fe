@@ -42,7 +42,7 @@ const Component = props => {
     },
     onDropRejected: () => console.log('Rejected')
   })
-  const { category } = props
+  const { category, me } = props
   const _isMounted = useRef(true)
   const scrollRef = useRef()
   const [showHeader, setShowHeader] = useState(false)
@@ -143,6 +143,7 @@ const Component = props => {
 
       const variables = {
         type: 'for_sale',
+        storeId: me.store.id,
         categoryId: queryParams.categoryId,
         input: {
           name,
@@ -420,6 +421,14 @@ export default createFragmentContainer(Component, {
           name
         },
         isRequired
+      }
+    }
+  `,
+  me: graphql`
+    fragment CreateProductScreen_me on User {
+      id,
+      store {
+        id
       }
     }
   `

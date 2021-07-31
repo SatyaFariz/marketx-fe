@@ -296,9 +296,11 @@ const Component = props => {
           justifyContent: 'space-between'
         }}>
           <div>
+            {product.rentalDuration &&
             <span style={{
               display: 'block'
             }}>Price per {product.rentalDuration.display}</span>
+            }
             <span style={{
               fontSize: 16,
               fontWeight: '500',

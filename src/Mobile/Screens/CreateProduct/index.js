@@ -9,6 +9,10 @@ const chunk = {
       category(id: $categoryId) {
         id,
         ...CreateProductScreen_category
+      },
+      me {
+        id,
+        ...CreateProductScreen_me
       }
     }
   `,
@@ -21,6 +25,7 @@ const chunk = {
         <FixedAddressBar>
           <CreateProductScreen
             category={data.category}
+            me={data.me}
           />
         </FixedAddressBar>
         
