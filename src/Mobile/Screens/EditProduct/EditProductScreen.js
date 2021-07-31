@@ -153,7 +153,7 @@ const Component = props => {
   useEffect(() => {
     scrollRef.current.onscroll = () => {
       const pageYOffset = scrollRef.current.scrollTop
-      setShowHeader(pageYOffset > 230)
+      setShowHeader(pageYOffset > window.innerWidth)
     }
 
     return () => _isMounted.current = false
@@ -231,19 +231,28 @@ const Component = props => {
         <div style={{
           position: 'relative',
           width: '100vw',
-          // backgroundColor: 'red',
-          height: 'calc(100vw * 77/137)',
+          height: '100vw',
         }}>
           <Carousel onChange={handleCarouselChange} value={carouselPos} draggable={product.images.length > 1}>
             {product.images.map((item, i) => {
               return (
                 <div key={i} style={{
+                  position: 'relative',
                   width: '100vw',
-                  backgroundColor: 'red',
-                  height: 'calc(100vw * 77/137)',
-                  backgroundImage: `url("${item.url}")`,
-                  backgroundPosition:'center'
-                }}/>
+                  paddingBottom: '100%'
+                }}>
+                  <img
+                    src={item.url}
+                    style={{
+                      position: 'absolute',
+                      height: '100%',
+                      width: '100%',
+                      left: 0,
+                      bottom: 0,
+                      objectFit: 'cover'
+                    }}
+                  />
+                </div>
               )
             })}
           </Carousel>
