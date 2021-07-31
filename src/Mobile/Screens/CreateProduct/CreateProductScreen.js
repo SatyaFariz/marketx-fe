@@ -69,6 +69,12 @@ const Component = props => {
         message: 'This field is required.'
       },
       {
+        field: 'price',
+        method: (price) => parseFloat(price, 10) > 0,
+        validWhen: true,
+        message: 'Price must be above 0.'
+      },
+      {
         field: 'desc',
         method: Validator.isEmpty,
         validWhen: false,
@@ -89,7 +95,7 @@ const Component = props => {
 
   const create = () => {
     if(isValid() && !loading) {
-      
+
     }
   }
 
