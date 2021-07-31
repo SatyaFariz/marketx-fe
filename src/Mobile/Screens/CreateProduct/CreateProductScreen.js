@@ -18,29 +18,26 @@ const megabytes = 1048576
 
 const Component = props => {
   const [files, setFiles] = useState([])
-  const {getRootProps, getInputProps, open, acceptedFiles} = useDropzone({
+  const { getRootProps, getInputProps, open } = useDropzone({
     // Disable click and keydown behavior
     accept: 'image/jpeg',
     noClick: true,
     noKeyboard: true,
-    // maxSize: 2 * megabytes,
+    maxSize: 6 * megabytes,
     onDrop: async (acceptedFiles) => {
-      // var reader = new FileReader();
-      // var url = reader.readAsDataURL(acceptedFiles[0]);
-      // console.log(acceptedFiles[0])
-      // Process files
       if(acceptedFiles.length > 0) {
-        const oneFile = acceptedFiles[0]
-        const tool = await fromImage(oneFile)
-        const image = await tool.quality(0.4).toFile(oneFile.name)
-        Object.assign(oneFile, { preview: URL.createObjectURL(oneFile) })
-        setFiles([{ preview: URL.createObjectURL(image), size: image.size }])
-        console.log(acceptedFiles[0])
+        const images = await Promise.all(acceptedFiles.map(file => {
+          return new Promise(async (resolve) => {
+            const tool = await fromImage(file)
+            const image = await tool.quality(0.4).toFile(file.name)
+            const compressed = { preview: URL.createObjectURL(image), ...image }
+            resolve(compressed)
+          })
+        }))
+        setFiles(images)
       }
-      
-      // setFiles(prev => [...prev, acceptedFiles[0].preview])
     },
-    onDropRejected: () => alert('Rejected')
+    onDropRejected: () => console.log('Rejected')
   })
   const { category } = props
   const _isMounted = useRef(true)
@@ -137,7 +134,7 @@ const Component = props => {
   useEffect(() => {
     scrollRef.current.onscroll = () => {
       const pageYOffset = scrollRef.current.scrollTop
-      setShowHeader(pageYOffset > 230)
+      setShowHeader(pageYOffset > window.innerWidth)
     }
   }, [])
 
@@ -214,39 +211,24 @@ const Component = props => {
           position: 'relative',
           width: '100vw',
           backgroundColor: 'rgb(207, 217, 222)',
-          height: 'calc(100vw * 77/137)',
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'flex-end'
-        }}
-        {...getRootProps({className: 'dropzone'})}
-        >
-          <input {...getInputProps()} />
-          <Carousel onChange={handleCarouselChange} value={carouselPos} draggable={acceptedFiles.length > 1}>
-            {acceptedFiles.map((item, i) => {
-              // return (
-              //   <div key={i} style={{
-              //     width: '100vw',
-              //     backgroundColor: 'red',
-              //     height: 'calc(100vw * 77/137)',
-              //     backgroundImage: `url("${item.path}")`,
-              //     backgroundPosition:'center',
-              //     zIndex: 999
-              //   }}/>
-              // )
-
+          height: '100vw',
+        }}>
+          
+          <Carousel key={files.length} onChange={handleCarouselChange} value={carouselPos} draggable={files.length > 1}>
+            {files.map((item, i) => {
               return (
-                <img
-                  src={item.uri}
-                  style={{
-                    width:'100vw',
-                    height:'calc(100vw * 77/137)'
-                  }}
-                />
+                <div key={i} style={{
+                  width: '100vw',
+                  height: '100vw',
+                  backgroundImage: `url("${item.preview}")`,
+                  backgroundPosition:'center',
+                  // backgroundSize: 'contain',
+                  // backgroundRepeat: 'no-repeat'
+                }}/>
               )
             })}
           </Carousel>
-          {acceptedFiles.length > 1 &&
+          {files.length > 1 &&
           <div style={{
             position: 'absolute',
             width: '100%',
@@ -257,7 +239,7 @@ const Component = props => {
             justifyContent: 'center',
             backgroundColor: 'white',
           }} pointerEvents="none">
-            {acceptedFiles.map((item, i) => {
+            {files.map((item, i) => {
               return (
                 <div key={i} style={{
                   height: 5,
@@ -272,44 +254,24 @@ const Component = props => {
             })}
           </div>
           }
-          <Button
-            disableElevation
-            variant="contained"
-            style={{
-              backgroundColor: 'white',
-              margin: 15
-            }}
-            onClick={open}
-          >
-            Add Photo
-          </Button>
+          <div {...getRootProps({className: 'dropzone'})}>
+            <input {...getInputProps()} />
+            <Button
+              disableElevation
+              variant="contained"
+              style={{
+                backgroundColor: 'white',
+                margin: 15,
+                position: 'absolute',
+                right: 0,
+                bottom: 0
+              }}
+              onClick={open}
+            >
+              Edit Photos
+            </Button>
+          </div>
         </div>
-
-        {files.map((item, i) => {
-              // return (
-              //   <div key={i} style={{
-              //     width: '100vw',
-              //     backgroundColor: 'red',
-              //     height: 'calc(100vw * 77/137)',
-              //     backgroundImage: `url("${item.path}")`,
-              //     backgroundPosition:'center',
-              //     zIndex: 999
-              //   }}/>
-              // )
-
-              return (
-                <>
-                <div>{item.size}</div>
-                <img
-                  src={item.preview}
-                  style={{
-                    width:100,
-                    height:100
-                  }}
-                />
-                </>
-              )
-            })}
 
         <div style={{
           padding: '10px 15px'
