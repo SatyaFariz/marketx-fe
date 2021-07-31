@@ -46,7 +46,7 @@ const Component = props => {
   const _isMounted = useRef(true)
   const scrollRef = useRef()
   const [showHeader, setShowHeader] = useState(false)
-  const { history, environment, queryParams } = useAppContext()
+  const { history, environment, pathname } = useAppContext()
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
   const [desc, setDesc] = useState('')
@@ -144,7 +144,7 @@ const Component = props => {
       const variables = {
         type: 'for_sale',
         storeId: me.store.id,
-        categoryId: queryParams.categoryId,
+        categoryId: pathname.split('/').pop(),
         input: {
           name,
           price: parseFloat(price, 10),
