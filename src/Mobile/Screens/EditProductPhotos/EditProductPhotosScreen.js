@@ -62,22 +62,39 @@ const Component = props => {
         left: 0,
         right: 0,
         bottom: 0,
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gridColumnGap: 10,
-        padding: 15
+        
       }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gridGap: 10,
+          padding: 15
+        }}>
         {product.images.map(item => {
           return (
-            <img
-              src={item.url}
+            <div
+              key={item.id}
               style={{
+                position: 'relative',
                 width: '100%',
-                height: '100%'
+                paddingBottom: '100%',
               }}
-            />
+            >
+              <img
+                src={item.url}
+                style={{
+                  position: 'absolute',
+                  height: '100%',
+                  width: '100%',
+                  left: 0,
+                  bottom: 0,
+                  objectFit: 'cover'
+                }}
+              />
+            </div>
           )
         })}
+        </div>
       </div>
     </div>
   )
