@@ -7,9 +7,11 @@ import useAppContext from '../../hooks/useAppContext'
 import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
 import Link from '../../Components/Link'
-import { Button, TextField } from '@material-ui/core'
+import { Button, TextField, IconButton } from '@material-ui/core'
+import { MoreVert } from '@material-ui/icons'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
+import ImageItem from './ImageItem'
 
 const Component = props => {
   const { product } = props
@@ -72,26 +74,7 @@ const Component = props => {
         }}>
         {product.images.map(item => {
           return (
-            <div
-              key={item.id}
-              style={{
-                position: 'relative',
-                width: '100%',
-                paddingBottom: '100%',
-              }}
-            >
-              <img
-                src={item.url}
-                style={{
-                  position: 'absolute',
-                  height: '100%',
-                  width: '100%',
-                  left: 0,
-                  bottom: 0,
-                  objectFit: 'cover'
-                }}
-              />
-            </div>
+            <ImageItem src={item.url} key={item.id}/>
           )
         })}
         </div>
