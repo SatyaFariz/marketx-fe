@@ -17,6 +17,7 @@ import { fromImage } from 'imtool'
 const megabytes = 1048576
 
 const Component = props => {
+  const [carouselPos, setCarouselPos] = useState(0)
   const [files, setFiles] = useState([])
   const { getRootProps, getInputProps, open } = useDropzone({
     // Disable click and keydown behavior
@@ -34,6 +35,7 @@ const Component = props => {
             resolve(compressed)
           })
         }))
+        setCarouselPos(0)
         setFiles(images)
       }
     },
@@ -51,7 +53,6 @@ const Component = props => {
     obj[currentVal.attribute.id] = ''
     return obj
   }, {}))
-  const [carouselPos, setCarouselPos] = useState(0)
   const [validation, setValidation] = useState({ isValid: false })
   const [loading, setLoading] = useState(false)
 
@@ -137,7 +138,7 @@ const Component = props => {
       setShowHeader(pageYOffset > window.innerWidth)
     }
   }, [])
-
+  
   return (
     <div>
       <div style={{
@@ -214,7 +215,7 @@ const Component = props => {
           height: '100vw',
         }}>
           
-          <Carousel key={files.length} onChange={handleCarouselChange} value={carouselPos} draggable={files.length > 1}>
+          <Carousel key={files.map(x => x.preview).join()} onChange={handleCarouselChange} value={carouselPos} draggable={files.length > 1}>
             {files.map((item, i) => {
               return (
                 <div key={i} style={{
