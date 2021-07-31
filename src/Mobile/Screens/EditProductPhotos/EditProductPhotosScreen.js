@@ -13,106 +13,71 @@ import '@brainhubeu/react-carousel/lib/style.css'
 
 const Component = props => {
   const { product } = props
-  const scrollRef = useRef()
   const [showHeader, setShowHeader] = useState(false)
   const { history } = useAppContext()
-
-  useEffect(() => {
-    scrollRef.current.onscroll = () => {
-      const pageYOffset = scrollRef.current.scrollTop
-      setShowHeader(pageYOffset > 230)
-    }
-  }, [])
 
   return (
     <div>
       <div style={{
         height: HEADER_HEIGHT,
-        position: 'absolute',
+        backgroundColor: 'white',
         width: '100%',
-        // backgroundImage: 'linear-gradient(rgb(76, 76, 76), transparent)',
         display: 'flex',
         alignItems: 'center',
-        flexDirection: 'row',
-        zIndex: 2
-      }}>
-        <div 
-        onClick={() => history.goBack()}
-        style={{
-          paddingRight: 10,
-          paddingLeft: 10
-        }}>
-          <IoChevronBackSharp size={32} color={'white'}/>
-        </div>
-      </div>
-
-      <div style={{
-        height: HEADER_HEIGHT,
         position: 'absolute',
-        width: '100%',
-        backgroundColor: 'white',
-        alignItems: 'center',
-        flexDirection: 'row',
-        zIndex: 3,
-        display: showHeader ? 'flex' : 'none',
+        top: 0,
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
         <div 
         onClick={() => history.goBack()}
         style={{
           paddingRight: 10,
-          paddingLeft: 10
+          paddingLeft: 10,
+          zIndex: 1
         }}>
           <IoChevronBackSharp size={32}/>
         </div>
+        
         <div style={{
           position: 'absolute',
           height: '100%',
           width: '100%',
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
+          zIndex: 0
         }}>
           <h1 style={{
             margin: 0,
             fontSize: 20,
             fontWeight: 500,
-            textAlign: 'center'
-          }}>Create Product</h1>
+            textAlign: 'center',
+          }}>Photos</h1>
         </div>
-        
       </div>
 
-      <div 
-      ref={scrollRef}
-      style={{
+      <div style={{
+        top: HEADER_HEIGHT,
         position: 'absolute',
         left: 0,
         right: 0,
-        top: 0,
         bottom: 0,
-        overflow: 'auto'
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gridColumnGap: 10,
+        padding: 15
       }}>
-        <div style={{
-          position: 'relative',
-          width: '100vw',
-          backgroundColor: 'rgb(207, 217, 222)',
-          height: 'calc(100vw * 77/137)',
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'flex-end'
-        }}>
-          <Button
-            disableElevation
-            variant="contained"
-            style={{
-              backgroundColor: 'white',
-              margin: 15
-            }}
-          >
-            Add Photos
-          </Button>
-        </div>
+        {product.images.map(item => {
+          return (
+            <img
+              src={item.url}
+              style={{
+                width: '100%',
+                height: '100%'
+              }}
+            />
+          )
+        })}
       </div>
     </div>
   )
@@ -121,7 +86,11 @@ const Component = props => {
 export default createFragmentContainer(Component, {
   product: graphql`
     fragment EditProductPhotosScreen_product on Product {
-      id
+      id,
+      images {
+        id,
+        url
+      }
     }
   `
 })

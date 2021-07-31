@@ -37,6 +37,10 @@ query EditProductPhotosScreenQuery(
 
 fragment EditProductPhotosScreen_product on Product {
   id
+  images {
+    id
+    url
+  }
 }
 */
 
@@ -104,19 +108,38 @@ return {
         "name": "product",
         "plural": false,
         "selections": [
-          (v2/*: any*/)
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Image",
+            "kind": "LinkedField",
+            "name": "images",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "url",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "828e69c80a15e381166922f4b2ba50d9",
+    "cacheID": "5c5fa10d7d8c8ee8ff881bb55d7f95d9",
     "id": null,
     "metadata": {},
     "name": "EditProductPhotosScreenQuery",
     "operationKind": "query",
-    "text": "query EditProductPhotosScreenQuery(\n  $productId: String!\n) {\n  product(id: $productId) {\n    id\n    ...EditProductPhotosScreen_product\n  }\n}\n\nfragment EditProductPhotosScreen_product on Product {\n  id\n}\n"
+    "text": "query EditProductPhotosScreenQuery(\n  $productId: String!\n) {\n  product(id: $productId) {\n    id\n    ...EditProductPhotosScreen_product\n  }\n}\n\nfragment EditProductPhotosScreen_product on Product {\n  id\n  images {\n    id\n    url\n  }\n}\n"
   }
 };
 })();
