@@ -40,6 +40,10 @@ fragment EditProductScreen_product on Product {
   name
   price
   desc
+  images {
+    id
+    url
+  }
   specs {
     id
     attribute {
@@ -152,6 +156,25 @@ return {
           {
             "alias": null,
             "args": null,
+            "concreteType": "Image",
+            "kind": "LinkedField",
+            "name": "images",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "url",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "Specification",
             "kind": "LinkedField",
             "name": "specs",
@@ -231,12 +254,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ee681045c42bfbd795d5be702db89df1",
+    "cacheID": "76d54bcb686e30a97a8cc0b494d1e560",
     "id": null,
     "metadata": {},
     "name": "EditProductScreenQuery",
     "operationKind": "query",
-    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  category {\n    id\n    name\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isRequired\n    }\n  }\n}\n"
+    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  category {\n    id\n    name\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isRequired\n    }\n  }\n}\n"
   }
 };
 })();

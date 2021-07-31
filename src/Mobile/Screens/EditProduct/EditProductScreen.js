@@ -23,6 +23,12 @@ const Component = props => {
     obj[currentVal.attribute.id] = product.specs.find(item => item.attribute.id === currentVal.attribute.id)?.value || ''
     return obj
   }, {}))
+  const [carouselPos, setCarouselPos] = useState(0)
+
+  const handleCarouselChange = (value) => {
+    if(!isNaN(value))
+      setCarouselPos(value)
+  }
 
   const _setSpecs = field => e => {
     const value = e.target.value.trimLeft()
@@ -115,18 +121,57 @@ const Component = props => {
         <div style={{
           position: 'relative',
           width: '100vw',
-          backgroundColor: 'rgb(207, 217, 222)',
+          // backgroundColor: 'red',
           height: 'calc(100vw * 77/137)',
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'flex-end'
         }}>
+          <Carousel onChange={handleCarouselChange} value={carouselPos} draggable={product.images.length > 1}>
+            {product.images.map((item, i) => {
+              return (
+                <div key={i} style={{
+                  width: '100vw',
+                  backgroundColor: 'red',
+                  height: 'calc(100vw * 77/137)',
+                  backgroundImage: `url("${item.url}")`,
+                  backgroundPosition:'center'
+                }}/>
+              )
+            })}
+          </Carousel>
+          {product.images.length > 1 &&
+          <div style={{
+            position: 'absolute',
+            width: '100%',
+            bottom: 15,
+            height: 0,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            backgroundColor: 'white',
+          }} pointerEvents="none">
+            {product.images.map((item, i) => {
+              return (
+                <div key={i} style={{
+                  height: 5,
+                  width: 5,
+                  borderRadius: '50%',
+                  backgroundColor: i === carouselPos ? Color.primary : 'white',
+                  marginLeft: 2,
+                  marginRight: 2,
+                  // border: `1px solid ${Color.primary}`,
+                }}/>
+              )
+            })}
+          </div>
+          }
           <Button
             disableElevation
             variant="contained"
             style={{
               backgroundColor: 'white',
-              margin: 15
+              margin: 15,
+              position: 'absolute',
+              right: 0,
+              bottom: 0
             }}
             onClick={() => history.push(`/edit/photos/${product.id}`)}
           >
@@ -227,6 +272,10 @@ export default createFragmentContainer(Component, {
       name,
       price,
       desc,
+      images {
+        id,
+        url
+      },
       specs {
         id,
         attribute {
