@@ -11,6 +11,7 @@ import '@brainhubeu/react-carousel/lib/style.css'
 import ImageItem from './ImageItem'
 import DeleteProductImages from '../../../mutations/DeleteProductImages'
 import AddProductImages from '../../../mutations/AddProductImages'
+import UpdateMainProductImage from '../../../mutations/UpdateMainProductImage'
 import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
 
@@ -21,6 +22,7 @@ const Component = props => {
   const { history, environment } = useAppContext()
   const { product } = props
   const [uploading, setUploading] = useState(false)
+  const [updating, setUpdating] = useState(false)
 
   const bulkUpload = (files) => {
     if(!uploading) {
@@ -85,6 +87,25 @@ const Component = props => {
         }
 
         _isMounted.current && setDeleting(false)
+      })
+    }
+  }
+
+  const updateMainImage = (id) => {
+    if(!updating) {
+      setUpdating(true)
+      UpdateMainProductImage(environment, { id: product.id, imageId: id }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            // do sth
+          }
+        }
+
+        _isMounted.current && setUpdating(false)
       })
     }
   }
@@ -184,6 +205,7 @@ const Component = props => {
                 key={item.id}
                 selectedIds={selectedIds}
                 setSelectedIds={setSelectedIds}
+                updateMainImage={() => updateMainImage(item.id)}
               />
             )
           })}

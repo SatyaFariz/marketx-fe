@@ -82,7 +82,10 @@ const Component = props => {
         onClose={handleClose}
       >
         {props.image.display !== 1 &&
-        <MenuItem onClick={handleClose}>Set as main photo</MenuItem>
+        <MenuItem onClick={() => {
+          props.updateMainImage()
+          handleClose()
+        }}>Set as main photo</MenuItem>
         }
         <MenuItem onClick={() => {
           props.setSelectedIds(prev => [...prev, props.image.id])
