@@ -8,12 +8,11 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type DeleteProductImagesMutationVariables = {|
-  id: string,
-  imageIds: $ReadOnlyArray<string>,
+export type AddProductImagesMutationVariables = {|
+  id: string
 |};
-export type DeleteProductImagesMutationResponse = {|
-  +deleteProductImages: ?{|
+export type AddProductImagesMutationResponse = {|
+  +addProductImages: ?{|
     +actionInfo: ?{|
       +hasError: ?boolean,
       +message: ?string,
@@ -28,19 +27,18 @@ export type DeleteProductImagesMutationResponse = {|
     |},
   |}
 |};
-export type DeleteProductImagesMutation = {|
-  variables: DeleteProductImagesMutationVariables,
-  response: DeleteProductImagesMutationResponse,
+export type AddProductImagesMutation = {|
+  variables: AddProductImagesMutationVariables,
+  response: AddProductImagesMutationResponse,
 |};
 */
 
 
 /*
-mutation DeleteProductImagesMutation(
+mutation AddProductImagesMutation(
   $id: String!
-  $imageIds: [String!]!
 ) {
-  deleteProductImages(id: $id, imageIds: $imageIds) {
+  addProductImages(id: $id) {
     actionInfo {
       hasError
       message
@@ -63,11 +61,6 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "id"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "imageIds"
   }
 ],
 v1 = {
@@ -85,16 +78,11 @@ v2 = [
         "kind": "Variable",
         "name": "id",
         "variableName": "id"
-      },
-      {
-        "kind": "Variable",
-        "name": "imageIds",
-        "variableName": "imageIds"
       }
     ],
     "concreteType": "ActionOnProductPayload",
     "kind": "LinkedField",
-    "name": "deleteProductImages",
+    "name": "addProductImages",
     "plural": false,
     "selections": [
       {
@@ -169,7 +157,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "DeleteProductImagesMutation",
+    "name": "AddProductImagesMutation",
     "selections": (v2/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -178,20 +166,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "DeleteProductImagesMutation",
+    "name": "AddProductImagesMutation",
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "2bb6aa3e08b6dd08bf8d17e1a4f3dc02",
+    "cacheID": "5d35a079ea8b8443638713bd6851f030",
     "id": null,
     "metadata": {},
-    "name": "DeleteProductImagesMutation",
+    "name": "AddProductImagesMutation",
     "operationKind": "mutation",
-    "text": "mutation DeleteProductImagesMutation(\n  $id: String!\n  $imageIds: [String!]!\n) {\n  deleteProductImages(id: $id, imageIds: $imageIds) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      images {\n        id\n        url\n        display\n      }\n    }\n  }\n}\n"
+    "text": "mutation AddProductImagesMutation(\n  $id: String!\n) {\n  addProductImages(id: $id) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      images {\n        id\n        url\n        display\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '98d483e0030e91dc26aa24532fef5232';
+(node/*: any*/).hash = '5d2d3508580b3fec26913394ebd10424';
 
 module.exports = node;

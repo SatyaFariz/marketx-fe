@@ -134,7 +134,8 @@ export default createFragmentContainer(Component, {
       id,
       images {
         id,
-        url
+        url,
+        display
       }
     }
   `

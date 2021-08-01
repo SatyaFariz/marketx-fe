@@ -15,7 +15,8 @@ const mutation = graphql`
         price,
         images {
           id,
-          url
+          url,
+          display
         },
         category {
           id,

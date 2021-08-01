@@ -40,6 +40,7 @@ export type CreateProductMutationResponse = {|
       +images: ?$ReadOnlyArray<?{|
         +id: ?string,
         +url: ?string,
+        +display: ?number,
       |}>,
       +category: ?{|
         +id: ?string,
@@ -103,6 +104,7 @@ mutation CreateProductMutation(
       images {
         id
         url
+        display
       }
       category {
         id
@@ -238,27 +240,35 @@ v9 = {
   "name": "price",
   "storageKey": null
 },
-v10 = [
-  (v6/*: any*/),
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "url",
-    "storageKey": null
-  }
-],
+v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+},
 v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "display",
+  "storageKey": null
+},
+v12 = {
   "alias": null,
   "args": null,
   "concreteType": "Image",
   "kind": "LinkedField",
   "name": "images",
   "plural": true,
-  "selections": (v10/*: any*/),
+  "selections": [
+    (v6/*: any*/),
+    (v10/*: any*/),
+    (v11/*: any*/)
+  ],
   "storageKey": null
 },
-v12 = {
+v13 = {
   "alias": null,
   "args": null,
   "concreteType": "Category",
@@ -271,14 +281,11 @@ v12 = {
   ],
   "storageKey": null
 },
-v13 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "display",
-  "storageKey": null
-},
-v14 = {
+v14 = [
+  (v6/*: any*/),
+  (v10/*: any*/)
+],
+v15 = {
   "alias": null,
   "args": null,
   "concreteType": "Specification",
@@ -304,7 +311,7 @@ v14 = {
           "kind": "LinkedField",
           "name": "icon",
           "plural": false,
-          "selections": (v10/*: any*/),
+          "selections": (v14/*: any*/),
           "storageKey": null
         }
       ],
@@ -320,7 +327,7 @@ v14 = {
   ],
   "storageKey": null
 },
-v15 = {
+v16 = {
   "alias": null,
   "args": null,
   "concreteType": "User",
@@ -337,13 +344,13 @@ v15 = {
       "kind": "LinkedField",
       "name": "profilePicture",
       "plural": false,
-      "selections": (v10/*: any*/),
+      "selections": (v14/*: any*/),
       "storageKey": null
     }
   ],
   "storageKey": null
 },
-v16 = {
+v17 = {
   "alias": null,
   "args": null,
   "concreteType": "Store",
@@ -396,8 +403,8 @@ return {
               (v7/*: any*/),
               (v8/*: any*/),
               (v9/*: any*/),
-              (v11/*: any*/),
               (v12/*: any*/),
+              (v13/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -406,13 +413,13 @@ return {
                 "name": "rentalDuration",
                 "plural": false,
                 "selections": [
-                  (v13/*: any*/)
+                  (v11/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v14/*: any*/),
               (v15/*: any*/),
-              (v16/*: any*/)
+              (v16/*: any*/),
+              (v17/*: any*/)
             ],
             "storageKey": null
           }
@@ -455,8 +462,8 @@ return {
               (v7/*: any*/),
               (v8/*: any*/),
               (v9/*: any*/),
-              (v11/*: any*/),
               (v12/*: any*/),
+              (v13/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -465,14 +472,14 @@ return {
                 "name": "rentalDuration",
                 "plural": false,
                 "selections": [
-                  (v13/*: any*/),
+                  (v11/*: any*/),
                   (v6/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v14/*: any*/),
               (v15/*: any*/),
-              (v16/*: any*/)
+              (v16/*: any*/),
+              (v17/*: any*/)
             ],
             "storageKey": null
           }
@@ -482,16 +489,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "dedd7f3778c94e89d7d07936b103fc59",
+    "cacheID": "2a78a36bba15a26c735241eb14142c3d",
     "id": null,
     "metadata": {},
     "name": "CreateProductMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateProductMutation(\n  $storeId: String!\n  $type: ProductTypeEnum!\n  $categoryId: String!\n  $input: ProductInput!\n) {\n  createProduct(storeId: $storeId, type: $type, categoryId: $categoryId, input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      name\n      desc\n      price\n      images {\n        id\n        url\n      }\n      category {\n        id\n        name\n      }\n      rentalDuration {\n        display\n        id\n      }\n      specs {\n        id\n        attribute {\n          id\n          name\n          icon {\n            id\n            url\n          }\n        }\n        value\n      }\n      merchant {\n        id\n        name\n        profilePicture {\n          id\n          url\n        }\n      }\n      store {\n        id\n        name\n        whatsappLink\n      }\n    }\n  }\n}\n"
+    "text": "mutation CreateProductMutation(\n  $storeId: String!\n  $type: ProductTypeEnum!\n  $categoryId: String!\n  $input: ProductInput!\n) {\n  createProduct(storeId: $storeId, type: $type, categoryId: $categoryId, input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      name\n      desc\n      price\n      images {\n        id\n        url\n        display\n      }\n      category {\n        id\n        name\n      }\n      rentalDuration {\n        display\n        id\n      }\n      specs {\n        id\n        attribute {\n          id\n          name\n          icon {\n            id\n            url\n          }\n        }\n        value\n      }\n      merchant {\n        id\n        name\n        profilePicture {\n          id\n          url\n        }\n      }\n      store {\n        id\n        name\n        whatsappLink\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'd7406ec5eca5757a44d1a14241625292';
+(node/*: any*/).hash = '92bbe6980d180b6103eaeea5e1093ab7';
 
 module.exports = node;
