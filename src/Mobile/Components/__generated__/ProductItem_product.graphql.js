@@ -15,9 +15,10 @@ export type ProductItem_product = {|
   +id: ?string,
   +name: ?string,
   +price: ?number,
-  +images: ?$ReadOnlyArray<?{|
-    +url: ?string
-  |}>,
+  +mainImage: ?{|
+    +id: ?string,
+    +url: ?string,
+  |},
   +rentalDuration: ?{|
     +display: ?string
   |},
@@ -32,19 +33,21 @@ export type ProductItem_product$key = {
 */
 
 
-const node/*: ReaderFragment*/ = {
+const node/*: ReaderFragment*/ = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "ProductItem_product",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "id",
-      "storageKey": null
-    },
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -64,9 +67,10 @@ const node/*: ReaderFragment*/ = {
       "args": null,
       "concreteType": "Image",
       "kind": "LinkedField",
-      "name": "images",
-      "plural": true,
+      "name": "mainImage",
+      "plural": false,
       "selections": [
+        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -99,7 +103,8 @@ const node/*: ReaderFragment*/ = {
   "type": "Product",
   "abstractKey": null
 };
+})();
 // prettier-ignore
-(node/*: any*/).hash = 'ee4bead850a3b1bb42efe0c48191b872';
+(node/*: any*/).hash = '49378418aa314e261936468354dd84a3';
 
 module.exports = node;

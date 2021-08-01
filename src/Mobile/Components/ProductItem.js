@@ -13,7 +13,7 @@ const Component = props => {
         flexDirection: 'column'
       }}>
         <img
-          src={product.images[0]?.url}
+          src={product.mainImage?.url}
           alt={product.name}
           style={{ width: '100%', aspectRatio: 1, borderRadius: 10, marginBottom: 10 }}
         />
@@ -38,7 +38,8 @@ export default createFragmentContainer(Component, {
       id,
       name,
       price,
-      images {
+      mainImage {
+        id,
         url
       },
       rentalDuration {
