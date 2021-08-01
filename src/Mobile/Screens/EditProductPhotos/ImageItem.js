@@ -1,5 +1,5 @@
 import { IconButton, Menu, MenuItem } from '@material-ui/core'
-import { MoreVert, LensOutlined, CheckCircleOutline } from '@material-ui/icons'
+import { MoreVert, LensOutlined, CheckCircleOutline, Star } from '@material-ui/icons'
 import { useState } from 'react'
 
 const Component = props => {
@@ -44,6 +44,17 @@ const Component = props => {
           objectFit: 'cover'
         }}
       />
+      {props.image.display === 1 &&
+      <div style={{
+        position: 'absolute',
+        top: 5,
+        left: 5
+      }}>
+        <IconButton size="small">
+          <Star style={{ color: 'white' }} />
+        </IconButton>
+      </div>
+      }
 
       <div style={{
         position: 'absolute',
@@ -70,7 +81,9 @@ const Component = props => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        {props.image.display !== 1 &&
         <MenuItem onClick={handleClose}>Set as main photo</MenuItem>
+        }
         <MenuItem onClick={() => {
           props.setSelectedIds(prev => [...prev, props.image.id])
           handleClose()
