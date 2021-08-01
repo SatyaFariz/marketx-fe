@@ -2,8 +2,8 @@ import { commitMutation } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 
 const mutation = graphql`
-  mutation SetMainProductImageMutation($id: String!, $imageId: String!) {
-    setMainProductImage(id: $id, imageId: $imageId) {
+  mutation UpdateMainProductImageMutation($id: String!, $imageId: String!) {
+    updateMainProductImage(id: $id, imageId: $imageId) {
       actionInfo {
         hasError,
         message
@@ -20,7 +20,7 @@ const mutation = graphql`
   }
 `
 
-const SetMainProductImage = (environment, variables, callback) => {
+const UpdateMainProductImage = (environment, variables, callback) => {
   commitMutation(
     environment,
     {
@@ -31,7 +31,7 @@ const SetMainProductImage = (environment, variables, callback) => {
           if(err)
             callback(null, err)
           else {
-            const payload = res.setMainProductImage
+            const payload = res.updateMainProductImage
             callback(payload, null)
           }
         }
@@ -41,4 +41,4 @@ const SetMainProductImage = (environment, variables, callback) => {
   )
 }
 
-export default SetMainProductImage
+export default UpdateMainProductImage

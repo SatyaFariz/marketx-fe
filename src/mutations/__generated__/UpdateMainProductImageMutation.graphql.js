@@ -8,12 +8,12 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type SetMainProductImageMutationVariables = {|
+export type UpdateMainProductImageMutationVariables = {|
   id: string,
   imageId: string,
 |};
-export type SetMainProductImageMutationResponse = {|
-  +setMainProductImage: ?{|
+export type UpdateMainProductImageMutationResponse = {|
+  +updateMainProductImage: ?{|
     +actionInfo: ?{|
       +hasError: ?boolean,
       +message: ?string,
@@ -28,19 +28,19 @@ export type SetMainProductImageMutationResponse = {|
     |},
   |}
 |};
-export type SetMainProductImageMutation = {|
-  variables: SetMainProductImageMutationVariables,
-  response: SetMainProductImageMutationResponse,
+export type UpdateMainProductImageMutation = {|
+  variables: UpdateMainProductImageMutationVariables,
+  response: UpdateMainProductImageMutationResponse,
 |};
 */
 
 
 /*
-mutation SetMainProductImageMutation(
+mutation UpdateMainProductImageMutation(
   $id: String!
   $imageId: String!
 ) {
-  setMainProductImage(id: $id, imageId: $imageId) {
+  updateMainProductImage(id: $id, imageId: $imageId) {
     actionInfo {
       hasError
       message
@@ -94,7 +94,7 @@ v2 = [
     ],
     "concreteType": "ActionOnProductPayload",
     "kind": "LinkedField",
-    "name": "setMainProductImage",
+    "name": "updateMainProductImage",
     "plural": false,
     "selections": [
       {
@@ -169,7 +169,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "SetMainProductImageMutation",
+    "name": "UpdateMainProductImageMutation",
     "selections": (v2/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -178,20 +178,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "SetMainProductImageMutation",
+    "name": "UpdateMainProductImageMutation",
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "111c9132fc77f4a8e1570a19817fbfe9",
+    "cacheID": "2d862c9f489faa104f59e9f9c482aa05",
     "id": null,
     "metadata": {},
-    "name": "SetMainProductImageMutation",
+    "name": "UpdateMainProductImageMutation",
     "operationKind": "mutation",
-    "text": "mutation SetMainProductImageMutation(\n  $id: String!\n  $imageId: String!\n) {\n  setMainProductImage(id: $id, imageId: $imageId) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      images {\n        id\n        url\n        display\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateMainProductImageMutation(\n  $id: String!\n  $imageId: String!\n) {\n  updateMainProductImage(id: $id, imageId: $imageId) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      images {\n        id\n        url\n        display\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'f417b76611ec1d918864713dd2c98058';
+(node/*: any*/).hash = '76f87ab9ec9ac8c61b07ddb2ad4411b0';
 
 module.exports = node;
