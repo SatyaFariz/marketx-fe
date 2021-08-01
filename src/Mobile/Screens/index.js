@@ -12,6 +12,7 @@ import CreateProduct from './CreateProduct'
 import Product from './Product'
 import EditProduct from './EditProduct'
 import EditProductPhotos from './EditProductPhotos'
+import EditStore from './EditStore'
 
 const screens = [
   Main,
@@ -27,7 +28,8 @@ const screens = [
   Store,
   CreateProduct,
   EditProduct,
-  EditProductPhotos
+  EditProductPhotos,
+  EditStore
 ]
 
 export default screens

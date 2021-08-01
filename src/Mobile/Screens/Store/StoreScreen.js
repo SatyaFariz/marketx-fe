@@ -74,6 +74,12 @@ const Component = props => {
           Add a product
 
         </Button>
+        <Button
+          onClick={() => history.push(/*'/new/product'*/ '/edit/store')}
+        >
+          Edit
+
+        </Button>
       </div>
 
       <div style={{
