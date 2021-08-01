@@ -4,20 +4,42 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../
 import Color from '../../Constants/Color'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
-import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
-import Link from '../../Components/Link'
-import { Button, TextField, IconButton } from '@material-ui/core'
-import { Close } from '@material-ui/icons'
-import Carousel from '@brainhubeu/react-carousel'
+import { IconButton } from '@material-ui/core'
+import { Close, Delete } from '@material-ui/icons'
 import '@brainhubeu/react-carousel/lib/style.css'
 import ImageItem from './ImageItem'
+import DeleteProductImages from '../../../mutations/DeleteProductImages'
 
 const Component = props => {
+  const _isMounted = useRef(true)
   const { product } = props
-  const [showHeader, setShowHeader] = useState(false)
   const [selectedIds, setSelectedIds] = useState([])
-  const { history } = useAppContext()
+  const { history, environment } = useAppContext()
+  const [deleting, setDeleting] = useState(false)
+
+  useEffect(() => {
+    return () => _isMounted.current = false
+  }, [])
+
+  const bulkDelete = () => {
+    if(!deleting) {
+      setDeleting(true)
+      DeleteProductImages(environment, { id: product.id, imageIds: selectedIds }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            // do sth
+          }
+        }
+
+        _isMounted.current && setDeleting(false)
+      })
+    }
+  }
 
   return (
     <div>
@@ -27,6 +49,7 @@ const Component = props => {
         width: '100%',
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'space-between',
         position: 'absolute',
         top: 0,
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
@@ -34,7 +57,7 @@ const Component = props => {
         {selectedIds.length > 0 ?
         <div style={{ zIndex: 1 }}>
         <IconButton onClick={() => setSelectedIds([])}>
-          <Close/>
+          <Close  style={{ color: 'black' }}/>
         </IconButton>
         </div>
         :
@@ -46,6 +69,14 @@ const Component = props => {
           zIndex: 1
         }}>
           <IoChevronBackSharp size={32}/>
+        </div>
+        }
+
+        {selectedIds.length > 0 &&
+        <div style={{ zIndex: 1 }}>
+        <IconButton onClick={bulkDelete}>
+          <Delete style={{ color: 'black' }}/>
+        </IconButton>
         </div>
         }
         
