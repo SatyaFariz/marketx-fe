@@ -5,17 +5,65 @@ import Color from '../../Constants/Color'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import { IconButton } from '@material-ui/core'
+import { IconButton, CircularProgress } from '@material-ui/core'
 import { Close, Delete } from '@material-ui/icons'
 import '@brainhubeu/react-carousel/lib/style.css'
 import ImageItem from './ImageItem'
 import DeleteProductImages from '../../../mutations/DeleteProductImages'
+import AddProductImages from '../../../mutations/AddProductImages'
+import { useDropzone } from 'react-dropzone'
+import { fromImage } from 'imtool'
+
+const megabytes = 1048576
 
 const Component = props => {
   const _isMounted = useRef(true)
-  const { product } = props
-  const [selectedIds, setSelectedIds] = useState([])
   const { history, environment } = useAppContext()
+  const { product } = props
+  const [uploading, setUploading] = useState(false)
+
+  const bulkUpload = (files) => {
+    if(!uploading) {
+      setUploading(true)
+      AddProductImages(environment, { id: product.id }, files, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            // do sth
+          }
+        }
+
+        _isMounted.current && setUploading(false)
+      })
+    }
+  }
+
+  const { getRootProps, getInputProps } = useDropzone({
+    // Disable click and keydown behavior
+    accept: 'image/jpeg',
+    disabled: uploading,
+    maxSize: 6 * megabytes,
+    onDrop: async (acceptedFiles) => {
+      if(acceptedFiles.length > 0) {
+        const images = await Promise.all(acceptedFiles.map(file => {
+          return new Promise(async (resolve) => {
+            const tool = await fromImage(file)
+            const image = await tool.quality(0.4).toFile(file.name)
+            image.preview = URL.createObjectURL(image)
+            resolve(image)
+          })
+        }))
+        
+        bulkUpload(images)
+      }
+    },
+    onDropRejected: () => console.log('Rejected')
+  })
+
+  const [selectedIds, setSelectedIds] = useState([])
   const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
@@ -112,16 +160,33 @@ const Component = props => {
           gridGap: 10,
           padding: 15
         }}>
-        {product.images.map(item => {
-          return (
-            <ImageItem 
-              image={item} 
-              key={item.id}
-              selectedIds={selectedIds}
-              setSelectedIds={setSelectedIds}
-            />
-          )
-        })}
+          <div style={{
+            backgroundColor: 'rgb(207, 217, 222)',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+          {...getRootProps({className: 'dropzone'})}
+          >
+            {uploading ?
+            <CircularProgress size={24}/>
+            :
+            <span>Upload here</span>
+            }
+            <input {...getInputProps()} />
+          </div>
+          {product.images.map(item => {
+            return (
+              <ImageItem 
+                image={item} 
+                key={item.id}
+                selectedIds={selectedIds}
+                setSelectedIds={setSelectedIds}
+              />
+            )
+          })}
         </div>
       </div>
     </div>

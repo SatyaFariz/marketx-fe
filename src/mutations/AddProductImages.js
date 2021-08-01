@@ -30,6 +30,7 @@ const AddProductImages = (environment, variables, files, callback) => {
     environment,
     {
       mutation,
+      uploadables,
       variables,
       onCompleted: (res, err) => {
         if(typeof callback === 'function') {
