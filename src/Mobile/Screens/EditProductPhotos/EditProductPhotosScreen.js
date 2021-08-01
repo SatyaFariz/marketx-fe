@@ -8,7 +8,7 @@ import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
 import Link from '../../Components/Link'
 import { Button, TextField, IconButton } from '@material-ui/core'
-import { MoreVert } from '@material-ui/icons'
+import { Close } from '@material-ui/icons'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 import ImageItem from './ImageItem'
@@ -16,6 +16,7 @@ import ImageItem from './ImageItem'
 const Component = props => {
   const { product } = props
   const [showHeader, setShowHeader] = useState(false)
+  const [selectedIds, setSelectedIds] = useState([])
   const { history } = useAppContext()
 
   return (
@@ -30,6 +31,13 @@ const Component = props => {
         top: 0,
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
+        {selectedIds.length > 0 ?
+        <div style={{ zIndex: 1 }}>
+        <IconButton onClick={() => setSelectedIds([])}>
+          <Close/>
+        </IconButton>
+        </div>
+        :
         <div 
         onClick={() => history.goBack()}
         style={{
@@ -39,6 +47,7 @@ const Component = props => {
         }}>
           <IoChevronBackSharp size={32}/>
         </div>
+        }
         
         <div style={{
           position: 'absolute',
@@ -74,7 +83,12 @@ const Component = props => {
         }}>
         {product.images.map(item => {
           return (
-            <ImageItem src={item.url} key={item.id}/>
+            <ImageItem 
+              image={item} 
+              key={item.id}
+              selectedIds={selectedIds}
+              setSelectedIds={setSelectedIds}
+            />
           )
         })}
         </div>
