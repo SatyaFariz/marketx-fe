@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Aug 01 2021 10:10:17 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Aug 01 2021 10:44:57 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -82,6 +82,7 @@ type Mutation {
   updateStoreAddress(id: String!, address: AddressInput!): ActionOnStorePayload
   addSpecFieldToCategory(categoryId: String!, attributeId: String!, isRequired: Boolean): String
   updateProduct(id: String!, input: ProductInput!): ActionOnProductPayload
+  deleteProductImages(id: String!, imageIds: [String!]!): ActionOnProductPayload
 }
 
 """Information about pagination in a connection."""
