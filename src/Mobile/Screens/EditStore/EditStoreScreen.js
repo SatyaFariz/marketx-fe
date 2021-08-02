@@ -148,7 +148,11 @@ const Component = props => {
           height: 127,
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center center',
+          backgroundImage: banner ? `url("${banner.preview}")` : undefined
         }}
         {...getRootProps1({className: 'dropzone'})}
         >
@@ -172,7 +176,11 @@ const Component = props => {
             marginBottom: 10,
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center center',
+            backgroundImage: profilePicture ? `url("${profilePicture.preview}")` : undefined
           }}
           {...getRootProps2({className: 'dropzone'})}
           >
