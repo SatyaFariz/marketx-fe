@@ -201,7 +201,7 @@ const Component = props => {
       }}>
         <div style={{
           maxHeight: 200,
-          backgroundColor: 'rgb(207, 217, 222)',
+          backgroundColor: store.banner ? undefined : 'rgb(207, 217, 222)',
           width: '100%',
           height: 127,
           display: 'flex',
@@ -210,7 +210,7 @@ const Component = props => {
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center center',
-          backgroundImage: banner ? `url("${banner.preview}")` : undefined
+          backgroundImage: banner ? `url("${banner.preview}")` : (store.banner ? `url("${store.banner.url}")` : undefined)
         }}
         {...getRootProps1({className: 'dropzone'})}
         >
@@ -225,7 +225,7 @@ const Component = props => {
           <div style={{
             height: 94,
             width: 94,
-            backgroundColor: '#b1b6c9',
+            backgroundColor: store.profilePicture ? undefined : '#b1b6c9',
             marginTop: -42,
             borderRadius: '50%',
             borderWidth: 2,
@@ -238,7 +238,7 @@ const Component = props => {
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center center',
-            backgroundImage: profilePicture ? `url("${profilePicture.preview}")` : undefined
+            backgroundImage: profilePicture ? `url("${profilePicture.preview}")` : (store.profilePicture ? `url("${store.profilePicture.url}")` : undefined)
           }}
           {...getRootProps2({className: 'dropzone'})}
           >
