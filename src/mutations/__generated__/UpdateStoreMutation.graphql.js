@@ -8,48 +8,42 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type UpdateStoreBannerMutationVariables = {|
-  id: string
+export type UpdateStoreMutationVariables = {|
+  id: string,
+  name: string,
+  whatsappNumber: string,
 |};
-export type UpdateStoreBannerMutationResponse = {|
-  +updateStoreBanner: ?{|
+export type UpdateStoreMutationResponse = {|
+  +updateStore: ?{|
     +actionInfo: ?{|
       +hasError: ?boolean,
       +message: ?string,
     |},
     +store: ?{|
-      +id: ?string,
-      +banner: ?{|
-        +id: ?string,
-        +url: ?string,
-        +display: ?number,
-      |},
+      +id: ?string
     |},
   |}
 |};
-export type UpdateStoreBannerMutation = {|
-  variables: UpdateStoreBannerMutationVariables,
-  response: UpdateStoreBannerMutationResponse,
+export type UpdateStoreMutation = {|
+  variables: UpdateStoreMutationVariables,
+  response: UpdateStoreMutationResponse,
 |};
 */
 
 
 /*
-mutation UpdateStoreBannerMutation(
+mutation UpdateStoreMutation(
   $id: String!
+  $name: String!
+  $whatsappNumber: String!
 ) {
-  updateStoreBanner(id: $id) {
+  updateStore(id: $id, name: $name, whatsappNumber: $whatsappNumber) {
     actionInfo {
       hasError
       message
     }
     store {
       id
-      banner {
-        id
-        url
-        display
-      }
     }
   }
 }
@@ -61,16 +55,19 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "id"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "name"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "whatsappNumber"
   }
 ],
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v2 = [
+v1 = [
   {
     "alias": null,
     "args": [
@@ -78,11 +75,21 @@ v2 = [
         "kind": "Variable",
         "name": "id",
         "variableName": "id"
+      },
+      {
+        "kind": "Variable",
+        "name": "name",
+        "variableName": "name"
+      },
+      {
+        "kind": "Variable",
+        "name": "whatsappNumber",
+        "variableName": "whatsappNumber"
       }
     ],
     "concreteType": "ActionOnStorePayload",
     "kind": "LinkedField",
-    "name": "updateStoreBanner",
+    "name": "updateStore",
     "plural": false,
     "selections": [
       {
@@ -118,31 +125,11 @@ v2 = [
         "name": "store",
         "plural": false,
         "selections": [
-          (v1/*: any*/),
           {
             "alias": null,
             "args": null,
-            "concreteType": "Image",
-            "kind": "LinkedField",
-            "name": "banner",
-            "plural": false,
-            "selections": [
-              (v1/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "url",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "display",
-                "storageKey": null
-              }
-            ],
+            "kind": "ScalarField",
+            "name": "id",
             "storageKey": null
           }
         ],
@@ -157,8 +144,8 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "UpdateStoreBannerMutation",
-    "selections": (v2/*: any*/),
+    "name": "UpdateStoreMutation",
+    "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
   },
@@ -166,20 +153,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "UpdateStoreBannerMutation",
-    "selections": (v2/*: any*/)
+    "name": "UpdateStoreMutation",
+    "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "3c5ad09a5701d381d01a000e34c27ff6",
+    "cacheID": "cc953e0b8d7529e69b3967c3f7194439",
     "id": null,
     "metadata": {},
-    "name": "UpdateStoreBannerMutation",
+    "name": "UpdateStoreMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateStoreBannerMutation(\n  $id: String!\n) {\n  updateStoreBanner(id: $id) {\n    actionInfo {\n      hasError\n      message\n    }\n    store {\n      id\n      banner {\n        id\n        url\n        display\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateStoreMutation(\n  $id: String!\n  $name: String!\n  $whatsappNumber: String!\n) {\n  updateStore(id: $id, name: $name, whatsappNumber: $whatsappNumber) {\n    actionInfo {\n      hasError\n      message\n    }\n    store {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'b43d5d8156296bbe965e7500f74402a4';
+(node/*: any*/).hash = 'e019c29b1670b4df0f236eebeded51a5';
 
 module.exports = node;

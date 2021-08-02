@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Aug 01 2021 13:34:59 GMT+0700 (Western Indonesia Time)
+# timestamp: Tue Aug 03 2021 01:15:47 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -80,6 +80,7 @@ type Mutation {
   updateProfile(input: RecipeInput!): ActionOnUserPayload
   createStore(name: String!, whatsappNumber: String!): ActionOnStorePayload
   updateStoreAddress(id: String!, address: AddressInput!): ActionOnStorePayload
+  updateStore(id: String!, name: String!, whatsappNumber: String!): ActionOnStorePayload
   addSpecFieldToCategory(categoryId: String!, attributeId: String!, isRequired: Boolean): String
   updateProduct(id: String!, input: ProductInput!): ActionOnProductPayload
   deleteProductImages(id: String!, imageIds: [String!]!): ActionOnProductPayload

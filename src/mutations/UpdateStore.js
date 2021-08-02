@@ -2,38 +2,32 @@ import { commitMutation } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 
 const mutation = graphql`
-  mutation UpdateStoreBannerMutation($id: String!) {
-    updateStoreBanner(id: $id) {
+  mutation UpdateStoreMutation($id: String!, $name: String!, $whatsappNumber: String!) {
+    updateStore(id: $id, name: $name, whatsappNumber: $whatsappNumber) {
       actionInfo {
         hasError,
         message
       },
       store {
-        id,
-        banner {
-          id,
-          url,
-          display
-        }
+        id
       }
     }
   }
 `
 
-const UpdateStoreBanner = (environment, variables, file, callback) => {
-  const uploadables = { file }
+const UpdateStore = (environment, variables, uploadables, callback) => {
   commitMutation(
     environment,
     {
       mutation,
-      uploadables,
       variables,
+      uploadables,
       onCompleted: (res, err) => {
         if(typeof callback === 'function') {
           if(err)
             callback(null, err)
           else {
-            const payload = res.updateStoreBanner
+            const payload = res.updateStore
             callback(payload, null)
           }
         }
@@ -43,4 +37,4 @@ const UpdateStoreBanner = (environment, variables, file, callback) => {
   )
 }
 
-export default UpdateStoreBanner
+export default UpdateStore
