@@ -71,7 +71,7 @@ const Component = props => {
       }}>
         <div style={{
           maxHeight: 200,
-          backgroundColor: 'rgb(207, 217, 222)',
+          backgroundColor: store?.banner ? undefined : 'rgb(207, 217, 222)',
           width: '100%',
           height: 127,
           display: 'flex',
@@ -80,7 +80,7 @@ const Component = props => {
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center center',
-          backgroundImage: store?.banner ? `url("${store?.banner.preview}")` : undefined
+          backgroundImage: store?.banner ? `url("${store?.banner.url}")` : undefined
         }}
         />
         <div style={{
@@ -97,7 +97,7 @@ const Component = props => {
             <div style={{
               height: 94,
               width: 94,
-              backgroundColor: '#b1b6c9',
+              backgroundColor: store?.profilePicture ? undefined : '#b1b6c9',
               marginTop: -42,
               borderRadius: '50%',
               borderWidth: 2,
@@ -110,9 +110,11 @@ const Component = props => {
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'center center',
-              backgroundImage: store?.profilePicture ? `url("${store?.profilePicture.preview}")` : undefined
+              backgroundImage: store?.profilePicture ? `url("${store?.profilePicture.url}")` : undefined
             }}>
+              {!store.profilePicture &&
               <span style={{ color: 'white', fontSize: 24 }}>{store.name[0].toUpperCase()}</span>
+              }
             </div>
 
             <Button
