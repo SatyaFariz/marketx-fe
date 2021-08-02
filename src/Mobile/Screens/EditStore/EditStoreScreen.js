@@ -7,6 +7,10 @@ import { IoChevronBackSharp } from 'react-icons/io5'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import Color from '../../Constants/Color'
+import { useDropzone } from 'react-dropzone'
+import { fromImage } from 'imtool'
+
+const megabytes = 1048576
 
 const CameraIcon = () => {
   return (
@@ -26,6 +30,45 @@ const Component = props => {
   const { history, queryParams } = useAppContext()
   const [name, setName] = useState(store.name)
   const [whatsappNumber, setWhatsappNumber] = useState(store.whatsappNumber)
+  const [banner, setBanner] = useState(null)
+  const [profilePicture, setProfilePicture] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+  const { getRootProps: getRootProps1, getInputProps: getInputProps1 } = useDropzone({
+    // Disable click and keydown behavior
+    accept: 'image/jpeg',
+    disabled: loading,
+    maxSize: 6 * megabytes,
+    maxFiles: 1,
+    onDrop: async (acceptedFiles) => {
+      if(acceptedFiles.length > 0) {
+        const file = acceptedFiles[0]
+        const tool = await fromImage(file)
+        const image = await tool.quality(0.4).toFile(file.name)
+        image.preview = URL.createObjectURL(image)
+        setBanner(image)
+      }
+    },
+    onDropRejected: () => console.log('Rejected')
+  })
+
+  const { getRootProps: getRootProps2, getInputProps: getInputProps2 } = useDropzone({
+    // Disable click and keydown behavior
+    accept: 'image/jpeg',
+    disabled: loading,
+    maxSize: 6 * megabytes,
+    maxFiles: 1,
+    onDrop: async (acceptedFiles) => {
+      if(acceptedFiles.length > 0) {
+        const file = acceptedFiles[0]
+        const tool = await fromImage(file)
+        const image = await tool.quality(0.4).toFile(file.name)
+        image.preview = URL.createObjectURL(image)
+        setProfilePicture(image)
+      }
+    },
+    onDropRejected: () => console.log('Rejected')
+  })
 
   const _setWhatsappNumber = (e) => {
     const allowedChars = '1234567890'
@@ -106,7 +149,10 @@ const Component = props => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center'
-        }}>
+        }}
+        {...getRootProps1({className: 'dropzone'})}
+        >
+          <input {...getInputProps1()} />
           <CameraIcon/>
         </div>
         <div style={{
@@ -127,7 +173,10 @@ const Component = props => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center'
-          }}>
+          }}
+          {...getRootProps2({className: 'dropzone'})}
+          >
+            <input {...getInputProps2()} />
             <CameraIcon/>
           </div>
           
