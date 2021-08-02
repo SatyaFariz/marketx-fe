@@ -134,7 +134,7 @@ const Component = props => {
     return () => _isMounted.current = false
   }, [])
 
-  if(false) {
+  if(queryParams.editAddress === '1') {
     return (
       <EditAddressView store={store}/>
     )
@@ -303,7 +303,10 @@ const Component = props => {
           }}>
             <h3 style={{ margin: 0 }}>Address</h3>
             <span style={{ padding: '0 4px' }}>·</span>
-            <span style={{ color: Color.link }}>Edit</span>
+            <span 
+              style={{ color: Color.link }}
+              onClick={() => history.push(`/edit/store?editAddress=1`)}
+            >Edit</span>
           </div>
           
           <span style={{ fontSize: 14 }}>{store.address.fullAddress}</span>
@@ -329,7 +332,8 @@ export default createFragmentContainer(Component, {
       },
       address {
         fullAddress
-      }
+      },
+      ...EditAddressView_store
     }
   `
 })

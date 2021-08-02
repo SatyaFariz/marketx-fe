@@ -37,6 +37,15 @@ query EditStoreSearchScreenQuery {
   }
 }
 
+fragment EditAddressView_store on Store {
+  id
+  address {
+    fullAddress
+    lat
+    lng
+  }
+}
+
 fragment EditStoreScreen_store on Store {
   id
   name
@@ -52,6 +61,7 @@ fragment EditStoreScreen_store on Store {
   address {
     fullAddress
   }
+  ...EditAddressView_store
 }
 */
 
@@ -185,6 +195,20 @@ return {
                     "kind": "ScalarField",
                     "name": "fullAddress",
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "lat",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "lng",
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -198,12 +222,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "718bf92ceaf9f62ffd63b6193a129238",
+    "cacheID": "a6e907b62a99c8d4d8c251afd4d5ec65",
     "id": null,
     "metadata": {},
     "name": "EditStoreSearchScreenQuery",
     "operationKind": "query",
-    "text": "query EditStoreSearchScreenQuery {\n  me {\n    id\n    store {\n      id\n      ...EditStoreScreen_store\n    }\n  }\n}\n\nfragment EditStoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n  }\n}\n"
+    "text": "query EditStoreSearchScreenQuery {\n  me {\n    id\n    store {\n      id\n      ...EditStoreScreen_store\n    }\n  }\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment EditStoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n  }\n  ...EditAddressView_store\n}\n"
   }
 };
 })();
