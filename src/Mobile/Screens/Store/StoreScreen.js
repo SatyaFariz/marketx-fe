@@ -1,6 +1,7 @@
 import EditAddressView from '../../Components/EditAddressView'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
-import { TextField, Button } from '@material-ui/core'
+import { TextField, Button, Fab } from '@material-ui/core'
+import { Add } from '@material-ui/icons'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import { IoChevronBackSharp } from 'react-icons/io5'
@@ -13,7 +14,7 @@ const Component = props => {
   const { categories } = props
   const { history, queryParams } = useAppContext()
 
-  if(store?.address) {
+  if(!store?.address) {
     return (
       <EditAddressView store={store}/>
     )
@@ -57,7 +58,7 @@ const Component = props => {
             fontSize: 20,
             fontWeight: 500,
             textAlign: 'center',
-          }}>{store.name}</h1>
+          }}>Store</h1>
         </div>
       </div>
 
@@ -68,18 +69,76 @@ const Component = props => {
         right: 0,
         bottom: 0
       }}>
-        <Button
-          onClick={() => history.push(/*'/new/product'*/ '/store?selectCategory=1')}
-        >
-          Add a product
+        <div style={{
+          maxHeight: 200,
+          backgroundColor: 'rgb(207, 217, 222)',
+          width: '100%',
+          height: 127,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center center',
+          backgroundImage: store?.banner ? `url("${store?.banner.preview}")` : undefined
+        }}
+        />
+        <div style={{
+          paddingLeft: 15,
+          paddingRight: 15,
+          paddingBottom: 20
+        }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: 'row'
+          }}>
+            <div style={{
+              height: 94,
+              width: 94,
+              backgroundColor: '#b1b6c9',
+              marginTop: -42,
+              borderRadius: '50%',
+              borderWidth: 2,
+              borderColor: 'white',
+              borderStyle: 'solid',
+              marginBottom: 0,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center center',
+              backgroundImage: store?.profilePicture ? `url("${store?.profilePicture.preview}")` : undefined
+            }}>
+              <span style={{ color: 'white', fontSize: 24 }}>{store.name[0].toUpperCase()}</span>
+            </div>
 
-        </Button>
-        <Button
-          onClick={() => history.push(/*'/new/product'*/ '/edit/store')}
-        >
-          Edit
+            <Button
+              disableElevation
+              variant="contained"
+              onClick={() => history.push(/*'/new/product'*/ '/edit/store')}
+            >
+              Edit
+            </Button>
+          </div>
 
-        </Button>
+          <h3 style={{ fontSize: 20, marginTop: 10, marginBottom: 5 }}>{store.name}</h3>
+          
+          <span style={{
+            color: 'rgb(83, 100, 113)',
+            fontSize: 14,
+            display: 'block'
+          }}>{store.whatsappNumber}</span>
+
+          <span style={{
+            display: 'block',
+            marginTop: 15,
+            fontSize: 14
+          }}>{store.address.fullAddress}</span>
+        </div>
+        
       </div>
 
       <div style={{
@@ -94,6 +153,17 @@ const Component = props => {
       }}>
         <SelectTypeAndCategoryView categories={categories}/>
       </div>
+
+      <Fab color="primary" aria-label="add" style={{
+        zIndex: 99,
+        position: 'absolute',
+        right: 15,
+        bottom: 15
+      }}
+      onClick={() => history.push(/*'/new/product'*/ '/store?selectCategory=1')}
+      >
+        <Add />
+      </Fab>
     </div>
   )
 }
@@ -103,6 +173,18 @@ export default createFragmentContainer(Component, {
     fragment StoreScreen_store on Store {
       id,
       name,
+      whatsappNumber,
+      profilePicture {
+        id,
+        url
+      },
+      banner {
+        id,
+        url
+      },
+      address {
+        fullAddress
+      }
       ...EditAddressView_store
     }
   `,

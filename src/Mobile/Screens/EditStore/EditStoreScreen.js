@@ -246,7 +246,7 @@ const Component = props => {
             <span style={{ color: Color.link }}>Edit</span>
           </div>
           
-          <span>{store.address.fullAddress}</span>
+          <span style={{ fontSize: 14 }}>{store.address.fullAddress}</span>
         </div>
       </div>
     </div>

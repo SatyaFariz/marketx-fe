@@ -15,6 +15,18 @@ declare export opaque type StoreScreen_store$fragmentType: StoreScreen_store$ref
 export type StoreScreen_store = {|
   +id: ?string,
   +name: ?string,
+  +whatsappNumber: ?string,
+  +profilePicture: ?{|
+    +id: ?string,
+    +url: ?string,
+  |},
+  +banner: ?{|
+    +id: ?string,
+    +url: ?string,
+  |},
+  +address: ?{|
+    +fullAddress: ?string
+  |},
   +$fragmentRefs: EditAddressView_store$ref,
   +$refType: StoreScreen_store$ref,
 |};
@@ -27,24 +39,81 @@ export type StoreScreen_store$key = {
 */
 
 
-const node/*: ReaderFragment*/ = {
+const node/*: ReaderFragment*/ = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v1 = [
+  (v0/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "url",
+    "storageKey": null
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "StoreScreen_store",
   "selections": [
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "id",
+      "name": "name",
       "storageKey": null
     },
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "name",
+      "name": "whatsappNumber",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Image",
+      "kind": "LinkedField",
+      "name": "profilePicture",
+      "plural": false,
+      "selections": (v1/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Image",
+      "kind": "LinkedField",
+      "name": "banner",
+      "plural": false,
+      "selections": (v1/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Address",
+      "kind": "LinkedField",
+      "name": "address",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "fullAddress",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
@@ -56,7 +125,8 @@ const node/*: ReaderFragment*/ = {
   "type": "Store",
   "abstractKey": null
 };
+})();
 // prettier-ignore
-(node/*: any*/).hash = 'e1d4939e5ad0fdc8bdd2043220b03fdf';
+(node/*: any*/).hash = '00da385333f5f41d8cf0e698b15f871c';
 
 module.exports = node;
