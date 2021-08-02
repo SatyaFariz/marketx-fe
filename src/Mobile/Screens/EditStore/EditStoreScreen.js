@@ -1,6 +1,6 @@
 import EditAddressView from '../../Components/EditAddressView'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
-import { TextField, Button } from '@material-ui/core'
+import { TextField, Button, InputAdornment } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import { IoChevronBackSharp } from 'react-icons/io5'
@@ -26,6 +26,13 @@ const Component = props => {
   const { history, queryParams } = useAppContext()
   const [name, setName] = useState(store.name)
   const [whatsappNumber, setWhatsappNumber] = useState(store.whatsappNumber)
+
+  const _setWhatsappNumber = (e) => {
+    const allowedChars = '1234567890'
+    const { value } = e.target
+    if(value.length && !allowedChars.includes(value[value.length - 1])) return
+    setWhatsappNumber(value)
+  }
 
   if(false) {
     return (
@@ -142,11 +149,29 @@ const Component = props => {
             variant="outlined"
             label="WhatsApp Number"
             value={whatsappNumber}
-            onChange={e => setName(e.target.value.trimLeft())}
+            onChange={_setWhatsappNumber}
             fullWidth
             style={{
               marginTop: 10,
               marginBottom: 10
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">
+                  <Button
+                    disableElevation
+                    variant="contained"
+                    onClick={() => window.open(`https://wa.me/${whatsappNumber}`)}
+                  >
+                    Check
+                  </Button>
+                </InputAdornment>
+              )
+            }}
+            inputProps={{
+              pattern: "[0-9]*",
+              type: "text",
+              inputMode: "numeric"
             }}
             // error={validation?.name?.isInvalid}
             // helperText={validation?.name?.message}
