@@ -137,6 +137,23 @@ const Component = props => {
             marginTop: 15,
             fontSize: 14
           }}>{store.address.fullAddress}</span>
+
+          <div style={{
+            height: 1,
+            backgroundColor: DIVIDER_COLOR,
+            margin: '15px 0'
+          }}/>
+
+          <div>
+            <span style={{
+              color: 'rgb(83, 100, 113)',
+              fontSize: 14,
+              display: 'block',
+              textAlign: 'center'
+            }}>
+              You still don't have products. Add one!
+            </span>
+          </div>
         </div>
         
       </div>
