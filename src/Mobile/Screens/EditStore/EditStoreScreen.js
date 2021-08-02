@@ -1,5 +1,5 @@
 import EditAddressView from '../../Components/EditAddressView'
-import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import { TextField, Button, InputAdornment } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
@@ -9,6 +9,8 @@ import { createFragmentContainer } from 'react-relay'
 import Color from '../../Constants/Color'
 import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
+import UpdateStore from '../../../mutations/UpdateStore'
+import Validator from '../../../helpers/validator'
 
 const megabytes = 1048576
 
@@ -26,13 +28,15 @@ const CameraIcon = () => {
 }
 
 const Component = props => {
+  const _isMounted = useRef(true)
   const store = props.store
-  const { history, queryParams } = useAppContext()
+  const { history, queryParams, environment } = useAppContext()
   const [name, setName] = useState(store.name)
   const [whatsappNumber, setWhatsappNumber] = useState(store.whatsappNumber)
   const [banner, setBanner] = useState(null)
   const [profilePicture, setProfilePicture] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [validation, setValidation] = useState({ isValid: false })
 
   const { getRootProps: getRootProps1, getInputProps: getInputProps1 } = useDropzone({
     // Disable click and keydown behavior
@@ -77,6 +81,59 @@ const Component = props => {
     setWhatsappNumber(value)
   }
 
+  const isValid = () => {
+    const validator = new Validator([
+      {
+        field: 'name',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'This field is required.'
+      },
+      {
+        field: 'whatsappNumber',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'This field is required.'
+      }
+    ])
+
+    const validation = validator.validate({ name, whatsappNumber })
+    setValidation(validation)
+    return validation.isValid
+  }
+
+  const isClean = () => {
+    return (
+      banner === null &&
+      profilePicture === null &&
+      store?.name?.trim() === name.trim() &&
+      store?.whatsappNumber?.trim() === whatsappNumber.trim()
+    )
+  }
+
+  const save = () => {
+    if(!loading && isValid() && !isClean()) {
+      setLoading(true)
+      UpdateStore(environment, { id: store.id, name, whatsappNumber }, { banner, profilePicture }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            // do sth
+          }
+        }
+
+        _isMounted.current && setLoading(false)
+      })
+    }
+  }
+
+  useEffect(() => {
+    return () => _isMounted.current = false
+  }, [])
+
   if(false) {
     return (
       <EditAddressView store={store}/>
@@ -111,7 +168,8 @@ const Component = props => {
         <Button
           disableElevation
           variant="contained"
-          style={{ marginRight: 15 }}
+          style={{ marginRight: 15, zIndex: 9999 }}
+          onClick={save}
         >
           Save
         </Button>
@@ -194,12 +252,13 @@ const Component = props => {
             value={name}
             onChange={e => setName(e.target.value.trimLeft())}
             fullWidth
+            disabled={loading}
             style={{
               marginTop: 10,
               marginBottom: 10
             }}
-            // error={validation?.name?.isInvalid}
-            // helperText={validation?.name?.message}
+            error={validation?.name?.isInvalid}
+            helperText={validation?.name?.message}
           />
 
           <TextField
@@ -208,6 +267,7 @@ const Component = props => {
             value={whatsappNumber}
             onChange={_setWhatsappNumber}
             fullWidth
+            disabled={loading}
             style={{
               marginTop: 10,
               marginBottom: 10
@@ -230,8 +290,8 @@ const Component = props => {
               type: "text",
               inputMode: "numeric"
             }}
-            // error={validation?.name?.isInvalid}
-            // helperText={validation?.name?.message}
+            error={validation?.whatsappNumber?.isInvalid}
+            helperText={validation?.whatsappNumber?.message}
           />
 
           <div style={{
