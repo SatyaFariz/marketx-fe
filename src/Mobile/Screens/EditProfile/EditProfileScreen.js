@@ -85,9 +85,17 @@ const Component = props => {
     return validation.isValid && numberExistance?.exists !== true
   }
 
-  const save = () => {
-    if(isValid()) {
+  const isClean = () => {
+    return (
+      file === null &&
+      name.trim() === me.name.trim() &&
+      mobileNumber.trim() === me.mobileNumber.trim()
+    )
+  }
 
+  const save = () => {
+    if(!loading && isValid() && !isClean()) {
+      alert('save now')
     }
   }
 
