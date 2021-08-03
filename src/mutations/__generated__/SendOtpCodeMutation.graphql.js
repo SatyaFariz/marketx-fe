@@ -8,7 +8,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type UserActionEnum = "login" | "register" | "%future added value";
+export type UserActionEnum = "edit_profile" | "login" | "register" | "%future added value";
 export type SendOtpCodeMutationVariables = {|
   mobileNumber: string,
   action?: ?UserActionEnum,

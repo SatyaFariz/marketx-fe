@@ -59,7 +59,7 @@ const Component = props => {
         justifyContent: 'space-between'
       }}>
         <div 
-        onClick={() => history.goBack()}
+        onClick={props.goBack ? props.goBack : () => history.goBack()}
         style={{
           paddingRight: 10,
           paddingLeft: 10

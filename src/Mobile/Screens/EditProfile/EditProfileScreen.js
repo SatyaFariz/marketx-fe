@@ -14,6 +14,8 @@ import { useDebounce } from 'use-debounce'
 import LogoutButton from '../../Components/LogoutButton'
 import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
+import SendOtpCode from '../../../mutations/SendOtpCode'
+import UpdateProfile from '../../../mutations/UpdateProfile'
 
 const megabytes = 1048576
 
@@ -29,6 +31,9 @@ const Component = props => {
   const [numberExistance, setNumberExistance] = useState(null)
   const [loading, setLoading] = useState(false)
   const [file, setFile] = useState(null)
+  const [sendingOtpCode, setSendingOtpCode] = useState(false)
+  const [expiry, setExpiry] = useState(null)
+  const [showOTPView, setShowOTPView] = useState(false)
 
   const { getRootProps, getInputProps } = useDropzone({
     // Disable click and keydown behavior
@@ -60,8 +65,52 @@ const Component = props => {
     setMobileNumber(value)
   }
 
-  const showOTPModal = () => {
-    history.push(`/profile?mobileNumber=${'082322343005'}`)
+  const update = (otpCode) => {
+    if(!loading) {
+      const input = {
+        name,
+        mobileNumber
+      }
+      
+      setLoading(true)
+      UpdateProfile(environment, { otpCode, input }, file, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(hasError) {
+            //
+          } else {
+            _isMounted.current && setShowOTPView(false)
+          }
+        }
+
+        _isMounted.current && setLoading(false)
+      })
+    }
+  }
+
+  const sendOtpCode = () => {
+    if(!sendingOtpCode) {
+      setSendingOtpCode(true)
+      SendOtpCode(environment, { mobileNumber, action: 'edit_profile' }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          if(hasError) {
+            alert(message)
+          } else {
+            const { expiry } = payload
+            setExpiry(expiry)
+            setShowOTPView(true)
+          }
+        }
+
+        _isMounted.current && setSendingOtpCode(false)
+      })
+    }
   }
 
   const isValid = () => {
@@ -82,7 +131,7 @@ const Component = props => {
 
     const validation = validator.validate({ name, mobileNumber })
     setValidation(validation)
-    return validation.isValid && numberExistance?.exists !== true
+    return validation.isValid// && numberExistance?.exists !== true
   }
 
   const isMobileNumberClean = () => {
@@ -99,7 +148,11 @@ const Component = props => {
 
   const save = () => {
     if(!loading && isValid() && !isClean()) {
-      alert('save now')
+      if(!isMobileNumberClean()) {
+        sendOtpCode()
+      } else {
+        update(null)
+      }
     }
   }
 
@@ -206,6 +259,7 @@ const Component = props => {
             variant="outlined"
             label="Name"
             fullWidth
+            disabled={sendingOtpCode || loading}
             style={{
               marginTop: 10,
               marginBottom: 10
@@ -220,6 +274,7 @@ const Component = props => {
             variant="outlined"
             label="Mobile Number"
             fullWidth
+            disabled={sendingOtpCode || loading}
             style={{
               marginTop: 10,
               marginBottom: 10
@@ -247,19 +302,24 @@ const Component = props => {
         </div>
       </div>
 
-      {queryParams.mobileNumber &&
+      {showOTPView &&
       <div style={{
         position: 'absolute',
         backgroundColor: 'white',
         left: 0,
         top: 0,
         width: '100%',
-        height: '100%'
+        height: '100%',
+        zIndex: 9999
       }}>
         <OTPView
-          onSubmit={() => alert('Aduh')}
+          onSubmit={update}
+          expiry={expiry}
           loading={false}
-          mobileNumber={queryParams.mobileNumber}
+          mobileNumber={mobileNumber}
+          resend={sendOtpCode}
+          sending={sendingOtpCode}
+          goBack={() => setShowOTPView(false)}
         />
       </div>
       }
