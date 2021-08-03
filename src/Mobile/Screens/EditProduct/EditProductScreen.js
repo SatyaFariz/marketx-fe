@@ -1,11 +1,10 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
-import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import Color from '../../Constants/Color'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import Link from '../../Components/Link'
 import { Button, TextField, InputAdornment } from '@material-ui/core'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
@@ -165,7 +164,7 @@ const Component = props => {
         height: HEADER_HEIGHT,
         position: 'absolute',
         width: '100%',
-        // backgroundImage: 'linear-gradient(rgb(76, 76, 76), transparent)',
+        backgroundImage: 'linear-gradient(rgb(76, 76, 76), transparent)',
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
@@ -308,6 +307,7 @@ const Component = props => {
             value={name}
             onChange={e => setName(e.target.value.trimLeft())}
             fullWidth
+            disabled={loading}
             style={{
               marginTop: 10,
               marginBottom: 10
@@ -322,6 +322,7 @@ const Component = props => {
             value={price}
             onChange={_setPrice}
             fullWidth
+            disabled={loading}
             style={{
               marginTop: 10,
               marginBottom: 10
@@ -346,6 +347,7 @@ const Component = props => {
             multiline
             rows="8"
             fullWidth
+            disabled={loading}
             style={{
               marginTop: 10,
               marginBottom: 10
@@ -363,6 +365,7 @@ const Component = props => {
                 variant="outlined"
                 label={field.attribute.name}
                 fullWidth
+                disabled={loading}
                 value={specs[field.attribute.id]}
                 onChange={_setSpecs(field)}
                 style={{
