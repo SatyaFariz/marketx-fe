@@ -8,10 +8,14 @@ import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 import { useState, useEffect, useRef } from 'react'
 import Validator from '../../../helpers/validator'
-import { isEmail } from 'validator'
+import CameraIcon from '../../Components/CameraIcon'
 import MobileNumberChecker from '../../../helpers/MobileNumberChecker'
 import { useDebounce } from 'use-debounce'
 import LogoutButton from '../../Components/LogoutButton'
+import { useDropzone } from 'react-dropzone'
+import { fromImage } from 'imtool'
+
+const megabytes = 1048576
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -20,10 +24,29 @@ const Component = props => {
   const { history, queryParams, environment } = useAppContext()
   const [name, setName] = useState(me?.name)
   const [mobileNumber, setMobileNumber] = useState(myCurrentMobileNumber)
-  const [email, setEmail] = useState(me?.email || '')
   const [mobileNumberDebounced] = useDebounce(mobileNumber, 500)
   const [validation, setValidation] = useState({ isValid: false })
   const [numberExistance, setNumberExistance] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [file, setFile] = useState(null)
+
+  const { getRootProps, getInputProps } = useDropzone({
+    // Disable click and keydown behavior
+    accept: 'image/jpeg',
+    disabled: loading,
+    maxSize: 6 * megabytes,
+    maxFiles: 1,
+    onDrop: async (acceptedFiles) => {
+      if(acceptedFiles.length > 0) {
+        const file = acceptedFiles[0]
+        const tool = await fromImage(file)
+        const image = await tool.quality(0.4).toFile(file.name)
+        image.preview = URL.createObjectURL(image)
+        setFile(image)
+      }
+    },
+    onDropRejected: () => console.log('Rejected')
+  })
 
   const _setName = (e) => {
     setName(e.target.value.trimLeft())
@@ -35,10 +58,6 @@ const Component = props => {
     if(value.length && !value.startsWith('0')) return
     if(value.length && !allowedChars.includes(value[value.length - 1])) return
     setMobileNumber(value)
-  }
-
-  const _setEmail = (e) => {
-    setEmail(e.target.value.trim())
   }
 
   const showOTPModal = () => {
@@ -58,16 +77,10 @@ const Component = props => {
         method: Validator.isEmpty,
         validWhen: false,
         message: 'Fill in your mobile number.'
-      },
-      ...(email?.length > 0 ? [{
-        field: 'email',
-        method: isEmail,
-        validWhen: true,
-        message: 'Email is not valid.'
-      }] : [])
+      }
     ])
 
-    const validation = validator.validate({ name, email, mobileNumber })
+    const validation = validator.validate({ name, mobileNumber })
     setValidation(validation)
     return validation.isValid && numberExistance?.exists !== true
   }
@@ -155,23 +168,21 @@ const Component = props => {
             height: 100,
             width: 100,
             borderRadius: '50%',
-            backgroundColor: Color.primary,
+            backgroundColor: me.profilePicture ? undefined : '#b1b6c9',
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            // marginBottom: 15
-          }}>
-            <span style={{ textTransform: 'uppercase', fontWeight: 500, fontSize: 40, color: 'white' }}>{'S'}</span>
-          </div>
-
-          {/* <Button
-            variant="contained"
-            disableElevation
-            style={{ margin: 0 }}
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center center',
+            backgroundImage: file ? `url("${file.preview}")` : (me.profilePicture ? `url("${me.profilePicture.url}")` : undefined)
+          }}
+          {...getRootProps({className: 'dropzone'})}
           >
-            Edit
-          </Button> */}
+            <input {...getInputProps()} />
+            <CameraIcon/>
+          </div>
           
         </div>
 
@@ -180,11 +191,12 @@ const Component = props => {
           paddingTop: 0
         }}>
           <TextField
-            // variant="filled"
+            variant="outlined"
             label="Name"
             fullWidth
             style={{
-              marginBottom: 25
+              marginTop: 10,
+              marginBottom: 10
             }}
             value={name}
             onChange={_setName}
@@ -193,11 +205,12 @@ const Component = props => {
           />
 
           <TextField
-            // variant="filled"
+            variant="outlined"
             label="Mobile Number"
             fullWidth
             style={{
-              marginBottom: 25
+              marginTop: 10,
+              marginBottom: 10
             }}
             value={mobileNumber}
             onChange={_setMobileNumber}
@@ -207,25 +220,14 @@ const Component = props => {
             helperText={numberExistance?.exists ? 'This number has already been registered.' : validation?.mobileNumber?.message}
           />
 
-          <TextField
-            // variant="filled"
-            label="Email"
-            fullWidth
-            style={{
-              marginBottom: 25
-            }}
-            value={email}
-            onChange={_setEmail}
-            type="email"
-            error={validation?.email?.isInvalid}
-            helperText={validation?.email?.message}
-          />
-
           <Button
             disableElevation
             variant="contained"
             fullWidth
-            style={{ textTransform: 'none' }}
+            style={{ 
+              textTransform: 'none',
+              marginTop: 10
+            }}
             onClick={save}
           >
             Save
