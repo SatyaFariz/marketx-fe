@@ -85,11 +85,15 @@ const Component = props => {
     return validation.isValid && numberExistance?.exists !== true
   }
 
+  const isMobileNumberClean = () => {
+    return mobileNumber.trim() === me.mobileNumber.trim()
+  }
+
   const isClean = () => {
     return (
       file === null &&
       name.trim() === me.name.trim() &&
-      mobileNumber.trim() === me.mobileNumber.trim()
+      isMobileNumberClean()
     )
   }
 
