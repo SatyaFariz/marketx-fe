@@ -66,7 +66,7 @@ const Component = props => {
           
             <div>
               <span style={{ display: 'block', fontWeight: 500, marginBottom: 3 }}>{me.name}</span>
-              <span style={{ display: 'block', fontSize: 14 }}>{me.mobileNumber}</span>
+              <span style={{ display: 'block', fontSize: 14, color: 'rgb(83, 100, 113)' }}>{me.mobileNumber}</span>
             </div>
           </div>
           
