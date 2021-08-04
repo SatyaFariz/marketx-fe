@@ -3,24 +3,24 @@ import { TextField, Button } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import SendOtpCode from '../../../mutations/SendOtpCode'
-import Link from '../../Components/Link'
-import Color from '../../Constants/Color'
 import Validator from '../../../helpers/validator'
 import MobileNumberChecker from '../../../helpers/MobileNumberChecker'
 import { useDebounce } from 'use-debounce'
 import OTPView from '../../Components/OTPView'
+import Register from '../../../mutations/Register'
 
 const Component = props => {
   const _isMounted = useRef(true)
-  const { history, queryParams, environment } = useAppContext()
-  const [mobileNumber, setMobileNumber] = useState(queryParams?.mobileNumber || '')
-  const [name, setName] = useState(queryParams?.name || '')
+  const { history, environment, resetEnvironment } = useAppContext()
+  const [mobileNumber, setMobileNumber] = useState('')
+  const [name, setName] = useState('')
   const [loading, setLoading] = useState(false)
   const [mobileNumberDebounced] = useDebounce(mobileNumber, 500)
   const [validation, setValidation] = useState({ isValid: false })
   const [numberExistance, setNumberExistance] = useState(null)
   const [sendingCode, setSendingCode] = useState(false)
   const [expiry, setExpiry] = useState(null)
+  const [showOTPView, setShowOTPView] = useState(false)
 
   const handleChange = (e) => {
     const allowedChars = '1234567890'
@@ -57,8 +57,8 @@ const Component = props => {
   }
 
   const sendOtpCode = () => {
-    if(isValid() > 0 && !loading) {
-      setLoading(true)
+    if(isValid() > 0 && !sendingCode) {
+      setSendingCode(true)
       SendOtpCode(environment, { mobileNumber, action: 'register' }, (payload, error) => {
         if(error) {
           console.log(error)
@@ -69,18 +69,34 @@ const Component = props => {
           } else {
             const { expiry } = payload
             setExpiry(expiry)
-            if(!queryParams.otp)
-              history.push(`/register?otp=1`)
+            setShowOTPView(true)
+          }
+        }
+
+        _isMounted.current && setSendingCode(false)
+      })
+    }
+  }
+
+  const register = (code) => {
+    if(!loading) {
+      setLoading(true)
+      Register(environment, { name, loginId: mobileNumber, password: code }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            // do sth
+            history.push('/')
+            resetEnvironment()
           }
         }
 
         _isMounted.current && setLoading(false)
       })
     }
-  }
-
-  const register = () => {
-    
   }
 
   useEffect(() => {
@@ -130,6 +146,7 @@ const Component = props => {
           }}
           onChange={setFullname}
           value={name}
+          disabled={loading || sendingCode}
           error={validation?.name?.isInvalid}
           helperText={validation?.name?.message}
         />
@@ -144,6 +161,7 @@ const Component = props => {
           }}
           onChange={handleChange}
           value={mobileNumber}
+          disabled={loading || sendingCode}
           placeholder="Ex: 082322343005"
           inputProps={{
             pattern: "[0-9]*",
@@ -171,7 +189,7 @@ const Component = props => {
         
       </div>
 
-      {queryParams.otp === '1' &&
+      {showOTPView &&
       <div style={{
         position: 'absolute',
         backgroundColor: 'white',
@@ -188,6 +206,7 @@ const Component = props => {
           mobileNumber={mobileNumber}
           resend={sendOtpCode}
           sending={sendingCode}
+          goBack={() => setShowOTPView(false)}
         />
       </div>
       }
