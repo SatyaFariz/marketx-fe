@@ -253,13 +253,13 @@ const Component = props => {
             }}>Merchant Information</span>
 
             <div style={{ marginTop: 16 }}>
-              <Link href={`/merchant/${product.merchant.id}`}>
+              <Link href={`/store/${product.store.id}`}>
                 <div style={{
                   display: 'flex',
                   flexDirection: 'row',
                   alignItems: 'center'
                 }}>
-                  {product.merchant.profilePicture ?
+                  {!product.store.profilePicture ?
                   null
                   :  
                   <div style={{
@@ -273,11 +273,11 @@ const Component = props => {
                     alignItems: 'center',
                     marginRight: 15
                   }}>
-                    <span style={{ textTransform: 'uppercase', fontWeight: 500, fontSize: 20, color: 'white' }}>{product.merchant.name[0]}</span>
+                    <span style={{ textTransform: 'uppercase', fontWeight: 500, fontSize: 20, color: 'white' }}>{product.store.name[0]}</span>
                   </div>
                   }
 
-                  <span style={{ fontSize: 16, fontWeight: 500 }}>{product.merchant.name}</span>
+                  <span style={{ fontSize: 16, fontWeight: 500 }}>{product.store.name}</span>
                 </div>
               </Link>
             </div>
@@ -372,7 +372,11 @@ export default createFragmentContainer(Component, {
       store {
         id,
         name,
-        whatsappLink
+        whatsappLink,
+        profilePicture {
+          id,
+          url
+        }
       }
     }
   `,

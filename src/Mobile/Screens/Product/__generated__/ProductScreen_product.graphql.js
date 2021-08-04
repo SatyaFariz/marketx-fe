@@ -51,6 +51,10 @@ export type ProductScreen_product = {|
     +id: ?string,
     +name: ?string,
     +whatsappLink: ?string,
+    +profilePicture: ?{|
+      +id: ?string,
+      +url: ?string,
+    |},
   |},
   +$refType: ProductScreen_product$ref,
 |};
@@ -87,7 +91,17 @@ v2 = [
     "name": "url",
     "storageKey": null
   }
-];
+],
+v3 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Image",
+  "kind": "LinkedField",
+  "name": "profilePicture",
+  "plural": false,
+  "selections": (v2/*: any*/),
+  "storageKey": null
+};
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -203,16 +217,7 @@ return {
       "selections": [
         (v0/*: any*/),
         (v1/*: any*/),
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "Image",
-          "kind": "LinkedField",
-          "name": "profilePicture",
-          "plural": false,
-          "selections": (v2/*: any*/),
-          "storageKey": null
-        }
+        (v3/*: any*/)
       ],
       "storageKey": null
     },
@@ -232,7 +237,8 @@ return {
           "kind": "ScalarField",
           "name": "whatsappLink",
           "storageKey": null
-        }
+        },
+        (v3/*: any*/)
       ],
       "storageKey": null
     }
@@ -242,6 +248,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e642fb3b4ed94d2d41707dd0115d9ab6';
+(node/*: any*/).hash = '5a42afc01375a2d7ad54a74b24744abc';
 
 module.exports = node;
