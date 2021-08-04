@@ -264,6 +264,7 @@ const Component = props => {
               endAdornment: (
                 <InputAdornment position="start">
                   <Button
+                    disabled={whatsappNumber.length < 10}
                     disableElevation
                     variant="contained"
                     onClick={() => window.open(`https://wa.me/${whatsappNumber}`)}
