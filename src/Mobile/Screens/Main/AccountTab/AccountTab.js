@@ -53,14 +53,20 @@ const Component = props => {
               height: 50,
               width: 50,
               borderRadius: '50%',
-              backgroundColor: Color.primary,
+              backgroundColor: me.profilePicture ? undefined : Color.primary,
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              marginRight: 15
+              marginRight: 15,
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center center',
+              backgroundImage: me.profilePicture ? `url("${me.profilePicture.url}")` : undefined
             }}>
+              {!me.profilePicture &&
               <span style={{ textTransform: 'uppercase', fontWeight: 500, fontSize: 20, color: 'white' }}>{me.name[0]}</span>
+              }
             </div>
 
           
