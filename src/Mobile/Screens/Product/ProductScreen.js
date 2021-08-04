@@ -26,7 +26,7 @@ const Component = props => {
   }
 
   const onActionButtonClick = () => {
-    if(me?.id === product.merchant.id) {
+    if(me?.id === product.store.merchantId) {
       history.push(`/edit/product/${product.id}`)
     } else {
       window.open(product.store.whatsappLink)
@@ -329,7 +329,7 @@ const Component = props => {
             disableElevation
             onClick={onActionButtonClick}
           >
-            {me?.id === product.merchant.id ? 'Edit' : 'Rent'}
+            {me?.id === product.store.merchantId ? 'Edit' : 'Rent'}
           </Button>
         </div>
       </div>
@@ -367,18 +367,11 @@ export default createFragmentContainer(Component, {
         },
         value
       },
-      merchant {
-        id,
-        name,
-        profilePicture {
-          id,
-          url
-        }
-      },
       store {
         id,
         name,
         whatsappLink,
+        merchantId,
         profilePicture {
           id,
           url

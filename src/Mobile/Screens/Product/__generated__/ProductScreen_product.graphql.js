@@ -39,18 +39,11 @@ export type ProductScreen_product = {|
     |},
     +value: ?string,
   |}>,
-  +merchant: ?{|
-    +id: ?string,
-    +name: ?string,
-    +profilePicture: ?{|
-      +id: ?string,
-      +url: ?string,
-    |},
-  |},
   +store: ?{|
     +id: ?string,
     +name: ?string,
     +whatsappLink: ?string,
+    +merchantId: ?string,
     +profilePicture: ?{|
       +id: ?string,
       +url: ?string,
@@ -91,17 +84,7 @@ v2 = [
     "name": "url",
     "storageKey": null
   }
-],
-v3 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "Image",
-  "kind": "LinkedField",
-  "name": "profilePicture",
-  "plural": false,
-  "selections": (v2/*: any*/),
-  "storageKey": null
-};
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -210,20 +193,6 @@ return {
     {
       "alias": null,
       "args": null,
-      "concreteType": "User",
-      "kind": "LinkedField",
-      "name": "merchant",
-      "plural": false,
-      "selections": [
-        (v0/*: any*/),
-        (v1/*: any*/),
-        (v3/*: any*/)
-      ],
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
       "concreteType": "Store",
       "kind": "LinkedField",
       "name": "store",
@@ -238,7 +207,23 @@ return {
           "name": "whatsappLink",
           "storageKey": null
         },
-        (v3/*: any*/)
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "merchantId",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Image",
+          "kind": "LinkedField",
+          "name": "profilePicture",
+          "plural": false,
+          "selections": (v2/*: any*/),
+          "storageKey": null
+        }
       ],
       "storageKey": null
     }
@@ -248,6 +233,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5a42afc01375a2d7ad54a74b24744abc';
+(node/*: any*/).hash = '3f2825895a1d242d87010fe53a86b47b';
 
 module.exports = node;

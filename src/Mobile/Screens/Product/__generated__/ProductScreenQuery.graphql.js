@@ -77,18 +77,11 @@ fragment ProductScreen_product on Product {
     }
     value
   }
-  merchant {
-    id
-    name
-    profilePicture {
-      id
-      url
-    }
-  }
   store {
     id
     name
     whatsappLink
+    merchantId
     profilePicture {
       id
       url
@@ -135,17 +128,7 @@ v4 = [
     "name": "url",
     "storageKey": null
   }
-],
-v5 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "Image",
-  "kind": "LinkedField",
-  "name": "profilePicture",
-  "plural": false,
-  "selections": (v4/*: any*/),
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -308,20 +291,6 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "User",
-            "kind": "LinkedField",
-            "name": "merchant",
-            "plural": false,
-            "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              (v5/*: any*/)
-            ],
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
             "concreteType": "Store",
             "kind": "LinkedField",
             "name": "store",
@@ -336,7 +305,23 @@ return {
                 "name": "whatsappLink",
                 "storageKey": null
               },
-              (v5/*: any*/)
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "merchantId",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Image",
+                "kind": "LinkedField",
+                "name": "profilePicture",
+                "plural": false,
+                "selections": (v4/*: any*/),
+                "storageKey": null
+              }
             ],
             "storageKey": null
           }
@@ -358,12 +343,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c87fba12ae097ca4334f37a2bd4487a8",
+    "cacheID": "11805ff9d1d0b034cdd15bb5ace07791",
     "id": null,
     "metadata": {},
     "name": "ProductScreenQuery",
     "operationKind": "query",
-    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n  me {\n    id\n    ...ProductScreen_me\n  }\n}\n\nfragment ProductScreen_me on User {\n  id\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalDuration {\n    display\n    id\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n  }\n  merchant {\n    id\n    name\n    profilePicture {\n      id\n      url\n    }\n  }\n  store {\n    id\n    name\n    whatsappLink\n    profilePicture {\n      id\n      url\n    }\n  }\n}\n"
+    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n  me {\n    id\n    ...ProductScreen_me\n  }\n}\n\nfragment ProductScreen_me on User {\n  id\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalDuration {\n    display\n    id\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n  }\n  store {\n    id\n    name\n    whatsappLink\n    merchantId\n    profilePicture {\n      id\n      url\n    }\n  }\n}\n"
   }
 };
 })();
