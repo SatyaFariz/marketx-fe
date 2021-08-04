@@ -9,13 +9,15 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type StoreScreen_categories$ref = any;
+type StoreScreen_me$ref = any;
 type StoreScreen_store$ref = any;
 export type StoreScreenQueryVariables = {|
   id: string
 |};
 export type StoreScreenQueryResponse = {|
   +me: ?{|
-    +id: ?string
+    +id: ?string,
+    +$fragmentRefs: StoreScreen_me$ref,
   |},
   +store: ?{|
     +id: ?string,
@@ -38,6 +40,7 @@ query StoreScreenQuery(
 ) {
   me {
     id
+    ...StoreScreen_me
   }
   store(id: $id) {
     id
@@ -68,10 +71,15 @@ fragment StoreScreen_categories on Category {
   ...SelectTypeAndCategoryView_categories
 }
 
+fragment StoreScreen_me on User {
+  id
+}
+
 fragment StoreScreen_store on Store {
   id
   name
   whatsappNumber
+  merchantId
   profilePicture {
     id
     url
@@ -102,33 +110,21 @@ v1 = {
   "name": "id",
   "storageKey": null
 },
-v2 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "User",
-  "kind": "LinkedField",
-  "name": "me",
-  "plural": false,
-  "selections": [
-    (v1/*: any*/)
-  ],
-  "storageKey": null
-},
-v3 = [
+v2 = [
   {
     "kind": "Variable",
     "name": "id",
     "variableName": "id"
   }
 ],
-v4 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v5 = [
+v4 = [
   (v1/*: any*/),
   {
     "alias": null,
@@ -145,10 +141,26 @@ return {
     "metadata": null,
     "name": "StoreScreenQuery",
     "selections": [
-      (v2/*: any*/),
       {
         "alias": null,
-        "args": (v3/*: any*/),
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "StoreScreen_me"
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": (v2/*: any*/),
         "concreteType": "Store",
         "kind": "LinkedField",
         "name": "store",
@@ -189,17 +201,28 @@ return {
     "kind": "Operation",
     "name": "StoreScreenQuery",
     "selections": [
-      (v2/*: any*/),
       {
         "alias": null,
-        "args": (v3/*: any*/),
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/)
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": (v2/*: any*/),
         "concreteType": "Store",
         "kind": "LinkedField",
         "name": "store",
         "plural": false,
         "selections": [
           (v1/*: any*/),
-          (v4/*: any*/),
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -210,11 +233,18 @@ return {
           {
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
+            "name": "merchantId",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "Image",
             "kind": "LinkedField",
             "name": "profilePicture",
             "plural": false,
-            "selections": (v5/*: any*/),
+            "selections": (v4/*: any*/),
             "storageKey": null
           },
           {
@@ -224,7 +254,7 @@ return {
             "kind": "LinkedField",
             "name": "banner",
             "plural": false,
-            "selections": (v5/*: any*/),
+            "selections": (v4/*: any*/),
             "storageKey": null
           },
           {
@@ -271,23 +301,23 @@ return {
         "plural": true,
         "selections": [
           (v1/*: any*/),
-          (v4/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "e6ea2be40f264afd30563ba411efe6f1",
+    "cacheID": "23d5482d402186417a7000e7c574ca7d",
     "id": null,
     "metadata": {},
     "name": "StoreScreenQuery",
     "operationKind": "query",
-    "text": "query StoreScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n  }\n  store(id: $id) {\n    id\n    ...StoreScreen_store\n  }\n  categories {\n    ...StoreScreen_categories\n    id\n  }\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment SelectTypeAndCategoryView_categories on Category {\n  id\n  name\n}\n\nfragment StoreScreen_categories on Category {\n  id\n  ...SelectTypeAndCategoryView_categories\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n  }\n  ...EditAddressView_store\n}\n"
+    "text": "query StoreScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    ...StoreScreen_me\n  }\n  store(id: $id) {\n    id\n    ...StoreScreen_store\n  }\n  categories {\n    ...StoreScreen_categories\n    id\n  }\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment SelectTypeAndCategoryView_categories on Category {\n  id\n  name\n}\n\nfragment StoreScreen_categories on Category {\n  id\n  ...SelectTypeAndCategoryView_categories\n}\n\nfragment StoreScreen_me on User {\n  id\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  merchantId\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n  }\n  ...EditAddressView_store\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'cbb2ee4733224de9d79578ca87587789';
+(node/*: any*/).hash = '41e96f59b3f39d778f1bc6f4f727b1b2';
 
 module.exports = node;

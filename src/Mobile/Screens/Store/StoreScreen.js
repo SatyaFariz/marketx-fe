@@ -10,8 +10,7 @@ import { createFragmentContainer } from 'react-relay'
 import SelectTypeAndCategoryView from '../../Components/SelectTypeAndCategoryView'
 
 const Component = props => {
-  const store = props.store
-  const { categories } = props
+  const { categories, me, store } = props
   const { history, queryParams } = useAppContext()
 
   if(!store?.address) {
@@ -117,6 +116,7 @@ const Component = props => {
               }
             </div>
 
+            {store.merchantId === me?.id &&
             <Button
               disableElevation
               variant="contained"
@@ -124,6 +124,7 @@ const Component = props => {
             >
               Edit
             </Button>
+            }
           </div>
 
           <h3 style={{ fontSize: 20, marginTop: 10, marginBottom: 5 }}>{store.name}</h3>
@@ -153,7 +154,7 @@ const Component = props => {
               display: 'block',
               textAlign: 'center'
             }}>
-              You still don't have products. Add one!
+              {store.merchantId === me?.id ? "You still don't have products. Add one!" : "This store doesn't have products yet."}
             </span>
           </div>
         </div>
@@ -188,11 +189,17 @@ const Component = props => {
 }
 
 export default createFragmentContainer(Component, {
+  me: graphql`
+    fragment StoreScreen_me on User {
+      id
+    }
+  `,
   store: graphql`
     fragment StoreScreen_store on Store {
       id,
       name,
       whatsappNumber,
+      merchantId,
       profilePicture {
         id,
         url

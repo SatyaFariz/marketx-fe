@@ -7,7 +7,8 @@ const chunk = {
   query: graphql`
     query StoreScreenQuery($id: String!) {
       me {
-        id
+        id,
+        ...StoreScreen_me
       },
       store(id: $id) {
         id,
@@ -27,6 +28,7 @@ const chunk = {
         <FixedAddressBar>
           {data &&
           <StoreScreen
+            me={data.me}
             categories={data.categories}
             store={data.store}
           />
