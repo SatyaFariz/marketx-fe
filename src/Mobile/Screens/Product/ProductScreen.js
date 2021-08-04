@@ -266,14 +266,20 @@ const Component = props => {
                     height: 40,
                     width: 40,
                     borderRadius: '50%',
-                    backgroundColor: Color.primary,
+                    backgroundColor: product.store.profilePicture ? undefined : Color.primary,
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    marginRight: 15
+                    marginRight: 15,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center center',
+                    backgroundImage: product.store.profilePicture ? `url("${product.store.profilePicture.url}")` : undefined
                   }}>
+                    {!product.store.profilePicture &&
                     <span style={{ textTransform: 'uppercase', fontWeight: 500, fontSize: 20, color: 'white' }}>{product.store.name[0]}</span>
+                    }
                   </div>
                   }
 
