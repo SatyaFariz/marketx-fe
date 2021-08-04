@@ -131,7 +131,7 @@ const Component = props => {
 
     const validation = validator.validate({ name, mobileNumber })
     setValidation(validation)
-    return validation.isValid// && numberExistance?.exists !== true
+    return validation.isValid && numberExistance?.exists !== true
   }
 
   const isMobileNumberClean = () => {
@@ -281,7 +281,11 @@ const Component = props => {
             }}
             value={mobileNumber}
             onChange={_setMobileNumber}
-            type="tel"
+            inputProps={{
+              pattern: "[0-9]*",
+              type: "text",
+              inputMode: "numeric"
+            }}
             placeholder="Ex: 082322343005"
             error={numberExistance?.exists || validation?.mobileNumber?.isInvalid}
             helperText={numberExistance?.exists ? 'This number has already been registered.' : validation?.mobileNumber?.message}

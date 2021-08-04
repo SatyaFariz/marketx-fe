@@ -106,7 +106,11 @@ const Component = props => {
           onChange={handleChange}
           value={mobileNumber}
           placeholder="Ex: 082322343005"
-          type="tel"
+          inputProps={{
+            pattern: "[0-9]*",
+            type: "text",
+            inputMode: "numeric"
+          }}
         />
 
         <Button
