@@ -10,20 +10,19 @@ import Login from '../../../mutations/Login'
 
 const Component = props => {
   const _isMounted = useRef(true)
-  const { history, queryParams, environment, resetEnvironment } = useAppContext()
-  const [mobileNumber, setPhoneNumber] = useState(queryParams?.mobileNumber || '')
+  const { history, environment, resetEnvironment } = useAppContext()
+  const [mobileNumber, setPhoneNumber] = useState('')
   const [loading, setLoading] = useState(false)
   const [sendingCode, setSendingCode] = useState(false)
   const [expiry, setExpiry] = useState(null)
+  const [showOTPView, setShowOTPView] = useState(false)
 
   const handleChange = (e) => {
-    if(!loading) {
-      const allowedChars = '1234567890'
-      const { value } = e.target
-      if(value.length && !value.startsWith('0')) return
-      if(value.length && !allowedChars.includes(value[value.length - 1])) return
-      setPhoneNumber(value)
-    }
+    const allowedChars = '1234567890'
+    const { value } = e.target
+    if(value.length && !value.startsWith('0')) return
+    if(value.length && !allowedChars.includes(value[value.length - 1])) return
+    setPhoneNumber(value)
   }
 
   const sendOtpCode = () => {
@@ -39,8 +38,7 @@ const Component = props => {
           } else {
             const { expiry } = payload
             setExpiry(expiry)
-            if(!queryParams.otp)
-              history.push(`/login?otp=1`)
+            setShowOTPView(true)
           }
         }
 
@@ -100,6 +98,7 @@ const Component = props => {
           variant="outlined"
           label="Mobile Number"
           fullWidth
+          disabled={loading || sendingCode}
           style={{
             marginTop: 10,
             marginBottom: 10
@@ -139,7 +138,7 @@ const Component = props => {
         
       </div>
 
-      {queryParams.otp === '1' &&
+      {showOTPView &&
       <div style={{
         position: 'absolute',
         backgroundColor: 'white',
@@ -156,6 +155,7 @@ const Component = props => {
           mobileNumber={mobileNumber}
           resend={sendOtpCode}
           sending={sendingCode}
+          goBack={() => setShowOTPView(false)}
         />
       </div>
       }
