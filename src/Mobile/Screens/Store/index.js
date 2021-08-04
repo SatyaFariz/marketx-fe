@@ -2,23 +2,23 @@ import graphql from 'babel-plugin-relay/macro'
 import FixedAddressBar from '../../Components/FixedAddressBar'
 
 const chunk = {
-  path: '/store',
+  path: '/store/:id',
   components: () => [import('./StoreScreen')],
   query: graphql`
-    query StoreScreenQuery {
+    query StoreScreenQuery($id: String!) {
       me {
+        id
+      },
+      store(id: $id) {
         id,
-        store {
-          id,
-          ...StoreScreen_store
-        }
+        ...StoreScreen_store
       },
       categories {
         ...StoreScreen_categories
       }
     }
   `,
-  // prepareVariables: ({ params }) => params,
+  prepareVariables: ({ params }) => params,
   render: ([StoreScreen], data, context) => {
     
     return {
@@ -28,7 +28,7 @@ const chunk = {
           {data &&
           <StoreScreen
             categories={data.categories}
-            store={data.me?.store}
+            store={data.store}
           />
           }
         </FixedAddressBar>

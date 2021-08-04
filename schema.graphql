@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Wed Aug 04 2021 03:16:32 GMT+0700 (Western Indonesia Time)
+# timestamp: Thu Aug 05 2021 00:36:23 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -67,7 +67,6 @@ type Image {
 }
 
 type Mutation {
-  login(loginId: String!, password: String!): ActionOnUserPayload
   addIcon(id: String!, url: String!): String
   createProduct(type: ProductTypeEnum!, storeId: String!, categoryId: String!, input: ProductInput!): ActionOnProductPayload
   setProductImage(id: String!, url: String!): String
@@ -75,6 +74,7 @@ type Mutation {
   updateDescription(id: String!, desc: String!): String
   addSpec(id: String!, attributeId: String!, value: String!): String
   sendOtpCode(mobileNumber: String!, action: UserActionEnum): SendOtpPayload
+  login(loginId: String!, password: String!): ActionOnUserPayload
   register(name: String!, loginId: String!, password: String!): ActionOnUserPayload
   logout: ActionInfo
   updateProfile(otpCode: String, input: UpdateProfileInput!): ActionOnUserPayload
@@ -163,6 +163,7 @@ type Query {
   units: [Unit]
   product(id: String!): Product
   user(id: String!): User
+  store(id: String!): Store
   featuredProducts: [Product]
   search(q: String!, categoryId: String, published: Boolean, after: String, first: Int): ProductConnection
 }

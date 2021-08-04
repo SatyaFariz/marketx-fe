@@ -10,14 +10,16 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type StoreScreen_categories$ref = any;
 type StoreScreen_store$ref = any;
-export type StoreScreenQueryVariables = {||};
+export type StoreScreenQueryVariables = {|
+  id: string
+|};
 export type StoreScreenQueryResponse = {|
   +me: ?{|
+    +id: ?string
+  |},
+  +store: ?{|
     +id: ?string,
-    +store: ?{|
-      +id: ?string,
-      +$fragmentRefs: StoreScreen_store$ref,
-    |},
+    +$fragmentRefs: StoreScreen_store$ref,
   |},
   +categories: ?$ReadOnlyArray<?{|
     +$fragmentRefs: StoreScreen_categories$ref
@@ -31,13 +33,15 @@ export type StoreScreenQuery = {|
 
 
 /*
-query StoreScreenQuery {
+query StoreScreenQuery(
+  $id: String!
+) {
   me {
     id
-    store {
-      id
-      ...StoreScreen_store
-    }
+  }
+  store(id: $id) {
+    id
+    ...StoreScreen_store
   }
   categories {
     ...StoreScreen_categories
@@ -84,22 +88,48 @@ fragment StoreScreen_store on Store {
 */
 
 const node/*: ConcreteRequest*/ = (function(){
-var v0 = {
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "id"
+  }
+],
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v1 = {
+v2 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "User",
+  "kind": "LinkedField",
+  "name": "me",
+  "plural": false,
+  "selections": [
+    (v1/*: any*/)
+  ],
+  "storageKey": null
+},
+v3 = [
+  {
+    "kind": "Variable",
+    "name": "id",
+    "variableName": "id"
+  }
+],
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v2 = [
-  (v0/*: any*/),
+v5 = [
+  (v1/*: any*/),
   {
     "alias": null,
     "args": null,
@@ -110,36 +140,25 @@ v2 = [
 ];
 return {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "StoreScreenQuery",
     "selections": [
+      (v2/*: any*/),
       {
         "alias": null,
-        "args": null,
-        "concreteType": "User",
+        "args": (v3/*: any*/),
+        "concreteType": "Store",
         "kind": "LinkedField",
-        "name": "me",
+        "name": "store",
         "plural": false,
         "selections": [
-          (v0/*: any*/),
+          (v1/*: any*/),
           {
-            "alias": null,
             "args": null,
-            "concreteType": "Store",
-            "kind": "LinkedField",
-            "name": "store",
-            "plural": false,
-            "selections": [
-              (v0/*: any*/),
-              {
-                "args": null,
-                "kind": "FragmentSpread",
-                "name": "StoreScreen_store"
-              }
-            ],
-            "storageKey": null
+            "kind": "FragmentSpread",
+            "name": "StoreScreen_store"
           }
         ],
         "storageKey": null
@@ -166,86 +185,75 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "StoreScreenQuery",
     "selections": [
+      (v2/*: any*/),
       {
         "alias": null,
-        "args": null,
-        "concreteType": "User",
+        "args": (v3/*: any*/),
+        "concreteType": "Store",
         "kind": "LinkedField",
-        "name": "me",
+        "name": "store",
         "plural": false,
         "selections": [
-          (v0/*: any*/),
+          (v1/*: any*/),
+          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
-            "concreteType": "Store",
+            "kind": "ScalarField",
+            "name": "whatsappNumber",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Image",
             "kind": "LinkedField",
-            "name": "store",
+            "name": "profilePicture",
+            "plural": false,
+            "selections": (v5/*: any*/),
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Image",
+            "kind": "LinkedField",
+            "name": "banner",
+            "plural": false,
+            "selections": (v5/*: any*/),
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Address",
+            "kind": "LinkedField",
+            "name": "address",
             "plural": false,
             "selections": [
-              (v0/*: any*/),
-              (v1/*: any*/),
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "whatsappNumber",
+                "name": "fullAddress",
                 "storageKey": null
               },
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Image",
-                "kind": "LinkedField",
-                "name": "profilePicture",
-                "plural": false,
-                "selections": (v2/*: any*/),
+                "kind": "ScalarField",
+                "name": "lat",
                 "storageKey": null
               },
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Image",
-                "kind": "LinkedField",
-                "name": "banner",
-                "plural": false,
-                "selections": (v2/*: any*/),
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Address",
-                "kind": "LinkedField",
-                "name": "address",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "fullAddress",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "lat",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "lng",
-                    "storageKey": null
-                  }
-                ],
+                "kind": "ScalarField",
+                "name": "lng",
                 "storageKey": null
               }
             ],
@@ -262,24 +270,24 @@ return {
         "name": "categories",
         "plural": true,
         "selections": [
-          (v0/*: any*/),
-          (v1/*: any*/)
+          (v1/*: any*/),
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "9bdb1e81bb09bc91b0c115ee1155db47",
+    "cacheID": "e6ea2be40f264afd30563ba411efe6f1",
     "id": null,
     "metadata": {},
     "name": "StoreScreenQuery",
     "operationKind": "query",
-    "text": "query StoreScreenQuery {\n  me {\n    id\n    store {\n      id\n      ...StoreScreen_store\n    }\n  }\n  categories {\n    ...StoreScreen_categories\n    id\n  }\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment SelectTypeAndCategoryView_categories on Category {\n  id\n  name\n}\n\nfragment StoreScreen_categories on Category {\n  id\n  ...SelectTypeAndCategoryView_categories\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n  }\n  ...EditAddressView_store\n}\n"
+    "text": "query StoreScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n  }\n  store(id: $id) {\n    id\n    ...StoreScreen_store\n  }\n  categories {\n    ...StoreScreen_categories\n    id\n  }\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment SelectTypeAndCategoryView_categories on Category {\n  id\n  name\n}\n\nfragment StoreScreen_categories on Category {\n  id\n  ...SelectTypeAndCategoryView_categories\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n  }\n  ...EditAddressView_store\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '93941a3f9d6ac357be6d8a0647ae738e';
+(node/*: any*/).hash = 'cbb2ee4733224de9d79578ca87587789';
 
 module.exports = node;
