@@ -33,7 +33,7 @@ const Component = props => {
   const { store } = props
   const { environment } = useAppContext()
   const [latLng, setLatLng] = useState(store.address ? { lat: store.lat, lng: store.lng } : initialLatLng)
-  const [fullAddress, setFullAddress] = useState(store.address.fullAddress || '')
+  const [fullAddress, setFullAddress] = useState(store.address?.fullAddress || '')
   const [loading, setLoading] = useState(false)
   const mapRef = useRef()
 
