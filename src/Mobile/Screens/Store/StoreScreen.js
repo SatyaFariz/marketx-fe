@@ -10,7 +10,7 @@ import SelectTypeAndCategoryView from '../../Components/SelectTypeAndCategoryVie
 import { useBottomScrollListener } from 'react-bottom-scroll-listener'
 import { createPaginationContainer } from 'react-relay'
 import ProductItem from '../../Components/ProductItem'
-import { CircularProgress } from '@material-ui/core'
+import { CircularProgress, IconButton } from '@material-ui/core'
 
 const Component = props => {
   const { categories, me, store, products } = props
@@ -57,15 +57,13 @@ const Component = props => {
         top: 0,
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
-        <div 
+        <IconButton 
         onClick={() => history.goBack()}
         style={{
-          paddingRight: 10,
-          paddingLeft: 10,
           zIndex: 1
         }}>
-          <IoChevronBackSharp size={32}/>
-        </div>
+          <IoChevronBackSharp size={32} color="black"/>
+        </IconButton>
         
         <div style={{
           position: 'absolute',
