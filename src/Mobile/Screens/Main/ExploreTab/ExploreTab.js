@@ -6,10 +6,12 @@ import Link from '../../../Components/Link'
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 import { Close, Delete } from '@material-ui/icons'
-import { IconButton, CircularProgress } from '@material-ui/core'
-import { IoSearchOutline, IoPersonOutline } from 'react-icons/io5'
+import { IconButton, Drawer } from '@material-ui/core'
+import { IoSearchOutline, IoMenuOutline } from 'react-icons/io5'
+import { useState } from 'react'
 
 const Component = props => {
+  const [showDrawer, setShowDrawer] = useState(false)
   const { active, categories, featuredProducts } = props
   console.log('FEATURED PRODUCTS', featuredProducts)
   return (
@@ -17,6 +19,14 @@ const Component = props => {
       display: active ? undefined : 'none',
       marginBottom: 68
     }}>
+      <Drawer anchor="left" open={showDrawer} onClose={() => setShowDrawer(false)}>
+        <div style={{
+          width: 250,
+          backgroundColor: 'white'
+        }}>
+
+        </div>
+      </Drawer>
       <div style={{
         
       }}>
@@ -44,14 +54,15 @@ const Component = props => {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'space-between'
           }}>
+            <IconButton onClick={() => setShowDrawer(true)}>
+              <IoMenuOutline/>
+            </IconButton>
             <img
               src="https://res.cloudinary.com/tuanrumah/image/upload/v1628197566/amazon_logo_500500.png"
               alt="image"
               style={{
                 height: 40,
-                marginLeft: 10
               }}
             />
           </div>
