@@ -2,12 +2,14 @@ import LogoutButton from '../../../Components/LogoutButton'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../../Constants'
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
+import useAppContext from '../../../hooks/useAppContext'
 import Color from '../../../Constants/Color'
 import { MdModeEdit } from 'react-icons/md'
-import { IoPeople, IoShieldCheckmark, IoHelpCircle, IoDocumentText, IoStorefront } from 'react-icons/io5'
+import { IoPeople, IoShieldCheckmark, IoHelpCircle, IoDocumentText, IoStorefront, IoChevronBackSharp } from 'react-icons/io5'
 import Link from '../../../Components/Link'
 
 const Component = props => {
+  const { history } = useAppContext()
   const { active, me } = props
   if(!me) return null
   return (
@@ -21,18 +23,38 @@ const Component = props => {
         backgroundColor: 'white',
         width: '100%',
         display: 'flex',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
         top: 0,
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
-        <h1 style={{
-          margin: 0,
-          fontSize: 20,
-          fontWeight: 500,
-          textAlign: 'center'
-        }}>Account</h1>
+        <div 
+        onClick={() => history.goBack()}
+        style={{
+          paddingRight: 10,
+          paddingLeft: 10,
+          zIndex: 1
+        }}>
+          <IoChevronBackSharp size={32}/>
+        </div>
+
+        <div style={{
+          position: 'absolute',
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 0
+        }}>
+          <h1 style={{
+            margin: 0,
+            fontSize: 20,
+            fontWeight: 500,
+            textAlign: 'center'
+          }}>Account</h1>
+        </div>
       </div>
 
       <div style={{
