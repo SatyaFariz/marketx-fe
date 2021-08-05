@@ -4,6 +4,7 @@ import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 import Color from '../../../Constants/Color'
 import { MdModeEdit } from 'react-icons/md'
+import { IoPeople, IoShieldCheckmark, IoHelpCircle, IoDocumentText, IoStorefront } from 'react-icons/io5'
 import Link from '../../../Components/Link'
 
 const Component = props => {
@@ -88,54 +89,67 @@ const Component = props => {
         }}>
           <div style={{
             padding: '15px 0',
-            borderBottom: `1px solid ${DIVIDER_COLOR}`
+            borderBottom: `1px solid ${DIVIDER_COLOR}`,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center'
           }}>
-            <span>About Us</span>
+            <IoPeople size={24}/>
+            <span style={{ marginLeft: 15 }}>About Us</span>
           </div>
 
           <div style={{
             padding: '15px 0',
-            borderBottom: `1px solid ${DIVIDER_COLOR}`
+            borderBottom: `1px solid ${DIVIDER_COLOR}`,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center'
           }}>
-            <span>Terms of Service</span>
+            <IoDocumentText size={24}/>
+            <span style={{ marginLeft: 15 }}>Terms of Service</span>
           </div>
 
           <div style={{
             padding: '15px 0',
-            borderBottom: `1px solid ${DIVIDER_COLOR}`
+            borderBottom: `1px solid ${DIVIDER_COLOR}`,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center'
           }}>
-            <span>Privacy Policy</span>
+            <IoShieldCheckmark size={24}/>
+            <span style={{ marginLeft: 15 }}>Privacy Policy</span>
           </div>
 
           <div style={{
             padding: '15px 0',
-            borderBottom: `1px solid ${DIVIDER_COLOR}`
+            borderBottom: `1px solid ${DIVIDER_COLOR}`,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center'
           }}>
-            <span>Frequently Asked Questions</span>
-          </div>
-
-          <div style={{
-            padding: '15px 0',
-            borderBottom: `1px solid ${DIVIDER_COLOR}`
-          }}>
-            <span>My Rental History</span>
+            <IoHelpCircle size={24}/>
+            <span style={{ marginLeft: 15 }}>Frequently Asked Questions</span>
           </div>
 
           <Link href={me.store ? `/store/${me.store.id}` : '/new/store'}>
             <div style={{
               padding: '15px 0',
-              borderBottom: `1px solid ${DIVIDER_COLOR}`
+              borderBottom: `1px solid ${DIVIDER_COLOR}`,
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center'
             }}>
-              <span>{me.store ? 'My Store' : 'Become a Merchant'}</span>
+              <IoStorefront size={24}/>
+              <span style={{ marginLeft: 15 }}>{me.store ? 'My Store' : 'Become a Merchant'}</span>
             </div>
           </Link>
 
-          <div style={{
+          {/* <div style={{
             padding: '15px 0',
             borderBottom: `1px solid ${DIVIDER_COLOR}`
           }}>
             <span>Login Using Email</span>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
