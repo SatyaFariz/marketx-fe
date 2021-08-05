@@ -16,7 +16,8 @@ const chunk = {
       },
       categories {
         ...StoreScreen_categories
-      }
+      },
+      ...StoreScreen_products @arguments(storeId: $id)
     }
   `,
   prepareVariables: ({ params }) => params,
@@ -31,6 +32,7 @@ const chunk = {
             me={data.me}
             categories={data.categories}
             store={data.store}
+            products={data}
           />
           }
         </FixedAddressBar>

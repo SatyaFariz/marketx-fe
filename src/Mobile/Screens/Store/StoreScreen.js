@@ -6,12 +6,36 @@ import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import graphql from 'babel-plugin-relay/macro'
-import { createFragmentContainer } from 'react-relay'
 import SelectTypeAndCategoryView from '../../Components/SelectTypeAndCategoryView'
+import { useBottomScrollListener } from 'react-bottom-scroll-listener'
+import { createPaginationContainer } from 'react-relay'
+import ProductItem from '../../Components/ProductItem'
+import { CircularProgress } from '@material-ui/core'
 
 const Component = props => {
-  const { categories, me, store } = props
+  const { categories, me, store, products } = props
+  const { edges } = products.search
   const { history, queryParams } = useAppContext()
+  const [errorLoadingMore, setErrorLoadingMore] = useState(false)
+
+  const loadMore = () => {
+    const { relay } = props
+    if(!relay.hasMore())
+      return
+    else if(relay.isLoading())
+      return
+    
+    relay.loadMore(null, err => {
+      if(err)
+        setErrorLoadingMore(true)
+    })
+
+    setErrorLoadingMore(false)
+  }
+
+  const onEndReached = () => !errorLoadingMore && loadMore()
+
+  const scrollRef = useBottomScrollListener(onEndReached)
 
   if(!store?.address) {
     return (
@@ -66,8 +90,11 @@ const Component = props => {
         position: 'absolute',
         left: 0,
         right: 0,
-        bottom: 0
-      }}>
+        bottom: 0,
+        overflow: 'auto'
+      }}
+        ref={scrollRef}
+      >
         <div style={{
           maxHeight: 200,
           backgroundColor: store?.banner ? undefined : 'rgb(207, 217, 222)',
@@ -147,6 +174,7 @@ const Component = props => {
             margin: '15px 0'
           }}/>
 
+          {edges.length === 0 ?
           <div>
             <span style={{
               color: 'rgb(83, 100, 113)',
@@ -157,6 +185,33 @@ const Component = props => {
               {store.merchantId === me?.id ? "You still don't have products. Add one!" : "This store doesn't have products yet."}
             </span>
           </div>
+          :
+          <div>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+              gridColumnGap: 20,
+              gridRowGap: 15
+            }}>
+              {edges.map((edge, i) => {
+                return (
+                  <ProductItem product={edge.node}/>
+                )
+              })}
+            </div>
+            
+            <div 
+              style={{ 
+                paddingTop: 20,
+                display: 'flex',
+                justifyContent: 'center'
+            }}>
+              <div style={{ visibility: !props.relay.hasMore() ? 'hidden' : undefined }}>
+                <CircularProgress />
+              </div>
+            </div>
+          </div>
+          }
         </div>
         
       </div>
@@ -188,7 +243,7 @@ const Component = props => {
   )
 }
 
-export default createFragmentContainer(Component, {
+export default createPaginationContainer(Component, {
   me: graphql`
     fragment StoreScreen_me on User {
       id
@@ -218,6 +273,56 @@ export default createFragmentContainer(Component, {
     fragment StoreScreen_categories on Category @relay(plural: true) {
       id,
       ...SelectTypeAndCategoryView_categories
+    }
+  `,
+  products: graphql`
+    fragment StoreScreen_products on Query @argumentDefinitions(
+      first: { type: "Int", defaultValue: 10 },
+      after: { type: "String", defaultValue: null },
+      q: { type: "String!", defaultValue: "" },
+      storeId: { type: "String!" }
+    ) {
+      search(
+        first: $first,
+        after: $after,
+        q: $q,
+        storeId: $storeId
+      ) @connection(key: "StoreScreen_search", filters: []){
+        edges {
+          cursor,
+          node {
+            id,
+            ...ProductItem_product
+          }
+        },
+        pageInfo {
+          hasNextPage,
+          endCursor
+        }
+      }
+    }
+  `
+}, {
+  direction: 'forward',
+  getConnectionFromProps(props) {
+    const { products } = props
+    return products && products.search
+  },
+  getFragmentVariables(prevVars, totalCount) {
+    return {
+      ...prevVars,
+      count: totalCount
+    }
+  },
+  getVariables(_, { cursor }, fragmentVariables) {
+    return {
+      ...fragmentVariables,
+      after: cursor
+    }
+  },
+  query: graphql`
+    query StoreScreenPaginationQuery($first: Int, $after: String, $q: String!, $storeId: String!) {      
+      ...StoreScreen_products @arguments(first: $first, after: $after, q: $q, storeId: $storeId)        
     }
   `
 })

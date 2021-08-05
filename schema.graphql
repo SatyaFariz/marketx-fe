@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Thu Aug 05 2021 00:51:05 GMT+0700 (Western Indonesia Time)
+# timestamp: Fri Aug 06 2021 01:49:20 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -165,7 +165,7 @@ type Query {
   user(id: String!): User
   store(id: String!): Store
   featuredProducts: [Product]
-  search(q: String!, categoryId: String, published: Boolean, after: String, first: Int): ProductConnection
+  search(q: String!, categoryId: String, storeId: String, published: Boolean, after: String, first: Int): ProductConnection
 }
 
 type SendOtpPayload {

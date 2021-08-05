@@ -10,6 +10,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type StoreScreen_categories$ref = any;
 type StoreScreen_me$ref = any;
+type StoreScreen_products$ref = any;
 type StoreScreen_store$ref = any;
 export type StoreScreenQueryVariables = {|
   id: string
@@ -26,6 +27,7 @@ export type StoreScreenQueryResponse = {|
   +categories: ?$ReadOnlyArray<?{|
     +$fragmentRefs: StoreScreen_categories$ref
   |}>,
+  +$fragmentRefs: StoreScreen_products$ref,
 |};
 export type StoreScreenQuery = {|
   variables: StoreScreenQueryVariables,
@@ -50,6 +52,7 @@ query StoreScreenQuery(
     ...StoreScreen_categories
     id
   }
+  ...StoreScreen_products_9b7sY
 }
 
 fragment EditAddressView_store on Store {
@@ -58,6 +61,20 @@ fragment EditAddressView_store on Store {
     fullAddress
     lat
     lng
+  }
+}
+
+fragment ProductItem_product on Product {
+  id
+  name
+  price
+  mainImage {
+    id
+    url
+  }
+  rentalDuration {
+    display
+    id
   }
 }
 
@@ -73,6 +90,23 @@ fragment StoreScreen_categories on Category {
 
 fragment StoreScreen_me on User {
   id
+}
+
+fragment StoreScreen_products_9b7sY on Query {
+  search(first: 10, q: "", storeId: $id) {
+    edges {
+      cursor
+      node {
+        id
+        ...ProductItem_product
+        __typename
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
 }
 
 fragment StoreScreen_store on Store {
@@ -118,13 +152,18 @@ v2 = [
   }
 ],
 v3 = {
+  "kind": "Variable",
+  "name": "storeId",
+  "variableName": "id"
+},
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v4 = [
+v5 = [
   (v1/*: any*/),
   {
     "alias": null,
@@ -133,6 +172,19 @@ v4 = [
     "name": "url",
     "storageKey": null
   }
+],
+v6 = [
+  {
+    "kind": "Literal",
+    "name": "first",
+    "value": 10
+  },
+  {
+    "kind": "Literal",
+    "name": "q",
+    "value": ""
+  },
+  (v3/*: any*/)
 ];
 return {
   "fragment": {
@@ -190,6 +242,13 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "args": [
+          (v3/*: any*/)
+        ],
+        "kind": "FragmentSpread",
+        "name": "StoreScreen_products"
       }
     ],
     "type": "Query",
@@ -222,7 +281,7 @@ return {
         "plural": false,
         "selections": [
           (v1/*: any*/),
-          (v3/*: any*/),
+          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -244,7 +303,7 @@ return {
             "kind": "LinkedField",
             "name": "profilePicture",
             "plural": false,
-            "selections": (v4/*: any*/),
+            "selections": (v5/*: any*/),
             "storageKey": null
           },
           {
@@ -254,7 +313,7 @@ return {
             "kind": "LinkedField",
             "name": "banner",
             "plural": false,
-            "selections": (v4/*: any*/),
+            "selections": (v5/*: any*/),
             "storageKey": null
           },
           {
@@ -301,23 +360,142 @@ return {
         "plural": true,
         "selections": [
           (v1/*: any*/),
-          (v3/*: any*/)
+          (v4/*: any*/)
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": (v6/*: any*/),
+        "concreteType": "ProductConnection",
+        "kind": "LinkedField",
+        "name": "search",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ProductEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "cursor",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Product",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v1/*: any*/),
+                  (v4/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "price",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Image",
+                    "kind": "LinkedField",
+                    "name": "mainImage",
+                    "plural": false,
+                    "selections": (v5/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Unit",
+                    "kind": "LinkedField",
+                    "name": "rentalDuration",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "display",
+                        "storageKey": null
+                      },
+                      (v1/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "__typename",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "PageInfo",
+            "kind": "LinkedField",
+            "name": "pageInfo",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "hasNextPage",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "endCursor",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": (v6/*: any*/),
+        "filters": [],
+        "handle": "connection",
+        "key": "StoreScreen_search",
+        "kind": "LinkedHandle",
+        "name": "search"
       }
     ]
   },
   "params": {
-    "cacheID": "23d5482d402186417a7000e7c574ca7d",
+    "cacheID": "663eae0088a082938198d8598ddf3254",
     "id": null,
     "metadata": {},
     "name": "StoreScreenQuery",
     "operationKind": "query",
-    "text": "query StoreScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    ...StoreScreen_me\n  }\n  store(id: $id) {\n    id\n    ...StoreScreen_store\n  }\n  categories {\n    ...StoreScreen_categories\n    id\n  }\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment SelectTypeAndCategoryView_categories on Category {\n  id\n  name\n}\n\nfragment StoreScreen_categories on Category {\n  id\n  ...SelectTypeAndCategoryView_categories\n}\n\nfragment StoreScreen_me on User {\n  id\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  merchantId\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n  }\n  ...EditAddressView_store\n}\n"
+    "text": "query StoreScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    ...StoreScreen_me\n  }\n  store(id: $id) {\n    id\n    ...StoreScreen_store\n  }\n  categories {\n    ...StoreScreen_categories\n    id\n  }\n  ...StoreScreen_products_9b7sY\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment SelectTypeAndCategoryView_categories on Category {\n  id\n  name\n}\n\nfragment StoreScreen_categories on Category {\n  id\n  ...SelectTypeAndCategoryView_categories\n}\n\nfragment StoreScreen_me on User {\n  id\n}\n\nfragment StoreScreen_products_9b7sY on Query {\n  search(first: 10, q: \"\", storeId: $id) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  merchantId\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n  }\n  ...EditAddressView_store\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '41e96f59b3f39d778f1bc6f4f727b1b2';
+(node/*: any*/).hash = '7234b57bb10ec49454d9e06d36128c50';
 
 module.exports = node;
