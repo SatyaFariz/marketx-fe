@@ -56,7 +56,7 @@ const Component = props => {
             alignItems: 'center',
           }}>
             <IconButton onClick={() => setShowDrawer(true)}>
-              <IoMenuOutline/>
+              <IoMenuOutline color="black"/>
             </IconButton>
             <img
               src="https://res.cloudinary.com/tuanrumah/image/upload/v1628197566/amazon_logo_500500.png"
