@@ -12,15 +12,29 @@ const Component = props => {
         display: 'flex',
         flexDirection: 'column'
       }}>
-        <img
-          src={product.mainImage?.url}
-          alt={product.name}
-          style={{ width: '100%', aspectRatio: 1, borderRadius: 10, marginBottom: 10 }}
-        />
+        <div style={{
+          position: 'relative',
+          width: '100%',
+          paddingBottom: '100%',
+        }}>
+          <img
+            src={product.mainImage?.url}
+            alt={product.name}
+            style={{
+              position: 'absolute',
+              height: '100%',
+              width: '100%',
+              left: 0,
+              bottom: 0,
+              objectFit: 'cover'
+            }}
+          />
+        </div>
         <span style={{
           fontSize: 16,
           fontWeight: 500,
-          marginBottom: 5
+          marginBottom: 5,
+          marginTop: 8
         }}>{product.name}</span>
         {product.rentalDuration &&
         <span style={{

@@ -190,8 +190,8 @@ const Component = props => {
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)',
-              gridColumnGap: 20,
-              gridRowGap: 15
+              gridColumnGap: 15,
+              gridRowGap: 20
             }}>
               {edges.map((edge, i) => {
                 return (
