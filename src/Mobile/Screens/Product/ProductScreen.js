@@ -6,7 +6,7 @@ import useAppContext from '../../hooks/useAppContext'
 import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
 import Link from '../../Components/Link'
-import { Button } from '@material-ui/core'
+import { Button, ButtonBase } from '@material-ui/core'
 import BackButton from '../../Components/BackButton'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
@@ -161,69 +161,71 @@ const Component = props => {
 
         <div style={{
           paddingTop: 20,
-          paddingRight: 15,
-          paddingLeft: 15,
+          // paddingRight: 15,
+          // paddingLeft: 15,
           paddingBottom: 20,
           // height: 2000
         }}>
-          <Link href={`/category/${product.category.id}`}>
-            <span>{product.category.name}</span>
-          </Link>
-          <span style={{
-            display: 'block',
-            fontSize: 24,
-            fontWeight: 'bold',
-            marginTop: 15
-          }}>{product.name}</span>
+          <div style={{ paddingLeft: 15, paddingRight: 15 }}>
+            <Link href={`/category/${product.category.id}`}>
+              <span>{product.category.name}</span>
+            </Link>
+            <span style={{
+              display: 'block',
+              fontSize: 24,
+              fontWeight: 'bold',
+              marginTop: 15
+            }}>{product.name}</span>
 
-          <div style={{
-            borderTop: `1px solid ${DIVIDER_COLOR}`,
-            borderBottom: `1px solid ${DIVIDER_COLOR}`,
-            padding: '16px 0px',
-            margin: '16px 0px'
-          }}>
-            <p style={{ margin: 0, whiteSpace: 'pre-line' }}>{product.desc}</p>
-          </div>
+            <div style={{
+              borderTop: `1px solid ${DIVIDER_COLOR}`,
+              borderBottom: `1px solid ${DIVIDER_COLOR}`,
+              padding: '16px 0px',
+              margin: '16px 0px'
+            }}>
+              <p style={{ margin: 0, whiteSpace: 'pre-line' }}>{product.desc}</p>
+            </div>
 
-          <span style={{
-            color: 'rgb(118, 118, 118)',
-            fontSize: 16,
-            fontWeight: 500,
-            textTransform: 'uppercase'
-          }}>Specifications</span>
+            <span style={{
+              color: 'rgb(118, 118, 118)',
+              fontSize: 16,
+              fontWeight: 500,
+              textTransform: 'uppercase'
+            }}>Specifications</span>
 
-          <div style={{ marginTop: 15, marginBottom: 15 }}>
-            {product.specs.map((item, i) => {
-              if(item.value?.trim() === '') return null
-              return (
-                <div key={i} style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  paddingTop: 10,
-                  paddingBottom: 10
-                }}>
-                  <div style={{
+            <div style={{ marginTop: 15, marginBottom: 15 }}>
+              {product.specs.map((item, i) => {
+                if(item.value?.trim() === '') return null
+                return (
+                  <div key={i} style={{
                     display: 'flex',
                     flexDirection: 'row',
-                    alignItems: 'center'
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    paddingTop: 10,
+                    paddingBottom: 10
                   }}>
-                    <img
-                      alt='product'
-                      src={item.attribute.icon.url}
-                      style={{
-                        height: 24,
-                        width: 24,
-                        marginRight: 10
-                      }}
-                    />
-                    <span>{item.attribute.name}</span>
+                    <div style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center'
+                    }}>
+                      <img
+                        alt='product'
+                        src={item.attribute.icon.url}
+                        style={{
+                          height: 24,
+                          width: 24,
+                          marginRight: 10
+                        }}
+                      />
+                      <span>{item.attribute.name}</span>
+                    </div>
+                    <span>{item.value}</span>
                   </div>
-                  <span>{item.value}</span>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
           </div>
 
           <div style={{
@@ -235,15 +237,20 @@ const Component = props => {
               color: 'rgb(118, 118, 118)',
               fontSize: 16,
               fontWeight: 500,
-              textTransform: 'uppercase'
+              textTransform: 'uppercase',
+              margin: '0 15px'
             }}>Merchant Information</span>
 
             <div style={{ marginTop: 16 }}>
-              <Link href={`/store/${product.store.id}`}>
+              <ButtonBase href={`/store/${product.store.id}`} component={Link} style={{
+                display: 'flex'
+              }}>
                 <div style={{
                   display: 'flex',
                   flexDirection: 'row',
-                  alignItems: 'center'
+                  alignItems: 'center',
+                  padding: '0 15px',
+                  width: '100%'
                 }}>
                   {!product.store.profilePicture ?
                   null
@@ -271,7 +278,7 @@ const Component = props => {
 
                   <span style={{ fontSize: 16, fontWeight: 500 }}>{product.store.name}</span>
                 </div>
-              </Link>
+              </ButtonBase>
             </div>
           </div>
         </div>
