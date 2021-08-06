@@ -8,6 +8,7 @@ import useAppContext from '../../hooks/useAppContext'
 import { useState, useEffect } from 'react'
 import { useDebounce } from 'use-debounce'
 import SearchResultsList from '../Search/SearchResultsList'
+import BackButton from '../../Components/BackButton'
 
 const query = graphql`
   query CategoryScreenQuery($q: String!, $first: Int!, $categoryId: String!) {
@@ -43,14 +44,7 @@ const Component = props => {
           
           borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
         }}>
-          <div 
-          onClick={() => history.goBack()}
-          style={{
-            paddingRight: 10,
-            paddingLeft: 10
-          }}>
-            <IoChevronBackSharp size={32}/>
-          </div>
+          <BackButton/>
 
           <div style={{
             height: 42,

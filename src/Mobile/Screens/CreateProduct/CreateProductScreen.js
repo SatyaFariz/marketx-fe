@@ -14,6 +14,7 @@ import Validator from '../../../helpers/validator'
 import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
 import CreateProduct from '../../../mutations/CreateProduct'
+import BackButton from '../../Components/BackButton'
 
 const megabytes = 1048576
 
@@ -191,14 +192,7 @@ const Component = props => {
         flexDirection: 'row',
         zIndex: 2
       }}>
-        <div 
-        onClick={() => history.goBack()}
-        style={{
-          paddingRight: 10,
-          paddingLeft: 10
-        }}>
-          <IoChevronBackSharp size={32} color={'white'}/>
-        </div>
+        <BackButton color="white"/>
       </div>
 
       <div style={{

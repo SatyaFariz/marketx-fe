@@ -1,16 +1,16 @@
 import EditAddressView from '../../Components/EditAddressView'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
-import { TextField, Button, Fab } from '@material-ui/core'
+import { Button, Fab } from '@material-ui/core'
 import { Add } from '@material-ui/icons'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
-import { IoChevronBackSharp } from 'react-icons/io5'
 import graphql from 'babel-plugin-relay/macro'
 import SelectTypeAndCategoryView from '../../Components/SelectTypeAndCategoryView'
 import { useBottomScrollListener } from 'react-bottom-scroll-listener'
 import { createPaginationContainer } from 'react-relay'
 import ProductItem from '../../Components/ProductItem'
-import { CircularProgress, IconButton } from '@material-ui/core'
+import { CircularProgress } from '@material-ui/core'
+import BackButton from '../../Components/BackButton'
 
 const Component = props => {
   const { categories, me, store, products } = props
@@ -57,13 +57,7 @@ const Component = props => {
         top: 0,
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
-        <IconButton 
-        onClick={() => history.goBack()}
-        style={{
-          zIndex: 1
-        }}>
-          <IoChevronBackSharp size={32} color="black"/>
-        </IconButton>
+        <BackButton/>
         
         <div style={{
           position: 'absolute',
@@ -233,7 +227,7 @@ const Component = props => {
         right: 15,
         bottom: 15
       }}
-      onClick={() => history.push(/*'/new/product'*/ '/store?selectCategory=1')}
+      onClick={() => history.push(/*'/new/product'*/ `/store/${store.id}?selectCategory=1`)}
       >
         <Add />
       </Fab>

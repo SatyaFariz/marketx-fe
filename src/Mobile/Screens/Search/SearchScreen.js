@@ -7,6 +7,7 @@ import useAppContext from '../../hooks/useAppContext'
 import SearchResultsList from './SearchResultsList'
 import { useState, useEffect } from 'react'
 import { useDebounce } from 'use-debounce'
+import BackButton from '../../Components/BackButton'
 
 const query = graphql`
   query SearchScreenQuery($q: String!, $first: Int!) {
@@ -36,14 +37,7 @@ const Component = props => {
         top: 0,
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
-        <div 
-        onClick={() => history.goBack()}
-        style={{
-          paddingRight: 10,
-          paddingLeft: 10
-        }}>
-          <IoChevronBackSharp size={32}/>
-        </div>
+        <BackButton/>
 
         <div style={{
           height: 42,

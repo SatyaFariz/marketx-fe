@@ -2,12 +2,12 @@ import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
 import Color from '../../Constants/Color'
-import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
 import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
 import Link from '../../Components/Link'
 import { Button } from '@material-ui/core'
+import BackButton from '../../Components/BackButton'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 
@@ -51,14 +51,7 @@ const Component = props => {
         flexDirection: 'row',
         zIndex: 2
       }}>
-        <div 
-        onClick={() => history.goBack()}
-        style={{
-          paddingRight: 10,
-          paddingLeft: 10
-        }}>
-          <IoChevronBackSharp size={32} color={'white'}/>
-        </div>
+        <BackButton color="white"/>
       </div>
 
       <div style={{
@@ -72,14 +65,7 @@ const Component = props => {
         display: showHeader ? 'flex' : 'none',
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
-        <div 
-        onClick={() => history.goBack()}
-        style={{
-          paddingRight: 10,
-          paddingLeft: 10
-        }}>
-          <IoChevronBackSharp size={32}/>
-        </div>
+        <BackButton/>
         <div style={{
           position: 'absolute',
           height: '100%',

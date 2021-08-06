@@ -5,6 +5,7 @@ import useAppContext from '../../hooks/useAppContext'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import CreateStore from '../../../mutations/CreateStore'
 import Validator from '../../../helpers/validator'
+import BackButton from '../../Components/BackButton'
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -88,15 +89,7 @@ const Component = props => {
         top: 0,
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
-        <div 
-        onClick={() => history.goBack()}
-        style={{
-          paddingRight: 10,
-          paddingLeft: 10,
-          zIndex: 1
-        }}>
-          <IoChevronBackSharp size={32}/>
-        </div>
+        <BackButton/>
         
         <div style={{
           position: 'absolute',

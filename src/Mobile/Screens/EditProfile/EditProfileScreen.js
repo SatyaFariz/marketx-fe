@@ -16,6 +16,7 @@ import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
 import SendOtpCode from '../../../mutations/SendOtpCode'
 import UpdateProfile from '../../../mutations/UpdateProfile'
+import BackButton from '../../Components/BackButton'
 
 const megabytes = 1048576
 
@@ -189,15 +190,7 @@ const Component = props => {
         top: 0,
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
-        <div 
-        onClick={() => history.goBack()}
-        style={{
-          paddingRight: 10,
-          paddingLeft: 10,
-          zIndex: 1
-        }}>
-          <IoChevronBackSharp size={32}/>
-        </div>
+        <BackButton/>
         <div style={{ marginRight: 15, zIndex: 1 }}>
           <LogoutButton/>
         </div>

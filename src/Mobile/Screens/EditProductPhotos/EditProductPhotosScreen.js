@@ -14,6 +14,7 @@ import AddProductImages from '../../../mutations/AddProductImages'
 import UpdateMainProductImage from '../../../mutations/UpdateMainProductImage'
 import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
+import BackButton from '../../Components/BackButton'
 
 const megabytes = 1048576
 
@@ -130,15 +131,7 @@ const Component = props => {
         </IconButton>
         </div>
         :
-        <div 
-        onClick={() => history.goBack()}
-        style={{
-          paddingRight: 10,
-          paddingLeft: 10,
-          zIndex: 1
-        }}>
-          <IoChevronBackSharp size={32}/>
-        </div>
+        <BackButton/>
         }
 
         {selectedIds.length > 0 &&

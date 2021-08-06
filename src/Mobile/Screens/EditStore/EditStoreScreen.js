@@ -3,7 +3,6 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import { TextField, Button, InputAdornment } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
-import { IoChevronBackSharp } from 'react-icons/io5'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import Color from '../../Constants/Color'
@@ -12,6 +11,7 @@ import { fromImage } from 'imtool'
 import UpdateStore from '../../../mutations/UpdateStore'
 import Validator from '../../../helpers/validator'
 import CameraIcon from '../../Components/CameraIcon'
+import BackButton from '../../Components/BackButton'
 
 const megabytes = 1048576
 
@@ -143,15 +143,7 @@ const Component = props => {
         top: 0,
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
-        <div 
-        onClick={() => history.goBack()}
-        style={{
-          paddingRight: 10,
-          paddingLeft: 10,
-          zIndex: 1
-        }}>
-          <IoChevronBackSharp size={32}/>
-        </div>
+        <BackButton/>
 
         <Button
           disableElevation
@@ -294,7 +286,7 @@ const Component = props => {
             <span style={{ padding: '0 4px' }}>·</span>
             <span 
               style={{ color: Color.link }}
-              onClick={() => history.push(`/edit/store?editAddress=1`)}
+              onClick={() => history.push(`/edit/store/${store.id}?editAddress=1`)}
             >Edit</span>
           </div>
           

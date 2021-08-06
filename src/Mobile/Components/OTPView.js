@@ -5,6 +5,7 @@ import useAppContext from '../hooks/useAppContext'
 import { useState, useEffect, useRef } from 'react'
 import Countdown from 'react-countdown'
 import { Button } from '@material-ui/core'
+import BackButton from './BackButton'
 
 const keys = [
   1, 2, 3,
@@ -58,14 +59,7 @@ const Component = props => {
         alignItems: 'center',
         justifyContent: 'space-between'
       }}>
-        <div 
-        onClick={props.goBack ? props.goBack : () => history.goBack()}
-        style={{
-          paddingRight: 10,
-          paddingLeft: 10
-        }}>
-          <IoChevronBackSharp size={32}/>
-        </div>
+        <BackButton/>
         <Button
           variant="contained"
           disableElevation
