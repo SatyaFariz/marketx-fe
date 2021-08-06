@@ -1,16 +1,20 @@
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 import formatCurrency from '../../helpers/formatCurrency'
+import { ButtonBase } from '@material-ui/core'
 
 import Link from '../Components/Link'
 
 const Component = props => {
   const { product } = props
   return (
-    <Link href={`/product/${product.id}`}>
+    <ButtonBase href={`/product/${product.id}`} component={Link} style={{
+      display: 'flex'
+    }}>
       <div style={{
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        width: '100%'
       }}>
         <div style={{
           position: 'relative',
@@ -42,7 +46,7 @@ const Component = props => {
         }}>{formatCurrency(product.price)} / {product.rentalDuration.display}</span>
         }
       </div>
-    </Link>
+    </ButtonBase>
   )
 }
 
