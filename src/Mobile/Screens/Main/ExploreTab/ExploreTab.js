@@ -5,26 +5,157 @@ import FeaturedProductsList from '../../../Components/FeaturedProductsList'
 import Link from '../../../Components/Link'
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
-import { Close, Delete } from '@material-ui/icons'
 import { IconButton, Drawer } from '@material-ui/core'
 import { IoSearchOutline, IoMenuOutline } from 'react-icons/io5'
+import { BiLogIn } from 'react-icons/bi'
 import { useState } from 'react'
+import { IoPeople, IoShieldCheckmark, IoHelpCircle, IoDocumentText, IoStorefront, IoPersonOutline } from 'react-icons/io5'
 
 const Component = props => {
   const [showDrawer, setShowDrawer] = useState(false)
-  const { active, categories, featuredProducts } = props
-  console.log('FEATURED PRODUCTS', featuredProducts)
+  const { active, categories, featuredProducts, me } = props
+  
   return (
     <div style={{
-      display: active ? undefined : 'none',
-      marginBottom: 68
+      display: active ? undefined : 'none'
     }}>
       <Drawer anchor="left" open={showDrawer} onClose={() => setShowDrawer(false)}>
         <div style={{
-          width: 250,
+          width: '80vw',
           backgroundColor: 'white'
         }}>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            height: HEADER_HEIGHT,
+            borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`,
+            paddingLeft: 15
+          }}>
+            <img
+              src="https://res.cloudinary.com/tuanrumah/image/upload/v1628197566/amazon_logo_500500.png"
+              alt="image"
+              style={{
+                height: 40,
+              }}
+            />
+          </div>
+          {me ?
+            <Link href="/profile">
+              <div style={{
+                padding: 15,
+                borderBottom: `1px solid ${DIVIDER_COLOR}`,
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center'
+              }}>
+                {me.profilePicture ?
+                
+                <div style={{
+                  height: 24,
+                  width: 24,
+                  borderRadius: '50%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundSize: 'cover',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center center',
+                  backgroundImage: `url("${me.profilePicture.url}")`
+                }}
+                />
+                  :
+                <div style={{
+                    height: 24,
+                    width: 24,
+                    backgroundColor: '#f1f1f1',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center center',
+                  }}
+                >
+                <IoPersonOutline size={18} color="black"/>
+                </div>
+                }
+                <span style={{ marginLeft: 15 }}>{me.name}</span>
+              </div>
+            </Link>
+            :
+            <Link href="/login">
+              <div style={{
+                padding: 15,
+                borderBottom: `1px solid ${DIVIDER_COLOR}`,
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center'
+              }}>
+                <BiLogIn size={24}/>
+                <span style={{ marginLeft: 15 }}>Log in / Register</span>
+              </div>
+            </Link>
+          }
+          
+          <div style={{
+            padding: 15,
+            borderBottom: `1px solid ${DIVIDER_COLOR}`,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center'
+          }}>
+            <IoPeople size={24}/>
+            <span style={{ marginLeft: 15 }}>About Us</span>
+          </div>
+          <div style={{
+            padding: 15,
+            borderBottom: `1px solid ${DIVIDER_COLOR}`,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center'
+          }}>
+            <IoDocumentText size={24}/>
+            <span style={{ marginLeft: 15 }}>Terms of Service</span>
+          </div>
 
+          <div style={{
+            padding: 15,
+            borderBottom: `1px solid ${DIVIDER_COLOR}`,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center'
+          }}>
+            <IoShieldCheckmark size={24}/>
+            <span style={{ marginLeft: 15 }}>Privacy Policy</span>
+          </div>
+
+          <div style={{
+            padding: 15,
+            borderBottom: `1px solid ${DIVIDER_COLOR}`,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center'
+          }}>
+            <IoHelpCircle size={24}/>
+            <span style={{ marginLeft: 15 }}>Frequently Asked Questions</span>
+          </div>
+          
+          {me &&
+          <Link href={me.store ? `/store/${me.store.id}` : '/new/store'}>
+            <div style={{
+              padding: 15,
+              borderBottom: `1px solid ${DIVIDER_COLOR}`,
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center'
+            }}>
+              <IoStorefront size={24}/>
+              <span style={{ marginLeft: 15 }}>{me.store ? 'My Store' : 'Become a Merchant'}</span>
+            </div>
+          </Link>
+          }
         </div>
       </Drawer>
       <div style={{
@@ -88,12 +219,6 @@ const Component = props => {
         <Categories categories={categories}/>
         <FeaturedProductsList featuredProducts={featuredProducts}/>
       </div>
-
-      <div>
-        <Link href='/login'>
-          Login
-        </Link>
-      </div>
 {/* 
       <SearchBar/> */}
     </div>
@@ -101,6 +226,19 @@ const Component = props => {
 }
 
 export default createFragmentContainer(Component, {
+  me: graphql`
+    fragment ExploreTab_me on User {
+      id,
+      name,
+      profilePicture {
+        id,
+        url
+      },
+      store {
+        id
+      }
+    }
+  `,
   categories: graphql`
     fragment ExploreTab_categories on Category @relay(plural: true) {
       id,

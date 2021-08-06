@@ -27,19 +27,20 @@ function App(props) {
         active={currentTab === 0} 
         categories={categories}
         featuredProducts={featuredProducts}
+        me={me}
       />
       }
-      <RentedTab active={currentTab === 1}/>
+      {/* <RentedTab active={currentTab === 1}/>
       <NotificationTab active={currentTab === 2}/>
       
       <AccountTab 
         active={currentTab === 3}
         me={me}
-      />
+      /> */}
       
-      <BottomNav 
+      {/* <BottomNav 
         me={me}
-      />
+      /> */}
 
     </>
   )
@@ -51,6 +52,7 @@ export default createFragmentContainer(App, {
       me {
         id,
         ...BottomNav_me,
+        ...ExploreTab_me,
         ...AccountTab_me
       }
       categories {

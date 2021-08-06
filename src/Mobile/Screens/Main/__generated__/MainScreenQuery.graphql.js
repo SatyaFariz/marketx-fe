@@ -62,6 +62,18 @@ fragment ExploreTab_featuredProducts on Product {
   ...FeaturedProductsList_featuredProducts
 }
 
+fragment ExploreTab_me on User {
+  id
+  name
+  profilePicture {
+    id
+    url
+  }
+  store {
+    id
+  }
+}
+
 fragment FeaturedProductsList_featuredProducts on Product {
   id
   ...ProductItem_product
@@ -71,6 +83,7 @@ fragment MainScreen_data on Query {
   me {
     id
     ...BottomNav_me
+    ...ExploreTab_me
     ...AccountTab_me
   }
   categories {
@@ -121,8 +134,8 @@ v2 = {
   "storageKey": null
 },
 v3 = [
-  (v2/*: any*/),
-  (v0/*: any*/)
+  (v0/*: any*/),
+  (v2/*: any*/)
 ];
 return {
   "fragment": {
@@ -159,13 +172,6 @@ return {
           {
             "alias": null,
             "args": null,
-            "kind": "ScalarField",
-            "name": "mobileNumber",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
             "concreteType": "Image",
             "kind": "LinkedField",
             "name": "profilePicture",
@@ -183,6 +189,13 @@ return {
             "selections": [
               (v0/*: any*/)
             ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "mobileNumber",
             "storageKey": null
           }
         ],
@@ -205,7 +218,10 @@ return {
             "kind": "LinkedField",
             "name": "icon",
             "plural": false,
-            "selections": (v3/*: any*/),
+            "selections": [
+              (v2/*: any*/),
+              (v0/*: any*/)
+            ],
             "storageKey": null
           }
         ],
@@ -235,10 +251,7 @@ return {
             "kind": "LinkedField",
             "name": "mainImage",
             "plural": false,
-            "selections": [
-              (v0/*: any*/),
-              (v2/*: any*/)
-            ],
+            "selections": (v3/*: any*/),
             "storageKey": null
           },
           {
@@ -266,12 +279,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "451248285f534af02bb9581680a82494",
+    "cacheID": "914e8599b75556da9a6c69c21b2804d2",
     "id": null,
     "metadata": {},
     "name": "MainScreenQuery",
     "operationKind": "query",
-    "text": "query MainScreenQuery {\n  ...MainScreen_data\n}\n\nfragment AccountTab_me on User {\n  id\n  name\n  mobileNumber\n  profilePicture {\n    url\n    id\n  }\n  store {\n    id\n  }\n}\n\nfragment BottomNav_me on User {\n  id\n  name\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  icon {\n    url\n    id\n  }\n}\n\nfragment ExploreTab_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment ExploreTab_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  ...ProductItem_product\n}\n\nfragment MainScreen_data on Query {\n  me {\n    id\n    ...BottomNav_me\n    ...AccountTab_me\n  }\n  categories {\n    id\n    ...ExploreTab_categories\n  }\n  featuredProducts {\n    id\n    ...ExploreTab_featuredProducts\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n"
+    "text": "query MainScreenQuery {\n  ...MainScreen_data\n}\n\nfragment AccountTab_me on User {\n  id\n  name\n  mobileNumber\n  profilePicture {\n    url\n    id\n  }\n  store {\n    id\n  }\n}\n\nfragment BottomNav_me on User {\n  id\n  name\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  icon {\n    url\n    id\n  }\n}\n\nfragment ExploreTab_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment ExploreTab_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment ExploreTab_me on User {\n  id\n  name\n  profilePicture {\n    id\n    url\n  }\n  store {\n    id\n  }\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  ...ProductItem_product\n}\n\nfragment MainScreen_data on Query {\n  me {\n    id\n    ...BottomNav_me\n    ...ExploreTab_me\n    ...AccountTab_me\n  }\n  categories {\n    id\n    ...ExploreTab_categories\n  }\n  featuredProducts {\n    id\n    ...ExploreTab_featuredProducts\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n"
   }
 };
 })();
