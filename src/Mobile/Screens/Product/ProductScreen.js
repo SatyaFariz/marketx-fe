@@ -11,8 +11,6 @@ import BackButton from '../../Components/BackButton'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 
-const FOOTER_HEIGHT = 75
-
 const Component = props => {
   const scrollRef = useRef()
   const { history } = useAppContext()
@@ -40,7 +38,12 @@ const Component = props => {
     }
   }, [])
   return (
-    <div>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%',
+      maxHeight: '100%'
+    }}>
       <div style={{
         height: HEADER_HEIGHT,
         position: 'absolute',
@@ -87,11 +90,7 @@ const Component = props => {
       <div 
       ref={scrollRef}
       style={{
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: FOOTER_HEIGHT,
+        flexGrow: 1,
         overflow: 'auto'
       }}>
         <div style={{
@@ -142,29 +141,16 @@ const Component = props => {
                   backgroundColor: i === carouselPos ? Color.primary : 'white',
                   marginLeft: 2,
                   marginRight: 2,
-                  // border: `1px solid ${Color.primary}`,
                 }}/>
               )
             })}
           </div>
           }
         </div>
-        {/* <div style={{
-          width: '100vw',
-          backgroundColor: 'red',
-          height: 'calc(100vw * 77/137)',
-          backgroundImage: `url("${product.images[0].url}")`,
-          backgroundPosition:'center'
-        }}>
-          
-        </div> */}
 
         <div style={{
           paddingTop: 20,
-          // paddingRight: 15,
-          // paddingLeft: 15,
           paddingBottom: 20,
-          // height: 2000
         }}>
           <div style={{ paddingLeft: 15, paddingRight: 15 }}>
             <Link href={`/category/${product.category.id}`}>
@@ -286,11 +272,7 @@ const Component = props => {
 
 
       <div style={{
-        height: FOOTER_HEIGHT,
         backgroundColor: 'white',
-        // boxShadow: 'rgb(0 0 0 / 10%) 0px -2px 6px 0px',
-        position: 'absolute',
-        bottom: 0,
         width: '100%',
         borderTop: '1px solid rgb(239, 243, 244)'
       }}>
@@ -298,9 +280,7 @@ const Component = props => {
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
-          height: '100%',
-          paddingLeft: 15,
-          paddingRight: 15,
+          padding: '10px 15px',
           justifyContent: 'space-between'
         }}>
           <div>
