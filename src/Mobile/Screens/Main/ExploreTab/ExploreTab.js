@@ -5,7 +5,7 @@ import FeaturedProductsList from '../../../Components/FeaturedProductsList'
 import Link from '../../../Components/Link'
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
-import { IconButton, Drawer } from '@material-ui/core'
+import { IconButton, Drawer, ButtonBase } from '@material-ui/core'
 import { IoSearchOutline, IoMenuOutline } from 'react-icons/io5'
 import { BiLogIn } from 'react-icons/bi'
 import { useState } from 'react'
@@ -41,13 +41,16 @@ const Component = props => {
             />
           </div>
           {me ?
-            <Link href="/profile">
+            <ButtonBase href="/profile" component={Link} style={{
+              display: 'flex'
+            }}>
               <div style={{
                 padding: 15,
                 borderBottom: `1px solid ${DIVIDER_COLOR}`,
                 display: 'flex',
                 flexDirection: 'row',
-                alignItems: 'center'
+                alignItems: 'center',
+                width: '100%'
               }}>
                 {me.profilePicture ?
                 
@@ -83,20 +86,23 @@ const Component = props => {
                 }
                 <span style={{ marginLeft: 15 }}>{me.name}</span>
               </div>
-            </Link>
+            </ButtonBase>
             :
-            <Link href="/login">
+            <ButtonBase href="/login" component={Link} style={{
+              display: 'flex'
+            }}>
               <div style={{
                 padding: 15,
                 borderBottom: `1px solid ${DIVIDER_COLOR}`,
                 display: 'flex',
                 flexDirection: 'row',
-                alignItems: 'center'
+                alignItems: 'center',
+                width: '100%'
               }}>
                 <BiLogIn size={24}/>
                 <span style={{ marginLeft: 15 }}>Log in / Register</span>
               </div>
-            </Link>
+            </ButtonBase>
           }
           
           <div style={{
@@ -143,18 +149,21 @@ const Component = props => {
           </div>
           
           {me &&
-          <Link href={me.store ? `/store/${me.store.id}` : '/new/store'}>
+          <ButtonBase href={me.store ? `/store/${me.store.id}` : '/new/store'} component={Link} style={{
+            display: 'flex'
+          }}>
             <div style={{
               padding: 15,
               borderBottom: `1px solid ${DIVIDER_COLOR}`,
               display: 'flex',
               flexDirection: 'row',
-              alignItems: 'center'
+              alignItems: 'center',
+              width: '100%'
             }}>
               <IoStorefront size={24}/>
               <span style={{ marginLeft: 15 }}>{me.store ? 'My Store' : 'Become a Merchant'}</span>
             </div>
-          </Link>
+          </ButtonBase>
           }
         </div>
       </Drawer>
