@@ -55,6 +55,7 @@ const Component = props => {
         alignItems: 'center',
         position: 'absolute',
         top: 0,
+        zIndex: 9999,
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
         <BackButton/>
