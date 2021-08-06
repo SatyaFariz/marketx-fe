@@ -153,9 +153,9 @@ const Component = props => {
           paddingBottom: 20,
         }}>
           <div style={{ paddingLeft: 15, paddingRight: 15 }}>
-            <Link href={`/category/${product.category.id}`}>
+            <ButtonBase href={`/category/${product.category.id}`} component={Link}>
               <span>{product.category.name}</span>
-            </Link>
+            </ButtonBase>
             <span style={{
               display: 'block',
               fontSize: 24,
