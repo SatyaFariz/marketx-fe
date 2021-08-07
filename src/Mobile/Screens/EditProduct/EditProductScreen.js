@@ -347,7 +347,41 @@ const Component = props => {
           <h3 style={{ margin: '10px 0'}}>Specifications</h3>
 
           {product.category.specFields.map((field) => {
-            if(field.options?.length > 0) {
+            if(field.type === 'year') {
+              const startYear = 1901
+              let year = new Date().getFullYear()
+              const years = []
+              while(year >= startYear) {
+                years.push(year.toString())
+                year--
+              }
+
+              return (
+                <Autocomplete
+                  key={field.id}
+                  options={years}
+                  getOptionLabel={(option) => option}
+                  getOptionSelected={(option, value) => option === value}
+                  value={specs[field.attribute.id]}
+                  onChange={(_, value) => _setSpecs(field)({ target: { value }})}
+                  renderInput={(params) => 
+                    <TextField 
+                      {...params} 
+                      label={field.attribute.name}
+                      fullWidth
+                      disabled={loading} 
+                      variant="outlined"
+                      style={{
+                        marginTop: 10,
+                        marginBottom: 10
+                      }}
+                      error={validation[field.attribute.id]?.isInvalid}
+                      helperText={validation[field.attribute.id]?.message}
+                    />
+                  }
+                />
+              )
+            } else if(field.options?.length > 0) {
               if(field.isAutocomplete) {
                 return (
                   <Autocomplete
