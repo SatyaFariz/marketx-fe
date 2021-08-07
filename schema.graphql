@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Aug 08 2021 02:16:20 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Aug 08 2021 02:40:39 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -89,7 +89,7 @@ type Mutation {
   updateProfilePicture: ActionOnUserPayload
   updateStoreProfilePicture(id: String!): ActionOnStorePayload
   updateStoreBanner(id: String!): ActionOnStorePayload
-  updateSpecField(id: String!, type: String!, max: Int, min: Int, options: [String!], isEnum: Boolean): String
+  updateSpecField(id: String!, type: String!, max: Int, min: Int, options: [String!], isEnum: Boolean, isAutocomplete: Boolean): String
 }
 
 """Information about pagination in a connection."""
@@ -190,6 +190,7 @@ type SpecificationField {
   min: Int
   options: [String]
   isEnum: Boolean
+  isAutocomplete: Boolean
 }
 
 input SpecificationInput {

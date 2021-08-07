@@ -36,6 +36,7 @@ export type EditProductScreen_product = {|
         +id: ?string,
         +name: ?string,
       |},
+      +isAutocomplete: ?boolean,
       +isRequired: ?boolean,
       +type: ?string,
       +max: ?number,
@@ -178,6 +179,13 @@ return {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
+              "name": "isAutocomplete",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
               "name": "isRequired",
               "storageKey": null
             },
@@ -228,6 +236,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'ef1c05bd6a8027aed98cdfaa13f23216';
+(node/*: any*/).hash = 'ba198ab08c953363925bcc8340825a84';
 
 module.exports = node;

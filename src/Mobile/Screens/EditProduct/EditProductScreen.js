@@ -35,7 +35,8 @@ const Component = props => {
   }
 
   const _setSpecs = field => e => {
-    const value = e.target.value.trimLeft()
+    const value = (e.target.value || '').trimLeft()
+    console.log(value)
     setSpecs(prev => ({ ...prev, [field.attribute.id]: value }))
   }
 
@@ -347,30 +348,36 @@ const Component = props => {
 
           {product.category.specFields.map((field) => {
             if(field.options?.length > 0) {
+              if(field.isAutocomplete) {
+                return (
+                  <Autocomplete
+                    options={field.options}
+                    getOptionLabel={(option) => option}
+                    getOptionSelected={(option, value) => option === value}
+                    value={specs[field.attribute.id]}
+                    onChange={(_, value) => _setSpecs(field)({ target: { value }})}
+                    renderInput={(params) => 
+                      <TextField 
+                        {...params} 
+                        label={field.attribute.name}
+                        fullWidth
+                        disabled={loading} 
+                        variant="outlined"
+                        style={{
+                          marginTop: 10,
+                          marginBottom: 10
+                        }}
+                        error={validation[field.attribute.id]?.isInvalid}
+                        helperText={validation[field.attribute.id]?.message}
+                      />
+                    }
+                  />
+                )
+              }
               return (
-                <Autocomplete
-                  options={field.options}
-                  getOptionLabel={(option) => option}
-                  // style={{ width: 300 }}
-                  renderInput={(params) => 
-                    <TextField 
-                      {...params} 
-                      label={field.attribute.name}
-                      fullWidth
-                      disabled={loading} 
-                      variant="outlined"
-                      value={specs[field.attribute.id]}
-                      onChange={_setSpecs(field)}
-                      style={{
-                        marginTop: 10,
-                        marginBottom: 10
-                      }}
-                      error={validation[field.attribute.id]?.isInvalid}
-                      helperText={validation[field.attribute.id]?.message}
-                    />
-                  }
-                />
+                null
               )
+              
             }
             return (
               <TextField
@@ -436,6 +443,7 @@ export default createFragmentContainer(Component, {
             id,
             name
           },
+          isAutocomplete,
           isRequired,
           type,
           max,
