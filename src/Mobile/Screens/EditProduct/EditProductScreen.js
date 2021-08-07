@@ -4,7 +4,7 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import { Button, TextField, InputAdornment } from '@material-ui/core'
+import { Button, TextField, InputAdornment, FormControl, Select, InputLabel, MenuItem } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
@@ -351,6 +351,7 @@ const Component = props => {
               if(field.isAutocomplete) {
                 return (
                   <Autocomplete
+                    key={field.id}
                     options={field.options}
                     getOptionLabel={(option) => option}
                     getOptionSelected={(option, value) => option === value}
@@ -375,7 +376,28 @@ const Component = props => {
                 )
               }
               return (
-                null
+                <TextField
+                  key={field.id}
+                  variant="outlined"
+                  select
+                  label={field.attribute.name}
+                  fullWidth
+                  disabled={loading}
+                  value={specs[field.attribute.id]}
+                  onChange={_setSpecs(field)}
+                  style={{
+                    marginTop: 10,
+                    marginBottom: 10
+                  }}
+                  error={validation[field.attribute.id]?.isInvalid}
+                  helperText={validation[field.attribute.id]?.message}
+                >
+                  {field.options.map((option, i) => (
+                    <MenuItem key={i} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
               )
               
             }
