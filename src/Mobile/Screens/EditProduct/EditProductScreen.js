@@ -438,6 +438,13 @@ const Component = props => {
                   }}
                   error={validation[field.attribute.id]?.isInvalid}
                   helperText={validation[field.attribute.id]?.message}
+                  SelectProps={{
+                    MenuProps: {
+                      style: {
+                        maxHeight: 500
+                      }
+                    }
+                  }}
                 >
                   {field.options.map((option, i) => (
                     <MenuItem key={i} value={option}>
