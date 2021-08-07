@@ -37,6 +37,11 @@ export type EditProductScreen_product = {|
         +name: ?string,
       |},
       +isRequired: ?boolean,
+      +type: ?string,
+      +max: ?number,
+      +min: ?number,
+      +options: ?$ReadOnlyArray<?string>,
+      +isEnum: ?boolean,
     |}>,
   |},
   +$refType: EditProductScreen_product$ref,
@@ -175,6 +180,41 @@ return {
               "kind": "ScalarField",
               "name": "isRequired",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "type",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "max",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "min",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "options",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "isEnum",
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -188,6 +228,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '6ae3df0e6c105fa33458d19b656d8a5a';
+(node/*: any*/).hash = 'ef1c05bd6a8027aed98cdfaa13f23216';
 
 module.exports = node;

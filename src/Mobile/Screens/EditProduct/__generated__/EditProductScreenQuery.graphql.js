@@ -61,6 +61,11 @@ fragment EditProductScreen_product on Product {
         name
       }
       isRequired
+      type
+      max
+      min
+      options
+      isEnum
     }
   }
 }
@@ -241,6 +246,41 @@ return {
                     "kind": "ScalarField",
                     "name": "isRequired",
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "type",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "max",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "min",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "options",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "isEnum",
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -254,12 +294,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "76d54bcb686e30a97a8cc0b494d1e560",
+    "cacheID": "3b36053a94a3b6d9a76d86c100c168c2",
     "id": null,
     "metadata": {},
     "name": "EditProductScreenQuery",
     "operationKind": "query",
-    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  category {\n    id\n    name\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isRequired\n    }\n  }\n}\n"
+    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  category {\n    id\n    name\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isRequired\n      type\n      max\n      min\n      options\n      isEnum\n    }\n  }\n}\n"
   }
 };
 })();

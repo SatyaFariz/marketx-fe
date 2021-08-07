@@ -5,6 +5,7 @@ import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
 import { Button, TextField, InputAdornment } from '@material-ui/core'
+import { Autocomplete } from '@material-ui/lab'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 import Validator from '../../../helpers/validator'
@@ -345,6 +346,32 @@ const Component = props => {
           <h3 style={{ margin: '10px 0'}}>Specifications</h3>
 
           {product.category.specFields.map((field) => {
+            if(field.options?.length > 0) {
+              return (
+                <Autocomplete
+                  options={field.options}
+                  getOptionLabel={(option) => option}
+                  // style={{ width: 300 }}
+                  renderInput={(params) => 
+                    <TextField 
+                      {...params} 
+                      label={field.attribute.name}
+                      fullWidth
+                      disabled={loading} 
+                      variant="outlined"
+                      value={specs[field.attribute.id]}
+                      onChange={_setSpecs(field)}
+                      style={{
+                        marginTop: 10,
+                        marginBottom: 10
+                      }}
+                      error={validation[field.attribute.id]?.isInvalid}
+                      helperText={validation[field.attribute.id]?.message}
+                    />
+                  }
+                />
+              )
+            }
             return (
               <TextField
                 key={field.id}
@@ -409,7 +436,12 @@ export default createFragmentContainer(Component, {
             id,
             name
           },
-          isRequired
+          isRequired,
+          type,
+          max,
+          min,
+          options,
+          isEnum
         }
       },
     }
