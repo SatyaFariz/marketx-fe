@@ -357,29 +357,35 @@ const Component = props => {
               }
 
               return (
-                <Autocomplete
+                <TextField
                   key={field.id}
-                  options={years}
-                  getOptionLabel={(option) => option}
-                  getOptionSelected={(option, value) => option === value}
+                  variant="outlined"
+                  select
+                  label={field.attribute.name}
+                  fullWidth
+                  disabled={loading}
                   value={specs[field.attribute.id]}
-                  onChange={(_, value) => _setSpecs(field)({ target: { value }})}
-                  renderInput={(params) => 
-                    <TextField 
-                      {...params} 
-                      label={field.attribute.name}
-                      fullWidth
-                      disabled={loading} 
-                      variant="outlined"
-                      style={{
-                        marginTop: 10,
-                        marginBottom: 10
-                      }}
-                      error={validation[field.attribute.id]?.isInvalid}
-                      helperText={validation[field.attribute.id]?.message}
-                    />
-                  }
-                />
+                  onChange={_setSpecs(field)}
+                  style={{
+                    marginTop: 10,
+                    marginBottom: 10
+                  }}
+                  error={validation[field.attribute.id]?.isInvalid}
+                  helperText={validation[field.attribute.id]?.message}
+                  SelectProps={{
+                    MenuProps: {
+                      style: {
+                        maxHeight: 500
+                      }
+                    }
+                  }}
+                >
+                  {years.map((option, i) => (
+                    <MenuItem key={i} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
               )
             } else if(field.options?.length > 0) {
               if(field.isAutocomplete) {
