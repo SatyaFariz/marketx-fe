@@ -4,13 +4,14 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import { Button, TextField, InputAdornment, FormControl, Select, InputLabel, MenuItem } from '@material-ui/core'
+import { Button, TextField, InputAdornment, MenuItem } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 import Validator from '../../../helpers/validator'
 import UpdateProduct from '../../../mutations/UpdateProduct'
 import BackButton from '../../Components/BackButton'
+import cleanNonNumericChars from '../../../helpers/cleanNonNumericChars'
 
 const Component = props => {
   const { product } = props
@@ -35,8 +36,14 @@ const Component = props => {
   }
 
   const _setSpecs = field => e => {
-    const value = (e.target.value || '').trimLeft()
-    console.log(value)
+    let value = (e.target.value || '').trimLeft()
+    if(field.type === 'int') {
+      value = cleanNonNumericChars(value, { allowNegative: field.min < 0 })
+      if(value.startsWith('0'))
+        value = parseInt(value, 10).toString()
+
+      value = value.substr(0, 12)
+    }
     setSpecs(prev => ({ ...prev, [field.attribute.id]: value }))
   }
 
@@ -423,7 +430,7 @@ const Component = props => {
                   label={field.attribute.name}
                   fullWidth
                   disabled={loading}
-                  value={specs[field.attribute.id]}
+                  value={!specs[field.attribute.id] ? '1' : specs[field.attribute.id]}
                   onChange={_setSpecs(field)}
                   style={{
                     marginTop: 10,
@@ -437,6 +444,11 @@ const Component = props => {
                       {option}
                     </MenuItem>
                   ))}
+                  {!field.options.includes(specs[field.attribute.id]) &&
+                    <MenuItem value={specs[field.attribute.id]}>
+                      {specs[field.attribute.id]}
+                    </MenuItem>
+                  }
                 </TextField>
               )
               
@@ -456,6 +468,11 @@ const Component = props => {
                 }}
                 error={validation[field.attribute.id]?.isInvalid}
                 helperText={validation[field.attribute.id]?.message}
+                inputProps={['int', 'float'].includes(field.type) && {
+                  pattern: "[0-9]*",
+                  type: "text",
+                  inputMode: "numeric"
+                }}
               />
             )
           })}
