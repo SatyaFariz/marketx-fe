@@ -1,23 +1,19 @@
-// import graphql from 'babel-plugin-relay/macro'
+import graphql from 'babel-plugin-relay/macro'
 import FixedAddressBar from '../../Components/FixedAddressBar'
 
 const chunk = {
   path: '/new/store',
   components: () => [import('./CreateStoreScreen')],
-  // query: graphql`
-  //   query MainScreenAdminQuery($id: String!) {
-  //     me {
-  //       id,
-  //       ...RequiresCreateStoreContainer_user
-  //     },
-  //     recipe(id: $id) {
-  //       ...MainScreen_recipe
-  //     },
-  //     categories {
-  //       ...MainScreen_categories
-  //     }
-  //   }
-  // `,
+  query: graphql`
+    query CreateStoreQuery {
+      me {
+        id
+      },
+      administrativeAreas {
+        ...CreateStoreScreen_provinces
+      }
+    }
+  `,
   // prepareVariables: ({ params }) => params,
   render: ([CreateStoreScreen], data, context) => {
     
@@ -26,6 +22,7 @@ const chunk = {
       component: (
         <FixedAddressBar>
           <CreateStoreScreen
+            provinces={data.administrativeAreas}
           />
         </FixedAddressBar>
         

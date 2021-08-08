@@ -6,13 +6,23 @@ import { IoChevronBackSharp } from 'react-icons/io5'
 import CreateStore from '../../../mutations/CreateStore'
 import Validator from '../../../helpers/validator'
 import BackButton from '../../Components/BackButton'
+import graphql from 'babel-plugin-relay/macro'
+import { createFragmentContainer } from 'react-relay'
+import { Autocomplete } from '@material-ui/lab'
 
 const Component = props => {
+  const { provinces } = props
   const _isMounted = useRef(true)
   const { history, environment } = useAppContext()
   const [storeName, setStoreName] = useState('')
   const [whatsappNumber, setWhatsappNumber] = useState('')
   const [loading, setLoading] = useState(false)
+  const [provinceId, setProvinceId] = useState('')
+  const [cityId, setCityId] = useState('')
+  const [districtId, setDistrictId] = useState('')
+  const [fullAddress, setFullAddress] = useState('')
+  const [cities, setCities] = useState([])
+  const [districts, setDistricts] = useState([])
   const [validation, setValidation] = useState({ isValid: false })
 
   const _setStoreName = (e) => {
@@ -87,7 +97,8 @@ const Component = props => {
         alignItems: 'center',
         position: 'absolute',
         top: 0,
-        borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
+        borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`,
+        zIndex: 9
       }}>
         <BackButton/>
         
@@ -166,6 +177,94 @@ const Component = props => {
           helperText={validation?.whatsappNumber?.message}
         />
 
+        <h3 style={{ margin: '10px 0'}}>Alamat</h3>
+
+        <Autocomplete
+          options={provinces}
+          getOptionLabel={(option) => option.name}
+          getOptionSelected={(option, value) => option.administrativeAreaId === value}
+          value={provinceId}
+          onChange={(_, value) => setProvinceId(value)}
+          renderInput={(params) => 
+            <TextField 
+              {...params} 
+              label="Provinsi"
+              fullWidth
+              disabled={loading} 
+              variant="outlined"
+              style={{
+                marginTop: 10,
+                marginBottom: 10
+              }}
+              error={validation.provinceId?.isInvalid}
+              helperText={validation.provinceId?.message}
+            />
+          }
+        />
+
+        <Autocomplete
+          options={cities}
+          getOptionLabel={(option) => option.name}
+          getOptionSelected={(option, value) => option.administrativeAreaId === value}
+          value={cityId}
+          onChange={(_, value) => setCityId(value)}
+          renderInput={(params) => 
+            <TextField 
+              {...params} 
+              label="Kota/Kabupaten"
+              fullWidth
+              disabled={loading} 
+              variant="outlined"
+              style={{
+                marginTop: 10,
+                marginBottom: 10
+              }}
+              error={validation.cityId?.isInvalid}
+              helperText={validation.cityId?.message}
+            />
+          }
+        />
+
+        <Autocomplete
+          options={districts}
+          getOptionLabel={(option) => option.name}
+          getOptionSelected={(option, value) => option.administrativeAreaId === value}
+          value={districtId}
+          onChange={(_, value) => setDistrictId(value)}
+          renderInput={(params) => 
+            <TextField 
+              {...params} 
+              label="Kecamatan"
+              fullWidth
+              disabled={loading} 
+              variant="outlined"
+              style={{
+                marginTop: 10,
+                marginBottom: 10
+              }}
+              error={validation.districtId?.isInvalid}
+              helperText={validation.districtId?.message}
+            />
+          }
+        />
+
+        <TextField
+          variant="outlined"
+          label="Alamat Lengkap"
+          fullWidth
+          disabled={loading}
+          style={{
+            marginTop: 10,
+            marginBottom: 10
+          }}
+          onChange={e => setFullAddress(e.target.value.trimLeft())}
+          value={fullAddress}
+          multiline
+          rows="3"
+          error={validation?.fullAddress?.isInvalid}
+          helperText={validation?.fullAddress?.message}
+        />
+
         <Button
           variant="contained"
           style={{
@@ -185,4 +284,11 @@ const Component = props => {
   )
 }
 
-export default Component
+export default createFragmentContainer(Component, {
+  provinces: graphql`
+    fragment CreateStoreScreen_provinces on AdministrativeArea @relay(plural: true) {
+      administrativeAreaId,
+      name
+    }
+  `
+})

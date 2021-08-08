@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Aug 08 2021 02:40:39 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Aug 08 2021 20:25:02 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -32,6 +32,11 @@ input AddressInput {
   fullAddress: String!
   lat: Float!
   lng: Float!
+}
+
+type AdministrativeArea {
+  administrativeAreaId: Int
+  name: String
 }
 
 type Attribute {
@@ -81,7 +86,7 @@ type Mutation {
   createStore(name: String!, whatsappNumber: String!): ActionOnStorePayload
   updateStoreAddress(id: String!, address: AddressInput!): ActionOnStorePayload
   updateStore(id: String!, name: String!, whatsappNumber: String!): ActionOnStorePayload
-  addSpecFieldToCategory(categoryId: String!, attributeId: String!, isRequired: Boolean): String
+  addSpecFieldToCategory(categoryId: String!, attributeId: String!, type: String!, isRequired: Boolean): String
   updateProduct(id: String!, input: ProductInput!): ActionOnProductPayload
   deleteProductImages(id: String!, imageIds: [String!]!): ActionOnProductPayload
   addProductImages(id: String!): ActionOnProductPayload
@@ -167,6 +172,7 @@ type Query {
   store(id: String!): Store
   featuredProducts: [Product]
   search(q: String!, categoryId: String, storeId: String, published: Boolean, after: String, first: Int): ProductConnection
+  administrativeAreas(parentId: Int): [AdministrativeArea]
 }
 
 type SendOtpPayload {
