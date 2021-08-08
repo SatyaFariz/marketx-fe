@@ -24,7 +24,8 @@ const Component = props => {
   const store = props.store
   const { provinces } = props
   const { history, queryParams, environment } = useAppContext()
-  const areasLoader = new AdministrativeAreaLoader(environment)
+  const citiesLoader = new AdministrativeAreaLoader(environment)
+  const districtsLoader = new AdministrativeAreaLoader(environment)
   const [name, setName] = useState(store.name)
   const [whatsappNumber, setWhatsappNumber] = useState(store.whatsappNumber)
   const [banner, setBanner] = useState(null)
@@ -146,7 +147,7 @@ const Component = props => {
       }
       setLoadingCities(true)
       setCities([])
-      areasLoader.load(province.administrativeAreaId, data => {
+      citiesLoader.load(province.administrativeAreaId, data => {
         setCities(data)
         setLoadingCities(false)
       })
@@ -155,14 +156,14 @@ const Component = props => {
 
   useEffect(() => {
     if(city) {
-      if(!districtsFirstLoaded) {
+      if(!districtsFirstLoaded.current) {
         setDistrict(null)
       } else {
         districtsFirstLoaded.current = false
       }
       setLoadingDistricts(true)
       setDistricts([])
-      areasLoader.load(city.administrativeAreaId, data => {
+      districtsLoader.load(city.administrativeAreaId, data => {
         setDistricts(data)
         setLoadingDistricts(false)
       })
