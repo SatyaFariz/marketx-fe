@@ -8,6 +8,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type EditStoreScreen_provinces$ref = any;
 type EditStoreScreen_store$ref = any;
 export type EditStoreSearchScreenQueryVariables = {||};
 export type EditStoreSearchScreenQueryResponse = {|
@@ -17,7 +18,10 @@ export type EditStoreSearchScreenQueryResponse = {|
       +id: ?string,
       +$fragmentRefs: EditStoreScreen_store$ref,
     |},
-  |}
+  |},
+  +administrativeAreas: ?$ReadOnlyArray<?{|
+    +$fragmentRefs: EditStoreScreen_provinces$ref
+  |}>,
 |};
 export type EditStoreSearchScreenQuery = {|
   variables: EditStoreSearchScreenQueryVariables,
@@ -35,6 +39,9 @@ query EditStoreSearchScreenQuery {
       ...EditStoreScreen_store
     }
   }
+  administrativeAreas {
+    ...EditStoreScreen_provinces
+  }
 }
 
 fragment EditAddressView_store on Store {
@@ -44,6 +51,11 @@ fragment EditAddressView_store on Store {
     lat
     lng
   }
+}
+
+fragment EditStoreScreen_provinces on AdministrativeArea {
+  administrativeAreaId
+  name
 }
 
 fragment EditStoreScreen_store on Store {
@@ -60,6 +72,18 @@ fragment EditStoreScreen_store on Store {
   }
   address {
     fullAddress
+    province {
+      administrativeAreaId
+      name
+    }
+    city {
+      administrativeAreaId
+      name
+    }
+    district {
+      administrativeAreaId
+      name
+    }
   }
   ...EditAddressView_store
 }
@@ -73,7 +97,14 @@ var v0 = {
   "name": "id",
   "storageKey": null
 },
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v2 = [
   (v0/*: any*/),
   {
     "alias": null,
@@ -82,6 +113,16 @@ v1 = [
     "name": "url",
     "storageKey": null
   }
+],
+v3 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "administrativeAreaId",
+    "storageKey": null
+  },
+  (v1/*: any*/)
 ];
 return {
   "fragment": {
@@ -118,6 +159,22 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "AdministrativeArea",
+        "kind": "LinkedField",
+        "name": "administrativeAreas",
+        "plural": true,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "EditStoreScreen_provinces"
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -147,13 +204,7 @@ return {
             "plural": false,
             "selections": [
               (v0/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "name",
-                "storageKey": null
-              },
+              (v1/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -168,7 +219,7 @@ return {
                 "kind": "LinkedField",
                 "name": "profilePicture",
                 "plural": false,
-                "selections": (v1/*: any*/),
+                "selections": (v2/*: any*/),
                 "storageKey": null
               },
               {
@@ -178,7 +229,7 @@ return {
                 "kind": "LinkedField",
                 "name": "banner",
                 "plural": false,
-                "selections": (v1/*: any*/),
+                "selections": (v2/*: any*/),
                 "storageKey": null
               },
               {
@@ -194,6 +245,36 @@ return {
                     "args": null,
                     "kind": "ScalarField",
                     "name": "fullAddress",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "AdministrativeArea",
+                    "kind": "LinkedField",
+                    "name": "province",
+                    "plural": false,
+                    "selections": (v3/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "AdministrativeArea",
+                    "kind": "LinkedField",
+                    "name": "city",
+                    "plural": false,
+                    "selections": (v3/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "AdministrativeArea",
+                    "kind": "LinkedField",
+                    "name": "district",
+                    "plural": false,
+                    "selections": (v3/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -218,20 +299,30 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "AdministrativeArea",
+        "kind": "LinkedField",
+        "name": "administrativeAreas",
+        "plural": true,
+        "selections": (v3/*: any*/),
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "a6e907b62a99c8d4d8c251afd4d5ec65",
+    "cacheID": "34f51b224a289a26e12906683cf93e73",
     "id": null,
     "metadata": {},
     "name": "EditStoreSearchScreenQuery",
     "operationKind": "query",
-    "text": "query EditStoreSearchScreenQuery {\n  me {\n    id\n    store {\n      id\n      ...EditStoreScreen_store\n    }\n  }\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment EditStoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n  }\n  ...EditAddressView_store\n}\n"
+    "text": "query EditStoreSearchScreenQuery {\n  me {\n    id\n    store {\n      id\n      ...EditStoreScreen_store\n    }\n  }\n  administrativeAreas {\n    ...EditStoreScreen_provinces\n  }\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment EditStoreScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment EditStoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n    province {\n      administrativeAreaId\n      name\n    }\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n  ...EditAddressView_store\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0d935152c397adbb02fbe9240911ac15';
+(node/*: any*/).hash = '35703adfe12d07dc04347a2ee50efce0';
 
 module.exports = node;

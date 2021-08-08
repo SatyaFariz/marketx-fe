@@ -10,7 +10,6 @@ import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import { Autocomplete } from '@material-ui/lab'
 import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader'
-import { FieldsOnCorrectTypeRule } from 'graphql'
 
 const Component = props => {
   const { provinces } = props

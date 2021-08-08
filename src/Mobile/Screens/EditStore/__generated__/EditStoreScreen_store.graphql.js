@@ -25,7 +25,19 @@ export type EditStoreScreen_store = {|
     +url: ?string,
   |},
   +address: ?{|
-    +fullAddress: ?string
+    +fullAddress: ?string,
+    +province: ?{|
+      +administrativeAreaId: ?number,
+      +name: ?string,
+    |},
+    +city: ?{|
+      +administrativeAreaId: ?number,
+      +name: ?string,
+    |},
+    +district: ?{|
+      +administrativeAreaId: ?number,
+      +name: ?string,
+    |},
   |},
   +$fragmentRefs: EditAddressView_store$ref,
   +$refType: EditStoreScreen_store$ref,
@@ -47,7 +59,14 @@ var v0 = {
   "name": "id",
   "storageKey": null
 },
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v2 = [
   (v0/*: any*/),
   {
     "alias": null,
@@ -56,6 +75,16 @@ v1 = [
     "name": "url",
     "storageKey": null
   }
+],
+v3 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "administrativeAreaId",
+    "storageKey": null
+  },
+  (v1/*: any*/)
 ];
 return {
   "argumentDefinitions": [],
@@ -64,13 +93,7 @@ return {
   "name": "EditStoreScreen_store",
   "selections": [
     (v0/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "name",
-      "storageKey": null
-    },
+    (v1/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -85,7 +108,7 @@ return {
       "kind": "LinkedField",
       "name": "profilePicture",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": (v2/*: any*/),
       "storageKey": null
     },
     {
@@ -95,7 +118,7 @@ return {
       "kind": "LinkedField",
       "name": "banner",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": (v2/*: any*/),
       "storageKey": null
     },
     {
@@ -112,6 +135,36 @@ return {
           "kind": "ScalarField",
           "name": "fullAddress",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AdministrativeArea",
+          "kind": "LinkedField",
+          "name": "province",
+          "plural": false,
+          "selections": (v3/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AdministrativeArea",
+          "kind": "LinkedField",
+          "name": "city",
+          "plural": false,
+          "selections": (v3/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AdministrativeArea",
+          "kind": "LinkedField",
+          "name": "district",
+          "plural": false,
+          "selections": (v3/*: any*/),
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -127,6 +180,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '20e8cf7048c1fb5a92e58a2ec835c78a';
+(node/*: any*/).hash = '06a077af43b5c6c860d83c7d637ae276';
 
 module.exports = node;

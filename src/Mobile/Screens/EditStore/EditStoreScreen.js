@@ -12,18 +12,32 @@ import UpdateStore from '../../../mutations/UpdateStore'
 import Validator from '../../../helpers/validator'
 import CameraIcon from '../../Components/CameraIcon'
 import BackButton from '../../Components/BackButton'
+import { Autocomplete } from '@material-ui/lab'
+import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader'
 
 const megabytes = 1048576
 
 const Component = props => {
+  const citiesFirstLoaded = useRef(true)
+  const districtsFirstLoaded = useRef(true)
   const _isMounted = useRef(true)
   const store = props.store
+  const { provinces } = props
   const { history, queryParams, environment } = useAppContext()
+  const areasLoader = new AdministrativeAreaLoader(environment)
   const [name, setName] = useState(store.name)
   const [whatsappNumber, setWhatsappNumber] = useState(store.whatsappNumber)
   const [banner, setBanner] = useState(null)
   const [profilePicture, setProfilePicture] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [province, setProvince] = useState(store?.address?.province)
+  const [city, setCity] = useState(store?.address.city)
+  const [district, setDistrict] = useState(store?.address?.district)
+  const [fullAddress, setFullAddress] = useState(store?.address?.fullAddress || '')
+  const [cities, setCities] = useState([])
+  const [districts, setDistricts] = useState([])
+  const [loadingCities, setLoadingCities] = useState(false)
+  const [loadingDistricts, setLoadingDistricts] = useState(false)
   const [validation, setValidation] = useState({ isValid: false })
 
   const { getRootProps: getRootProps1, getInputProps: getInputProps1 } = useDropzone({
@@ -122,6 +136,39 @@ const Component = props => {
     return () => _isMounted.current = false
   }, [])
 
+  useEffect(() => {
+    if(province) {
+      if(!citiesFirstLoaded.current) {
+        setCity(null)
+        setDistrict(null)
+      } else {
+        citiesFirstLoaded.current = false
+      }
+      setLoadingCities(true)
+      setCities([])
+      areasLoader.load(province.administrativeAreaId, data => {
+        setCities(data)
+        setLoadingCities(false)
+      })
+    }
+  }, [province])
+
+  useEffect(() => {
+    if(city) {
+      if(!districtsFirstLoaded) {
+        setDistrict(null)
+      } else {
+        districtsFirstLoaded.current = false
+      }
+      setLoadingDistricts(true)
+      setDistricts([])
+      areasLoader.load(city.administrativeAreaId, data => {
+        setDistricts(data)
+        setLoadingDistricts(false)
+      })
+    }
+  }, [city])
+
   if(queryParams.editAddress === '1') {
     return (
       <EditAddressView store={store}/>
@@ -177,7 +224,8 @@ const Component = props => {
         position: 'absolute',
         left: 0,
         right: 0,
-        bottom: 0
+        bottom: 0,
+        overflow: 'auto'
       }}>
         <div style={{
           maxHeight: 200,
@@ -275,7 +323,96 @@ const Component = props => {
             helperText={validation?.whatsappNumber?.message}
           />
 
-          <div style={{
+          <h3 style={{ margin: '10px 0'}}>Alamat</h3>
+
+          <Autocomplete
+            options={provinces}
+            getOptionLabel={(option) => option.name}
+            value={province}
+            onChange={(_, value) => setProvince(value)}
+            renderInput={(params) => 
+              <TextField 
+                {...params} 
+                label="Provinsi"
+                fullWidth
+                disabled={loading} 
+                variant="outlined"
+                style={{
+                  marginTop: 10,
+                  marginBottom: 10
+                }}
+                error={validation.province?.isInvalid}
+                helperText={validation.province?.message}
+              />
+            }
+          />
+
+          <Autocomplete
+            disabled={Validator.isEmpty(province)}
+            loading={loadingCities}
+            options={cities}
+            getOptionLabel={(option) => option.name}
+            value={city}
+            onChange={(_, value) => setCity(value)}
+            renderInput={(params) => 
+              <TextField 
+                {...params} 
+                label="Kota/Kabupaten"
+                fullWidth
+                disabled={loading} 
+                variant="outlined"
+                style={{
+                  marginTop: 10,
+                  marginBottom: 10
+                }}
+                error={validation.city?.isInvalid}
+                helperText={validation.city?.message}
+              />
+            }
+          />
+
+          <Autocomplete
+            disabled={Validator.isEmpty(province) || Validator.isEmpty(city)}
+            loading={loadingDistricts}
+            options={districts}
+            getOptionLabel={(option) => option.name}
+            value={district}
+            onChange={(_, value) => setDistrict(value)}
+            renderInput={(params) => 
+              <TextField 
+                {...params} 
+                label="Kecamatan"
+                fullWidth
+                disabled={loading} 
+                variant="outlined"
+                style={{
+                  marginTop: 10,
+                  marginBottom: 10
+                }}
+                error={validation.district?.isInvalid}
+                helperText={validation.district?.message}
+              />
+            }
+          />
+
+          <TextField
+            variant="outlined"
+            label="Alamat Lengkap"
+            fullWidth
+            disabled={loading}
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            onChange={e => setFullAddress(e.target.value.trimLeft())}
+            value={fullAddress}
+            multiline
+            rows="3"
+            error={validation?.fullAddress?.isInvalid}
+            helperText={validation?.fullAddress?.message}
+          />
+
+          {/* <div style={{
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
@@ -288,9 +425,9 @@ const Component = props => {
               style={{ color: Color.link }}
               onClick={() => history.push(`/edit/store/${store.id}?editAddress=1`)}
             >Edit</span>
-          </div>
+          </div> */}
           
-          <span style={{ fontSize: 14 }}>{store.address.fullAddress}</span>
+          {/* <span style={{ fontSize: 14 }}>{store.address.fullAddress}</span> */}
         </div>
       </div>
     </div>
@@ -312,9 +449,27 @@ export default createFragmentContainer(Component, {
         url
       },
       address {
-        fullAddress
+        fullAddress,
+        province {
+          administrativeAreaId,
+          name
+        },
+        city {
+          administrativeAreaId,
+          name
+        },
+        district {
+          administrativeAreaId,
+          name
+        }
       },
       ...EditAddressView_store
+    }
+  `,
+  provinces: graphql`
+    fragment EditStoreScreen_provinces on AdministrativeArea @relay(plural: true) {
+      administrativeAreaId,
+      name
     }
   `
 })

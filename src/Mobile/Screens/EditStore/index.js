@@ -12,6 +12,9 @@ const chunk = {
           id,
           ...EditStoreScreen_store
         }
+      },
+      administrativeAreas {
+        ...EditStoreScreen_provinces
       }
     }
   `,
@@ -23,6 +26,7 @@ const chunk = {
       component: (
         <FixedAddressBar>
           <EditStoreScreen
+            provinces={data.administrativeAreas}
             store={data.me?.store}
           />
         </FixedAddressBar>

@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Aug 08 2021 22:16:09 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Aug 08 2021 22:54:02 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -26,6 +26,9 @@ type Address {
   lat: Float
   lng: Float
   fullAddress: String
+  province: AdministrativeArea
+  city: AdministrativeArea
+  district: AdministrativeArea
 }
 
 input AddressInput {
