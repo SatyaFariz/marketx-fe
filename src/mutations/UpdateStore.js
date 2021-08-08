@@ -9,7 +9,24 @@ const mutation = graphql`
         message
       },
       store {
-        id
+        id,
+        name,
+        whatsappNumber,
+        address {
+          fullAddress,
+          province {
+            administrativeAreaId,
+            name
+          },
+          city {
+            administrativeAreaId,
+            name
+          },
+          district {
+            administrativeAreaId,
+            name
+          }
+        }
       }
     }
   }
