@@ -9,20 +9,25 @@ import BackButton from '../../Components/BackButton'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import { Autocomplete } from '@material-ui/lab'
+import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader'
+import { FieldsOnCorrectTypeRule } from 'graphql'
 
 const Component = props => {
   const { provinces } = props
   const _isMounted = useRef(true)
   const { history, environment } = useAppContext()
+  const areasLoader = new AdministrativeAreaLoader(environment)
   const [storeName, setStoreName] = useState('')
   const [whatsappNumber, setWhatsappNumber] = useState('')
   const [loading, setLoading] = useState(false)
-  const [provinceId, setProvinceId] = useState('')
-  const [cityId, setCityId] = useState('')
-  const [districtId, setDistrictId] = useState('')
+  const [province, setProvince] = useState(null)
+  const [city, setCity] = useState(null)
+  const [district, setDistrict] = useState(null)
   const [fullAddress, setFullAddress] = useState('')
   const [cities, setCities] = useState([])
   const [districts, setDistricts] = useState([])
+  const [loadingCities, setLoadingCities] = useState(false)
+  const [loadingDistricts, setLoadingDistricts] = useState(false)
   const [validation, setValidation] = useState({ isValid: false })
 
   const _setStoreName = (e) => {
@@ -86,6 +91,31 @@ const Component = props => {
   useEffect(() => {
     return () => _isMounted.current = false
   }, [])
+
+  useEffect(() => {
+    if(province) {
+      setCity(null)
+      setDistrict(null)
+      setLoadingCities(true)
+      setCities([])
+      areasLoader.load(province.administrativeAreaId, data => {
+        setCities(data)
+        setLoadingCities(false)
+      })
+    }
+  }, [province])
+
+  useEffect(() => {
+    if(city) {
+      setDistrict(null)
+      setLoadingDistricts(true)
+      setDistricts([])
+      areasLoader.load(city.administrativeAreaId, data => {
+        setDistricts(data)
+        setLoadingDistricts(false)
+      })
+    }
+  }, [city])
 
   return (
     <div>
@@ -182,9 +212,8 @@ const Component = props => {
         <Autocomplete
           options={provinces}
           getOptionLabel={(option) => option.name}
-          getOptionSelected={(option, value) => option.administrativeAreaId === value}
-          value={provinceId}
-          onChange={(_, value) => setProvinceId(value)}
+          value={province}
+          onChange={(_, value) => setProvince(value)}
           renderInput={(params) => 
             <TextField 
               {...params} 
@@ -196,18 +225,19 @@ const Component = props => {
                 marginTop: 10,
                 marginBottom: 10
               }}
-              error={validation.provinceId?.isInvalid}
-              helperText={validation.provinceId?.message}
+              error={validation.province?.isInvalid}
+              helperText={validation.province?.message}
             />
           }
         />
 
         <Autocomplete
+          disabled={Validator.isEmpty(province)}
+          loading={loadingCities}
           options={cities}
           getOptionLabel={(option) => option.name}
-          getOptionSelected={(option, value) => option.administrativeAreaId === value}
-          value={cityId}
-          onChange={(_, value) => setCityId(value)}
+          value={city}
+          onChange={(_, value) => setCity(value)}
           renderInput={(params) => 
             <TextField 
               {...params} 
@@ -219,18 +249,19 @@ const Component = props => {
                 marginTop: 10,
                 marginBottom: 10
               }}
-              error={validation.cityId?.isInvalid}
-              helperText={validation.cityId?.message}
+              error={validation.city?.isInvalid}
+              helperText={validation.city?.message}
             />
           }
         />
 
         <Autocomplete
+          disabled={Validator.isEmpty(province) || Validator.isEmpty(city)}
+          loading={loadingDistricts}
           options={districts}
           getOptionLabel={(option) => option.name}
-          getOptionSelected={(option, value) => option.administrativeAreaId === value}
-          value={districtId}
-          onChange={(_, value) => setDistrictId(value)}
+          value={district}
+          onChange={(_, value) => setDistrict(value)}
           renderInput={(params) => 
             <TextField 
               {...params} 
@@ -242,8 +273,8 @@ const Component = props => {
                 marginTop: 10,
                 marginBottom: 10
               }}
-              error={validation.districtId?.isInvalid}
-              helperText={validation.districtId?.message}
+              error={validation.district?.isInvalid}
+              helperText={validation.district?.message}
             />
           }
         />
