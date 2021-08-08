@@ -371,7 +371,7 @@ const Component = props => {
                   label={field.attribute.name}
                   fullWidth
                   disabled={loading}
-                  value={specs[field.attribute.id]}
+                  value={specs[field.attribute.id]?.trim() === '' ? undefined : specs[field.attribute.id]}
                   onChange={_setSpecs(field)}
                   style={{
                     marginTop: 10,
@@ -430,7 +430,7 @@ const Component = props => {
                   label={field.attribute.name}
                   fullWidth
                   disabled={loading}
-                  value={!specs[field.attribute.id] ? '1' : specs[field.attribute.id]}
+                  value={specs[field.attribute.id]?.trim() === '' ? undefined : specs[field.attribute.id]}
                   onChange={_setSpecs(field)}
                   style={{
                     marginTop: 10,
