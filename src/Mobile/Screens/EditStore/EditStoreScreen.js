@@ -150,8 +150,19 @@ const Component = props => {
 
   const save = () => {
     if(!loading && isValid() && !isClean()) {
+      const variables = {
+        id: store.id, 
+        name, 
+        whatsappNumber,
+        address: {
+          provinceId: province.administrativeAreaId,
+          cityId: city.administrativeAreaId,
+          districtId: district.administrativeAreaId,
+          fullAddress
+        }
+      }
       setLoading(true)
-      UpdateStore(environment, { id: store.id, name, whatsappNumber }, { banner, profilePicture }, (payload, error) => {
+      UpdateStore(environment, variables, { banner, profilePicture }, (payload, error) => {
         if(error) {
           console.log(error)
         } else if(payload) {

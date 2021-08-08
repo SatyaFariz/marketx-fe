@@ -8,10 +8,19 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+export type AddressInput = {|
+  fullAddress: string,
+  lat?: ?number,
+  lng?: ?number,
+  provinceId: number,
+  cityId: number,
+  districtId: number,
+|};
 export type UpdateStoreMutationVariables = {|
   id: string,
   name: string,
   whatsappNumber: string,
+  address: AddressInput,
 |};
 export type UpdateStoreMutationResponse = {|
   +updateStore: ?{|
@@ -53,8 +62,9 @@ mutation UpdateStoreMutation(
   $id: String!
   $name: String!
   $whatsappNumber: String!
+  $address: AddressInput!
 ) {
-  updateStore(id: $id, name: $name, whatsappNumber: $whatsappNumber) {
+  updateStore(id: $id, name: $name, whatsappNumber: $whatsappNumber, address: $address) {
     actionInfo {
       hasError
       message
@@ -84,31 +94,34 @@ mutation UpdateStoreMutation(
 */
 
 const node/*: ConcreteRequest*/ = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "id"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "name"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "whatsappNumber"
-  }
-],
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "address"
+},
 v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "id"
+},
+v2 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "name"
+},
+v3 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "whatsappNumber"
+},
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v2 = [
+v5 = [
   {
     "alias": null,
     "args": null,
@@ -116,12 +129,17 @@ v2 = [
     "name": "administrativeAreaId",
     "storageKey": null
   },
-  (v1/*: any*/)
+  (v4/*: any*/)
 ],
-v3 = [
+v6 = [
   {
     "alias": null,
     "args": [
+      {
+        "kind": "Variable",
+        "name": "address",
+        "variableName": "address"
+      },
       {
         "kind": "Variable",
         "name": "id",
@@ -183,7 +201,7 @@ v3 = [
             "name": "id",
             "storageKey": null
           },
-          (v1/*: any*/),
+          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -213,7 +231,7 @@ v3 = [
                 "kind": "LinkedField",
                 "name": "province",
                 "plural": false,
-                "selections": (v2/*: any*/),
+                "selections": (v5/*: any*/),
                 "storageKey": null
               },
               {
@@ -223,7 +241,7 @@ v3 = [
                 "kind": "LinkedField",
                 "name": "city",
                 "plural": false,
-                "selections": (v2/*: any*/),
+                "selections": (v5/*: any*/),
                 "storageKey": null
               },
               {
@@ -233,7 +251,7 @@ v3 = [
                 "kind": "LinkedField",
                 "name": "district",
                 "plural": false,
-                "selections": (v2/*: any*/),
+                "selections": (v5/*: any*/),
                 "storageKey": null
               }
             ],
@@ -248,32 +266,42 @@ v3 = [
 ];
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/),
+      (v2/*: any*/),
+      (v3/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "UpdateStoreMutation",
-    "selections": (v3/*: any*/),
+    "selections": (v6/*: any*/),
     "type": "Mutation",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v1/*: any*/),
+      (v2/*: any*/),
+      (v3/*: any*/),
+      (v0/*: any*/)
+    ],
     "kind": "Operation",
     "name": "UpdateStoreMutation",
-    "selections": (v3/*: any*/)
+    "selections": (v6/*: any*/)
   },
   "params": {
-    "cacheID": "406c30a874c3e5d8c9dfe43ad86f177f",
+    "cacheID": "cfb11309d8654af8e95e62d969c5a8bf",
     "id": null,
     "metadata": {},
     "name": "UpdateStoreMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateStoreMutation(\n  $id: String!\n  $name: String!\n  $whatsappNumber: String!\n) {\n  updateStore(id: $id, name: $name, whatsappNumber: $whatsappNumber) {\n    actionInfo {\n      hasError\n      message\n    }\n    store {\n      id\n      name\n      whatsappNumber\n      address {\n        fullAddress\n        province {\n          administrativeAreaId\n          name\n        }\n        city {\n          administrativeAreaId\n          name\n        }\n        district {\n          administrativeAreaId\n          name\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateStoreMutation(\n  $id: String!\n  $name: String!\n  $whatsappNumber: String!\n  $address: AddressInput!\n) {\n  updateStore(id: $id, name: $name, whatsappNumber: $whatsappNumber, address: $address) {\n    actionInfo {\n      hasError\n      message\n    }\n    store {\n      id\n      name\n      whatsappNumber\n      address {\n        fullAddress\n        province {\n          administrativeAreaId\n          name\n        }\n        city {\n          administrativeAreaId\n          name\n        }\n        district {\n          administrativeAreaId\n          name\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a1e4e5d02ba99542a0c111250b2f0dc3';
+(node/*: any*/).hash = 'e1390e1cc091f6bf0f171b5c31db97cc';
 
 module.exports = node;
