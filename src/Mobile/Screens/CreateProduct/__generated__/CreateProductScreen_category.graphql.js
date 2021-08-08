@@ -20,7 +20,13 @@ export type CreateProductScreen_category = {|
       +id: ?string,
       +name: ?string,
     |},
+    +isAutocomplete: ?boolean,
     +isRequired: ?boolean,
+    +type: ?string,
+    +max: ?number,
+    +min: ?number,
+    +options: ?$ReadOnlyArray<?string>,
+    +isEnum: ?boolean,
   |}>,
   +$refType: CreateProductScreen_category$ref,
 |};
@@ -82,7 +88,49 @@ return {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
+          "name": "isAutocomplete",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
           "name": "isRequired",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "type",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "max",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "min",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "options",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "isEnum",
           "storageKey": null
         }
       ],
@@ -94,6 +142,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'b291b8187ddafdd2449aa4cbdce07311';
+(node/*: any*/).hash = '639591f29cd5e58f38147c50b9a0f93b';
 
 module.exports = node;

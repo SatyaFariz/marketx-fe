@@ -1,13 +1,12 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
-import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import Color from '../../Constants/Color'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
-import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
-import Link from '../../Components/Link'
-import { Button, TextField, InputAdornment } from '@material-ui/core'
+import { Button, TextField, InputAdornment, MenuItem } from '@material-ui/core'
+import { Autocomplete } from '@material-ui/lab'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 import Validator from '../../../helpers/validator'
@@ -376,6 +375,112 @@ const Component = props => {
           <h3 style={{ margin: '10px 0'}}>Specifications</h3>
 
           {category.specFields.map((field) => {
+            if(field.type === 'year') {
+              const startYear = 1901
+              let year = new Date().getFullYear()
+              const years = []
+              while(year >= startYear) {
+                years.push(year.toString())
+                year--
+              }
+
+              return (
+                <TextField
+                  key={field.id}
+                  variant="outlined"
+                  select
+                  label={field.attribute.name}
+                  fullWidth
+                  disabled={loading}
+                  value={specs[field.attribute.id]?.trim() === '' ? undefined : specs[field.attribute.id]}
+                  onChange={_setSpecs(field)}
+                  style={{
+                    marginTop: 10,
+                    marginBottom: 10
+                  }}
+                  error={validation[field.attribute.id]?.isInvalid}
+                  helperText={validation[field.attribute.id]?.message}
+                  SelectProps={{
+                    MenuProps: {
+                      style: {
+                        maxHeight: 500
+                      }
+                    }
+                  }}
+                >
+                  {years.map((option, i) => (
+                    <MenuItem key={i} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )
+            } else if(field.options?.length > 0) {
+              if(field.isAutocomplete) {
+                return (
+                  <Autocomplete
+                    key={field.id}
+                    options={field.options}
+                    getOptionLabel={(option) => option}
+                    getOptionSelected={(option, value) => option === value}
+                    value={specs[field.attribute.id]}
+                    onChange={(_, value) => _setSpecs(field)({ target: { value }})}
+                    renderInput={(params) => 
+                      <TextField 
+                        {...params} 
+                        label={field.attribute.name}
+                        fullWidth
+                        disabled={loading} 
+                        variant="outlined"
+                        style={{
+                          marginTop: 10,
+                          marginBottom: 10
+                        }}
+                        error={validation[field.attribute.id]?.isInvalid}
+                        helperText={validation[field.attribute.id]?.message}
+                      />
+                    }
+                  />
+                )
+              }
+              return (
+                <TextField
+                  key={field.id}
+                  variant="outlined"
+                  select
+                  label={field.attribute.name}
+                  fullWidth
+                  disabled={loading}
+                  value={specs[field.attribute.id]?.trim() === '' ? undefined : specs[field.attribute.id]}
+                  onChange={_setSpecs(field)}
+                  style={{
+                    marginTop: 10,
+                    marginBottom: 10
+                  }}
+                  error={validation[field.attribute.id]?.isInvalid}
+                  helperText={validation[field.attribute.id]?.message}
+                  SelectProps={{
+                    MenuProps: {
+                      style: {
+                        maxHeight: 500
+                      }
+                    }
+                  }}
+                >
+                  {field.options.map((option, i) => (
+                    <MenuItem key={i} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                  {!field.options.includes(specs[field.attribute.id]) &&
+                    <MenuItem value={specs[field.attribute.id]}>
+                      {specs[field.attribute.id]}
+                    </MenuItem>
+                  }
+                </TextField>
+              )
+              
+            }
             return (
               <TextField
                 key={field.id}
@@ -423,7 +528,13 @@ export default createFragmentContainer(Component, {
           id,
           name
         },
-        isRequired
+        isAutocomplete,
+        isRequired,
+        type,
+        max,
+        min,
+        options,
+        isEnum
       }
     }
   `,
