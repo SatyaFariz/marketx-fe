@@ -60,10 +60,34 @@ const Component = props => {
         method: (number) => number.length > 10,
         validWhen: true,
         message: 'This field must be more than 10 characters long.'
-      }
+      },
+      {
+        field: 'province',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'This field is required.'
+      },
+      {
+        field: 'city',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'This field is required.'
+      },
+      {
+        field: 'district',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'This field is required.'
+      },
+      {
+        field: 'fullAddress',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'This field is required.'
+      },
     ])
 
-    const validation = validator.validate({ storeName, whatsappNumber })
+    const validation = validator.validate({ storeName, whatsappNumber, province, city, district, fullAddress })
     setValidation(validation)
     return validation.isValid
   }
