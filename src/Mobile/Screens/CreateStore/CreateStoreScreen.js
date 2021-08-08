@@ -135,6 +135,9 @@ const Component = props => {
         setCities(data)
         setLoadingCities(false)
       })
+    } else {
+      setCity(null)
+      setDistrict(null)
     }
   }, [province])
 
@@ -147,6 +150,8 @@ const Component = props => {
         setDistricts(data)
         setLoadingDistricts(false)
       })
+    } else {
+      setDistrict(null)
     }
   }, [city])
 
