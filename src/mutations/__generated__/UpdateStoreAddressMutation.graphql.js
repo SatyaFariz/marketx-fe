@@ -10,8 +10,11 @@
 import type { ConcreteRequest } from 'relay-runtime';
 export type AddressInput = {|
   fullAddress: string,
-  lat: number,
-  lng: number,
+  lat?: ?number,
+  lng?: ?number,
+  provinceId: number,
+  cityId: number,
+  districtId: number,
 |};
 export type UpdateStoreAddressMutationVariables = {|
   id: string,

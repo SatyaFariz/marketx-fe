@@ -94,8 +94,18 @@ const Component = props => {
 
   const createStore = () => {
     if(isValid() && !loading) {
+      const variables = {
+        name: storeName,
+        whatsappNumber,
+        address: {
+          provinceId: province.administrativeAreaId,
+          cityId: city.administrativeAreaId,
+          districtId: district.administrativeAreaId,
+          fullAddress
+        }
+      }
       setLoading(true)
-      CreateStore(environment, { name: storeName, whatsappNumber }, (payload, error) => {
+      CreateStore(environment, variables, (payload, error) => {
         if(error) {
           console.log(error)
         } else if(payload) {

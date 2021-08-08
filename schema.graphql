@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Aug 08 2021 20:25:02 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Aug 08 2021 22:16:09 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -30,8 +30,11 @@ type Address {
 
 input AddressInput {
   fullAddress: String!
-  lat: Float!
-  lng: Float!
+  lat: Float
+  lng: Float
+  provinceId: Int!
+  cityId: Int!
+  districtId: Int!
 }
 
 type AdministrativeArea {
@@ -83,7 +86,7 @@ type Mutation {
   register(name: String!, loginId: String!, password: String!): ActionOnUserPayload
   logout: ActionInfo
   updateProfile(otpCode: String, input: UpdateProfileInput!): ActionOnUserPayload
-  createStore(name: String!, whatsappNumber: String!): ActionOnStorePayload
+  createStore(name: String!, whatsappNumber: String!, address: AddressInput!): ActionOnStorePayload
   updateStoreAddress(id: String!, address: AddressInput!): ActionOnStorePayload
   updateStore(id: String!, name: String!, whatsappNumber: String!): ActionOnStorePayload
   addSpecFieldToCategory(categoryId: String!, attributeId: String!, type: String!, isRequired: Boolean): String

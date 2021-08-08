@@ -8,9 +8,18 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+export type AddressInput = {|
+  fullAddress: string,
+  lat?: ?number,
+  lng?: ?number,
+  provinceId: number,
+  cityId: number,
+  districtId: number,
+|};
 export type CreateStoreMutationVariables = {|
   name: string,
   whatsappNumber: string,
+  address: AddressInput,
 |};
 export type CreateStoreMutationResponse = {|
   +createStore: ?{|
@@ -34,8 +43,9 @@ export type CreateStoreMutation = {|
 mutation CreateStoreMutation(
   $name: String!
   $whatsappNumber: String!
+  $address: AddressInput!
 ) {
-  createStore(name: $name, whatsappNumber: $whatsappNumber) {
+  createStore(name: $name, whatsappNumber: $whatsappNumber, address: $address) {
     actionInfo {
       hasError
       message
@@ -48,22 +58,30 @@ mutation CreateStoreMutation(
 */
 
 const node/*: ConcreteRequest*/ = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "name"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "whatsappNumber"
-  }
-],
-v1 = [
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "address"
+},
+v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "name"
+},
+v2 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "whatsappNumber"
+},
+v3 = [
   {
     "alias": null,
     "args": [
+      {
+        "kind": "Variable",
+        "name": "address",
+        "variableName": "address"
+      },
       {
         "kind": "Variable",
         "name": "name",
@@ -129,32 +147,40 @@ v1 = [
 ];
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/),
+      (v2/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "CreateStoreMutation",
-    "selections": (v1/*: any*/),
+    "selections": (v3/*: any*/),
     "type": "Mutation",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v1/*: any*/),
+      (v2/*: any*/),
+      (v0/*: any*/)
+    ],
     "kind": "Operation",
     "name": "CreateStoreMutation",
-    "selections": (v1/*: any*/)
+    "selections": (v3/*: any*/)
   },
   "params": {
-    "cacheID": "6fd09e4da23f5e40cc751a3587fda875",
+    "cacheID": "228b14da34aaf775b053ff2ea558054b",
     "id": null,
     "metadata": {},
     "name": "CreateStoreMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateStoreMutation(\n  $name: String!\n  $whatsappNumber: String!\n) {\n  createStore(name: $name, whatsappNumber: $whatsappNumber) {\n    actionInfo {\n      hasError\n      message\n    }\n    store {\n      id\n    }\n  }\n}\n"
+    "text": "mutation CreateStoreMutation(\n  $name: String!\n  $whatsappNumber: String!\n  $address: AddressInput!\n) {\n  createStore(name: $name, whatsappNumber: $whatsappNumber, address: $address) {\n    actionInfo {\n      hasError\n      message\n    }\n    store {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '478e593dabd41326e9c106abd2156f99';
+(node/*: any*/).hash = '1bafb9f442a9b63a68b74b451aceffc9';
 
 module.exports = node;
