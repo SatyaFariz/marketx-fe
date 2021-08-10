@@ -20,10 +20,10 @@ export type ProductScreen_product = {|
     +id: ?string,
     +url: ?string,
   |}>,
-  +category: ?{|
+  +category: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
-  |},
+  |}>,
   +rentalDuration: ?{|
     +display: ?string
   |},
@@ -123,7 +123,7 @@ return {
       "concreteType": "Category",
       "kind": "LinkedField",
       "name": "category",
-      "plural": false,
+      "plural": true,
       "selections": [
         (v0/*: any*/),
         (v1/*: any*/)

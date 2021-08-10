@@ -22,7 +22,7 @@ const Component = props => {
   const [name, setName] = useState(product.name)
   const [price, setPrice] = useState(product.price.toString())
   const [desc, setDesc] = useState(product.desc)
-  const [specs, setSpecs] = useState(product.category.specFields.reduce((obj, currentVal) => {
+  const [specs, setSpecs] = useState(product.category[product.category.length - 1].specFields.reduce((obj, currentVal) => {
     obj[currentVal.attribute.id] = product.specs.find(item => item.attribute.id === currentVal.attribute.id)?.value || ''
     return obj
   }, {}))
@@ -55,7 +55,7 @@ const Component = props => {
   }
 
   const isValid = () => {
-    const specsRules = product.category.specFields.reduce((rules, currentVal) => {
+    const specsRules = product.category[product.category.length - 1].specFields.reduce((rules, currentVal) => {
       if(currentVal.isRequired) {
         rules.push({
           field: currentVal.attribute.id,
@@ -295,7 +295,12 @@ const Component = props => {
         <div style={{
           padding: '10px 15px'
         }}>
-          <h3 style={{ margin: '10px 0'}}>{product.category.name}</h3>
+          {product.category.map(item => {
+            return (
+              <h3 key={item.id} style={{ margin: '10px 0'}}>{item.name}</h3>
+            )
+          })}
+          
           <TextField
             variant="outlined"
             label="Product Name"
@@ -353,7 +358,7 @@ const Component = props => {
 
           <h3 style={{ margin: '10px 0'}}>Specifications</h3>
 
-          {product.category.specFields.map((field) => {
+          {product.category[product.category.length - 1].specFields.map((field) => {
             if(field.type === 'year') {
               const startYear = 1901
               let year = new Date().getFullYear()

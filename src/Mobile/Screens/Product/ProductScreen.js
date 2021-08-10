@@ -153,9 +153,14 @@ const Component = props => {
           paddingBottom: 20,
         }}>
           <div style={{ paddingLeft: 15, paddingRight: 15 }}>
-            <ButtonBase href={`/category/${product.category.id}`} component={Link}>
-              <span>{product.category.name}</span>
-            </ButtonBase>
+            {product.category.map(item => {
+              return (
+                <ButtonBase key={item.id} href={`/category/${item.id}`} component={Link}>
+                  <span>{item.name}</span>
+                </ButtonBase>
+              )
+            })}
+            
             <span style={{
               display: 'block',
               fontSize: 24,

@@ -20,6 +20,7 @@ const Component = props => {
         justifyContent: 'center'
       }}>
         {categories.map((item, i) => {
+          if(item.level > 1) return null
           return (
             <Link href={`/category/${item.id}`} key={item.id}>
               <div key={i} style={{
@@ -54,6 +55,7 @@ export default createFragmentContainer(Component, {
     fragment Categories_categories on Category @relay(plural: true) {
       id,
       name,
+      level,
       icon {
         url
       }

@@ -215,7 +215,7 @@ return {
             "concreteType": "Category",
             "kind": "LinkedField",
             "name": "category",
-            "plural": false,
+            "plural": true,
             "selections": [
               (v2/*: any*/),
               (v3/*: any*/),

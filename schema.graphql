@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Aug 08 2021 23:46:36 GMT+0700 (Western Indonesia Time)
+# timestamp: Wed Aug 11 2021 02:32:57 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -78,6 +78,7 @@ type Image {
 }
 
 type Mutation {
+  sendTelegramMessage(chatId: String!, message: String!): String
   addIcon(id: String!, url: String!): String
   createProduct(type: ProductTypeEnum!, storeId: String!, categoryId: String!, input: ProductInput!): ActionOnProductPayload
   setProductImage(id: String!, url: String!): String
@@ -101,6 +102,8 @@ type Mutation {
   updateStoreProfilePicture(id: String!): ActionOnStorePayload
   updateStoreBanner(id: String!): ActionOnStorePayload
   updateSpecField(id: String!, type: String!, max: Int, min: Int, options: [String!], isEnum: Boolean, isAutocomplete: Boolean): String
+  updateProductCat: String
+  createSubcategory(parentId: String!, name: String!): String
 }
 
 """Information about pagination in a connection."""
@@ -124,7 +127,7 @@ type Product {
   desc: String
   price: Float
   rentalDuration: Unit
-  category: Category
+  category: [Category]
   merchant: User
   store: Store
   isPublished: Boolean

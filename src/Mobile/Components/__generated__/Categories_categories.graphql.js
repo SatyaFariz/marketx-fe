@@ -14,6 +14,7 @@ declare export opaque type Categories_categories$fragmentType: Categories_catego
 export type Categories_categories = $ReadOnlyArray<{|
   +id: ?string,
   +name: ?string,
+  +level: ?number,
   +icon: ?{|
     +url: ?string
   |},
@@ -53,6 +54,13 @@ const node/*: ReaderFragment*/ = {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "level",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "Image",
       "kind": "LinkedField",
       "name": "icon",
@@ -73,6 +81,6 @@ const node/*: ReaderFragment*/ = {
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = 'ee090b639ff7315e3e4fd7785a131f7f';
+(node/*: any*/).hash = '7983f5cd8c8419f042707b0b4c3bf987';
 
 module.exports = node;

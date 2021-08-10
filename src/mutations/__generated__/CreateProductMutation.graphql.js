@@ -42,10 +42,10 @@ export type CreateProductMutationResponse = {|
         +url: ?string,
         +display: ?number,
       |}>,
-      +category: ?{|
+      +category: ?$ReadOnlyArray<?{|
         +id: ?string,
         +name: ?string,
-      |},
+      |}>,
       +rentalDuration: ?{|
         +display: ?string
       |},
@@ -274,7 +274,7 @@ v13 = {
   "concreteType": "Category",
   "kind": "LinkedField",
   "name": "category",
-  "plural": false,
+  "plural": true,
   "selections": [
     (v6/*: any*/),
     (v7/*: any*/)

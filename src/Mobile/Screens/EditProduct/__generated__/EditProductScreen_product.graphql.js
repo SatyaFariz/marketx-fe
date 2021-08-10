@@ -27,7 +27,7 @@ export type EditProductScreen_product = {|
     |},
     +value: ?string,
   |}>,
-  +category: ?{|
+  +category: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
     +specFields: ?$ReadOnlyArray<?{|
@@ -44,7 +44,7 @@ export type EditProductScreen_product = {|
       +options: ?$ReadOnlyArray<?string>,
       +isEnum: ?boolean,
     |}>,
-  |},
+  |}>,
   +$refType: EditProductScreen_product$ref,
 |};
 export type EditProductScreen_product$data = EditProductScreen_product;
@@ -149,7 +149,7 @@ return {
       "concreteType": "Category",
       "kind": "LinkedField",
       "name": "category",
-      "plural": false,
+      "plural": true,
       "selections": [
         (v0/*: any*/),
         (v1/*: any*/),
