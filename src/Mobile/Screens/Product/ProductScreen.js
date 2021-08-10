@@ -153,13 +153,28 @@ const Component = props => {
           paddingBottom: 20,
         }}>
           <div style={{ paddingLeft: 15, paddingRight: 15 }}>
-            {product.category.map(item => {
-              return (
-                <ButtonBase key={item.id} href={`/category/${item.id}`} component={Link}>
-                  <span>{item.name}</span>
-                </ButtonBase>
-              )
-            })}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+              {product.category.map((item, i) => {
+                return (
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                    {i > 0 &&
+                    <span style={{ margin: '0 10px' }}>{'>'}</span>
+                    }
+                    <ButtonBase key={item.id} href={`/category/${item.id}`} component={Link}>
+                      <span>{item.name}</span>
+                    </ButtonBase>
+                  </div>
+                )
+              })}
+            </div>
             
             <span style={{
               display: 'block',

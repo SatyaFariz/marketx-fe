@@ -295,11 +295,27 @@ const Component = props => {
         <div style={{
           padding: '10px 15px'
         }}>
-          {product.category.map(item => {
+          <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            margin: '10px 0'
+          }}>
+          {product.category.map((item, i) => {
             return (
-              <h3 key={item.id} style={{ margin: '10px 0'}}>{item.name}</h3>
+              <div key={item.id} style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+                {i > 0 &&
+                <h3 style={{ margin: '0 10px'}}>{'>'}</h3>
+                }
+                <h3 style={{ margin: 0 }}>{item.name}</h3>
+              </div>
             )
           })}
+          </div>
           
           <TextField
             variant="outlined"
