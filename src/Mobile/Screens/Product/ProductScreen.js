@@ -10,6 +10,7 @@ import { Button, ButtonBase } from '@material-ui/core'
 import BackButton from '../../Components/BackButton'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
+import VerifiedIcon from '../../Components/VerifiedIcon'
 
 const Component = props => {
   const scrollRef = useRef()
@@ -281,8 +282,17 @@ const Component = props => {
                     }
                   </div>
                   }
-
-                  <span style={{ fontSize: 16, fontWeight: 500 }}>{product.store.name}</span>
+                  
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                  }}>
+                    <span style={{ fontSize: 16, fontWeight: 500 }}>{product.store.name}</span>
+                    {product.store.isVerified &&
+                    <VerifiedIcon/>
+                    }
+                  </div>
                 </div>
               </ButtonBase>
             </div>
@@ -365,6 +375,7 @@ export default createFragmentContainer(Component, {
         name,
         whatsappLink,
         merchantId,
+        isVerified,
         profilePicture {
           id,
           url

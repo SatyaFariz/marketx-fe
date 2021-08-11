@@ -44,6 +44,7 @@ export type ProductScreen_product = {|
     +name: ?string,
     +whatsappLink: ?string,
     +merchantId: ?string,
+    +isVerified: ?boolean,
     +profilePicture: ?{|
       +id: ?string,
       +url: ?string,
@@ -217,6 +218,13 @@ return {
         {
           "alias": null,
           "args": null,
+          "kind": "ScalarField",
+          "name": "isVerified",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "Image",
           "kind": "LinkedField",
           "name": "profilePicture",
@@ -233,6 +241,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '3f2825895a1d242d87010fe53a86b47b';
+(node/*: any*/).hash = '221a5d5bd728c0ba129422b2aee0a668';
 
 module.exports = node;

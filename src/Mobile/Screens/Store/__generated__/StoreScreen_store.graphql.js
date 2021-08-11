@@ -16,6 +16,7 @@ export type StoreScreen_store = {|
   +id: ?string,
   +name: ?string,
   +whatsappNumber: ?string,
+  +isVerified: ?boolean,
   +merchantId: ?string,
   +profilePicture: ?{|
     +id: ?string,
@@ -83,6 +84,13 @@ return {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "isVerified",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "merchantId",
       "storageKey": null
     },
@@ -135,6 +143,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '419dc767c8573f88906d7b8e8a7922b0';
+(node/*: any*/).hash = 'e3195483d8a1b968796808ebccc6b2df';
 
 module.exports = node;

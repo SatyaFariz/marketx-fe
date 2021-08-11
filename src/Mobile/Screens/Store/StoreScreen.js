@@ -11,6 +11,7 @@ import { createPaginationContainer } from 'react-relay'
 import ProductItem from '../../Components/ProductItem'
 import { CircularProgress } from '@material-ui/core'
 import BackButton from '../../Components/BackButton'
+import VerifiedIcon from '../../Components/VerifiedIcon'
 
 const Component = props => {
   const { categories, me, store, products } = props
@@ -155,7 +156,19 @@ const Component = props => {
             }
           </div>
 
-          <h3 style={{ fontSize: 20, marginTop: 10, marginBottom: 5 }}>{store.name}</h3>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginTop: 10, 
+            marginBottom: 5
+          }}>
+            <h3 style={{ fontSize: 20, margin: 0 }}>{store.name}</h3>
+            {store.isVerified &&
+            <VerifiedIcon/>
+            }
+          </div>
+          
           
           <span style={{
             color: 'rgb(83, 100, 113)',
@@ -255,6 +268,7 @@ export default createPaginationContainer(Component, {
       id,
       name,
       whatsappNumber,
+      isVerified,
       merchantId,
       profilePicture {
         id,
