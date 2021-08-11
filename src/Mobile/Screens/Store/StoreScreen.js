@@ -15,8 +15,10 @@ import BackButton from '../../Components/BackButton'
 const Component = props => {
   const { categories, me, store, products } = props
   const { edges } = products.search
-  const { history, queryParams } = useAppContext()
+  const { history, queryParams, pathname } = useAppContext()
+  const { selectCategory } = queryParams
   const [errorLoadingMore, setErrorLoadingMore] = useState(false)
+  const [showCategory, setShowCategory] = useState(selectCategory === '1')
 
   const loadMore = () => {
     const { relay } = props
@@ -36,6 +38,12 @@ const Component = props => {
   const onEndReached = () => !errorLoadingMore && loadMore()
 
   const scrollRef = useBottomScrollListener(onEndReached)
+
+  useEffect(() => {
+    if(pathname.split('/')[1] === 'store') {
+      setShowCategory(selectCategory === '1')
+    }
+  }, [selectCategory, pathname])
 
   if(!store?.address) {
     return (
@@ -216,7 +224,7 @@ const Component = props => {
         top: 0,
         width: '100%',
         height: '100%',
-        display: queryParams.selectCategory === '1' ? undefined : 'none',
+        display: showCategory ? undefined : 'none',
         zIndex: 9999
       }}>
         <SelectCategoryView categories={categories}/>
