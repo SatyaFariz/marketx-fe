@@ -169,12 +169,13 @@ const Component = props => {
             }
           </div>
           
-          
+          {me &&
           <span style={{
             color: 'rgb(83, 100, 113)',
             fontSize: 14,
             display: 'block'
           }}>{store.whatsappNumber}</span>
+          }
 
           <span style={{
             display: 'block',
