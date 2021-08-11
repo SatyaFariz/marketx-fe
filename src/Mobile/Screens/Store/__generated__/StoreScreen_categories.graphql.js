@@ -8,13 +8,13 @@
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
-type SelectTypeAndCategoryView_categories$ref = any;
+type SelectCategoryView_categories$ref = any;
 import type { FragmentReference } from "relay-runtime";
 declare export opaque type StoreScreen_categories$ref: FragmentReference;
 declare export opaque type StoreScreen_categories$fragmentType: StoreScreen_categories$ref;
 export type StoreScreen_categories = $ReadOnlyArray<{|
   +id: ?string,
-  +$fragmentRefs: SelectTypeAndCategoryView_categories$ref,
+  +$fragmentRefs: SelectCategoryView_categories$ref,
   +$refType: StoreScreen_categories$ref,
 |}>;
 export type StoreScreen_categories$data = StoreScreen_categories;
@@ -44,13 +44,13 @@ const node/*: ReaderFragment*/ = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "SelectTypeAndCategoryView_categories"
+      "name": "SelectCategoryView_categories"
     }
   ],
   "type": "Category",
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = 'e1bff59e784f6bf5fe1512c451804cbe';
+(node/*: any*/).hash = 'e94884b3cd3959bb2dbe36622b5438f9';
 
 module.exports = node;

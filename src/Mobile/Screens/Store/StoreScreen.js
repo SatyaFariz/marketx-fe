@@ -5,7 +5,7 @@ import { Add } from '@material-ui/icons'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import graphql from 'babel-plugin-relay/macro'
-import SelectTypeAndCategoryView from '../../Components/SelectTypeAndCategoryView'
+import SelectCategoryView from './SelectCategoryView'
 import { useBottomScrollListener } from 'react-bottom-scroll-listener'
 import { createPaginationContainer } from 'react-relay'
 import ProductItem from '../../Components/ProductItem'
@@ -219,7 +219,7 @@ const Component = props => {
         display: queryParams.selectCategory === '1' ? undefined : 'none',
         zIndex: 9999
       }}>
-        <SelectTypeAndCategoryView categories={categories}/>
+        <SelectCategoryView categories={categories}/>
       </div>
 
       <Fab color="primary" aria-label="add" style={{
@@ -265,7 +265,7 @@ export default createPaginationContainer(Component, {
   categories: graphql`
     fragment StoreScreen_categories on Category @relay(plural: true) {
       id,
-      ...SelectTypeAndCategoryView_categories
+      ...SelectCategoryView_categories
     }
   `,
   products: graphql`

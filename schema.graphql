@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Wed Aug 11 2021 02:32:57 GMT+0700 (Western Indonesia Time)
+# timestamp: Wed Aug 11 2021 13:35:33 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -55,9 +55,11 @@ type Category {
   id: ID
   name: String
   code: String
+  path: String
   level: Int
   isPublished: Boolean
   icon: Image
+  parents: [Category]
   specFields: [SpecificationField]
 }
 
@@ -102,7 +104,7 @@ type Mutation {
   updateStoreProfilePicture(id: String!): ActionOnStorePayload
   updateStoreBanner(id: String!): ActionOnStorePayload
   updateSpecField(id: String!, type: String!, max: Int, min: Int, options: [String!], isEnum: Boolean, isAutocomplete: Boolean): String
-  updateProductCat: String
+  updateProductCat(id: String!, path: String!): String
   createSubcategory(parentId: String!, name: String!): String
 }
 
@@ -173,7 +175,7 @@ type Query {
   mobileNumberExists(mobileNumber: String!): Boolean
   me: User
   attributes: [Attribute]
-  categories: [Category]
+  categories(hasChild: Boolean): [Category]
   category(id: String!): Category
   units: [Unit]
   product(id: String!): Product

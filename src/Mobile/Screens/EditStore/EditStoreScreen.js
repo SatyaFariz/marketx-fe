@@ -239,6 +239,7 @@ const Component = props => {
         justifyContent: 'space-between',
         position: 'absolute',
         top: 0,
+        zIndex: 99,
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
         <BackButton/>

@@ -14,7 +14,7 @@ const chunk = {
         id,
         ...StoreScreen_store
       },
-      categories {
+      categories(hasChild: false) {
         ...StoreScreen_categories
       },
       ...StoreScreen_products @arguments(storeId: $id)

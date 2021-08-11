@@ -48,7 +48,7 @@ query StoreScreenQuery(
     id
     ...StoreScreen_store
   }
-  categories {
+  categories(hasChild: false) {
     ...StoreScreen_categories
     id
   }
@@ -78,14 +78,19 @@ fragment ProductItem_product on Product {
   }
 }
 
-fragment SelectTypeAndCategoryView_categories on Category {
+fragment SelectCategoryView_categories on Category {
   id
   name
+  path
+  parents {
+    id
+    name
+  }
 }
 
 fragment StoreScreen_categories on Category {
   id
-  ...SelectTypeAndCategoryView_categories
+  ...SelectCategoryView_categories
 }
 
 fragment StoreScreen_me on User {
@@ -151,19 +156,26 @@ v2 = [
     "variableName": "id"
   }
 ],
-v3 = {
+v3 = [
+  {
+    "kind": "Literal",
+    "name": "hasChild",
+    "value": false
+  }
+],
+v4 = {
   "kind": "Variable",
   "name": "storeId",
   "variableName": "id"
 },
-v4 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v5 = [
+v6 = [
   (v1/*: any*/),
   {
     "alias": null,
@@ -173,7 +185,7 @@ v5 = [
     "storageKey": null
   }
 ],
-v6 = [
+v7 = [
   {
     "kind": "Literal",
     "name": "first",
@@ -184,7 +196,7 @@ v6 = [
     "name": "q",
     "value": ""
   },
-  (v3/*: any*/)
+  (v4/*: any*/)
 ];
 return {
   "fragment": {
@@ -229,7 +241,7 @@ return {
       },
       {
         "alias": null,
-        "args": null,
+        "args": (v3/*: any*/),
         "concreteType": "Category",
         "kind": "LinkedField",
         "name": "categories",
@@ -241,11 +253,11 @@ return {
             "name": "StoreScreen_categories"
           }
         ],
-        "storageKey": null
+        "storageKey": "categories(hasChild:false)"
       },
       {
         "args": [
-          (v3/*: any*/)
+          (v4/*: any*/)
         ],
         "kind": "FragmentSpread",
         "name": "StoreScreen_products"
@@ -281,7 +293,7 @@ return {
         "plural": false,
         "selections": [
           (v1/*: any*/),
-          (v4/*: any*/),
+          (v5/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -303,7 +315,7 @@ return {
             "kind": "LinkedField",
             "name": "profilePicture",
             "plural": false,
-            "selections": (v5/*: any*/),
+            "selections": (v6/*: any*/),
             "storageKey": null
           },
           {
@@ -313,7 +325,7 @@ return {
             "kind": "LinkedField",
             "name": "banner",
             "plural": false,
-            "selections": (v5/*: any*/),
+            "selections": (v6/*: any*/),
             "storageKey": null
           },
           {
@@ -353,20 +365,40 @@ return {
       },
       {
         "alias": null,
-        "args": null,
+        "args": (v3/*: any*/),
         "concreteType": "Category",
         "kind": "LinkedField",
         "name": "categories",
         "plural": true,
         "selections": [
           (v1/*: any*/),
-          (v4/*: any*/)
+          (v5/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "path",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Category",
+            "kind": "LinkedField",
+            "name": "parents",
+            "plural": true,
+            "selections": [
+              (v1/*: any*/),
+              (v5/*: any*/)
+            ],
+            "storageKey": null
+          }
         ],
-        "storageKey": null
+        "storageKey": "categories(hasChild:false)"
       },
       {
         "alias": null,
-        "args": (v6/*: any*/),
+        "args": (v7/*: any*/),
         "concreteType": "ProductConnection",
         "kind": "LinkedField",
         "name": "search",
@@ -396,7 +428,7 @@ return {
                 "plural": false,
                 "selections": [
                   (v1/*: any*/),
-                  (v4/*: any*/),
+                  (v5/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -411,7 +443,7 @@ return {
                     "kind": "LinkedField",
                     "name": "mainImage",
                     "plural": false,
-                    "selections": (v5/*: any*/),
+                    "selections": (v6/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -476,7 +508,7 @@ return {
       },
       {
         "alias": null,
-        "args": (v6/*: any*/),
+        "args": (v7/*: any*/),
         "filters": [],
         "handle": "connection",
         "key": "StoreScreen_search",
@@ -486,16 +518,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "663eae0088a082938198d8598ddf3254",
+    "cacheID": "d83a2071daff633d6dbac66da53fdf92",
     "id": null,
     "metadata": {},
     "name": "StoreScreenQuery",
     "operationKind": "query",
-    "text": "query StoreScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    ...StoreScreen_me\n  }\n  store(id: $id) {\n    id\n    ...StoreScreen_store\n  }\n  categories {\n    ...StoreScreen_categories\n    id\n  }\n  ...StoreScreen_products_9b7sY\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment SelectTypeAndCategoryView_categories on Category {\n  id\n  name\n}\n\nfragment StoreScreen_categories on Category {\n  id\n  ...SelectTypeAndCategoryView_categories\n}\n\nfragment StoreScreen_me on User {\n  id\n}\n\nfragment StoreScreen_products_9b7sY on Query {\n  search(first: 10, q: \"\", storeId: $id) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  merchantId\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n  }\n  ...EditAddressView_store\n}\n"
+    "text": "query StoreScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    ...StoreScreen_me\n  }\n  store(id: $id) {\n    id\n    ...StoreScreen_store\n  }\n  categories(hasChild: false) {\n    ...StoreScreen_categories\n    id\n  }\n  ...StoreScreen_products_9b7sY\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment SelectCategoryView_categories on Category {\n  id\n  name\n  path\n  parents {\n    id\n    name\n  }\n}\n\nfragment StoreScreen_categories on Category {\n  id\n  ...SelectCategoryView_categories\n}\n\nfragment StoreScreen_me on User {\n  id\n}\n\nfragment StoreScreen_products_9b7sY on Query {\n  search(first: 10, q: \"\", storeId: $id) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  merchantId\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n  }\n  ...EditAddressView_store\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '7234b57bb10ec49454d9e06d36128c50';
+(node/*: any*/).hash = '2992bda6d9e70b10df578c33df68e616';
 
 module.exports = node;
