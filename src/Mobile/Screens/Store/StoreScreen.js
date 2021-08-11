@@ -243,7 +243,7 @@ const Component = props => {
       }}>
         <SelectCategoryView categories={categories}/>
       </div>
-
+      {store.merchantId === me?.id &&
       <Fab color="primary" aria-label="add" style={{
         zIndex: 99,
         position: 'absolute',
@@ -254,6 +254,7 @@ const Component = props => {
       >
         <Add />
       </Fab>
+      }
     </div>
   )
 }
