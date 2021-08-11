@@ -14,6 +14,7 @@ declare export opaque type ExploreTab_me$fragmentType: ExploreTab_me$ref;
 export type ExploreTab_me = {|
   +id: ?string,
   +name: ?string,
+  +isAdmin: ?boolean,
   +profilePicture: ?{|
     +id: ?string,
     +url: ?string,
@@ -57,6 +58,13 @@ return {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "isAdmin",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "Image",
       "kind": "LinkedField",
       "name": "profilePicture",
@@ -91,6 +99,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'b08bfb18d5a9d582d0e76597ff18c9f0';
+(node/*: any*/).hash = 'a1f3aca045931567e0a4722c23dad86e';
 
 module.exports = node;

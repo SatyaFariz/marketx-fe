@@ -24,6 +24,7 @@ const Component = props => {
           width: '80vw',
           backgroundColor: 'white'
         }}>
+        
           <div style={{
             display: 'flex',
             flexDirection: 'row',
@@ -40,38 +41,25 @@ const Component = props => {
               }}
             />
           </div>
-          {me ?
-            <ButtonBase href="/profile" component={Link} style={{
-              display: 'flex'
-            }}>
-              <div style={{
-                padding: 15,
-                borderBottom: `1px solid ${DIVIDER_COLOR}`,
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                width: '100%'
+          {!me?.isAdmin ?
+          <>
+            {me ?
+              <ButtonBase href="/profile" component={Link} style={{
+                display: 'flex'
               }}>
-                {me.profilePicture ?
-                
                 <div style={{
-                  height: 24,
-                  width: 24,
-                  borderRadius: '50%',
+                  padding: 15,
+                  borderBottom: `1px solid ${DIVIDER_COLOR}`,
                   display: 'flex',
-                  justifyContent: 'center',
+                  flexDirection: 'row',
                   alignItems: 'center',
-                  backgroundSize: 'cover',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'center center',
-                  backgroundImage: `url("${me.profilePicture.url}")`
-                }}
-                />
-                  :
-                <div style={{
+                  width: '100%'
+                }}>
+                  {me.profilePicture ?
+                  
+                  <div style={{
                     height: 24,
                     width: 24,
-                    backgroundColor: '#f1f1f1',
                     borderRadius: '50%',
                     display: 'flex',
                     justifyContent: 'center',
@@ -79,16 +67,92 @@ const Component = props => {
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center center',
+                    backgroundImage: `url("${me.profilePicture.url}")`
                   }}
-                >
-                <IoPersonOutline size={18} color="black"/>
+                  />
+                    :
+                  <div style={{
+                      height: 24,
+                      width: 24,
+                      backgroundColor: '#f1f1f1',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundSize: 'cover',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundPosition: 'center center',
+                    }}
+                  >
+                  <IoPersonOutline size={18} color="black"/>
+                  </div>
+                  }
+                  <span style={{ marginLeft: 15 }}>{me.name}</span>
                 </div>
-                }
-                <span style={{ marginLeft: 15 }}>{me.name}</span>
-              </div>
-            </ButtonBase>
-            :
-            <ButtonBase href="/login" component={Link} style={{
+              </ButtonBase>
+              :
+              <ButtonBase href="/login" component={Link} style={{
+                display: 'flex'
+              }}>
+                <div style={{
+                  padding: 15,
+                  borderBottom: `1px solid ${DIVIDER_COLOR}`,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  width: '100%'
+                }}>
+                  <BiLogIn size={24}/>
+                  <span style={{ marginLeft: 15 }}>Log in / Register</span>
+                </div>
+              </ButtonBase>
+            }
+            
+            <div style={{
+              padding: 15,
+              borderBottom: `1px solid ${DIVIDER_COLOR}`,
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center'
+            }}>
+              <IoPeople size={24}/>
+              <span style={{ marginLeft: 15 }}>About Us</span>
+            </div>
+            <div style={{
+              padding: 15,
+              borderBottom: `1px solid ${DIVIDER_COLOR}`,
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center'
+            }}>
+              <IoDocumentText size={24}/>
+              <span style={{ marginLeft: 15 }}>Terms of Service</span>
+            </div>
+
+            <div style={{
+              padding: 15,
+              borderBottom: `1px solid ${DIVIDER_COLOR}`,
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center'
+            }}>
+              <IoShieldCheckmark size={24}/>
+              <span style={{ marginLeft: 15 }}>Privacy Policy</span>
+            </div>
+
+            <div style={{
+              padding: 15,
+              borderBottom: `1px solid ${DIVIDER_COLOR}`,
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center'
+            }}>
+              <IoHelpCircle size={24}/>
+              <span style={{ marginLeft: 15 }}>Frequently Asked Questions</span>
+            </div>
+            
+            {me &&
+            <ButtonBase href={me.store ? `/store/${me.store.id}` : '/new/store'} component={Link} style={{
               display: 'flex'
             }}>
               <div style={{
@@ -99,71 +163,29 @@ const Component = props => {
                 alignItems: 'center',
                 width: '100%'
               }}>
-                <BiLogIn size={24}/>
-                <span style={{ marginLeft: 15 }}>Log in / Register</span>
+                <IoStorefront size={24}/>
+                <span style={{ marginLeft: 15 }}>{me.store ? 'My Store' : 'Become a Merchant'}</span>
               </div>
             </ButtonBase>
-          }
-          
-          <div style={{
-            padding: 15,
-            borderBottom: `1px solid ${DIVIDER_COLOR}`,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center'
-          }}>
-            <IoPeople size={24}/>
-            <span style={{ marginLeft: 15 }}>About Us</span>
-          </div>
-          <div style={{
-            padding: 15,
-            borderBottom: `1px solid ${DIVIDER_COLOR}`,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center'
-          }}>
-            <IoDocumentText size={24}/>
-            <span style={{ marginLeft: 15 }}>Terms of Service</span>
-          </div>
-
-          <div style={{
-            padding: 15,
-            borderBottom: `1px solid ${DIVIDER_COLOR}`,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center'
-          }}>
-            <IoShieldCheckmark size={24}/>
-            <span style={{ marginLeft: 15 }}>Privacy Policy</span>
-          </div>
-
-          <div style={{
-            padding: 15,
-            borderBottom: `1px solid ${DIVIDER_COLOR}`,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center'
-          }}>
-            <IoHelpCircle size={24}/>
-            <span style={{ marginLeft: 15 }}>Frequently Asked Questions</span>
-          </div>
-          
-          {me &&
-          <ButtonBase href={me.store ? `/store/${me.store.id}` : '/new/store'} component={Link} style={{
-            display: 'flex'
-          }}>
-            <div style={{
-              padding: 15,
-              borderBottom: `1px solid ${DIVIDER_COLOR}`,
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              width: '100%'
+            }
+          </>
+          :
+          <>
+            <ButtonBase href="/featured" component={Link} style={{
+              display: 'flex'
             }}>
-              <IoStorefront size={24}/>
-              <span style={{ marginLeft: 15 }}>{me.store ? 'My Store' : 'Become a Merchant'}</span>
-            </div>
-          </ButtonBase>
+              <div style={{
+                padding: 15,
+                borderBottom: `1px solid ${DIVIDER_COLOR}`,
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                width: '100%'
+              }}>
+                <span>Featured</span>
+              </div>
+            </ButtonBase>
+          </>
           }
         </div>
       </Drawer>
@@ -239,6 +261,7 @@ export default createFragmentContainer(Component, {
     fragment ExploreTab_me on User {
       id,
       name,
+      isAdmin,
       profilePicture {
         id,
         url

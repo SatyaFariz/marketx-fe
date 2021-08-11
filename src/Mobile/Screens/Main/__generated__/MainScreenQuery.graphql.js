@@ -66,6 +66,7 @@ fragment ExploreTab_featuredProducts on Product {
 fragment ExploreTab_me on User {
   id
   name
+  isAdmin
   profilePicture {
     id
     url
@@ -170,6 +171,13 @@ return {
         "selections": [
           (v0/*: any*/),
           (v1/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isAdmin",
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": null,
@@ -287,12 +295,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ad0fb530ac6e636959f0bdd38c2e7496",
+    "cacheID": "60fbb7ae0103f17c6677fb9b28af4557",
     "id": null,
     "metadata": {},
     "name": "MainScreenQuery",
     "operationKind": "query",
-    "text": "query MainScreenQuery {\n  ...MainScreen_data\n}\n\nfragment AccountTab_me on User {\n  id\n  name\n  mobileNumber\n  profilePicture {\n    url\n    id\n  }\n  store {\n    id\n  }\n}\n\nfragment BottomNav_me on User {\n  id\n  name\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  level\n  icon {\n    url\n    id\n  }\n}\n\nfragment ExploreTab_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment ExploreTab_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment ExploreTab_me on User {\n  id\n  name\n  profilePicture {\n    id\n    url\n  }\n  store {\n    id\n  }\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  ...ProductItem_product\n}\n\nfragment MainScreen_data on Query {\n  me {\n    id\n    ...BottomNav_me\n    ...ExploreTab_me\n    ...AccountTab_me\n  }\n  categories {\n    id\n    ...ExploreTab_categories\n  }\n  featuredProducts {\n    id\n    ...ExploreTab_featuredProducts\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n"
+    "text": "query MainScreenQuery {\n  ...MainScreen_data\n}\n\nfragment AccountTab_me on User {\n  id\n  name\n  mobileNumber\n  profilePicture {\n    url\n    id\n  }\n  store {\n    id\n  }\n}\n\nfragment BottomNav_me on User {\n  id\n  name\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  level\n  icon {\n    url\n    id\n  }\n}\n\nfragment ExploreTab_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment ExploreTab_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment ExploreTab_me on User {\n  id\n  name\n  isAdmin\n  profilePicture {\n    id\n    url\n  }\n  store {\n    id\n  }\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  ...ProductItem_product\n}\n\nfragment MainScreen_data on Query {\n  me {\n    id\n    ...BottomNav_me\n    ...ExploreTab_me\n    ...AccountTab_me\n  }\n  categories {\n    id\n    ...ExploreTab_categories\n  }\n  featuredProducts {\n    id\n    ...ExploreTab_featuredProducts\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n"
   }
 };
 })();
