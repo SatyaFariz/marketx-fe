@@ -47,6 +47,11 @@ query CreateProductScreenQuery(
 fragment CreateProductScreen_category on Category {
   id
   name
+  path
+  parents {
+    id
+    name
+  }
   specFields {
     id
     attribute {
@@ -99,7 +104,11 @@ v3 = {
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
-};
+},
+v4 = [
+  (v2/*: any*/),
+  (v3/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -164,6 +173,23 @@ return {
           {
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
+            "name": "path",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Category",
+            "kind": "LinkedField",
+            "name": "parents",
+            "plural": true,
+            "selections": (v4/*: any*/),
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "SpecificationField",
             "kind": "LinkedField",
             "name": "specFields",
@@ -177,10 +203,7 @@ return {
                 "kind": "LinkedField",
                 "name": "attribute",
                 "plural": false,
-                "selections": [
-                  (v2/*: any*/),
-                  (v3/*: any*/)
-                ],
+                "selections": (v4/*: any*/),
                 "storageKey": null
               },
               {
@@ -265,12 +288,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c6e78045ad2727c3794074cd3be41c50",
+    "cacheID": "89481ad56bae2b5666bf050660f3289e",
     "id": null,
     "metadata": {},
     "name": "CreateProductScreenQuery",
     "operationKind": "query",
-    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n  }\n}\n"
+    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  parents {\n    id\n    name\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n  }\n}\n"
   }
 };
 })();

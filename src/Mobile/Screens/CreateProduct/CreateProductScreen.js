@@ -319,7 +319,28 @@ const Component = props => {
         <div style={{
           padding: '10px 15px'
         }}>
-          <h3 style={{ margin: '10px 0'}}>{category.name}</h3>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            margin: '10px 0'
+          }}>
+          {[...category.parents, category].map((item, i) => {
+            return (
+              <div key={item.id} style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+                {i > 0 &&
+                <h3 style={{ margin: '0 10px'}}>{'>'}</h3>
+                }
+                <h3 style={{ margin: 0 }}>{item.name}</h3>
+              </div>
+            )
+          })}
+          </div>
+
           <TextField
             variant="outlined"
             label="Product Name"
@@ -522,6 +543,11 @@ export default createFragmentContainer(Component, {
     fragment CreateProductScreen_category on Category {
       id,
       name,
+      path,
+      parents {
+        id,
+        name
+      },
       specFields {
         id,
         attribute {

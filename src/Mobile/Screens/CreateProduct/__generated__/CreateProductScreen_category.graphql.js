@@ -14,6 +14,11 @@ declare export opaque type CreateProductScreen_category$fragmentType: CreateProd
 export type CreateProductScreen_category = {|
   +id: ?string,
   +name: ?string,
+  +path: ?string,
+  +parents: ?$ReadOnlyArray<?{|
+    +id: ?string,
+    +name: ?string,
+  |}>,
   +specFields: ?$ReadOnlyArray<?{|
     +id: ?string,
     +attribute: ?{|
@@ -53,7 +58,11 @@ v1 = {
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
-};
+},
+v2 = [
+  (v0/*: any*/),
+  (v1/*: any*/)
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -62,6 +71,23 @@ return {
   "selections": [
     (v0/*: any*/),
     (v1/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "path",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Category",
+      "kind": "LinkedField",
+      "name": "parents",
+      "plural": true,
+      "selections": (v2/*: any*/),
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -78,10 +104,7 @@ return {
           "kind": "LinkedField",
           "name": "attribute",
           "plural": false,
-          "selections": [
-            (v0/*: any*/),
-            (v1/*: any*/)
-          ],
+          "selections": (v2/*: any*/),
           "storageKey": null
         },
         {
@@ -142,6 +165,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '639591f29cd5e58f38147c50b9a0f93b';
+(node/*: any*/).hash = '9750f0bb40f742006525ad2d704ae969';
 
 module.exports = node;
