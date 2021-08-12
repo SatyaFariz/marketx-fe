@@ -14,9 +14,9 @@ import VerifiedIcon from '../../Components/VerifiedIcon'
 
 const Component = props => {
   const scrollRef = useRef()
+  const headerRef = useRef()
   const { history } = useAppContext()
   const { product, me } = props
-  const [showHeader, setShowHeader] = useState(false)
   const [carouselPos, setCarouselPos] = useState(0)
 
   const handleCarouselChange = (value) => {
@@ -35,7 +35,11 @@ const Component = props => {
   useEffect(() => {
     scrollRef.current.onscroll = () => {
       const pageYOffset = scrollRef.current.scrollTop
-      setShowHeader(pageYOffset > window.innerWidth)
+      if(pageYOffset > window.innerWidth) {
+        headerRef.current.style.display = 'flex'
+      } else {
+        headerRef.current.style.display = 'none'
+      }
     }
   }, [])
   return (
@@ -58,7 +62,9 @@ const Component = props => {
         <BackButton color="white"/>
       </div>
 
-      <div style={{
+      <div 
+      ref={headerRef}
+      style={{
         height: HEADER_HEIGHT,
         position: 'absolute',
         width: '100%',
@@ -66,7 +72,7 @@ const Component = props => {
         alignItems: 'center',
         flexDirection: 'row',
         zIndex: 3,
-        display: showHeader ? 'flex' : 'none',
+        display: 'none',
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
         <BackButton/>

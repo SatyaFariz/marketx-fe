@@ -45,7 +45,7 @@ const Component = props => {
   const { category, me } = props
   const _isMounted = useRef(true)
   const scrollRef = useRef()
-  const [showHeader, setShowHeader] = useState(false)
+  const headerRef = useRef()
   const { history, environment, pathname } = useAppContext()
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
@@ -173,7 +173,11 @@ const Component = props => {
   useEffect(() => {
     scrollRef.current.onscroll = () => {
       const pageYOffset = scrollRef.current.scrollTop
-      setShowHeader(pageYOffset > window.innerWidth)
+      if(pageYOffset > window.innerWidth) {
+        headerRef.current.style.display = 'flex'
+      } else {
+        headerRef.current.style.display = 'none'
+      }
     }
 
     return () => _isMounted.current = false
@@ -194,7 +198,9 @@ const Component = props => {
         <BackButton color="white"/>
       </div>
 
-      <div style={{
+      <div 
+      ref={headerRef} 
+      style={{
         height: HEADER_HEIGHT,
         position: 'absolute',
         width: '100%',
@@ -202,7 +208,7 @@ const Component = props => {
         alignItems: 'center',
         flexDirection: 'row',
         zIndex: 3,
-        display: showHeader ? 'flex' : 'none',
+        display: 'none',
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
         <div 
