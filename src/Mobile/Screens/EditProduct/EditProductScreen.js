@@ -566,6 +566,12 @@ const Component = props => {
                 >
                   <ListItemText primary={product.isPublished ? 'Unpublish' : "Publish"}/>
                 </ListItem>
+                <ListItem
+                  button
+                  onClick={() => {}}
+                >
+                  <ListItemText primary="Delete"/>
+                </ListItem>
               </List>
             </div>
           </Sheet.Content>
