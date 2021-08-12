@@ -4,7 +4,7 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import { Button, TextField, InputAdornment, MenuItem } from '@material-ui/core'
+import { Button, TextField, InputAdornment, MenuItem, IconButton, List, ListItem, ListItemText } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
@@ -12,6 +12,9 @@ import Validator from '../../../helpers/validator'
 import UpdateProduct from '../../../mutations/UpdateProduct'
 import BackButton from '../../Components/BackButton'
 import cleanNonNumericChars from '../../../helpers/cleanNonNumericChars'
+import { IoEllipsisVertical } from 'react-icons/io5'
+import Sheet from 'react-modal-sheet'
+import Link from '../../Components/Link'
 
 const Component = props => {
   const { product } = props
@@ -29,6 +32,7 @@ const Component = props => {
   const [carouselPos, setCarouselPos] = useState(0)
   const [validation, setValidation] = useState({ isValid: false })
   const [loading, setLoading] = useState(false)
+  const [showBottomSheet, setShowBottomSheet] = useState(false)
 
   const handleCarouselChange = (value) => {
     if(!isNaN(value))
@@ -179,11 +183,22 @@ const Component = props => {
         width: '100%',
         backgroundImage: 'linear-gradient(rgb(76, 76, 76), transparent)',
         display: 'flex',
+        justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
         zIndex: 2
       }}>
         <BackButton color="white"/>
+
+        <IconButton 
+          onClick={() => setShowBottomSheet(true)}
+          style={{
+            zIndex: 2,
+            marginRight: 5
+          }}
+        >
+          <IoEllipsisVertical size={24} color="white"/>
+        </IconButton>
       </div>
 
       <div 
@@ -193,6 +208,7 @@ const Component = props => {
         position: 'absolute',
         width: '100%',
         backgroundColor: 'white',
+        justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
         zIndex: 3,
@@ -200,6 +216,15 @@ const Component = props => {
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
         <BackButton/>
+        <IconButton 
+          onClick={() => setShowBottomSheet(true)}
+          style={{
+            zIndex: 2,
+            marginRight: 5
+          }}
+        >
+          <IoEllipsisVertical size={24} color="black"/>
+        </IconButton>
         <div style={{
           position: 'absolute',
           height: '100%',
@@ -282,20 +307,7 @@ const Component = props => {
             })}
           </div>
           }
-          <Button
-            disableElevation
-            variant="contained"
-            style={{
-              backgroundColor: 'white',
-              margin: 15,
-              position: 'absolute',
-              right: 0,
-              bottom: 0
-            }}
-            onClick={() => history.push(`/edit/photos/${product.id}`)}
-          >
-            Edit Photos
-          </Button>
+         
         </div>
 
         <div style={{
@@ -525,6 +537,39 @@ const Component = props => {
           </Button>
         </div>
       </div>
+
+      <Sheet 
+        snapPoints={[200]}
+        isOpen={showBottomSheet} 
+        onClose={() => setShowBottomSheet(false)}
+        disableDrag
+      >
+        <Sheet.Container style={{
+          borderRadius: 0
+        }}>
+          {/* <Sheet.Header /> */}
+          <Sheet.Content>
+            <div style={{
+              height: '100%'
+            }}>
+              <List>
+                <ListItem
+                  button
+                  component={Link}
+                  href={`/edit/photos/${product.id}`}
+                >
+                  <ListItemText primary="Edit photos"/>
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Publish"/>
+                </ListItem>
+              </List>
+            </div>
+          </Sheet.Content>
+        </Sheet.Container>
+
+        <Sheet.Backdrop onTap={() => setShowBottomSheet(false)}/>
+      </Sheet>
     </div>
   )
 }
