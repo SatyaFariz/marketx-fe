@@ -165,7 +165,7 @@ const Component = props => {
 
   useEffect(() => {
     scrollRef.current.onscroll = () => {
-      const pageYOffset = scrollRef.current.scrollTop
+      const pageYOffset = scrollRef.current?.scrollTop
       if(pageYOffset > window.innerWidth) {
         headerRef.current.style.display = 'flex'
       } else {
