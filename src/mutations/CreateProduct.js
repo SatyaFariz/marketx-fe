@@ -13,6 +13,7 @@ const mutation = graphql`
         name,
         desc,
         price,
+        isPublished,
         images {
           id,
           url,

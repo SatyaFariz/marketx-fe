@@ -13,6 +13,7 @@ export type ProductInput = {|
   name: string,
   desc: string,
   price: number,
+  isPublished: boolean,
   specs: $ReadOnlyArray<SpecificationInput>,
   rentalDurationId?: ?string,
 |};
@@ -37,6 +38,7 @@ export type CreateProductMutationResponse = {|
       +name: ?string,
       +desc: ?string,
       +price: ?number,
+      +isPublished: ?boolean,
       +images: ?$ReadOnlyArray<?{|
         +id: ?string,
         +url: ?string,
@@ -101,6 +103,7 @@ mutation CreateProductMutation(
       name
       desc
       price
+      isPublished
       images {
         id
         url
@@ -244,17 +247,24 @@ v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "url",
+  "name": "isPublished",
   "storageKey": null
 },
 v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "display",
+  "name": "url",
   "storageKey": null
 },
 v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "display",
+  "storageKey": null
+},
+v13 = {
   "alias": null,
   "args": null,
   "concreteType": "Image",
@@ -263,12 +273,12 @@ v12 = {
   "plural": true,
   "selections": [
     (v6/*: any*/),
-    (v10/*: any*/),
-    (v11/*: any*/)
+    (v11/*: any*/),
+    (v12/*: any*/)
   ],
   "storageKey": null
 },
-v13 = {
+v14 = {
   "alias": null,
   "args": null,
   "concreteType": "Category",
@@ -281,11 +291,11 @@ v13 = {
   ],
   "storageKey": null
 },
-v14 = [
+v15 = [
   (v6/*: any*/),
-  (v10/*: any*/)
+  (v11/*: any*/)
 ],
-v15 = {
+v16 = {
   "alias": null,
   "args": null,
   "concreteType": "Specification",
@@ -311,7 +321,7 @@ v15 = {
           "kind": "LinkedField",
           "name": "icon",
           "plural": false,
-          "selections": (v14/*: any*/),
+          "selections": (v15/*: any*/),
           "storageKey": null
         }
       ],
@@ -327,7 +337,7 @@ v15 = {
   ],
   "storageKey": null
 },
-v16 = {
+v17 = {
   "alias": null,
   "args": null,
   "concreteType": "User",
@@ -344,13 +354,13 @@ v16 = {
       "kind": "LinkedField",
       "name": "profilePicture",
       "plural": false,
-      "selections": (v14/*: any*/),
+      "selections": (v15/*: any*/),
       "storageKey": null
     }
   ],
   "storageKey": null
 },
-v17 = {
+v18 = {
   "alias": null,
   "args": null,
   "concreteType": "Store",
@@ -403,8 +413,9 @@ return {
               (v7/*: any*/),
               (v8/*: any*/),
               (v9/*: any*/),
-              (v12/*: any*/),
+              (v10/*: any*/),
               (v13/*: any*/),
+              (v14/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -413,13 +424,13 @@ return {
                 "name": "rentalDuration",
                 "plural": false,
                 "selections": [
-                  (v11/*: any*/)
+                  (v12/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v15/*: any*/),
               (v16/*: any*/),
-              (v17/*: any*/)
+              (v17/*: any*/),
+              (v18/*: any*/)
             ],
             "storageKey": null
           }
@@ -462,8 +473,9 @@ return {
               (v7/*: any*/),
               (v8/*: any*/),
               (v9/*: any*/),
-              (v12/*: any*/),
+              (v10/*: any*/),
               (v13/*: any*/),
+              (v14/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -472,14 +484,14 @@ return {
                 "name": "rentalDuration",
                 "plural": false,
                 "selections": [
-                  (v11/*: any*/),
+                  (v12/*: any*/),
                   (v6/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v15/*: any*/),
               (v16/*: any*/),
-              (v17/*: any*/)
+              (v17/*: any*/),
+              (v18/*: any*/)
             ],
             "storageKey": null
           }
@@ -489,16 +501,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2a78a36bba15a26c735241eb14142c3d",
+    "cacheID": "1c7b9ca98d4503c29837ceecf10896c0",
     "id": null,
     "metadata": {},
     "name": "CreateProductMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateProductMutation(\n  $storeId: String!\n  $type: ProductTypeEnum!\n  $categoryId: String!\n  $input: ProductInput!\n) {\n  createProduct(storeId: $storeId, type: $type, categoryId: $categoryId, input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      name\n      desc\n      price\n      images {\n        id\n        url\n        display\n      }\n      category {\n        id\n        name\n      }\n      rentalDuration {\n        display\n        id\n      }\n      specs {\n        id\n        attribute {\n          id\n          name\n          icon {\n            id\n            url\n          }\n        }\n        value\n      }\n      merchant {\n        id\n        name\n        profilePicture {\n          id\n          url\n        }\n      }\n      store {\n        id\n        name\n        whatsappLink\n      }\n    }\n  }\n}\n"
+    "text": "mutation CreateProductMutation(\n  $storeId: String!\n  $type: ProductTypeEnum!\n  $categoryId: String!\n  $input: ProductInput!\n) {\n  createProduct(storeId: $storeId, type: $type, categoryId: $categoryId, input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      name\n      desc\n      price\n      isPublished\n      images {\n        id\n        url\n        display\n      }\n      category {\n        id\n        name\n      }\n      rentalDuration {\n        display\n        id\n      }\n      specs {\n        id\n        attribute {\n          id\n          name\n          icon {\n            id\n            url\n          }\n        }\n        value\n      }\n      merchant {\n        id\n        name\n        profilePicture {\n          id\n          url\n        }\n      }\n      store {\n        id\n        name\n        whatsappLink\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '92bbe6980d180b6103eaeea5e1093ab7';
+(node/*: any*/).hash = '63820f9100b555aeea080ddc0a57c274';
 
 module.exports = node;

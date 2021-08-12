@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Wed Aug 11 2021 18:39:19 GMT+0700 (Western Indonesia Time)
+# timestamp: Fri Aug 13 2021 02:02:52 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -161,6 +161,7 @@ input ProductInput {
   name: String!
   desc: String!
   price: Float!
+  isPublished: Boolean!
   specs: [SpecificationInput!]!
   rentalDurationId: String
 }

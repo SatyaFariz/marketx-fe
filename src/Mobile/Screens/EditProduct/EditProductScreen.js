@@ -111,8 +111,8 @@ const Component = props => {
     return validation.isValid
   }
 
-  const save = () => {
-    if(isValid() && !isClean() && !loading) {
+  const save = (isPublished) => {
+    if(isValid() && (!isClean() || isPublished !== product.isPublished) && !loading) {
       const productSpecs = []
       for(let key in specs) {
         productSpecs.push({
@@ -125,6 +125,7 @@ const Component = props => {
         name,
         price: parseFloat(price),
         desc,
+        isPublished,
         specs: productSpecs
       }
 
@@ -531,9 +532,9 @@ const Component = props => {
               fontTransform: 'none',
               marginTop: 10
             }}
-            onClick={save}
+            onClick={!product.isPublished ? () => save(true) : () => save(product.isPublished)}
           >
-            Save
+            {!product.isPublished ? 'Publish' : 'Save'}
           </Button>
         </div>
       </div>
@@ -547,7 +548,6 @@ const Component = props => {
         <Sheet.Container style={{
           borderRadius: 0
         }}>
-          {/* <Sheet.Header /> */}
           <Sheet.Content>
             <div style={{
               height: '100%'
@@ -560,8 +560,11 @@ const Component = props => {
                 >
                   <ListItemText primary="Edit photos"/>
                 </ListItem>
-                <ListItem>
-                  <ListItemText primary="Publish"/>
+                <ListItem
+                  button
+                  onClick={() => save(!product.isPublished)}
+                >
+                  <ListItemText primary={product.isPublished ? 'Unpublish' : "Publish"}/>
                 </ListItem>
               </List>
             </div>
@@ -581,6 +584,7 @@ export default createFragmentContainer(Component, {
       name,
       price,
       desc,
+      isPublished,
       images {
         id,
         url

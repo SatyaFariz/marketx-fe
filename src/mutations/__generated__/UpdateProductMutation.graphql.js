@@ -12,6 +12,7 @@ export type ProductInput = {|
   name: string,
   desc: string,
   price: number,
+  isPublished: boolean,
   specs: $ReadOnlyArray<SpecificationInput>,
   rentalDurationId?: ?string,
 |};
@@ -34,6 +35,7 @@ export type UpdateProductMutationResponse = {|
       +name: ?string,
       +desc: ?string,
       +price: ?number,
+      +isPublished: ?boolean,
       +images: ?$ReadOnlyArray<?{|
         +id: ?string,
         +url: ?string,
@@ -95,6 +97,7 @@ mutation UpdateProductMutation(
       name
       desc
       price
+      isPublished
       images {
         id
         url
@@ -215,7 +218,14 @@ v6 = {
   "name": "price",
   "storageKey": null
 },
-v7 = [
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "isPublished",
+  "storageKey": null
+},
+v8 = [
   (v3/*: any*/),
   {
     "alias": null,
@@ -225,17 +235,17 @@ v7 = [
     "storageKey": null
   }
 ],
-v8 = {
+v9 = {
   "alias": null,
   "args": null,
   "concreteType": "Image",
   "kind": "LinkedField",
   "name": "images",
   "plural": true,
-  "selections": (v7/*: any*/),
+  "selections": (v8/*: any*/),
   "storageKey": null
 },
-v9 = {
+v10 = {
   "alias": null,
   "args": null,
   "concreteType": "Category",
@@ -248,14 +258,14 @@ v9 = {
   ],
   "storageKey": null
 },
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "display",
   "storageKey": null
 },
-v11 = {
+v12 = {
   "alias": null,
   "args": null,
   "concreteType": "Specification",
@@ -281,7 +291,7 @@ v11 = {
           "kind": "LinkedField",
           "name": "icon",
           "plural": false,
-          "selections": (v7/*: any*/),
+          "selections": (v8/*: any*/),
           "storageKey": null
         }
       ],
@@ -297,7 +307,7 @@ v11 = {
   ],
   "storageKey": null
 },
-v12 = {
+v13 = {
   "alias": null,
   "args": null,
   "concreteType": "User",
@@ -314,13 +324,13 @@ v12 = {
       "kind": "LinkedField",
       "name": "profilePicture",
       "plural": false,
-      "selections": (v7/*: any*/),
+      "selections": (v8/*: any*/),
       "storageKey": null
     }
   ],
   "storageKey": null
 },
-v13 = {
+v14 = {
   "alias": null,
   "args": null,
   "concreteType": "Store",
@@ -368,8 +378,9 @@ return {
               (v4/*: any*/),
               (v5/*: any*/),
               (v6/*: any*/),
-              (v8/*: any*/),
+              (v7/*: any*/),
               (v9/*: any*/),
+              (v10/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -378,13 +389,13 @@ return {
                 "name": "rentalDuration",
                 "plural": false,
                 "selections": [
-                  (v10/*: any*/)
+                  (v11/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v11/*: any*/),
               (v12/*: any*/),
-              (v13/*: any*/)
+              (v13/*: any*/),
+              (v14/*: any*/)
             ],
             "storageKey": null
           }
@@ -422,8 +433,9 @@ return {
               (v4/*: any*/),
               (v5/*: any*/),
               (v6/*: any*/),
-              (v8/*: any*/),
+              (v7/*: any*/),
               (v9/*: any*/),
+              (v10/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -432,14 +444,14 @@ return {
                 "name": "rentalDuration",
                 "plural": false,
                 "selections": [
-                  (v10/*: any*/),
+                  (v11/*: any*/),
                   (v3/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v11/*: any*/),
               (v12/*: any*/),
-              (v13/*: any*/)
+              (v13/*: any*/),
+              (v14/*: any*/)
             ],
             "storageKey": null
           }
@@ -449,16 +461,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5cbe8cf4a57d46f4c3ee7b3644813074",
+    "cacheID": "6c35d5207cb8593d5c6dd0b71a28734d",
     "id": null,
     "metadata": {},
     "name": "UpdateProductMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateProductMutation(\n  $id: String!\n  $input: ProductInput!\n) {\n  updateProduct(id: $id, input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      name\n      desc\n      price\n      images {\n        id\n        url\n      }\n      category {\n        id\n        name\n      }\n      rentalDuration {\n        display\n        id\n      }\n      specs {\n        id\n        attribute {\n          id\n          name\n          icon {\n            id\n            url\n          }\n        }\n        value\n      }\n      merchant {\n        id\n        name\n        profilePicture {\n          id\n          url\n        }\n      }\n      store {\n        id\n        name\n        whatsappLink\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateProductMutation(\n  $id: String!\n  $input: ProductInput!\n) {\n  updateProduct(id: $id, input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      name\n      desc\n      price\n      isPublished\n      images {\n        id\n        url\n      }\n      category {\n        id\n        name\n      }\n      rentalDuration {\n        display\n        id\n      }\n      specs {\n        id\n        attribute {\n          id\n          name\n          icon {\n            id\n            url\n          }\n        }\n        value\n      }\n      merchant {\n        id\n        name\n        profilePicture {\n          id\n          url\n        }\n      }\n      store {\n        id\n        name\n        whatsappLink\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '99323c4684763359375ab00c791bd4ff';
+(node/*: any*/).hash = 'fec75542ccf5d0d78d93614621d70a48';
 
 module.exports = node;

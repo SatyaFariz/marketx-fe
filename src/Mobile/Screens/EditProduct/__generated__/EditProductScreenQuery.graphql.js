@@ -40,6 +40,7 @@ fragment EditProductScreen_product on Product {
   name
   price
   desc
+  isPublished
   images {
     id
     url
@@ -157,6 +158,13 @@ return {
             "args": null,
             "kind": "ScalarField",
             "name": "desc",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isPublished",
             "storageKey": null
           },
           {
@@ -302,12 +310,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "30ca5718f59814cdea001101f670d66c",
+    "cacheID": "823a0197623890a2fed6a11e9dc770a7",
     "id": null,
     "metadata": {},
     "name": "EditProductScreenQuery",
     "operationKind": "query",
-    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  category {\n    id\n    name\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isAutocomplete\n      isRequired\n      type\n      max\n      min\n      options\n      isEnum\n    }\n  }\n}\n"
+    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  isPublished\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  category {\n    id\n    name\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isAutocomplete\n      isRequired\n      type\n      max\n      min\n      options\n      isEnum\n    }\n  }\n}\n"
   }
 };
 })();

@@ -149,6 +149,7 @@ const Component = props => {
           name,
           price: parseFloat(price, 10),
           desc,
+          isPublished: true,
           specs: productSpecs
         }
       }
@@ -536,7 +537,7 @@ const Component = props => {
             }}
             onClick={create}
           >
-            Create
+            Publish
           </Button>
         </div>
       </div>
