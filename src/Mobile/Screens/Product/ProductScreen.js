@@ -11,7 +11,7 @@ import BackButton from '../../Components/BackButton'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 import VerifiedIcon from '../../Components/VerifiedIcon'
-import { IoCloseOutline, IoEllipsisVertical } from 'react-icons/io5'
+import { IoCloseOutline, IoCloseSharp, IoCheckmarkSharp, IoEllipsisVertical } from 'react-icons/io5'
 import Sheet from 'react-modal-sheet'
 import UpdateProductFeaturedStatus from '../../../mutations/UpdateProductFeaturedStatus'
 
@@ -24,6 +24,7 @@ const Component = props => {
   const [carouselPos, setCarouselPos] = useState(0)
   const [showBottomSheet, setShowBottomSheet] = useState(false)
   const [updatingFeaturedStatus, setUpdatingFeaturedStatus] = useState(false)
+  const [selectSuspensionReason, setSelectSuspensionReason] = useState(false)
 
   const handleCarouselChange = (value) => {
     if(!isNaN(value))
@@ -433,6 +434,7 @@ const Component = props => {
         snapPoints={[200]}
         isOpen={showBottomSheet} 
         onClose={() => setShowBottomSheet(false)}
+        onCloseEnd={() => setSelectSuspensionReason(false)}
         disableDrag
       >
         <Sheet.Container style={{
@@ -442,10 +444,11 @@ const Component = props => {
             <div style={{
               height: '100%'
             }}>
+              {!selectSuspensionReason ?
               <List>
                 <ListItem
                   button
-                  onClick={() => {}}
+                  onClick={() => setSelectSuspensionReason(true)}
                 >
                   <ListItemText primary={"Suspend"}/>
                 </ListItem>
@@ -461,6 +464,51 @@ const Component = props => {
                   }
                 </ListItem>
               </List>
+              :
+              <div>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  position: 'relative',
+                  padding: '2px 5px',
+                  borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
+                }}>
+                  <div style={{
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    bottom: 0,
+                    right: 0,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
+                    <span style={{
+                      fontSize: 18,
+                      fontWeight: 'bold'
+                    }}>Select Reason</span>
+                  </div>
+                  <IconButton
+                    onClick={() => setSelectSuspensionReason(false)}
+                    style={{
+                      zIndex: 9
+                    }}
+                  >
+                    <IoCloseSharp size={24} color="black"/>
+                  </IconButton>
+                  <IconButton
+                    onClick={() => {}}
+                    style={{
+                      zIndex: 9
+                    }}
+                  >
+                    <IoCheckmarkSharp size={24} color="black"/>
+                  </IconButton>
+                </div>
+              </div>
+              }
             </div>
           </Sheet.Content>
         </Sheet.Container>
