@@ -428,7 +428,7 @@ const Component = props => {
       </div>
       }
 
-
+      {me?.isAdmin &&
       <Sheet 
         snapPoints={[200]}
         isOpen={showBottomSheet} 
@@ -467,6 +467,7 @@ const Component = props => {
 
         <Sheet.Backdrop onClick={() => setShowBottomSheet(false)}/>
       </Sheet>
+      }
     </div>
   )
 }
