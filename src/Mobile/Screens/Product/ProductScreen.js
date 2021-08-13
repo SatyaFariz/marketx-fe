@@ -6,7 +6,7 @@ import useAppContext from '../../hooks/useAppContext'
 import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
 import Link from '../../Components/Link'
-import { Button, ButtonBase, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress } from '@material-ui/core'
+import { Button, ButtonBase, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress, TextField, MenuItem } from '@material-ui/core'
 import BackButton from '../../Components/BackButton'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
@@ -20,7 +20,7 @@ const Component = props => {
   const scrollRef = useRef()
   const headerRef = useRef()
   const { history, environment } = useAppContext()
-  const { product, me } = props
+  const { product, me, suspensionReasons } = props
   const [carouselPos, setCarouselPos] = useState(0)
   const [showBottomSheet, setShowBottomSheet] = useState(false)
   const [updatingFeaturedStatus, setUpdatingFeaturedStatus] = useState(false)
@@ -507,6 +507,38 @@ const Component = props => {
                     <IoCheckmarkSharp size={24} color="black"/>
                   </IconButton>
                 </div>
+                <div style={{
+                  padding: 15
+                }}>
+                  <TextField
+                    variant="outlined"
+                    select
+                    label="Suspension Reason"
+                    fullWidth
+                    // disabled={loading}
+                    value={undefined}
+                    onChange={() => {}}
+                    style={{
+                      zIndex: 99999999999999999
+                    }}
+                    // error={validation[field.attribute.id]?.isInvalid}
+                    // helperText={validation[field.attribute.id]?.message}
+                    SelectProps={{
+                      MenuProps: {
+                        style: {
+                          maxHeight: 500,
+                          zIndex: 99999999999999999
+                        }
+                      }
+                    }}
+                  >
+                    {suspensionReasons.map((option, i) => (
+                      <MenuItem key={i} value={option.id}>
+                        {option.title}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </div>
               </div>
               }
             </div>
@@ -570,6 +602,12 @@ export default createFragmentContainer(Component, {
     fragment ProductScreen_me on User {
       id,
       isAdmin
+    }
+  `,
+  suspensionReasons: graphql`
+    fragment ProductScreen_suspensionReasons on SuspensionReason @relay(plural: true) {
+      id,
+      title
     }
   `
 })

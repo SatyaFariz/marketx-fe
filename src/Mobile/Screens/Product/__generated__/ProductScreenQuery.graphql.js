@@ -10,6 +10,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type ProductScreen_me$ref = any;
 type ProductScreen_product$ref = any;
+type ProductScreen_suspensionReasons$ref = any;
 export type ProductScreenQueryVariables = {|
   id: string
 |};
@@ -22,6 +23,9 @@ export type ProductScreenQueryResponse = {|
     +id: ?string,
     +$fragmentRefs: ProductScreen_me$ref,
   |},
+  +suspensionReasons: ?$ReadOnlyArray<?{|
+    +$fragmentRefs: ProductScreen_suspensionReasons$ref
+  |}>,
 |};
 export type ProductScreenQuery = {|
   variables: ProductScreenQueryVariables,
@@ -41,6 +45,10 @@ query ProductScreenQuery(
   me {
     id
     ...ProductScreen_me
+  }
+  suspensionReasons {
+    ...ProductScreen_suspensionReasons
+    id
   }
 }
 
@@ -92,6 +100,11 @@ fragment ProductScreen_product on Product {
       url
     }
   }
+}
+
+fragment ProductScreen_suspensionReasons on SuspensionReason {
+  id
+  title
 }
 */
 
@@ -171,6 +184,22 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "ProductScreen_me"
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "SuspensionReason",
+        "kind": "LinkedField",
+        "name": "suspensionReasons",
+        "plural": true,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ProductScreen_suspensionReasons"
           }
         ],
         "storageKey": null
@@ -379,20 +408,39 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "SuspensionReason",
+        "kind": "LinkedField",
+        "name": "suspensionReasons",
+        "plural": true,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "title",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "ec3a00ff13e6a0980ae18e99c4ef86b0",
+    "cacheID": "ca88b51c5c0da1a9444a192caaef9f47",
     "id": null,
     "metadata": {},
     "name": "ProductScreenQuery",
     "operationKind": "query",
-    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n  me {\n    id\n    ...ProductScreen_me\n  }\n}\n\nfragment ProductScreen_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  isDeleted\n  isPublished\n  isFeatured\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalDuration {\n    display\n    id\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n  }\n  store {\n    id\n    name\n    whatsappLink\n    merchantId\n    isVerified\n    profilePicture {\n      id\n      url\n    }\n  }\n}\n"
+    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n  me {\n    id\n    ...ProductScreen_me\n  }\n  suspensionReasons {\n    ...ProductScreen_suspensionReasons\n    id\n  }\n}\n\nfragment ProductScreen_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  isDeleted\n  isPublished\n  isFeatured\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalDuration {\n    display\n    id\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n  }\n  store {\n    id\n    name\n    whatsappLink\n    merchantId\n    isVerified\n    profilePicture {\n      id\n      url\n    }\n  }\n}\n\nfragment ProductScreen_suspensionReasons on SuspensionReason {\n  id\n  title\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'bcf789c6e6bb3ee992d937c59a6a7666';
+(node/*: any*/).hash = 'fa54199091f9c264fbdaa90137daf145';
 
 module.exports = node;

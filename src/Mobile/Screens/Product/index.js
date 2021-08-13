@@ -13,6 +13,9 @@ const chunk = {
       me {
         id,
         ...ProductScreen_me
+      },
+      suspensionReasons {
+        ...ProductScreen_suspensionReasons
       }
     }
   `,
@@ -26,6 +29,7 @@ const chunk = {
           <ProductScreen
             product={data.product}
             me={data.me}
+            suspensionReasons={data.suspensionReasons}
           />
         </FixedAddressBar>
       )
