@@ -6,12 +6,13 @@ import useAppContext from '../../hooks/useAppContext'
 import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
 import Link from '../../Components/Link'
-import { Button, ButtonBase, IconButton } from '@material-ui/core'
+import { Button, ButtonBase, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress } from '@material-ui/core'
 import BackButton from '../../Components/BackButton'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 import VerifiedIcon from '../../Components/VerifiedIcon'
 import { IoCloseOutline, IoEllipsisVertical } from 'react-icons/io5'
+import Sheet from 'react-modal-sheet'
 
 const Component = props => {
   const scrollRef = useRef()
@@ -401,6 +402,44 @@ const Component = props => {
         <h6 style={{ color: 'white', fontSize: 24 }}>This product has been deleted</h6>
       </div>
       }
+
+
+      <Sheet 
+        snapPoints={[200]}
+        isOpen={showBottomSheet} 
+        onClose={() => setShowBottomSheet(false)}
+        disableDrag
+      >
+        <Sheet.Container style={{
+          borderRadius: 0
+        }}>
+          <Sheet.Content>
+            <div style={{
+              height: '100%'
+            }}>
+              <List>
+                <ListItem
+                  button
+                  onClick={() => {}}
+                >
+                  <ListItemText primary={"Suspend"}/>
+                </ListItem>
+                <ListItem
+                  button
+                  onClick={() => {}}
+                >
+                  <ListItemText primary="Add to Featured"/>
+                  <ListItemSecondaryAction>
+                    <CircularProgress size={18}/>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </List>
+            </div>
+          </Sheet.Content>
+        </Sheet.Container>
+
+        <Sheet.Backdrop onClick={() => setShowBottomSheet(false)}/>
+      </Sheet>
     </div>
   )
 }
