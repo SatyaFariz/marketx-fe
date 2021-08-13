@@ -6,11 +6,12 @@ import useAppContext from '../../hooks/useAppContext'
 import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
 import Link from '../../Components/Link'
-import { Button, ButtonBase } from '@material-ui/core'
+import { Button, ButtonBase, IconButton } from '@material-ui/core'
 import BackButton from '../../Components/BackButton'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 import VerifiedIcon from '../../Components/VerifiedIcon'
+import { IoCloseOutline } from 'react-icons/io5'
 
 const Component = props => {
   const scrollRef = useRef()
@@ -342,6 +343,35 @@ const Component = props => {
           </Button>
         </div>
       </div>
+
+      {product.isDeleted &&
+      <div style={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        top: 0,
+        background: 'rgba(0,0,0,0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backdropFilter: 'blur(6px)',
+        zIndex: 9999999999
+      }}>
+        <div style={{
+          position: 'absolute',
+          left: 5,
+          top: 5
+        }}>
+          <IconButton
+            onClick={() => history.goBack()}
+          >
+            <IoCloseOutline size={30} color="white"/>
+          </IconButton>
+        </div>
+        <h6 style={{ color: 'white', fontSize: 24 }}>This product has been deleted</h6>
+      </div>
+      }
     </div>
   )
 }
@@ -353,6 +383,8 @@ export default createFragmentContainer(Component, {
       name,
       desc,
       price,
+      isDeleted,
+      isPublished,
       images {
         id,
         url

@@ -13,7 +13,7 @@ import UpdateProduct from '../../../mutations/UpdateProduct'
 import DeleteProduct from '../../../mutations/DeleteProduct'
 import BackButton from '../../Components/BackButton'
 import cleanNonNumericChars from '../../../helpers/cleanNonNumericChars'
-import { IoEllipsisVertical } from 'react-icons/io5'
+import { IoEllipsisVertical, IoCloseOutline } from 'react-icons/io5'
 import Sheet from 'react-modal-sheet'
 import Link from '../../Components/Link'
 
@@ -22,7 +22,7 @@ const Component = props => {
   const _isMounted = useRef(true)
   const scrollRef = useRef()
   const headerRef = useRef()
-  const { environment } = useAppContext()
+  const { history, environment } = useAppContext()
   const [name, setName] = useState(product.name)
   const [price, setPrice] = useState(product.price.toString())
   const [desc, setDesc] = useState(product.desc)
@@ -160,6 +160,7 @@ const Component = props => {
           alert(message)
           if(!hasError) {
             _isMounted.current && setShowBottomSheet(false)
+            history.goBack()
           }
         }
 
@@ -625,6 +626,17 @@ const Component = props => {
         backdropFilter: 'blur(6px)',
         zIndex: 9999999999
       }}>
+        <div style={{
+          position: 'absolute',
+          left: 5,
+          top: 5
+        }}>
+          <IconButton
+            onClick={() => history.goBack()}
+          >
+            <IoCloseOutline size={30} color="white"/>
+          </IconButton>
+        </div>
         <h6 style={{ color: 'white', fontSize: 24 }}>This product has been deleted</h6>
       </div>
       }
