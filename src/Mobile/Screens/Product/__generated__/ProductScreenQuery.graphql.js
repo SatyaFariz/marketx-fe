@@ -56,6 +56,7 @@ fragment ProductScreen_product on Product {
   price
   isDeleted
   isPublished
+  isFeatured
   images {
     id
     url
@@ -225,6 +226,13 @@ return {
           {
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
+            "name": "isFeatured",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "Image",
             "kind": "LinkedField",
             "name": "images",
@@ -375,12 +383,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "98ad41f071e106219f3b9c011cebe4d9",
+    "cacheID": "ec3a00ff13e6a0980ae18e99c4ef86b0",
     "id": null,
     "metadata": {},
     "name": "ProductScreenQuery",
     "operationKind": "query",
-    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n  me {\n    id\n    ...ProductScreen_me\n  }\n}\n\nfragment ProductScreen_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  isDeleted\n  isPublished\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalDuration {\n    display\n    id\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n  }\n  store {\n    id\n    name\n    whatsappLink\n    merchantId\n    isVerified\n    profilePicture {\n      id\n      url\n    }\n  }\n}\n"
+    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n  me {\n    id\n    ...ProductScreen_me\n  }\n}\n\nfragment ProductScreen_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  isDeleted\n  isPublished\n  isFeatured\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalDuration {\n    display\n    id\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n  }\n  store {\n    id\n    name\n    whatsappLink\n    merchantId\n    isVerified\n    profilePicture {\n      id\n      url\n    }\n  }\n}\n"
   }
 };
 })();

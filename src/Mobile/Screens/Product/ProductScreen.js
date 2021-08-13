@@ -13,14 +13,17 @@ import '@brainhubeu/react-carousel/lib/style.css'
 import VerifiedIcon from '../../Components/VerifiedIcon'
 import { IoCloseOutline, IoEllipsisVertical } from 'react-icons/io5'
 import Sheet from 'react-modal-sheet'
+import UpdateProductFeaturedStatus from '../../../mutations/UpdateProductFeaturedStatus'
 
 const Component = props => {
+  const _isMounted = useRef(true)
   const scrollRef = useRef()
   const headerRef = useRef()
-  const { history } = useAppContext()
+  const { history, environment } = useAppContext()
   const { product, me } = props
   const [carouselPos, setCarouselPos] = useState(0)
   const [showBottomSheet, setShowBottomSheet] = useState(false)
+  const [updatingFeaturedStatus, setUpdatingFeaturedStatus] = useState(false)
 
   const handleCarouselChange = (value) => {
     if(!isNaN(value))
@@ -35,6 +38,25 @@ const Component = props => {
     }
   }
 
+  const updateFeaturedStatus = () => {
+    if(!updatingFeaturedStatus) {
+      setUpdatingFeaturedStatus(true)
+      UpdateProductFeaturedStatus(environment, { id: product.id, isFeatured: !product.isFeatured }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            // do sth
+          }
+        }
+
+        _isMounted.current && setUpdatingFeaturedStatus(false)
+      })
+    }
+  }
+
   useEffect(() => {
     scrollRef.current.onscroll = () => {
       const pageYOffset = scrollRef.current?.scrollTop
@@ -46,7 +68,10 @@ const Component = props => {
         }
       }
     }
+
+    return () => _isMounted.current = false
   }, [])
+
   return (
     <div style={{
       display: 'flex',
@@ -426,12 +451,14 @@ const Component = props => {
                 </ListItem>
                 <ListItem
                   button
-                  onClick={() => {}}
+                  onClick={updateFeaturedStatus}
                 >
-                  <ListItemText primary="Add to Featured"/>
+                  <ListItemText primary={product.isFeatured ? "Remove from Featured" : "Add to Featured"}/>
+                  {updatingFeaturedStatus &&
                   <ListItemSecondaryAction>
                     <CircularProgress size={18}/>
                   </ListItemSecondaryAction>
+                  }
                 </ListItem>
               </List>
             </div>
@@ -453,6 +480,7 @@ export default createFragmentContainer(Component, {
       price,
       isDeleted,
       isPublished,
+      isFeatured,
       images {
         id,
         url
