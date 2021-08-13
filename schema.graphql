@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Fri Aug 13 2021 16:08:08 GMT+0700 (Western Indonesia Time)
+# timestamp: Fri Aug 13 2021 20:55:42 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -99,6 +99,8 @@ type Mutation {
   updateProduct(id: String!, input: ProductInput!): ActionOnProductPayload
   deleteProduct(id: String!): ActionOnProductPayload
   updateProductFeaturedStatus(id: String!, isFeatured: Boolean!): ActionOnProductPayload
+  suspendProduct(id: String!, suspensionReasonId: String!): ActionOnProductPayload
+  unsuspendProduct(id: String!): ActionOnProductPayload
   deleteProductImages(id: String!, imageIds: [String!]!): ActionOnProductPayload
   addProductImages(id: String!): ActionOnProductPayload
   updateMainProductImage(id: String!, imageId: String!): ActionOnProductPayload
@@ -137,6 +139,7 @@ type Product {
   isPublished: Boolean
   isFeatured: Boolean
   isDeleted: Boolean
+  isSuspended: Boolean
   stock: Int
   mainImage: Image
   images: [Image]
@@ -189,6 +192,7 @@ type Query {
   featuredProducts: [Product]
   search(q: String!, categoryId: String, storeId: String, published: Boolean, after: String, first: Int): ProductConnection
   administrativeAreas(parentId: Int): [AdministrativeArea]
+  suspensionReasons: [SuspensionReason]
 }
 
 type SendOtpPayload {
@@ -234,6 +238,12 @@ type Store {
 
 type Subscription {
   test: String
+}
+
+type SuspensionReason {
+  id: ID
+  title: String
+  desc: String
 }
 
 type Unit {
