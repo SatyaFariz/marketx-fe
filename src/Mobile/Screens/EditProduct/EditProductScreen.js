@@ -608,7 +608,7 @@ const Component = props => {
             </Sheet.Content>
           </Sheet.Container>
 
-          <Sheet.Backdrop onTap={() => setShowBottomSheet(false)}/>
+          <Sheet.Backdrop onClick={() => setShowBottomSheet(false)}/>
         </Sheet>
       </div>
       
