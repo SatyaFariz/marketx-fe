@@ -4,12 +4,13 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import { Button, TextField, InputAdornment, MenuItem, IconButton, List, ListItem, ListItemText } from '@material-ui/core'
+import { Button, TextField, InputAdornment, MenuItem, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 import Validator from '../../../helpers/validator'
 import UpdateProduct from '../../../mutations/UpdateProduct'
+import DeleteProduct from '../../../mutations/DeleteProduct'
 import BackButton from '../../Components/BackButton'
 import cleanNonNumericChars from '../../../helpers/cleanNonNumericChars'
 import { IoEllipsisVertical } from 'react-icons/io5'
@@ -21,7 +22,7 @@ const Component = props => {
   const _isMounted = useRef(true)
   const scrollRef = useRef()
   const headerRef = useRef()
-  const { history, environment } = useAppContext()
+  const { environment } = useAppContext()
   const [name, setName] = useState(product.name)
   const [price, setPrice] = useState(product.price.toString())
   const [desc, setDesc] = useState(product.desc)
@@ -32,6 +33,7 @@ const Component = props => {
   const [carouselPos, setCarouselPos] = useState(0)
   const [validation, setValidation] = useState({ isValid: false })
   const [loading, setLoading] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   const [showBottomSheet, setShowBottomSheet] = useState(false)
 
   const handleCarouselChange = (value) => {
@@ -142,6 +144,26 @@ const Component = props => {
         }
 
         _isMounted.current && setLoading(false)
+      })
+    }
+  }
+
+  const deleteProduct = () => {
+    const yes = window.confirm('Do you want to delete this product?')
+    if(yes) {
+      setDeleting(true)
+      DeleteProduct(environment, { id: product.id }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            _isMounted.current && setShowBottomSheet(false)
+          }
+        }
+
+        _isMounted.current && setDeleting(false)
       })
     }
   }
@@ -568,9 +590,14 @@ const Component = props => {
                 </ListItem>
                 <ListItem
                   button
-                  onClick={() => {}}
+                  onClick={deleteProduct}
                 >
                   <ListItemText primary="Delete"/>
+                  {deleting &&
+                  <ListItemSecondaryAction>
+                    <CircularProgress size={18}/>
+                  </ListItemSecondaryAction>
+                  }
                 </ListItem>
               </List>
             </div>
@@ -591,6 +618,7 @@ export default createFragmentContainer(Component, {
       price,
       desc,
       isPublished,
+      isDeleted,
       images {
         id,
         url
