@@ -13,6 +13,7 @@ declare export opaque type ProductScreen_me$ref: FragmentReference;
 declare export opaque type ProductScreen_me$fragmentType: ProductScreen_me$ref;
 export type ProductScreen_me = {|
   +id: ?string,
+  +isAdmin: ?boolean,
   +$refType: ProductScreen_me$ref,
 |};
 export type ProductScreen_me$data = ProductScreen_me;
@@ -36,12 +37,19 @@ const node/*: ReaderFragment*/ = {
       "kind": "ScalarField",
       "name": "id",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "isAdmin",
+      "storageKey": null
     }
   ],
   "type": "User",
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = '8d3b3da442654f62341f5f174e77d002';
+(node/*: any*/).hash = '7ef3497185552245341f40cc57d7563b';
 
 module.exports = node;

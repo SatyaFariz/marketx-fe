@@ -11,7 +11,7 @@ import BackButton from '../../Components/BackButton'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 import VerifiedIcon from '../../Components/VerifiedIcon'
-import { IoCloseOutline } from 'react-icons/io5'
+import { IoCloseOutline, IoEllipsisVertical } from 'react-icons/io5'
 
 const Component = props => {
   const scrollRef = useRef()
@@ -19,6 +19,7 @@ const Component = props => {
   const { history } = useAppContext()
   const { product, me } = props
   const [carouselPos, setCarouselPos] = useState(0)
+  const [showBottomSheet, setShowBottomSheet] = useState(false)
 
   const handleCarouselChange = (value) => {
     if(!isNaN(value))
@@ -59,10 +60,22 @@ const Component = props => {
         backgroundImage: 'linear-gradient(rgb(76, 76, 76), transparent)',
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'space-between',
         flexDirection: 'row',
         zIndex: 2
       }}>
         <BackButton color="white"/>
+        {me?.isAdmin &&
+        <IconButton 
+          onClick={() => setShowBottomSheet(true)}
+          style={{
+            zIndex: 2,
+            marginRight: 5
+          }}
+        >
+          <IoEllipsisVertical size={24} color="white"/>
+        </IconButton>
+        }
       </div>
 
       <div 
@@ -73,12 +86,24 @@ const Component = props => {
         width: '100%',
         backgroundColor: 'white',
         alignItems: 'center',
+        justifyContent: 'space-between',
         flexDirection: 'row',
         zIndex: 3,
         display: 'none',
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
         <BackButton/>
+        {me?.isAdmin &&
+        <IconButton 
+          onClick={() => setShowBottomSheet(true)}
+          style={{
+            zIndex: 2,
+            marginRight: 5
+          }}
+        >
+          <IoEllipsisVertical size={24} color="black"/>
+        </IconButton>
+        }
         <div style={{
           position: 'absolute',
           height: '100%',
@@ -335,7 +360,8 @@ const Component = props => {
               display: 'block'
             }}>{formatCurrency(product.price)}</span>
           </div>
-
+          
+          {!me?.isAdmin &&
           <Button 
             variant="contained" 
             disableElevation
@@ -343,6 +369,7 @@ const Component = props => {
           >
             {me?.id === product.store.merchantId ? 'Edit' : 'Rent'}
           </Button>
+          }
         </div>
       </div>
 
@@ -425,7 +452,8 @@ export default createFragmentContainer(Component, {
   `,
   me: graphql`
     fragment ProductScreen_me on User {
-      id
+      id,
+      isAdmin
     }
   `
 })
