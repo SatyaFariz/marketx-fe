@@ -201,411 +201,433 @@ const Component = props => {
   return (
     <div>
       <div style={{
-        height: HEADER_HEIGHT,
-        position: 'absolute',
-        width: '100%',
-        backgroundImage: 'linear-gradient(rgb(76, 76, 76), transparent)',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'row',
-        zIndex: 2
-      }}>
-        <BackButton color="white"/>
-
-        <IconButton 
-          onClick={() => setShowBottomSheet(true)}
-          style={{
-            zIndex: 2,
-            marginRight: 5
-          }}
-        >
-          <IoEllipsisVertical size={24} color="white"/>
-        </IconButton>
-      </div>
-
-      <div 
-      ref={headerRef}
-      style={{
-        height: HEADER_HEIGHT,
-        position: 'absolute',
-        width: '100%',
-        backgroundColor: 'white',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'row',
-        zIndex: 3,
-        display: 'none',
-        borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
-      }}>
-        <BackButton/>
-        <IconButton 
-          onClick={() => setShowBottomSheet(true)}
-          style={{
-            zIndex: 2,
-            marginRight: 5
-          }}
-        >
-          <IoEllipsisVertical size={24} color="black"/>
-        </IconButton>
-        <div style={{
-          position: 'absolute',
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-          <h1 style={{
-            margin: 0,
-            fontSize: 20,
-            fontWeight: 500,
-            textAlign: 'center'
-          }}>Edit Product</h1>
-        </div>
         
-      </div>
-
-      <div 
-      ref={scrollRef}
-      style={{
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        overflow: 'auto'
       }}>
         <div style={{
-          position: 'relative',
-          width: '100vw',
-          height: '100vw',
+          height: HEADER_HEIGHT,
+          position: 'absolute',
+          width: '100%',
+          backgroundImage: 'linear-gradient(rgb(76, 76, 76), transparent)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexDirection: 'row',
+          zIndex: 2
         }}>
-          <Carousel onChange={handleCarouselChange} value={carouselPos} draggable={product.images.length > 1}>
-            {product.images.map((item, i) => {
+          <BackButton color="white"/>
+
+          <IconButton 
+            onClick={() => setShowBottomSheet(true)}
+            style={{
+              zIndex: 2,
+              marginRight: 5
+            }}
+          >
+            <IoEllipsisVertical size={24} color="white"/>
+          </IconButton>
+        </div>
+
+        <div 
+        ref={headerRef}
+        style={{
+          height: HEADER_HEIGHT,
+          position: 'absolute',
+          width: '100%',
+          backgroundColor: 'white',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexDirection: 'row',
+          zIndex: 3,
+          display: 'none',
+          borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
+        }}>
+          <BackButton/>
+          <IconButton 
+            onClick={() => setShowBottomSheet(true)}
+            style={{
+              zIndex: 2,
+              marginRight: 5
+            }}
+          >
+            <IoEllipsisVertical size={24} color="black"/>
+          </IconButton>
+          <div style={{
+            position: 'absolute',
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <h1 style={{
+              margin: 0,
+              fontSize: 20,
+              fontWeight: 500,
+              textAlign: 'center'
+            }}>Edit Product</h1>
+          </div>
+          
+        </div>
+
+        <div 
+        ref={scrollRef}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+          overflow: 'auto'
+        }}>
+          <div style={{
+            position: 'relative',
+            width: '100vw',
+            height: '100vw',
+          }}>
+            <Carousel onChange={handleCarouselChange} value={carouselPos} draggable={product.images.length > 1}>
+              {product.images.map((item, i) => {
+                return (
+                  <div key={i} style={{
+                    position: 'relative',
+                    width: '100vw',
+                    paddingBottom: '100%'
+                  }}>
+                    <img
+                      src={item.url}
+                      style={{
+                        position: 'absolute',
+                        height: '100%',
+                        width: '100%',
+                        left: 0,
+                        bottom: 0,
+                        objectFit: 'cover'
+                      }}
+                    />
+                  </div>
+                )
+              })}
+            </Carousel>
+            {product.images.length > 1 &&
+            <div style={{
+              position: 'absolute',
+              width: '100%',
+              bottom: 15,
+              height: 0,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              backgroundColor: 'white',
+            }} pointerEvents="none">
+              {product.images.map((item, i) => {
+                return (
+                  <div key={i} style={{
+                    height: 5,
+                    width: 5,
+                    borderRadius: '50%',
+                    backgroundColor: i === carouselPos ? Color.primary : 'white',
+                    marginLeft: 2,
+                    marginRight: 2,
+                    // border: `1px solid ${Color.primary}`,
+                  }}/>
+                )
+              })}
+            </div>
+            }
+          
+          </div>
+
+          <div style={{
+            padding: '10px 15px'
+          }}>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              margin: '10px 0'
+            }}>
+            {product.category.map((item, i) => {
               return (
-                <div key={i} style={{
-                  position: 'relative',
-                  width: '100vw',
-                  paddingBottom: '100%'
+                <div key={item.id} style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
                 }}>
-                  <img
-                    src={item.url}
-                    style={{
-                      position: 'absolute',
-                      height: '100%',
-                      width: '100%',
-                      left: 0,
-                      bottom: 0,
-                      objectFit: 'cover'
-                    }}
-                  />
+                  {i > 0 &&
+                  <h3 style={{ margin: '0 10px'}}>{'>'}</h3>
+                  }
+                  <h3 style={{ margin: 0 }}>{item.name}</h3>
                 </div>
               )
             })}
-          </Carousel>
-          {product.images.length > 1 &&
-          <div style={{
-            position: 'absolute',
-            width: '100%',
-            bottom: 15,
-            height: 0,
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            backgroundColor: 'white',
-          }} pointerEvents="none">
-            {product.images.map((item, i) => {
+            </div>
+            
+            <TextField
+              variant="outlined"
+              label="Product Name"
+              value={name}
+              onChange={e => setName(e.target.value.trimLeft())}
+              fullWidth
+              disabled={loading}
+              style={{
+                marginTop: 10,
+                marginBottom: 10
+              }}
+              error={validation?.name?.isInvalid}
+              helperText={validation?.name?.message}
+            />
+
+            <TextField
+              variant="outlined"
+              label="Product Price"
+              value={price}
+              onChange={_setPrice}
+              fullWidth
+              disabled={loading}
+              style={{
+                marginTop: 10,
+                marginBottom: 10
+              }}
+              InputProps={{
+                startAdornment: <InputAdornment position="start">Rp</InputAdornment>
+              }}
+              inputProps={{
+                pattern: "[0-9]*",
+                type: "text",
+                inputMode: "numeric"
+              }}
+              error={validation?.price?.isInvalid}
+              helperText={validation?.price?.message}
+            />
+            
+            <TextField
+              variant="outlined"
+              label="Product Description"
+              value={desc}
+              onChange={e => setDesc(e.target.value.trimLeft())}
+              multiline
+              rows="8"
+              fullWidth
+              disabled={loading}
+              style={{
+                marginTop: 10,
+                marginBottom: 10
+              }}
+              error={validation?.desc?.isInvalid}
+              helperText={validation?.desc?.message}
+            />
+
+            <h3 style={{ margin: '10px 0'}}>Specifications</h3>
+
+            {product.category[product.category.length - 1].specFields.map((field) => {
+              if(field.type === 'year') {
+                const startYear = 1901
+                let year = new Date().getFullYear()
+                const years = []
+                while(year >= startYear) {
+                  years.push(year.toString())
+                  year--
+                }
+
+                return (
+                  <TextField
+                    key={field.id}
+                    variant="outlined"
+                    select
+                    label={field.attribute.name}
+                    fullWidth
+                    disabled={loading}
+                    value={specs[field.attribute.id]?.trim() === '' ? undefined : specs[field.attribute.id]}
+                    onChange={_setSpecs(field)}
+                    style={{
+                      marginTop: 10,
+                      marginBottom: 10
+                    }}
+                    error={validation[field.attribute.id]?.isInvalid}
+                    helperText={validation[field.attribute.id]?.message}
+                    SelectProps={{
+                      MenuProps: {
+                        style: {
+                          maxHeight: 500
+                        }
+                      }
+                    }}
+                  >
+                    {years.map((option, i) => (
+                      <MenuItem key={i} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                )
+              } else if(field.options?.length > 0) {
+                if(field.isAutocomplete) {
+                  return (
+                    <Autocomplete
+                      key={field.id}
+                      options={field.options}
+                      getOptionLabel={(option) => option}
+                      getOptionSelected={(option, value) => option === value}
+                      value={specs[field.attribute.id]}
+                      onChange={(_, value) => _setSpecs(field)({ target: { value }})}
+                      renderInput={(params) => 
+                        <TextField 
+                          {...params} 
+                          label={field.attribute.name}
+                          fullWidth
+                          disabled={loading} 
+                          variant="outlined"
+                          style={{
+                            marginTop: 10,
+                            marginBottom: 10
+                          }}
+                          error={validation[field.attribute.id]?.isInvalid}
+                          helperText={validation[field.attribute.id]?.message}
+                        />
+                      }
+                    />
+                  )
+                }
+                return (
+                  <TextField
+                    key={field.id}
+                    variant="outlined"
+                    select
+                    label={field.attribute.name}
+                    fullWidth
+                    disabled={loading}
+                    value={specs[field.attribute.id]?.trim() === '' ? undefined : specs[field.attribute.id]}
+                    onChange={_setSpecs(field)}
+                    style={{
+                      marginTop: 10,
+                      marginBottom: 10
+                    }}
+                    error={validation[field.attribute.id]?.isInvalid}
+                    helperText={validation[field.attribute.id]?.message}
+                    SelectProps={{
+                      MenuProps: {
+                        style: {
+                          maxHeight: 500
+                        }
+                      }
+                    }}
+                  >
+                    {field.options.map((option, i) => (
+                      <MenuItem key={i} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                    {!field.options.includes(specs[field.attribute.id]) &&
+                      <MenuItem value={specs[field.attribute.id]}>
+                        {specs[field.attribute.id]}
+                      </MenuItem>
+                    }
+                  </TextField>
+                )
+                
+              }
               return (
-                <div key={i} style={{
-                  height: 5,
-                  width: 5,
-                  borderRadius: '50%',
-                  backgroundColor: i === carouselPos ? Color.primary : 'white',
-                  marginLeft: 2,
-                  marginRight: 2,
-                  // border: `1px solid ${Color.primary}`,
-                }}/>
+                <TextField
+                  key={field.id}
+                  variant="outlined"
+                  label={field.attribute.name}
+                  fullWidth
+                  disabled={loading}
+                  value={specs[field.attribute.id]}
+                  onChange={_setSpecs(field)}
+                  style={{
+                    marginTop: 10,
+                    marginBottom: 10
+                  }}
+                  error={validation[field.attribute.id]?.isInvalid}
+                  helperText={validation[field.attribute.id]?.message}
+                  inputProps={['int', 'float'].includes(field.type) && {
+                    pattern: "[0-9]*",
+                    type: "text",
+                    inputMode: "numeric"
+                  }}
+                />
               )
             })}
+
+            <Button
+              disableElevation
+              variant="contained"
+              fullWidth
+              style={{
+                fontTransform: 'none',
+                marginTop: 10
+              }}
+              onClick={!product.isPublished ? () => save(true) : () => save(product.isPublished)}
+            >
+              {!product.isPublished ? 'Publish' : 'Save'}
+            </Button>
           </div>
-          }
-         
         </div>
 
-        <div style={{
-          padding: '10px 15px'
-        }}>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            margin: '10px 0'
+        <Sheet 
+          snapPoints={[200]}
+          isOpen={showBottomSheet} 
+          onClose={() => setShowBottomSheet(false)}
+          disableDrag
+        >
+          <Sheet.Container style={{
+            borderRadius: 0
           }}>
-          {product.category.map((item, i) => {
-            return (
-              <div key={item.id} style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
+            <Sheet.Content>
+              <div style={{
+                height: '100%'
               }}>
-                {i > 0 &&
-                <h3 style={{ margin: '0 10px'}}>{'>'}</h3>
-                }
-                <h3 style={{ margin: 0 }}>{item.name}</h3>
+                <List>
+                  <ListItem
+                    button
+                    component={Link}
+                    href={`/edit/photos/${product.id}`}
+                  >
+                    <ListItemText primary="Edit photos"/>
+                  </ListItem>
+                  <ListItem
+                    button
+                    onClick={() => save(!product.isPublished)}
+                  >
+                    <ListItemText primary={product.isPublished ? 'Unpublish' : "Publish"}/>
+                  </ListItem>
+                  <ListItem
+                    button
+                    onClick={deleteProduct}
+                  >
+                    <ListItemText primary="Delete"/>
+                    {deleting &&
+                    <ListItemSecondaryAction>
+                      <CircularProgress size={18}/>
+                    </ListItemSecondaryAction>
+                    }
+                  </ListItem>
+                </List>
               </div>
-            )
-          })}
-          </div>
-          
-          <TextField
-            variant="outlined"
-            label="Product Name"
-            value={name}
-            onChange={e => setName(e.target.value.trimLeft())}
-            fullWidth
-            disabled={loading}
-            style={{
-              marginTop: 10,
-              marginBottom: 10
-            }}
-            error={validation?.name?.isInvalid}
-            helperText={validation?.name?.message}
-          />
+            </Sheet.Content>
+          </Sheet.Container>
 
-          <TextField
-            variant="outlined"
-            label="Product Price"
-            value={price}
-            onChange={_setPrice}
-            fullWidth
-            disabled={loading}
-            style={{
-              marginTop: 10,
-              marginBottom: 10
-            }}
-            InputProps={{
-              startAdornment: <InputAdornment position="start">Rp</InputAdornment>
-            }}
-            inputProps={{
-              pattern: "[0-9]*",
-              type: "text",
-              inputMode: "numeric"
-            }}
-            error={validation?.price?.isInvalid}
-            helperText={validation?.price?.message}
-          />
-          
-          <TextField
-            variant="outlined"
-            label="Product Description"
-            value={desc}
-            onChange={e => setDesc(e.target.value.trimLeft())}
-            multiline
-            rows="8"
-            fullWidth
-            disabled={loading}
-            style={{
-              marginTop: 10,
-              marginBottom: 10
-            }}
-            error={validation?.desc?.isInvalid}
-            helperText={validation?.desc?.message}
-          />
-
-          <h3 style={{ margin: '10px 0'}}>Specifications</h3>
-
-          {product.category[product.category.length - 1].specFields.map((field) => {
-            if(field.type === 'year') {
-              const startYear = 1901
-              let year = new Date().getFullYear()
-              const years = []
-              while(year >= startYear) {
-                years.push(year.toString())
-                year--
-              }
-
-              return (
-                <TextField
-                  key={field.id}
-                  variant="outlined"
-                  select
-                  label={field.attribute.name}
-                  fullWidth
-                  disabled={loading}
-                  value={specs[field.attribute.id]?.trim() === '' ? undefined : specs[field.attribute.id]}
-                  onChange={_setSpecs(field)}
-                  style={{
-                    marginTop: 10,
-                    marginBottom: 10
-                  }}
-                  error={validation[field.attribute.id]?.isInvalid}
-                  helperText={validation[field.attribute.id]?.message}
-                  SelectProps={{
-                    MenuProps: {
-                      style: {
-                        maxHeight: 500
-                      }
-                    }
-                  }}
-                >
-                  {years.map((option, i) => (
-                    <MenuItem key={i} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              )
-            } else if(field.options?.length > 0) {
-              if(field.isAutocomplete) {
-                return (
-                  <Autocomplete
-                    key={field.id}
-                    options={field.options}
-                    getOptionLabel={(option) => option}
-                    getOptionSelected={(option, value) => option === value}
-                    value={specs[field.attribute.id]}
-                    onChange={(_, value) => _setSpecs(field)({ target: { value }})}
-                    renderInput={(params) => 
-                      <TextField 
-                        {...params} 
-                        label={field.attribute.name}
-                        fullWidth
-                        disabled={loading} 
-                        variant="outlined"
-                        style={{
-                          marginTop: 10,
-                          marginBottom: 10
-                        }}
-                        error={validation[field.attribute.id]?.isInvalid}
-                        helperText={validation[field.attribute.id]?.message}
-                      />
-                    }
-                  />
-                )
-              }
-              return (
-                <TextField
-                  key={field.id}
-                  variant="outlined"
-                  select
-                  label={field.attribute.name}
-                  fullWidth
-                  disabled={loading}
-                  value={specs[field.attribute.id]?.trim() === '' ? undefined : specs[field.attribute.id]}
-                  onChange={_setSpecs(field)}
-                  style={{
-                    marginTop: 10,
-                    marginBottom: 10
-                  }}
-                  error={validation[field.attribute.id]?.isInvalid}
-                  helperText={validation[field.attribute.id]?.message}
-                  SelectProps={{
-                    MenuProps: {
-                      style: {
-                        maxHeight: 500
-                      }
-                    }
-                  }}
-                >
-                  {field.options.map((option, i) => (
-                    <MenuItem key={i} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                  {!field.options.includes(specs[field.attribute.id]) &&
-                    <MenuItem value={specs[field.attribute.id]}>
-                      {specs[field.attribute.id]}
-                    </MenuItem>
-                  }
-                </TextField>
-              )
-              
-            }
-            return (
-              <TextField
-                key={field.id}
-                variant="outlined"
-                label={field.attribute.name}
-                fullWidth
-                disabled={loading}
-                value={specs[field.attribute.id]}
-                onChange={_setSpecs(field)}
-                style={{
-                  marginTop: 10,
-                  marginBottom: 10
-                }}
-                error={validation[field.attribute.id]?.isInvalid}
-                helperText={validation[field.attribute.id]?.message}
-                inputProps={['int', 'float'].includes(field.type) && {
-                  pattern: "[0-9]*",
-                  type: "text",
-                  inputMode: "numeric"
-                }}
-              />
-            )
-          })}
-
-          <Button
-            disableElevation
-            variant="contained"
-            fullWidth
-            style={{
-              fontTransform: 'none',
-              marginTop: 10
-            }}
-            onClick={!product.isPublished ? () => save(true) : () => save(product.isPublished)}
-          >
-            {!product.isPublished ? 'Publish' : 'Save'}
-          </Button>
-        </div>
+          <Sheet.Backdrop onTap={() => setShowBottomSheet(false)}/>
+        </Sheet>
       </div>
-
-      <Sheet 
-        snapPoints={[200]}
-        isOpen={showBottomSheet} 
-        onClose={() => setShowBottomSheet(false)}
-        disableDrag
-      >
-        <Sheet.Container style={{
-          borderRadius: 0
-        }}>
-          <Sheet.Content>
-            <div style={{
-              height: '100%'
-            }}>
-              <List>
-                <ListItem
-                  button
-                  component={Link}
-                  href={`/edit/photos/${product.id}`}
-                >
-                  <ListItemText primary="Edit photos"/>
-                </ListItem>
-                <ListItem
-                  button
-                  onClick={() => save(!product.isPublished)}
-                >
-                  <ListItemText primary={product.isPublished ? 'Unpublish' : "Publish"}/>
-                </ListItem>
-                <ListItem
-                  button
-                  onClick={deleteProduct}
-                >
-                  <ListItemText primary="Delete"/>
-                  {deleting &&
-                  <ListItemSecondaryAction>
-                    <CircularProgress size={18}/>
-                  </ListItemSecondaryAction>
-                  }
-                </ListItem>
-              </List>
-            </div>
-          </Sheet.Content>
-        </Sheet.Container>
-
-        <Sheet.Backdrop onTap={() => setShowBottomSheet(false)}/>
-      </Sheet>
+      
+      {product.isDeleted &&
+      <div style={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        top: 0,
+        background: 'rgba(0,0,0,0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backdropFilter: 'blur(6px)',
+        zIndex: 9999999999
+      }}>
+        <h6 style={{ color: 'white', fontSize: 24 }}>This product has been deleted</h6>
+      </div>
+      }
     </div>
   )
 }
