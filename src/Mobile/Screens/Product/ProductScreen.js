@@ -14,6 +14,8 @@ import VerifiedIcon from '../../Components/VerifiedIcon'
 import { IoCloseOutline, IoCloseSharp, IoCheckmarkSharp, IoEllipsisVertical } from 'react-icons/io5'
 import Sheet from 'react-modal-sheet'
 import UpdateProductFeaturedStatus from '../../../mutations/UpdateProductFeaturedStatus'
+import SuspendProduct from '../../../mutations/SuspendProduct'
+import UnsuspendProduct from '../../../mutations/UnsuspendProduct'
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -25,6 +27,8 @@ const Component = props => {
   const [showBottomSheet, setShowBottomSheet] = useState(false)
   const [updatingFeaturedStatus, setUpdatingFeaturedStatus] = useState(false)
   const [selectSuspensionReason, setSelectSuspensionReason] = useState(false)
+  const [suspendingOrUnsuspending, setSuspendingOrUnsuspending] = useState(false)
+  const [suspensionReasonId, setSuspensionReasonId] = useState(null)
 
   const handleCarouselChange = (value) => {
     if(!isNaN(value))
@@ -54,6 +58,45 @@ const Component = props => {
         }
 
         _isMounted.current && setUpdatingFeaturedStatus(false)
+      })
+    }
+  }
+
+  const suspend = () => {
+    if(!suspendingOrUnsuspending) {
+      setSuspendingOrUnsuspending(true)
+      SuspendProduct(environment, { id: product.id, suspensionReasonId }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError && _isMounted.current) {
+            setSuspensionReasonId(null)
+            setSelectSuspensionReason(false)
+          }
+        }
+
+        _isMounted.current && setSuspendingOrUnsuspending(false)
+      })
+    }
+  }
+
+  const unsuspend = () => {
+    if(!suspendingOrUnsuspending) {
+      setSuspendingOrUnsuspending(true)
+      UnsuspendProduct(environment, { id: product.id }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError && _isMounted.current) {
+            // do sth
+          }
+        }
+
+        _isMounted.current && setSuspendingOrUnsuspending(false)
       })
     }
   }
@@ -434,7 +477,10 @@ const Component = props => {
         snapPoints={[200]}
         isOpen={showBottomSheet} 
         onClose={() => setShowBottomSheet(false)}
-        onCloseEnd={() => setSelectSuspensionReason(false)}
+        onCloseEnd={() => {
+          setSelectSuspensionReason(false)
+          setSuspensionReasonId(null)
+        }}
         disableDrag
       >
         <Sheet.Container style={{
@@ -448,9 +494,14 @@ const Component = props => {
               <List>
                 <ListItem
                   button
-                  onClick={() => setSelectSuspensionReason(true)}
+                  onClick={product.isSuspended ? unsuspend : () => setSelectSuspensionReason(true)}
                 >
-                  <ListItemText primary={"Suspend"}/>
+                  <ListItemText primary={product.isSuspended ? "Unsuspend" : "Suspend"}/>
+                  {suspendingOrUnsuspending &&
+                  <ListItemSecondaryAction>
+                    <CircularProgress size={18}/>
+                  </ListItemSecondaryAction>
+                  }
                 </ListItem>
                 <ListItem
                   button
@@ -498,14 +549,28 @@ const Component = props => {
                   >
                     <IoCloseSharp size={24} color="black"/>
                   </IconButton>
-                  <IconButton
+                  {/* <IconButton
+                    disabled={suspendingOrUnsuspending}
                     onClick={() => {}}
                     style={{
                       zIndex: 9
                     }}
                   >
+                    {suspendingOrUnsuspending ?
+                    <CircularProgress size={24}/>
+                    :
                     <IoCheckmarkSharp size={24} color="black"/>
-                  </IconButton>
+                    }
+                  </IconButton> */}
+                  <Button
+                    onClick={suspend}
+                    variant="contained"
+                    disableElevation
+                    style={{ marginRight: 10 }}
+                    disabled={!suspensionReasonId}
+                  >
+                    Save
+                  </Button>
                 </div>
                 <div style={{
                   padding: 15
@@ -515,14 +580,12 @@ const Component = props => {
                     select
                     label="Suspension Reason"
                     fullWidth
-                    // disabled={loading}
-                    value={undefined}
-                    onChange={() => {}}
+                    disabled={suspendingOrUnsuspending}
+                    value={suspensionReasonId}
+                    onChange={(e) => setSuspensionReasonId(e.target.value)}
                     style={{
                       zIndex: 99999999999999999
                     }}
-                    // error={validation[field.attribute.id]?.isInvalid}
-                    // helperText={validation[field.attribute.id]?.message}
                     SelectProps={{
                       MenuProps: {
                         style: {
@@ -562,6 +625,7 @@ export default createFragmentContainer(Component, {
       isDeleted,
       isPublished,
       isFeatured,
+      isSuspended,
       images {
         id,
         url
