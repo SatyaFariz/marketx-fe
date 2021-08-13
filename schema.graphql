@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Fri Aug 13 2021 02:02:52 GMT+0700 (Western Indonesia Time)
+# timestamp: Fri Aug 13 2021 10:27:16 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -97,6 +97,7 @@ type Mutation {
   updateStore(id: String!, name: String!, whatsappNumber: String!, address: AddressInput!): ActionOnStorePayload
   addSpecFieldToCategory(categoryId: String!, attributeId: String!, type: String!, isRequired: Boolean): String
   updateProduct(id: String!, input: ProductInput!): ActionOnProductPayload
+  deleteProduct(id: String!): ActionOnProductPayload
   deleteProductImages(id: String!, imageIds: [String!]!): ActionOnProductPayload
   addProductImages(id: String!): ActionOnProductPayload
   updateMainProductImage(id: String!, imageId: String!): ActionOnProductPayload
@@ -133,6 +134,7 @@ type Product {
   merchant: User
   store: Store
   isPublished: Boolean
+  isDeleted: Boolean
   stock: Int
   mainImage: Image
   images: [Image]
