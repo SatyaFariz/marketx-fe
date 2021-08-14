@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Aug 15 2021 02:07:17 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Aug 15 2021 02:25:11 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -261,6 +261,8 @@ type SuspensionReason {
 type Unit {
   id: ID
   display: String
+  name: String
+  value: Float
 }
 
 input UpdateProfileInput {

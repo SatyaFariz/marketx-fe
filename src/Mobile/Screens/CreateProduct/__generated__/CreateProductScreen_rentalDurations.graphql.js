@@ -14,6 +14,8 @@ declare export opaque type CreateProductScreen_rentalDurations$fragmentType: Cre
 export type CreateProductScreen_rentalDurations = $ReadOnlyArray<{|
   +id: ?string,
   +display: ?string,
+  +name: ?string,
+  +value: ?number,
   +$refType: CreateProductScreen_rentalDurations$ref,
 |}>;
 export type CreateProductScreen_rentalDurations$data = CreateProductScreen_rentalDurations;
@@ -46,12 +48,26 @@ const node/*: ReaderFragment*/ = {
       "kind": "ScalarField",
       "name": "display",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "name",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "value",
+      "storageKey": null
     }
   ],
   "type": "Unit",
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = '0265d5e4ce037457948859244d5dfa87';
+(node/*: any*/).hash = '041ed55ec7cc85cf1e1aeff88fc071a9';
 
 module.exports = node;

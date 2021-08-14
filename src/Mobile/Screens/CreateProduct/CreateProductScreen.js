@@ -43,7 +43,7 @@ const Component = props => {
     },
     onDropRejected: () => console.log('Rejected')
   })
-  const { category, me, productConditions } = props
+  const { category, me, productConditions, rentalDurations } = props
   const _isMounted = useRef(true)
   const scrollRef = useRef()
   const headerRef = useRef()
@@ -52,6 +52,7 @@ const Component = props => {
   const [price, setPrice] = useState('')
   const [desc, setDesc] = useState('')
   const [productConditionId, setProductConditionId] = useState(null)
+  const [rentalDurationId, setRentalDurationId] = useState(null)
   const [specs, setSpecs] = useState(category.specFields.reduce((obj, currentVal) => {
     obj[currentVal.attribute.id] = ''
     return obj
@@ -124,6 +125,14 @@ const Component = props => {
           validWhen: false,
           message: 'This field is required.'
         },
+      ] : []),
+      ...(category.listingType === 'rental_product' ? [
+        {
+          field: 'rentalDurationId',
+          method: Validator.isEmpty,
+          validWhen: false,
+          message: 'This field is required.'
+        },
       ] : [])
     ])
 
@@ -132,7 +141,8 @@ const Component = props => {
       name,
       price,
       desc,
-      ...(category.requiresProductCondition ? { productConditionId } : {})
+      ...(category.requiresProductCondition ? { productConditionId } : {}),
+      ...(category.listingType === 'rental_product' ? { rentalDurationId } : {})
     })
 
     setValidation(validation)
@@ -163,6 +173,7 @@ const Component = props => {
           desc,
           isPublished: true,
           productConditionId,
+          rentalDurationId,
           specs: productSpecs
         }
       }
@@ -403,6 +414,37 @@ const Component = props => {
             thousandSeparator="."
           />
 
+          {category.listingType === 'rental_product' &&
+          <TextField
+            variant="outlined"
+            select
+            label="Durasi Rental"
+            fullWidth
+            disabled={loading}
+            value={rentalDurationId}
+            onChange={(e) => setRentalDurationId(e.target.value)}
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            error={validation.rentalDurationId?.isInvalid}
+            helperText={validation.rentalDurationId?.message}
+            SelectProps={{
+              MenuProps: {
+                style: {
+                  maxHeight: 500
+                }
+              }
+            }}
+          >
+            {rentalDurations.map((option, i) => (
+              <MenuItem key={i} value={option.id}>
+                {option.value} {option.name}
+              </MenuItem>
+            ))}
+          </TextField>
+          }
+
           <TextField
             variant="outlined"
             label="Product Description"
@@ -641,7 +683,9 @@ export default createFragmentContainer(Component, {
   rentalDurations: graphql`
     fragment CreateProductScreen_rentalDurations on Unit @relay(plural: true) {
       id,
-      display
+      display,
+      name,
+      value
     }
   `
 })
