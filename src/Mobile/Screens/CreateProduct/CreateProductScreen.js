@@ -114,14 +114,23 @@ const Component = props => {
         method: Validator.isEmpty,
         validWhen: false,
         message: 'This field is required.'
-      }
+      },
+      ...(category.requiresProductCondition ? [
+        {
+          field: 'productConditionId',
+          method: Validator.isEmpty,
+          validWhen: false,
+          message: 'This field is required.'
+        },
+      ] : [])
     ])
 
     const validation = validator.validate({
       ...specs,
       name,
       price,
-      desc
+      desc,
+      ...(category.requiresProductCondition ? { productConditionId } : {})
     })
 
     setValidation(validation)
@@ -151,6 +160,7 @@ const Component = props => {
           price: parseFloat(price, 10),
           desc,
           isPublished: true,
+          productConditionId,
           specs: productSpecs
         }
       }
