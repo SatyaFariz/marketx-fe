@@ -203,7 +203,7 @@ const Component = props => {
         height: HEADER_HEIGHT,
         position: 'absolute',
         width: '100%',
-        // backgroundImage: 'linear-gradient(rgb(76, 76, 76), transparent)',
+        backgroundImage: files.length > 0 ? 'linear-gradient(rgb(76, 76, 76), transparent)' : undefined,
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
