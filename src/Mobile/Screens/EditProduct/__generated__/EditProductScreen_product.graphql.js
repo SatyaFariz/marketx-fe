@@ -29,6 +29,9 @@ export type EditProductScreen_product = {|
     |},
     +value: ?string,
   |}>,
+  +condition: ?{|
+    +id: ?string
+  |},
   +category: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
@@ -74,7 +77,10 @@ v1 = {
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
-};
+},
+v2 = [
+  (v0/*: any*/)
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -146,9 +152,7 @@ return {
           "kind": "LinkedField",
           "name": "attribute",
           "plural": false,
-          "selections": [
-            (v0/*: any*/)
-          ],
+          "selections": (v2/*: any*/),
           "storageKey": null
         },
         {
@@ -159,6 +163,16 @@ return {
           "storageKey": null
         }
       ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ProductCondition",
+      "kind": "LinkedField",
+      "name": "condition",
+      "plural": false,
+      "selections": (v2/*: any*/),
       "storageKey": null
     },
     {
@@ -268,6 +282,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '23c6b13eabfc791daeb19b525e0cc5b8';
+(node/*: any*/).hash = 'f643addfb70de0d58aec84acde9b55f8';
 
 module.exports = node;

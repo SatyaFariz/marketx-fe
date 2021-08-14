@@ -18,7 +18,7 @@ import Sheet from 'react-modal-sheet'
 import Link from '../../Components/Link'
 
 const Component = props => {
-  const { product } = props
+  const { product, productConditions } = props
   const _isMounted = useRef(true)
   const scrollRef = useRef()
   const headerRef = useRef()
@@ -30,6 +30,7 @@ const Component = props => {
     obj[currentVal.attribute.id] = product.specs.find(item => item.attribute.id === currentVal.attribute.id)?.value || ''
     return obj
   }, {}))
+  const [productConditionId, setProductConditionId] = useState(product.condition?.id)
   const [carouselPos, setCarouselPos] = useState(0)
   const [validation, setValidation] = useState({ isValid: false })
   const [loading, setLoading] = useState(false)
@@ -99,14 +100,23 @@ const Component = props => {
         method: Validator.isEmpty,
         validWhen: false,
         message: 'This field is required.'
-      }
+      },
+      ...(product.category[product.category.length - 1].requiresProductCondition ? [
+        {
+          field: 'productConditionId',
+          method: Validator.isEmpty,
+          validWhen: false,
+          message: 'This field is required.'
+        },
+      ] : [])
     ])
 
     const validation = validator.validate({
       ...specs,
       name,
       price,
-      desc
+      desc,
+      ...(product.category[product.category.length - 1].requiresProductCondition ? { productConditionId } : {})
     })
 
     setValidation(validation)
@@ -128,6 +138,7 @@ const Component = props => {
         price: parseFloat(price),
         desc,
         isPublished,
+        productConditionId,
         specs: productSpecs
       }
 
@@ -182,7 +193,8 @@ const Component = props => {
     return (
       product.name.trim() === name.trim() &&
       product.desc.trim() === desc.trim() &&
-      product.price === parseFloat(price)
+      product.price === parseFloat(price) &&
+      (product.condition?.id || '') === (productConditionId || '')
     )
   }
 
@@ -420,6 +432,37 @@ const Component = props => {
             />
 
             <h3 style={{ margin: '10px 0'}}>Specifications</h3>
+
+            {product.category[product.category.length - 1].showsProductConditionField &&
+            <TextField
+              variant="outlined"
+              select
+              label="Kondisi"
+              fullWidth
+              disabled={loading}
+              value={productConditionId}
+              onChange={(e) => setProductConditionId(e.target.value)}
+              style={{
+                marginTop: 10,
+                marginBottom: 10
+              }}
+              error={validation.productConditionId?.isInvalid}
+              helperText={validation.productConditionId?.message}
+              SelectProps={{
+                MenuProps: {
+                  style: {
+                    maxHeight: 500
+                  }
+                }
+              }}
+            >
+              {productConditions.map((option, i) => (
+                <MenuItem key={i} value={option.id}>
+                  {option.display}
+                </MenuItem>
+              ))}
+            </TextField>
+            }
 
             {product.category[product.category.length - 1].specFields.map((field) => {
               if(field.type === 'year') {
@@ -665,6 +708,9 @@ export default createFragmentContainer(Component, {
           id
         },
         value
+      },
+      condition {
+        id,
       },
       category {
         id,
