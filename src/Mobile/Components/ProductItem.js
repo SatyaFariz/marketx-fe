@@ -40,10 +40,14 @@ const Component = props => {
           marginBottom: 5,
           marginTop: 8
         }}>{product.name}</span>
-        {product.rentalDuration &&
+        {product.rentalDuration ?
         <span style={{
           fontSize: 16
         }}>{formatCurrency(product.price)} / {product.rentalDuration.display}</span>
+        :
+        <span style={{
+          fontSize: 16
+        }}>{formatCurrency(product.price)}</span>
         }
       </div>
     </ButtonBase>
