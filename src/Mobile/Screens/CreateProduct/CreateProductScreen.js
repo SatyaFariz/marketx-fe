@@ -335,7 +335,7 @@ const Component = props => {
             alignItems: 'center',
             margin: '10px 0'
           }}>
-          {[...category.parents, category].map((item, i) => {
+          {[...category.ancestors, category].map((item, i) => {
             return (
               <div key={item.id} style={{
                 display: 'flex',
@@ -587,7 +587,7 @@ export default createFragmentContainer(Component, {
       path,
       requiresProductCondition,
       showsProductConditionField,
-      parents {
+      ancestors {
         id,
         name
       },

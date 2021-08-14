@@ -48,7 +48,7 @@ const Component = props => {
         <List
         >
           {categories.map(category => {
-            const names = [...category.parents, category].map(item => item.name)
+            const names = [...category.ancestors, category].map(item => item.name)
             const name = names.join(' > ')
             return (
               <ListItem 
@@ -73,7 +73,7 @@ export default createFragmentContainer(Component, {
       id,
       name,
       path,
-      parents {
+      ancestors {
         id,
         name
       }

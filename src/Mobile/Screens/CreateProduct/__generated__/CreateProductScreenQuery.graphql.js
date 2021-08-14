@@ -58,7 +58,7 @@ fragment CreateProductScreen_category on Category {
   path
   requiresProductCondition
   showsProductConditionField
-  parents {
+  ancestors {
     id
     name
   }
@@ -227,7 +227,7 @@ return {
             "args": null,
             "concreteType": "Category",
             "kind": "LinkedField",
-            "name": "parents",
+            "name": "ancestors",
             "plural": true,
             "selections": (v4/*: any*/),
             "storageKey": null
@@ -352,12 +352,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4ed79ea4e2306224f22c6676a936e097",
+    "cacheID": "b2107aa9dc72529dfbf774b901cb41e8",
     "id": null,
     "metadata": {},
     "name": "CreateProductScreenQuery",
     "operationKind": "query",
-    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n  productConditions {\n    ...CreateProductScreen_productConditions\n    id\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  requiresProductCondition\n  showsProductConditionField\n  parents {\n    id\n    name\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n  }\n}\n\nfragment CreateProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n"
+    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n  productConditions {\n    ...CreateProductScreen_productConditions\n    id\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  requiresProductCondition\n  showsProductConditionField\n  ancestors {\n    id\n    name\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n  }\n}\n\nfragment CreateProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n"
   }
 };
 })();

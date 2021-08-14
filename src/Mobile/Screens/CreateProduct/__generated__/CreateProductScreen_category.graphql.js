@@ -17,7 +17,7 @@ export type CreateProductScreen_category = {|
   +path: ?string,
   +requiresProductCondition: ?boolean,
   +showsProductConditionField: ?boolean,
-  +parents: ?$ReadOnlyArray<?{|
+  +ancestors: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
   |}>,
@@ -99,7 +99,7 @@ return {
       "args": null,
       "concreteType": "Category",
       "kind": "LinkedField",
-      "name": "parents",
+      "name": "ancestors",
       "plural": true,
       "selections": (v2/*: any*/),
       "storageKey": null
@@ -181,6 +181,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '2e56a135b148f222dc766d0f8523c2e4';
+(node/*: any*/).hash = '565afe44b9a89b347e5e1621c439a208';
 
 module.exports = node;

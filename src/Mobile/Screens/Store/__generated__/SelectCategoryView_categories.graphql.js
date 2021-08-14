@@ -15,7 +15,7 @@ export type SelectCategoryView_categories = $ReadOnlyArray<{|
   +id: ?string,
   +name: ?string,
   +path: ?string,
-  +parents: ?$ReadOnlyArray<?{|
+  +ancestors: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
   |}>,
@@ -67,7 +67,7 @@ return {
       "args": null,
       "concreteType": "Category",
       "kind": "LinkedField",
-      "name": "parents",
+      "name": "ancestors",
       "plural": true,
       "selections": [
         (v0/*: any*/),
@@ -81,6 +81,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'fbbfcb44bad2ec2d0bcfb395043de34f';
+(node/*: any*/).hash = '6faf2d9ce86f1e05401c134047c3659a';
 
 module.exports = node;
