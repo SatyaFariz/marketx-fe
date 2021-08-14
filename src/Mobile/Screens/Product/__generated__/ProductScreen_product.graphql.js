@@ -20,6 +20,9 @@ export type ProductScreen_product = {|
   +isPublished: ?boolean,
   +isFeatured: ?boolean,
   +isSuspended: ?boolean,
+  +condition: ?{|
+    +display: ?string
+  |},
   +images: ?$ReadOnlyArray<?{|
     +id: ?string,
     +url: ?string,
@@ -81,6 +84,15 @@ v1 = {
   "storageKey": null
 },
 v2 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "display",
+    "storageKey": null
+  }
+],
+v3 = [
   (v0/*: any*/),
   {
     "alias": null,
@@ -143,11 +155,21 @@ return {
     {
       "alias": null,
       "args": null,
+      "concreteType": "ProductCondition",
+      "kind": "LinkedField",
+      "name": "condition",
+      "plural": false,
+      "selections": (v2/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "Image",
       "kind": "LinkedField",
       "name": "images",
       "plural": true,
-      "selections": (v2/*: any*/),
+      "selections": (v3/*: any*/),
       "storageKey": null
     },
     {
@@ -170,15 +192,7 @@ return {
       "kind": "LinkedField",
       "name": "rentalDuration",
       "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "display",
-          "storageKey": null
-        }
-      ],
+      "selections": (v2/*: any*/),
       "storageKey": null
     },
     {
@@ -207,7 +221,7 @@ return {
               "kind": "LinkedField",
               "name": "icon",
               "plural": false,
-              "selections": (v2/*: any*/),
+              "selections": (v3/*: any*/),
               "storageKey": null
             }
           ],
@@ -261,7 +275,7 @@ return {
           "kind": "LinkedField",
           "name": "profilePicture",
           "plural": false,
-          "selections": (v2/*: any*/),
+          "selections": (v3/*: any*/),
           "storageKey": null
         }
       ],
@@ -273,6 +287,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '44eeddbce21f55fc2349d1950ae4c226';
+(node/*: any*/).hash = '693ab7ca13c96af13c6386448df8061d';
 
 module.exports = node;

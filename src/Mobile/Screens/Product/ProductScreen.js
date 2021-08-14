@@ -305,6 +305,25 @@ const Component = props => {
             }}>Specifications</span>
 
             <div style={{ marginTop: 15, marginBottom: 15 }}>
+              {product.condition &&
+              <div style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                paddingTop: 10,
+                paddingBottom: 10
+              }}>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center'
+                }}>
+                  <span>Kondisi</span>
+                </div>
+                <span>{product.condition.display}</span>
+              </div>
+              }
               {product.specs.map((item, i) => {
                 if(item.value?.trim() === '') return null
                 return (
@@ -321,7 +340,7 @@ const Component = props => {
                       flexDirection: 'row',
                       alignItems: 'center'
                     }}>
-                      <img
+                      {/* <img
                         alt='product'
                         src={item.attribute.icon.url}
                         style={{
@@ -329,7 +348,7 @@ const Component = props => {
                           width: 24,
                           marginRight: 10
                         }}
-                      />
+                      /> */}
                       <span>{item.attribute.name}</span>
                     </div>
                     <span>{item.value}</span>
@@ -626,6 +645,9 @@ export default createFragmentContainer(Component, {
       isPublished,
       isFeatured,
       isSuspended,
+      condition {
+        display
+      },
       images {
         id,
         url
