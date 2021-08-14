@@ -669,6 +669,8 @@ export default createFragmentContainer(Component, {
       category {
         id,
         name,
+        requiresProductCondition,
+        showsProductConditionField,
         specFields {
           id,
           attribute {
@@ -684,6 +686,12 @@ export default createFragmentContainer(Component, {
           isEnum
         }
       },
+    }
+  `,
+  productConditions: graphql`
+    fragment EditProductScreen_productConditions on ProductCondition @relay(plural: true) {
+      id,
+      display
     }
   `
 })

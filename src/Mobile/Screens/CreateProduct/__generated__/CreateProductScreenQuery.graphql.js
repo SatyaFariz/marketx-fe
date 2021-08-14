@@ -10,6 +10,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type CreateProductScreen_category$ref = any;
 type CreateProductScreen_me$ref = any;
+type CreateProductScreen_productConditions$ref = any;
 export type CreateProductScreenQueryVariables = {|
   categoryId: string
 |};
@@ -22,6 +23,9 @@ export type CreateProductScreenQueryResponse = {|
     +id: ?string,
     +$fragmentRefs: CreateProductScreen_me$ref,
   |},
+  +productConditions: ?$ReadOnlyArray<?{|
+    +$fragmentRefs: CreateProductScreen_productConditions$ref
+  |}>,
 |};
 export type CreateProductScreenQuery = {|
   variables: CreateProductScreenQueryVariables,
@@ -42,12 +46,18 @@ query CreateProductScreenQuery(
     id
     ...CreateProductScreen_me
   }
+  productConditions {
+    ...CreateProductScreen_productConditions
+    id
+  }
 }
 
 fragment CreateProductScreen_category on Category {
   id
   name
   path
+  requiresProductCondition
+  showsProductConditionField
   parents {
     id
     name
@@ -73,6 +83,11 @@ fragment CreateProductScreen_me on User {
   store {
     id
   }
+}
+
+fragment CreateProductScreen_productConditions on ProductCondition {
+  id
+  display
 }
 */
 
@@ -149,6 +164,22 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "ProductCondition",
+        "kind": "LinkedField",
+        "name": "productConditions",
+        "plural": true,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CreateProductScreen_productConditions"
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -175,6 +206,20 @@ return {
             "args": null,
             "kind": "ScalarField",
             "name": "path",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "requiresProductCondition",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "showsProductConditionField",
             "storageKey": null
           },
           {
@@ -284,20 +329,39 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "ProductCondition",
+        "kind": "LinkedField",
+        "name": "productConditions",
+        "plural": true,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "display",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "89481ad56bae2b5666bf050660f3289e",
+    "cacheID": "4ed79ea4e2306224f22c6676a936e097",
     "id": null,
     "metadata": {},
     "name": "CreateProductScreenQuery",
     "operationKind": "query",
-    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  parents {\n    id\n    name\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n  }\n}\n"
+    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n  productConditions {\n    ...CreateProductScreen_productConditions\n    id\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  requiresProductCondition\n  showsProductConditionField\n  parents {\n    id\n    name\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n  }\n}\n\nfragment CreateProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5592b10131d449fe11cf0d3205d81d5c';
+(node/*: any*/).hash = '6879bafc21705ea3efb77ef4006bcf22';
 
 module.exports = node;

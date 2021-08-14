@@ -553,6 +553,8 @@ export default createFragmentContainer(Component, {
       id,
       name,
       path,
+      requiresProductCondition,
+      showsProductConditionField,
       parents {
         id,
         name
@@ -579,6 +581,12 @@ export default createFragmentContainer(Component, {
       store {
         id
       }
+    }
+  `,
+  productConditions: graphql`
+    fragment CreateProductScreen_productConditions on ProductCondition @relay(plural: true) {
+      id,
+      display
     }
   `
 })

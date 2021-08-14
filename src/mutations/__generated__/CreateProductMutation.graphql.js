@@ -16,6 +16,7 @@ export type ProductInput = {|
   isPublished: boolean,
   specs: $ReadOnlyArray<SpecificationInput>,
   rentalDurationId?: ?string,
+  productConditionId?: ?string,
 |};
 export type SpecificationInput = {|
   attributeId: string,

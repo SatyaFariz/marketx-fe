@@ -9,6 +9,9 @@ const chunk = {
       product(id: $id) {
         id,
         ...EditProductScreen_product
+      },
+      productConditions {
+        ...EditProductScreen_productConditions
       }
     }
   `,
@@ -21,6 +24,7 @@ const chunk = {
         <FixedAddressBar>
           <EditProductScreen
             product={data.product}
+            productConditions={data.productConditions}
           />
         </FixedAddressBar>
         

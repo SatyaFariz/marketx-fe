@@ -9,6 +9,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type EditProductScreen_product$ref = any;
+type EditProductScreen_productConditions$ref = any;
 export type EditProductScreenQueryVariables = {|
   id: string
 |};
@@ -16,7 +17,10 @@ export type EditProductScreenQueryResponse = {|
   +product: ?{|
     +id: ?string,
     +$fragmentRefs: EditProductScreen_product$ref,
-  |}
+  |},
+  +productConditions: ?$ReadOnlyArray<?{|
+    +$fragmentRefs: EditProductScreen_productConditions$ref
+  |}>,
 |};
 export type EditProductScreenQuery = {|
   variables: EditProductScreenQueryVariables,
@@ -32,6 +36,10 @@ query EditProductScreenQuery(
   product(id: $id) {
     id
     ...EditProductScreen_product
+  }
+  productConditions {
+    ...EditProductScreen_productConditions
+    id
   }
 }
 
@@ -56,6 +64,8 @@ fragment EditProductScreen_product on Product {
   category {
     id
     name
+    requiresProductCondition
+    showsProductConditionField
     specFields {
       id
       attribute {
@@ -71,6 +81,11 @@ fragment EditProductScreen_product on Product {
       isEnum
     }
   }
+}
+
+fragment EditProductScreen_productConditions on ProductCondition {
+  id
+  display
 }
 */
 
@@ -123,6 +138,22 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "EditProductScreen_product"
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "ProductCondition",
+        "kind": "LinkedField",
+        "name": "productConditions",
+        "plural": true,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "EditProductScreen_productConditions"
           }
         ],
         "storageKey": null
@@ -238,6 +269,20 @@ return {
               {
                 "alias": null,
                 "args": null,
+                "kind": "ScalarField",
+                "name": "requiresProductCondition",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "showsProductConditionField",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "concreteType": "SpecificationField",
                 "kind": "LinkedField",
                 "name": "specFields",
@@ -314,20 +359,39 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "ProductCondition",
+        "kind": "LinkedField",
+        "name": "productConditions",
+        "plural": true,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "display",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "d1e9a260c86e959bbcf33031e24b585e",
+    "cacheID": "3516b8119c12cbd008f13a3c7a8be6e6",
     "id": null,
     "metadata": {},
     "name": "EditProductScreenQuery",
     "operationKind": "query",
-    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  isPublished\n  isDeleted\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  category {\n    id\n    name\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isAutocomplete\n      isRequired\n      type\n      max\n      min\n      options\n      isEnum\n    }\n  }\n}\n"
+    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n  productConditions {\n    ...EditProductScreen_productConditions\n    id\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  isPublished\n  isDeleted\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  category {\n    id\n    name\n    requiresProductCondition\n    showsProductConditionField\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isAutocomplete\n      isRequired\n      type\n      max\n      min\n      options\n      isEnum\n    }\n  }\n}\n\nfragment EditProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '6409d2d4c1e5ada96ee188f2a637117b';
+(node/*: any*/).hash = 'a08b693574278c420161d47844de81cd';
 
 module.exports = node;

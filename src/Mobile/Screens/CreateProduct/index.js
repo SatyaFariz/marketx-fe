@@ -13,6 +13,9 @@ const chunk = {
       me {
         id,
         ...CreateProductScreen_me
+      },
+      productConditions {
+        ...CreateProductScreen_productConditions
       }
     }
   `,
@@ -26,6 +29,7 @@ const chunk = {
           <CreateProductScreen
             category={data.category}
             me={data.me}
+            productConditions={data.productConditions}
           />
         </FixedAddressBar>
         

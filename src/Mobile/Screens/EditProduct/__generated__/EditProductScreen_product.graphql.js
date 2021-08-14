@@ -32,6 +32,8 @@ export type EditProductScreen_product = {|
   +category: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
+    +requiresProductCondition: ?boolean,
+    +showsProductConditionField: ?boolean,
     +specFields: ?$ReadOnlyArray<?{|
       +id: ?string,
       +attribute: ?{|
@@ -172,6 +174,20 @@ return {
         {
           "alias": null,
           "args": null,
+          "kind": "ScalarField",
+          "name": "requiresProductCondition",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "showsProductConditionField",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "SpecificationField",
           "kind": "LinkedField",
           "name": "specFields",
@@ -252,6 +268,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5a65947df97ea1b7918dfa96b2567e8f';
+(node/*: any*/).hash = '23c6b13eabfc791daeb19b525e0cc5b8';
 
 module.exports = node;

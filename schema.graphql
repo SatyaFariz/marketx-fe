@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Fri Aug 13 2021 20:55:42 GMT+0700 (Western Indonesia Time)
+# timestamp: Sat Aug 14 2021 12:01:44 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -58,6 +58,8 @@ type Category {
   path: String
   level: Int
   isPublished: Boolean
+  requiresProductCondition: Boolean
+  showsProductConditionField: Boolean
   icon: Image
   parents: [Category]
   specFields: [SpecificationField]
@@ -133,6 +135,7 @@ type Product {
   desc: String
   price: Float
   rentalDuration: Unit
+  condition: ProductCondition
   category: [Category]
   merchant: User
   store: Store
@@ -144,6 +147,12 @@ type Product {
   mainImage: Image
   images: [Image]
   specs: [Specification]
+}
+
+type ProductCondition {
+  id: ID
+  display: String
+  desc: String
 }
 
 """A connection to a list of items."""
@@ -171,6 +180,7 @@ input ProductInput {
   isPublished: Boolean!
   specs: [SpecificationInput!]!
   rentalDurationId: String
+  productConditionId: String
 }
 
 enum ProductTypeEnum {
@@ -193,6 +203,7 @@ type Query {
   search(q: String!, categoryId: String, storeId: String, published: Boolean, after: String, first: Int): ProductConnection
   administrativeAreas(parentId: Int): [AdministrativeArea]
   suspensionReasons: [SuspensionReason]
+  productConditions: [ProductCondition]
 }
 
 type SendOtpPayload {
