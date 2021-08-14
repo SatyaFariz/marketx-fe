@@ -14,6 +14,7 @@ import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
 import CreateProduct from '../../../mutations/CreateProduct'
 import BackButton from '../../Components/BackButton'
+import NumberFormat from 'react-number-format'
 
 const megabytes = 1048576
 
@@ -68,8 +69,9 @@ const Component = props => {
     setSpecs(prev => ({ ...prev, [field.attribute.id]: value }))
   }
 
-  const _setPrice = (e) => {
-    const { value } = e.target
+  const _setPrice = (values) => {
+    const { value } = values
+    if(value.startsWith('0')) return
     const allowedChars = '0123456789'
     if(value !== '0' && (value === '' || allowedChars.includes(value[value.length - 1])))
       setPrice(value)
@@ -375,12 +377,13 @@ const Component = props => {
             helperText={validation?.name?.message}
           />
 
-          <TextField
+          <NumberFormat
+            customInput={TextField}
             variant="outlined"
             label="Product Price"
             fullWidth
             value={price}
-            onChange={_setPrice}
+            onValueChange={_setPrice}
             style={{
               marginTop: 10,
               marginBottom: 10
@@ -395,6 +398,9 @@ const Component = props => {
             }}
             error={validation?.price?.isInvalid}
             helperText={validation?.price?.message}
+            allowNegative={false}
+            decimalSeparator={null}
+            thousandSeparator="."
           />
 
           <TextField
