@@ -12,6 +12,9 @@ const chunk = {
       },
       productConditions {
         ...EditProductScreen_productConditions
+      },
+      rentalDurations {
+        ...EditProductScreen_rentalDurations
       }
     }
   `,
@@ -25,6 +28,7 @@ const chunk = {
           <EditProductScreen
             product={data.product}
             productConditions={data.productConditions}
+            rentalDurations={data.rentalDurations}
           />
         </FixedAddressBar>
         

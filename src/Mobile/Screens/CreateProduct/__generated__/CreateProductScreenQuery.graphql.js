@@ -11,6 +11,7 @@ import type { ConcreteRequest } from 'relay-runtime';
 type CreateProductScreen_category$ref = any;
 type CreateProductScreen_me$ref = any;
 type CreateProductScreen_productConditions$ref = any;
+type CreateProductScreen_rentalDurations$ref = any;
 export type CreateProductScreenQueryVariables = {|
   categoryId: string
 |};
@@ -25,6 +26,9 @@ export type CreateProductScreenQueryResponse = {|
   |},
   +productConditions: ?$ReadOnlyArray<?{|
     +$fragmentRefs: CreateProductScreen_productConditions$ref
+  |}>,
+  +rentalDurations: ?$ReadOnlyArray<?{|
+    +$fragmentRefs: CreateProductScreen_rentalDurations$ref
   |}>,
 |};
 export type CreateProductScreenQuery = {|
@@ -50,6 +54,10 @@ query CreateProductScreenQuery(
     ...CreateProductScreen_productConditions
     id
   }
+  rentalDurations {
+    ...CreateProductScreen_rentalDurations
+    id
+  }
 }
 
 fragment CreateProductScreen_category on Category {
@@ -58,6 +66,7 @@ fragment CreateProductScreen_category on Category {
   path
   requiresProductCondition
   showsProductConditionField
+  listingType
   ancestors {
     id
     name
@@ -86,6 +95,11 @@ fragment CreateProductScreen_me on User {
 }
 
 fragment CreateProductScreen_productConditions on ProductCondition {
+  id
+  display
+}
+
+fragment CreateProductScreen_rentalDurations on Unit {
   id
   display
 }
@@ -123,6 +137,16 @@ v3 = {
 v4 = [
   (v2/*: any*/),
   (v3/*: any*/)
+],
+v5 = [
+  (v2/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "display",
+    "storageKey": null
+  }
 ];
 return {
   "fragment": {
@@ -180,6 +204,22 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Unit",
+        "kind": "LinkedField",
+        "name": "rentalDurations",
+        "plural": true,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CreateProductScreen_rentalDurations"
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -220,6 +260,13 @@ return {
             "args": null,
             "kind": "ScalarField",
             "name": "showsProductConditionField",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "listingType",
             "storageKey": null
           },
           {
@@ -337,31 +384,32 @@ return {
         "kind": "LinkedField",
         "name": "productConditions",
         "plural": true,
-        "selections": [
-          (v2/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "display",
-            "storageKey": null
-          }
-        ],
+        "selections": (v5/*: any*/),
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Unit",
+        "kind": "LinkedField",
+        "name": "rentalDurations",
+        "plural": true,
+        "selections": (v5/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "b2107aa9dc72529dfbf774b901cb41e8",
+    "cacheID": "03d536e2926b71bb0e8b2e9bf2ee56fd",
     "id": null,
     "metadata": {},
     "name": "CreateProductScreenQuery",
     "operationKind": "query",
-    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n  productConditions {\n    ...CreateProductScreen_productConditions\n    id\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  requiresProductCondition\n  showsProductConditionField\n  ancestors {\n    id\n    name\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n  }\n}\n\nfragment CreateProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n"
+    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n  productConditions {\n    ...CreateProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...CreateProductScreen_rentalDurations\n    id\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  requiresProductCondition\n  showsProductConditionField\n  listingType\n  ancestors {\n    id\n    name\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n  }\n}\n\nfragment CreateProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment CreateProductScreen_rentalDurations on Unit {\n  id\n  display\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '6879bafc21705ea3efb77ef4006bcf22';
+(node/*: any*/).hash = '8df1e86c63d6c934a9239d3bc464d7a9';
 
 module.exports = node;

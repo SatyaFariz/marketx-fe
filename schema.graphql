@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sat Aug 14 2021 15:41:06 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Aug 15 2021 02:07:17 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -60,6 +60,7 @@ type Category {
   isPublished: Boolean
   requiresProductCondition: Boolean
   showsProductConditionField: Boolean
+  listingType: String
   icon: Image
   ancestors: [Category]
   specFields: [SpecificationField]
@@ -195,7 +196,7 @@ type Query {
   attributes: [Attribute]
   categories(hasChild: Boolean): [Category]
   category(id: String!): Category
-  units: [Unit]
+  rentalDurations: [Unit]
   product(id: String!): Product
   user(id: String!): User
   store(id: String!): Store

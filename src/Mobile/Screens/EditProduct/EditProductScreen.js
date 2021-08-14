@@ -722,6 +722,7 @@ export default createFragmentContainer(Component, {
         name,
         requiresProductCondition,
         showsProductConditionField,
+        listingType,
         specFields {
           id,
           attribute {
@@ -741,6 +742,12 @@ export default createFragmentContainer(Component, {
   `,
   productConditions: graphql`
     fragment EditProductScreen_productConditions on ProductCondition @relay(plural: true) {
+      id,
+      display
+    }
+  `,
+  rentalDurations: graphql`
+    fragment EditProductScreen_rentalDurations on Unit @relay(plural: true) {
       id,
       display
     }

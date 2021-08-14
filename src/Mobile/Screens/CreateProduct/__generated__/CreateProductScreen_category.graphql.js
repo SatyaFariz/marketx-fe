@@ -17,6 +17,7 @@ export type CreateProductScreen_category = {|
   +path: ?string,
   +requiresProductCondition: ?boolean,
   +showsProductConditionField: ?boolean,
+  +listingType: ?string,
   +ancestors: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
@@ -92,6 +93,13 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "showsProductConditionField",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "listingType",
       "storageKey": null
     },
     {
@@ -181,6 +189,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '565afe44b9a89b347e5e1621c439a208';
+(node/*: any*/).hash = '61fe4208d1913bfd5ad0ed9c96dda964';
 
 module.exports = node;

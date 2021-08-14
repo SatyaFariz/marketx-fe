@@ -603,6 +603,7 @@ export default createFragmentContainer(Component, {
       path,
       requiresProductCondition,
       showsProductConditionField,
+      listingType,
       ancestors {
         id,
         name
@@ -633,6 +634,12 @@ export default createFragmentContainer(Component, {
   `,
   productConditions: graphql`
     fragment CreateProductScreen_productConditions on ProductCondition @relay(plural: true) {
+      id,
+      display
+    }
+  `,
+  rentalDurations: graphql`
+    fragment CreateProductScreen_rentalDurations on Unit @relay(plural: true) {
       id,
       display
     }

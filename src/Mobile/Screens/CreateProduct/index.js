@@ -16,6 +16,9 @@ const chunk = {
       },
       productConditions {
         ...CreateProductScreen_productConditions
+      },
+      rentalDurations {
+        ...CreateProductScreen_rentalDurations
       }
     }
   `,
@@ -30,6 +33,7 @@ const chunk = {
             category={data.category}
             me={data.me}
             productConditions={data.productConditions}
+            rentalDurations={data.rentalDurations}
           />
         </FixedAddressBar>
         
