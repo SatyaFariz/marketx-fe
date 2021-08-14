@@ -42,7 +42,7 @@ const Component = props => {
     },
     onDropRejected: () => console.log('Rejected')
   })
-  const { category, me } = props
+  const { category, me, productConditions } = props
   const _isMounted = useRef(true)
   const scrollRef = useRef()
   const headerRef = useRef()
@@ -50,6 +50,7 @@ const Component = props => {
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
   const [desc, setDesc] = useState('')
+  const [productConditionId, setProductConditionId] = useState(null)
   const [specs, setSpecs] = useState(category.specFields.reduce((obj, currentVal) => {
     obj[currentVal.attribute.id] = ''
     return obj
@@ -63,7 +64,7 @@ const Component = props => {
   }
 
   const _setSpecs = field => e => {
-    const value = e.target.value.trimLeft()
+    const value = e.target.value?.trimLeft() || null
     setSpecs(prev => ({ ...prev, [field.attribute.id]: value }))
   }
 
@@ -404,6 +405,37 @@ const Component = props => {
 
           <h3 style={{ margin: '10px 0'}}>Specifications</h3>
 
+          {category.showsProductConditionField &&
+          <TextField
+            variant="outlined"
+            select
+            label="Kondisi"
+            fullWidth
+            disabled={loading}
+            value={productConditionId}
+            onChange={(e) => setProductConditionId(e.target.value)}
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            error={validation.productConditionId?.isInvalid}
+            helperText={validation.productConditionId?.message}
+            SelectProps={{
+              MenuProps: {
+                style: {
+                  maxHeight: 500
+                }
+              }
+            }}
+          >
+            {productConditions.map((option, i) => (
+              <MenuItem key={i} value={option.id}>
+                {option.display}
+              </MenuItem>
+            ))}
+          </TextField>
+          }
+
           {category.specFields.map((field) => {
             if(field.type === 'year') {
               const startYear = 1901
@@ -422,7 +454,7 @@ const Component = props => {
                   label={field.attribute.name}
                   fullWidth
                   disabled={loading}
-                  value={specs[field.attribute.id]?.trim() === '' ? undefined : specs[field.attribute.id]}
+                  value={specs[field.attribute.id]?.trim() === '' ? '' : specs[field.attribute.id]}
                   onChange={_setSpecs(field)}
                   style={{
                     marginTop: 10,
@@ -453,7 +485,7 @@ const Component = props => {
                     options={field.options}
                     getOptionLabel={(option) => option}
                     getOptionSelected={(option, value) => option === value}
-                    value={specs[field.attribute.id]}
+                    value={specs[field.attribute.id]?.trim() === '' ? null : specs[field.attribute.id]}
                     onChange={(_, value) => _setSpecs(field)({ target: { value }})}
                     renderInput={(params) => 
                       <TextField 
@@ -481,7 +513,7 @@ const Component = props => {
                   label={field.attribute.name}
                   fullWidth
                   disabled={loading}
-                  value={specs[field.attribute.id]?.trim() === '' ? undefined : specs[field.attribute.id]}
+                  value={specs[field.attribute.id]?.trim() === '' ? '' : specs[field.attribute.id]}
                   onChange={_setSpecs(field)}
                   style={{
                     marginTop: 10,
