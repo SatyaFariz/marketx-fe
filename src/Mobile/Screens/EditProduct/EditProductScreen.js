@@ -19,7 +19,7 @@ import Link from '../../Components/Link'
 import NumberFormat from 'react-number-format'
 
 const Component = props => {
-  const { product, productConditions } = props
+  const { product, productConditions, rentalDurations } = props
   const _isMounted = useRef(true)
   const scrollRef = useRef()
   const headerRef = useRef()
@@ -32,6 +32,7 @@ const Component = props => {
     return obj
   }, {}))
   const [productConditionId, setProductConditionId] = useState(product.condition?.id)
+  const [rentalDurationId, setRentalDurationId] = useState(product.rentalDuration?.id)
   const [carouselPos, setCarouselPos] = useState(0)
   const [validation, setValidation] = useState({ isValid: false })
   const [loading, setLoading] = useState(false)
@@ -109,6 +110,14 @@ const Component = props => {
           validWhen: false,
           message: 'This field is required.'
         },
+      ] : []),
+      ...(product.category[product.category.length - 1].listingType === 'rental_product' ? [
+        {
+          field: 'rentalDurationId',
+          method: Validator.isEmpty,
+          validWhen: false,
+          message: 'This field is required.'
+        },
       ] : [])
     ])
 
@@ -117,7 +126,8 @@ const Component = props => {
       name,
       price,
       desc,
-      ...(product.category[product.category.length - 1].requiresProductCondition ? { productConditionId } : {})
+      ...(product.category[product.category.length - 1].requiresProductCondition ? { productConditionId } : {}),
+      ...(product.category[product.category.length - 1].listingType === 'rental_product' ? { rentalDurationId } : {})
     })
 
     setValidation(validation)
@@ -140,6 +150,7 @@ const Component = props => {
         desc,
         isPublished,
         productConditionId,
+        rentalDurationId,
         specs: productSpecs
       }
 
@@ -195,7 +206,8 @@ const Component = props => {
       product.name.trim() === name.trim() &&
       product.desc.trim() === desc.trim() &&
       product.price === parseFloat(price) &&
-      (product.condition?.id || '') === (productConditionId || '')
+      (product.condition?.id || '') === (productConditionId || '') &&
+      (product.rentalDuration?.id || '') === (rentalDurationId || '')
     )
   }
 
@@ -418,6 +430,37 @@ const Component = props => {
               decimalSeparator={null}
               thousandSeparator="."
             />
+
+            {product.category[product.category.length - 1].listingType === 'rental_product' &&
+            <TextField
+              variant="outlined"
+              select
+              label="Durasi Rental"
+              fullWidth
+              disabled={loading}
+              value={rentalDurationId}
+              onChange={(e) => setRentalDurationId(e.target.value)}
+              style={{
+                marginTop: 10,
+                marginBottom: 10
+              }}
+              error={validation.rentalDurationId?.isInvalid}
+              helperText={validation.rentalDurationId?.message}
+              SelectProps={{
+                MenuProps: {
+                  style: {
+                    maxHeight: 500
+                  }
+                }
+              }}
+            >
+              {rentalDurations.map((option, i) => (
+                <MenuItem key={i} value={option.id}>
+                  {option.value} {option.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            }
             
             <TextField
               variant="outlined"
@@ -717,6 +760,9 @@ export default createFragmentContainer(Component, {
       condition {
         id,
       },
+      rentalDuration {
+        id
+      },
       category {
         id,
         name,
@@ -749,7 +795,9 @@ export default createFragmentContainer(Component, {
   rentalDurations: graphql`
     fragment EditProductScreen_rentalDurations on Unit @relay(plural: true) {
       id,
-      display
+      display,
+      name,
+      value
     }
   `
 })

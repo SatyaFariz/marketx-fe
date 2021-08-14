@@ -72,6 +72,9 @@ fragment EditProductScreen_product on Product {
   condition {
     id
   }
+  rentalDuration {
+    id
+  }
   category {
     id
     name
@@ -103,6 +106,8 @@ fragment EditProductScreen_productConditions on ProductCondition {
 fragment EditProductScreen_rentalDurations on Unit {
   id
   display
+  name
+  value
 }
 */
 
@@ -138,16 +143,20 @@ v3 = {
 v4 = [
   (v2/*: any*/)
 ],
-v5 = [
-  (v2/*: any*/),
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "display",
-    "storageKey": null
-  }
-];
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "value",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "display",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -290,13 +299,7 @@ return {
                 "selections": (v4/*: any*/),
                 "storageKey": null
               },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "value",
-                "storageKey": null
-              }
+              (v5/*: any*/)
             ],
             "storageKey": null
           },
@@ -306,6 +309,16 @@ return {
             "concreteType": "ProductCondition",
             "kind": "LinkedField",
             "name": "condition",
+            "plural": false,
+            "selections": (v4/*: any*/),
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Unit",
+            "kind": "LinkedField",
+            "name": "rentalDuration",
             "plural": false,
             "selections": (v4/*: any*/),
             "storageKey": null
@@ -428,7 +441,10 @@ return {
         "kind": "LinkedField",
         "name": "productConditions",
         "plural": true,
-        "selections": (v5/*: any*/),
+        "selections": [
+          (v2/*: any*/),
+          (v6/*: any*/)
+        ],
         "storageKey": null
       },
       {
@@ -438,18 +454,23 @@ return {
         "kind": "LinkedField",
         "name": "rentalDurations",
         "plural": true,
-        "selections": (v5/*: any*/),
+        "selections": [
+          (v2/*: any*/),
+          (v6/*: any*/),
+          (v3/*: any*/),
+          (v5/*: any*/)
+        ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "69a455e6b71510e80f71540aeeec8559",
+    "cacheID": "c9f1b007b3aa7f9f90841897a01a43ef",
     "id": null,
     "metadata": {},
     "name": "EditProductScreenQuery",
     "operationKind": "query",
-    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n  productConditions {\n    ...EditProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...EditProductScreen_rentalDurations\n    id\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  isPublished\n  isDeleted\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  condition {\n    id\n  }\n  category {\n    id\n    name\n    requiresProductCondition\n    showsProductConditionField\n    listingType\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isAutocomplete\n      isRequired\n      type\n      max\n      min\n      options\n      isEnum\n    }\n  }\n}\n\nfragment EditProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment EditProductScreen_rentalDurations on Unit {\n  id\n  display\n}\n"
+    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n  productConditions {\n    ...EditProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...EditProductScreen_rentalDurations\n    id\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  isPublished\n  isDeleted\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  condition {\n    id\n  }\n  rentalDuration {\n    id\n  }\n  category {\n    id\n    name\n    requiresProductCondition\n    showsProductConditionField\n    listingType\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isAutocomplete\n      isRequired\n      type\n      max\n      min\n      options\n      isEnum\n    }\n  }\n}\n\nfragment EditProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment EditProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n"
   }
 };
 })();

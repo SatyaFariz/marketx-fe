@@ -22,7 +22,11 @@ const mutation = graphql`
           id,
           name
         },
+        condition {
+          id
+        },
         rentalDuration {
+          id,
           display
         },
         specs {

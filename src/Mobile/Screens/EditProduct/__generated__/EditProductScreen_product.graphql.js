@@ -32,6 +32,9 @@ export type EditProductScreen_product = {|
   +condition: ?{|
     +id: ?string
   |},
+  +rentalDuration: ?{|
+    +id: ?string
+  |},
   +category: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
@@ -179,6 +182,16 @@ return {
     {
       "alias": null,
       "args": null,
+      "concreteType": "Unit",
+      "kind": "LinkedField",
+      "name": "rentalDuration",
+      "plural": false,
+      "selections": (v2/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "Category",
       "kind": "LinkedField",
       "name": "category",
@@ -290,6 +303,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'f589c3d9082a68ffb4b73c54e4643aa3';
+(node/*: any*/).hash = 'b27a37fbfb89e567e4648a7a8776b883';
 
 module.exports = node;
