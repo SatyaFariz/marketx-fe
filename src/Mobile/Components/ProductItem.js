@@ -4,6 +4,7 @@ import formatCurrency from '../../helpers/formatCurrency'
 import { ButtonBase } from '@material-ui/core'
 
 import Link from '../Components/Link'
+import Color from '../Constants/Color'
 
 const Component = props => {
   const { product } = props
@@ -49,6 +50,20 @@ const Component = props => {
           fontSize: 16
         }}>{formatCurrency(product.price)}</span>
         }
+        {product.listingType === 'rental_product' &&
+          <span style={{
+            fontSize: 12,
+            color: Color.link,
+            marginTop: 7
+          }}>Rental</span>
+        }
+        {product.listingType === 'service' &&
+          <span style={{
+            fontSize: 12,
+            color: Color.link,
+            marginTop: 7
+          }}>Jasa</span>
+        }
       </div>
     </ButtonBase>
   )
@@ -60,6 +75,7 @@ export default createFragmentContainer(Component, {
       id,
       name,
       price,
+      listingType,
       mainImage {
         id,
         url

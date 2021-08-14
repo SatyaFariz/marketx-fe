@@ -206,7 +206,8 @@ const Component = props => {
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)',
               gridColumnGap: 15,
-              gridRowGap: 20
+              gridRowGap: 20,
+              alignItems: 'start'
             }}>
               {edges.map((edge, i) => {
                 return (

@@ -35,6 +35,7 @@ fragment ProductItem_product on Product {
   id
   name
   price
+  listingType
   mainImage {
     id
     url
@@ -170,6 +171,13 @@ return {
                   {
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "listingType",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
                     "concreteType": "Image",
                     "kind": "LinkedField",
                     "name": "mainImage",
@@ -258,12 +266,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e2a9a73fa26dc3727ae2ca50d44c83b4",
+    "cacheID": "b3c89a8c04c55c4c44d7946a36fc434b",
     "id": null,
     "metadata": {},
     "name": "SearchScreenQuery",
     "operationKind": "query",
-    "text": "query SearchScreenQuery(\n  $q: String!\n  $first: Int!\n) {\n  ...SearchResultsList_search_taE68\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment SearchResultsList_search_taE68 on Query {\n  search(first: $first, q: $q) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+    "text": "query SearchScreenQuery(\n  $q: String!\n  $first: Int!\n) {\n  ...SearchResultsList_search_taE68\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  listingType\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment SearchResultsList_search_taE68 on Query {\n  search(first: $first, q: $q) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
   }
 };
 })();

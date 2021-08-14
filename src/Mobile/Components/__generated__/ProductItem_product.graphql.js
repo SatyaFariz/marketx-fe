@@ -15,6 +15,7 @@ export type ProductItem_product = {|
   +id: ?string,
   +name: ?string,
   +price: ?number,
+  +listingType: ?string,
   +mainImage: ?{|
     +id: ?string,
     +url: ?string,
@@ -65,6 +66,13 @@ return {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "listingType",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "Image",
       "kind": "LinkedField",
       "name": "mainImage",
@@ -105,6 +113,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '49378418aa314e261936468354dd84a3';
+(node/*: any*/).hash = '415989fbbf36376baa75d72b7fa33484';
 
 module.exports = node;

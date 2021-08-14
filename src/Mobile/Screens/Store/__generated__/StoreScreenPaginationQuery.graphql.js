@@ -39,6 +39,7 @@ fragment ProductItem_product on Product {
   id
   name
   price
+  listingType
   mainImage {
     id
     url
@@ -198,6 +199,13 @@ return {
                   {
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "listingType",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
                     "concreteType": "Image",
                     "kind": "LinkedField",
                     "name": "mainImage",
@@ -286,12 +294,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9635826d12e309e6fa53141699222228",
+    "cacheID": "a187f6c3bafa1b94d66c431eeb1bdac4",
     "id": null,
     "metadata": {},
     "name": "StoreScreenPaginationQuery",
     "operationKind": "query",
-    "text": "query StoreScreenPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n  $storeId: String!\n) {\n  ...StoreScreen_products_1EGd5v\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment StoreScreen_products_1EGd5v on Query {\n  search(first: $first, after: $after, q: $q, storeId: $storeId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+    "text": "query StoreScreenPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n  $storeId: String!\n) {\n  ...StoreScreen_products_1EGd5v\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  listingType\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment StoreScreen_products_1EGd5v on Query {\n  search(first: $first, after: $after, q: $q, storeId: $storeId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
   }
 };
 })();
