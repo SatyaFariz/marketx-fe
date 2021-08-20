@@ -76,6 +76,8 @@ export default createFragmentContainer(Component, {
       name,
       price,
       listingType,
+      isPublished,
+      isSuspended,
       mainImage {
         id,
         url

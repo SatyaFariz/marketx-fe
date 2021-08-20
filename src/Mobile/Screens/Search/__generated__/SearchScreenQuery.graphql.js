@@ -36,6 +36,8 @@ fragment ProductItem_product on Product {
   name
   price
   listingType
+  isPublished
+  isSuspended
   mainImage {
     id
     url
@@ -178,6 +180,20 @@ return {
                   {
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "isPublished",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "isSuspended",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
                     "concreteType": "Image",
                     "kind": "LinkedField",
                     "name": "mainImage",
@@ -266,12 +282,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b3c89a8c04c55c4c44d7946a36fc434b",
+    "cacheID": "8816b9cd53167a449d7ec251fd64443f",
     "id": null,
     "metadata": {},
     "name": "SearchScreenQuery",
     "operationKind": "query",
-    "text": "query SearchScreenQuery(\n  $q: String!\n  $first: Int!\n) {\n  ...SearchResultsList_search_taE68\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  listingType\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment SearchResultsList_search_taE68 on Query {\n  search(first: $first, q: $q) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+    "text": "query SearchScreenQuery(\n  $q: String!\n  $first: Int!\n) {\n  ...SearchResultsList_search_taE68\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment SearchResultsList_search_taE68 on Query {\n  search(first: $first, q: $q) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
   }
 };
 })();

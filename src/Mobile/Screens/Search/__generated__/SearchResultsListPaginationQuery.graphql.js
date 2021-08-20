@@ -40,6 +40,8 @@ fragment ProductItem_product on Product {
   name
   price
   listingType
+  isPublished
+  isSuspended
   mainImage {
     id
     url
@@ -206,6 +208,20 @@ return {
                   {
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "isPublished",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "isSuspended",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
                     "concreteType": "Image",
                     "kind": "LinkedField",
                     "name": "mainImage",
@@ -294,12 +310,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0ddfd2e5cffc0b6fb6c412396355a541",
+    "cacheID": "8ca073ce7a6044b137430fafeb2f6de0",
     "id": null,
     "metadata": {},
     "name": "SearchResultsListPaginationQuery",
     "operationKind": "query",
-    "text": "query SearchResultsListPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n  $categoryId: String\n) {\n  ...SearchResultsList_search_3dEwcg\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  listingType\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment SearchResultsList_search_3dEwcg on Query {\n  search(first: $first, after: $after, q: $q, categoryId: $categoryId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+    "text": "query SearchResultsListPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n  $categoryId: String\n) {\n  ...SearchResultsList_search_3dEwcg\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment SearchResultsList_search_3dEwcg on Query {\n  search(first: $first, after: $after, q: $q, categoryId: $categoryId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
   }
 };
 })();
