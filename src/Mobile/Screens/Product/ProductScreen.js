@@ -294,75 +294,80 @@ const Component = props => {
               borderTop: `1px solid ${DIVIDER_COLOR}`,
               borderBottom: `1px solid ${DIVIDER_COLOR}`,
               padding: '16px 0px',
-              margin: '16px 0px'
+              marginTop: 16
             }}>
               <p style={{ margin: 0, whiteSpace: 'pre-line' }}>{product.desc}</p>
             </div>
 
-            <span style={{
-              color: 'rgb(118, 118, 118)',
-              fontSize: 16,
-              fontWeight: 500,
-              textTransform: 'uppercase'
-            }}>Specifications</span>
-
-            <div style={{ marginTop: 15, marginBottom: 15 }}>
-              {product.condition &&
-              <div style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                paddingTop: 10,
-                paddingBottom: 10
-              }}>
+            {product.specs.length > 0 &&
+            <div style={{
+              borderBottom: `1px solid ${DIVIDER_COLOR}`,
+              padding: '16px 0px',
+            }}>
+              <span style={{
+                color: 'rgb(118, 118, 118)',
+                fontSize: 16,
+                fontWeight: 500,
+                textTransform: 'uppercase'
+              }}>Specifications</span>
+              
+              <div style={{ marginTop: 16 }}>
+                {product.condition &&
                 <div style={{
                   display: 'flex',
                   flexDirection: 'row',
-                  alignItems: 'center'
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingTop: 10,
+                  paddingBottom: 10
                 }}>
-                  <span>Kondisi</span>
-                </div>
-                <span>{product.condition.display}</span>
-              </div>
-              }
-              {product.specs.map((item, i) => {
-                if(item.value?.trim() === '') return null
-                return (
-                  <div key={i} style={{
+                  <div style={{
                     display: 'flex',
                     flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    paddingTop: 10,
-                    paddingBottom: 10
+                    alignItems: 'center'
                   }}>
-                    <div style={{
+                    <span>Kondisi</span>
+                  </div>
+                  <span>{product.condition.display}</span>
+                </div>
+                }
+                {product.specs.map((item, i) => {
+                  if(item.value?.trim() === '') return null
+                  return (
+                    <div key={i} style={{
                       display: 'flex',
                       flexDirection: 'row',
-                      alignItems: 'center'
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      paddingTop: 10,
+                      paddingBottom: 10
                     }}>
-                      {/* <img
-                        alt='product'
-                        src={item.attribute.icon.url}
-                        style={{
-                          height: 24,
-                          width: 24,
-                          marginRight: 10
-                        }}
-                      /> */}
-                      <span>{item.attribute.name}</span>
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center'
+                      }}>
+                        {/* <img
+                          alt='product'
+                          src={item.attribute.icon.url}
+                          style={{
+                            height: 24,
+                            width: 24,
+                            marginRight: 10
+                          }}
+                        /> */}
+                        <span>{item.attribute.name}</span>
+                      </div>
+                      <span>{item.value}</span>
                     </div>
-                    <span>{item.value}</span>
-                  </div>
-                )
-              })}
+                  )
+                })}
+              </div>
             </div>
+            }
           </div>
 
           <div style={{
-            borderTop: `1px solid ${DIVIDER_COLOR}`,
-            marginTop: 8,
             paddingTop: 16
           }}>
             <span style={{
