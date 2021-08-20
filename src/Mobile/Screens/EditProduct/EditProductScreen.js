@@ -479,7 +479,10 @@ const Component = props => {
               helperText={validation?.desc?.message}
             />
 
+            {(product.category[product.category.length - 1].showsProductConditionField || 
+              product.category[product.category.length - 1].specFields.length > 0) &&
             <h3 style={{ margin: '10px 0'}}>Specifications</h3>
+            }
 
             {product.category[product.category.length - 1].showsProductConditionField &&
             <TextField
