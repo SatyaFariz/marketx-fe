@@ -34,6 +34,36 @@ const Component = props => {
               objectFit: 'cover'
             }}
           />
+
+          {(product.isSuspended || !product.isPublished) &&
+            <div style={{
+              position: 'absolute',
+              height: '100%',
+              width: '100%',
+              left: 0,
+              bottom: 0,
+              backgroundColor: 'pink',
+              background: 'rgba(0,0,0,0.5)',
+              backdropFilter: 'blur(6px)',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              <div style={{
+                padding: '0 10px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+                <span style={{ 
+                  color: 'white',
+                  textAlign: 'center'
+                }}>
+                  {product.isSuspended ? 'Produk ini dinonaktifkan' : 'Produk ini belum dipublikasi'}
+                </span>
+              </div>
+            </div>
+          }
         </div>
         <span style={{
           fontSize: 16,
