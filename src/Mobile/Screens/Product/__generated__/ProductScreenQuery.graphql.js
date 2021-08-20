@@ -104,6 +104,14 @@ fragment ProductScreen_product on Product {
       id
       url
     }
+    address {
+      city {
+        name
+      }
+      district {
+        name
+      }
+    }
   }
 }
 
@@ -161,6 +169,9 @@ v5 = [
     "name": "url",
     "storageKey": null
   }
+],
+v6 = [
+  (v3/*: any*/)
 ];
 return {
   "fragment": {
@@ -406,6 +417,37 @@ return {
                 "plural": false,
                 "selections": (v5/*: any*/),
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Address",
+                "kind": "LinkedField",
+                "name": "address",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "AdministrativeArea",
+                    "kind": "LinkedField",
+                    "name": "city",
+                    "plural": false,
+                    "selections": (v6/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "AdministrativeArea",
+                    "kind": "LinkedField",
+                    "name": "district",
+                    "plural": false,
+                    "selections": (v6/*: any*/),
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -454,12 +496,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c8764ac458d0edc53fec5803c27e8608",
+    "cacheID": "0de7a8259167d8fe7444a96b035088ff",
     "id": null,
     "metadata": {},
     "name": "ProductScreenQuery",
     "operationKind": "query",
-    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n  me {\n    id\n    ...ProductScreen_me\n  }\n  suspensionReasons {\n    ...ProductScreen_suspensionReasons\n    id\n  }\n}\n\nfragment ProductScreen_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  isDeleted\n  isPublished\n  isFeatured\n  isSuspended\n  condition {\n    display\n    id\n  }\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalDuration {\n    display\n    id\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n  }\n  store {\n    id\n    name\n    whatsappLink\n    merchantId\n    isVerified\n    profilePicture {\n      id\n      url\n    }\n  }\n}\n\nfragment ProductScreen_suspensionReasons on SuspensionReason {\n  id\n  title\n}\n"
+    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n  me {\n    id\n    ...ProductScreen_me\n  }\n  suspensionReasons {\n    ...ProductScreen_suspensionReasons\n    id\n  }\n}\n\nfragment ProductScreen_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  isDeleted\n  isPublished\n  isFeatured\n  isSuspended\n  condition {\n    display\n    id\n  }\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalDuration {\n    display\n    id\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n  }\n  store {\n    id\n    name\n    whatsappLink\n    merchantId\n    isVerified\n    profilePicture {\n      id\n      url\n    }\n    address {\n      city {\n        name\n      }\n      district {\n        name\n      }\n    }\n  }\n}\n\nfragment ProductScreen_suspensionReasons on SuspensionReason {\n  id\n  title\n}\n"
   }
 };
 })();

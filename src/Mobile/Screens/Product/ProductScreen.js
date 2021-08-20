@@ -413,15 +413,23 @@ const Component = props => {
                   </div>
                   }
                   
-                  <div style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center'
-                  }}>
-                    <span style={{ fontSize: 16, fontWeight: 500 }}>{product.store.name}</span>
-                    {product.store.isVerified &&
-                    <VerifiedIcon/>
-                    }
+                  <div>
+                    <div style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center'
+                    }}>
+                      <span style={{ fontSize: 16, fontWeight: 500 }}>{product.store.name}</span>
+                      {product.store.isVerified &&
+                      <VerifiedIcon/>
+                      }
+                    </div>
+                    <span style={{
+                      color: 'rgb(83, 100, 113)',
+                      fontSize: 12,
+                      marginTop: 2,
+                      display: 'block'
+                    }}>{product.store.address.city.name}, {product.store.address.district.name}</span>
                   </div>
                 </div>
               </ButtonBase>
@@ -690,6 +698,14 @@ export default createFragmentContainer(Component, {
         profilePicture {
           id,
           url
+        },
+        address {
+          city {
+            name
+          },
+          district {
+            name
+          }
         }
       }
     }

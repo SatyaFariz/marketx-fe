@@ -56,6 +56,14 @@ export type ProductScreen_product = {|
       +id: ?string,
       +url: ?string,
     |},
+    +address: ?{|
+      +city: ?{|
+        +name: ?string
+      |},
+      +district: ?{|
+        +name: ?string
+      |},
+    |},
   |},
   +$refType: ProductScreen_product$ref,
 |};
@@ -101,6 +109,9 @@ v3 = [
     "name": "url",
     "storageKey": null
   }
+],
+v4 = [
+  (v1/*: any*/)
 ];
 return {
   "argumentDefinitions": [],
@@ -277,6 +288,37 @@ return {
           "plural": false,
           "selections": (v3/*: any*/),
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Address",
+          "kind": "LinkedField",
+          "name": "address",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "AdministrativeArea",
+              "kind": "LinkedField",
+              "name": "city",
+              "plural": false,
+              "selections": (v4/*: any*/),
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "AdministrativeArea",
+              "kind": "LinkedField",
+              "name": "district",
+              "plural": false,
+              "selections": (v4/*: any*/),
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -287,6 +329,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '693ab7ca13c96af13c6386448df8061d';
+(node/*: any*/).hash = '23d3a2ec3f9d2be6aba06596deadc617';
 
 module.exports = node;
