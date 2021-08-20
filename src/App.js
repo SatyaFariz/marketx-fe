@@ -8,6 +8,7 @@ import router from './Mobile/router'
 // import theme from './theme'
 import AppRenderer from './Mobile/AppRenderer'
 import AppContext from './Mobile/AppContext'
+import { LinearProgress } from '@material-ui/core'
 
 class App extends Component {
   state = {
@@ -16,7 +17,8 @@ class App extends Component {
     render: () => <AppRenderer ref={this.rendererRef} />,
     relay: this.props.createRelay(),
     queryParams: {},
-    pathname: ''
+    pathname: '',
+    loading: true
   };
 
   childContext = {
@@ -77,6 +79,7 @@ class App extends Component {
   fetchQuery = (query, variables) => {
     return new Promise((resolve, reject) => {
       this.setState({
+        loading: true,
         query,
         variables,
         render: ({ error, props, retry }) => {console.log(error)
@@ -95,6 +98,7 @@ class App extends Component {
 
   onRenderComplete = () => {
     // end progress bar here
+    this.setState({ loading: false })
   }
 
   renderRoute = route => {
@@ -102,7 +106,7 @@ class App extends Component {
   };
 
   render() {
-    const { relay, query, variables, render } = this.state;
+    const { relay, query, variables, render, loading } = this.state;
 
     return (
       <AppContext.Provider 
@@ -124,13 +128,27 @@ class App extends Component {
             render={render}
           />
         </MuiThemeProvider> */}
-        <QueryRenderer
-          // key={query?.hash}
-          environment={relay}
-          query={query}
-          variables={variables || {}}
-          render={render}
-        />
+        <div style={{
+          position: 'relative'
+        }}>
+          {loading &&
+          <div style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            zIndex: 99999999999999999999
+          }}>
+            <LinearProgress/>
+          </div>
+          }
+          <QueryRenderer
+            // key={query?.hash}
+            environment={relay}
+            query={query}
+            variables={variables || {}}
+            render={render}
+          />
+        </div>
       </AppContext.Provider>
     );
   }
