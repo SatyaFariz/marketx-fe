@@ -101,6 +101,8 @@ const Component = props => {
     }
   }
 
+  const isMyProduct = me?.id === product.store.merchantId
+
   useEffect(() => {
     scrollRef.current.onscroll = () => {
       const pageYOffset = scrollRef.current?.scrollTop
@@ -462,7 +464,10 @@ const Component = props => {
         </div>
       </div>
 
-      {product.isDeleted &&
+      {(product.isDeleted ||
+        (!isMyProduct && product.isSuspended) ||
+        (!isMyProduct && !product.isPublished)
+      ) &&
       <div style={{
         position: 'absolute',
         left: 0,
@@ -487,7 +492,7 @@ const Component = props => {
             <IoCloseOutline size={30} color="white"/>
           </IconButton>
         </div>
-        <h6 style={{ color: 'white', fontSize: 24 }}>This product has been deleted</h6>
+        <h6 style={{ color: 'white', fontSize: 24 }}>Produk ini telah dihapus</h6>
       </div>
       }
 
