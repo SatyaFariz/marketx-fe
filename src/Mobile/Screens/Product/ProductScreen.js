@@ -458,7 +458,7 @@ const Component = props => {
             disableElevation
             onClick={onActionButtonClick}
           >
-            {me?.id === product.store.merchantId ? 'Edit' : 'Rent'}
+            {isMyProduct ? 'Edit' : 'Rent'}
           </Button>
           }
         </div>
