@@ -644,6 +644,7 @@ const Component = props => {
             })}
 
             <Button
+              disabled={loading}
               disableElevation
               variant="contained"
               fullWidth

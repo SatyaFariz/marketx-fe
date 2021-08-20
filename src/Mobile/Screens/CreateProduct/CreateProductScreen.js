@@ -19,11 +19,13 @@ import NumberFormat from 'react-number-format'
 const megabytes = 1048576
 
 const Component = props => {
+  const [loading, setLoading] = useState(false)
   const [carouselPos, setCarouselPos] = useState(0)
   const [files, setFiles] = useState([])
   const { getRootProps, getInputProps, open } = useDropzone({
     // Disable click and keydown behavior
     accept: 'image/jpeg',
+    disabled: loading,
     noClick: true,
     noKeyboard: true,
     maxSize: 6 * megabytes,
@@ -58,7 +60,6 @@ const Component = props => {
     return obj
   }, {}))
   const [validation, setValidation] = useState({ isValid: false })
-  const [loading, setLoading] = useState(false)
 
   const handleCarouselChange = (value) => {
     if(!isNaN(value))
@@ -153,6 +154,20 @@ const Component = props => {
     return validation.isValid
   }
 
+  const resetFormState = () => {
+    setFiles([])
+    setName('')
+    setPrice('')
+    setDesc('')
+    setProductConditionId(null)
+    setRentalDurationId(null)
+    setSpecs(prev => {
+      const newSpecs = {}
+      for(let key in prev) newSpecs[key] = ''
+      return newSpecs
+    })
+  }
+
   const create = () => {
     if(isValid() && !loading) {
       const productSpecs = []
@@ -183,11 +198,11 @@ const Component = props => {
         if(error) {
           console.log(error)
         } else if(payload) {
-          // const { hasError, message } = payload.actionInfo
-          // alert(message)
-          // if(!hasError) {
-          //   // do sth
-          // }
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            resetFormState()
+          }
         }
 
         _isMounted.current && setLoading(false)
@@ -333,6 +348,7 @@ const Component = props => {
           <div {...getRootProps({className: 'dropzone'})}>
             <input {...getInputProps()} />
             <Button
+              disabled={loading}
               disableElevation
               variant="contained"
               style={{
@@ -378,6 +394,7 @@ const Component = props => {
             variant="outlined"
             label="Product Name"
             fullWidth
+            disabled={loading}
             value={name}
             onChange={e => setName(e.target.value.trimLeft())}
             style={{
@@ -393,6 +410,7 @@ const Component = props => {
             variant="outlined"
             label="Product Price"
             fullWidth
+            disabled={loading}
             value={price}
             onValueChange={_setPrice}
             style={{
@@ -448,6 +466,7 @@ const Component = props => {
           <TextField
             variant="outlined"
             label="Product Description"
+            disabled={loading}
             value={desc}
             onChange={e => setDesc(e.target.value.trimLeft())}
             multiline
@@ -607,6 +626,7 @@ const Component = props => {
                 variant="outlined"
                 label={field.attribute.name}
                 fullWidth
+                disabled={loading}
                 value={specs[field.attribute.id]}
                 onChange={_setSpecs(field)}
                 style={{
@@ -620,6 +640,7 @@ const Component = props => {
           })}
 
           <Button
+            disabled={loading}
             disableElevation
             variant="contained"
             fullWidth
