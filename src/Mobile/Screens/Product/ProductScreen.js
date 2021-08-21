@@ -158,7 +158,6 @@ const Component = props => {
         width: '100%',
         backgroundColor: 'white',
         alignItems: 'center',
-        justifyContent: 'space-between',
         flexDirection: 'row',
         zIndex: 3,
         display: 'none',
@@ -177,19 +176,41 @@ const Component = props => {
         </IconButton>
         }
         <div style={{
-          position: 'absolute',
           height: '100%',
-          width: '100%',
           display: 'flex',
-          justifyContent: 'center',
           alignItems: 'center'
         }}>
-          <h1 style={{
-            margin: 0,
-            fontSize: 20,
-            fontWeight: 500,
-            textAlign: 'center'
-          }}>{product.name}</h1>
+          <div style={{
+            height: 40,
+            width: 40,
+            borderRadius: '50%',
+            border: `1px solid ${DIVIDER_COLOR}`,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginRight: 10,
+            marginLeft: 5,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center center',
+            backgroundImage: `url("${product.images[0].url}")`
+          }}/>
+          <div>
+            <h1 style={{
+              margin: 0,
+              fontSize: 18,
+              fontWeight: 500,
+            }}>{product.name}</h1>
+            <span style={{
+              color: 'rgb(83, 100, 113)',
+              fontSize: 12,
+              marginTop: 2,
+              display: 'block'
+            }}>
+              {product.store.address.city.name}, {product.store.address.district.name}
+            </span>
+          </div>
         </div>
         
       </div>
@@ -429,7 +450,9 @@ const Component = props => {
                       fontSize: 12,
                       marginTop: 2,
                       display: 'block'
-                    }}>{product.store.address.city.name}, {product.store.address.district.name}</span>
+                    }}>
+                      {product.store.address.city.name}, {product.store.address.district.name}
+                    </span>
                   </div>
                 </div>
               </ButtonBase>
