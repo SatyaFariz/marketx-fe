@@ -13,6 +13,7 @@ import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
 import BackButton from '../../Components/BackButton'
 import { IoCloseOutline } from 'react-icons/io5'
+import CameraIcon from '../../Components/CameraIcon'
 
 const megabytes = 1048576
 
@@ -193,7 +194,9 @@ const Component = props => {
             {uploading ?
             <CircularProgress size={24}/>
             :
-            <span>Upload here</span>
+            <span>
+              <CameraIcon/>
+            </span>
             }
             <input {...getInputProps()} />
           </div>

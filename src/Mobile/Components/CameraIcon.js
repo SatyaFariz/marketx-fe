@@ -1,7 +1,7 @@
 
-const Component = () => {
+const Component = ({ color }) => {
   return (
-    <svg viewBox="0 0 24 24" fill="rgb(255, 255, 255)" style={{
+    <svg viewBox="0 0 24 24" fill={color || "rgb(255, 255, 255)"} style={{
       height: 21
     }}>
       <g>
