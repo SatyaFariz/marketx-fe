@@ -379,6 +379,7 @@ const Component = props => {
           <Autocomplete
             options={provinces}
             getOptionLabel={(option) => option.name}
+            getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
             value={province}
             onChange={(_, value) => setProvince(value)}
             renderInput={(params) => 
@@ -403,6 +404,7 @@ const Component = props => {
             loading={loadingCities}
             options={cities}
             getOptionLabel={(option) => option.name}
+            getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
             value={city}
             onChange={(_, value) => setCity(value)}
             renderInput={(params) => 
@@ -427,6 +429,7 @@ const Component = props => {
             loading={loadingDistricts}
             options={districts}
             getOptionLabel={(option) => option.name}
+            getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
             value={district}
             onChange={(_, value) => setDistrict(value)}
             renderInput={(params) => 
