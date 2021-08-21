@@ -24,7 +24,9 @@ const Component = props => {
   const _isMounted = useRef(true)
   const { me } = props
   const myCurrentMobileNumber = me?.mobileNumber
-  const { history, queryParams, environment } = useAppContext()
+  const profilePictureUrl = me?.profilePicture?.url
+  const [url, setUrl] = useState(profilePictureUrl)
+  const { environment } = useAppContext()
   const [name, setName] = useState(me?.name)
   const [mobileNumber, setMobileNumber] = useState(myCurrentMobileNumber)
   const [mobileNumberDebounced] = useDebounce(mobileNumber, 500)
@@ -162,6 +164,11 @@ const Component = props => {
   }, [])
 
   useEffect(() => {
+    if(profilePictureUrl)
+      setUrl(profilePictureUrl)
+  }, [profilePictureUrl])
+
+  useEffect(() => {
     if(mobileNumberDebounced?.length < 12) {
       setNumberExistance(null)
     } else {
@@ -234,7 +241,7 @@ const Component = props => {
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center center',
-            backgroundImage: file ? `url("${file.preview}")` : (me.profilePicture ? `url("${me.profilePicture.url}")` : undefined)
+            backgroundImage: file ? `url("${file.preview}")` : (url ? `url("${url}")` : undefined)
           }}
           {...getRootProps({className: 'dropzone'})}
           >
