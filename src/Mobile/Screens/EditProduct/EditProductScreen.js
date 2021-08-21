@@ -6,6 +6,7 @@ import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
 import { Button, TextField, InputAdornment, MenuItem, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
+import { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 import Validator from '../../../helpers/validator'
@@ -17,6 +18,8 @@ import { IoEllipsisVertical, IoCloseOutline } from 'react-icons/io5'
 import Sheet from 'react-modal-sheet'
 import Link from '../../Components/Link'
 import NumberFormat from 'react-number-format'
+
+const autocompleteFilter = createFilterOptions()
 
 const Component = props => {
   const { product, productConditions, rentalDurations } = props
@@ -567,6 +570,17 @@ const Component = props => {
                       getOptionSelected={(option, value) => option === value}
                       value={specs[field.attribute.id]}
                       onChange={(_, value) => _setSpecs(field)({ target: { value }})}
+                      filterOptions={field.isEnum ? undefined : (options, params) => {
+                        const filtered = autocompleteFilter(options, params)
+                        const { inputValue } = params
+                
+                        // Create a new value
+                        if (inputValue !== '' && !filtered.includes(inputValue)) {
+                          filtered.push(inputValue)
+                        }
+                
+                        return filtered
+                      }}
                       renderInput={(params) => 
                         <TextField 
                           {...params} 
