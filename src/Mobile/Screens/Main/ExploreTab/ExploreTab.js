@@ -34,7 +34,7 @@ const Component = props => {
           }}>
             <img
               src="https://res.cloudinary.com/tuanrumah/image/upload/v1628197566/amazon_logo_500500.png"
-              alt="image"
+              alt="app_logo"
               style={{
                 height: 40,
               }}
@@ -222,7 +222,7 @@ const Component = props => {
             </IconButton>
             <img
               src="https://res.cloudinary.com/tuanrumah/image/upload/v1628197566/amazon_logo_500500.png"
-              alt="image"
+              alt="app_logo"
               style={{
                 height: 40,
               }}
