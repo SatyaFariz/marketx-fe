@@ -16,6 +16,7 @@ import { IoCloseOutline } from 'react-icons/io5'
 import CameraIcon from '../../Components/CameraIcon'
 
 const megabytes = 1048576
+const maxImages = 7
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -46,11 +47,12 @@ const Component = props => {
   const { getRootProps, getInputProps } = useDropzone({
     // Disable click and keydown behavior
     accept: 'image/jpeg',
-    disabled: uploading,
+    disabled: uploading || (maxImages === product.images.length),
     maxSize: 6 * megabytes,
     onDrop: async (acceptedFiles) => {
+      const maxFiles = maxImages - product.images.length
       if(acceptedFiles.length > 0) {
-        const images = await Promise.all(acceptedFiles.map(file => {
+        const images = await Promise.all(acceptedFiles.slice(0, maxFiles).map(file => {
           return new Promise(async (resolve) => {
             const tool = await fromImage(file)
             const image = await tool.quality(0.4).toFile(file.name)
@@ -59,7 +61,8 @@ const Component = props => {
           })
         }))
         
-        bulkUpload(images)
+        if(images.length > 0)
+          bulkUpload(images)
       }
     },
     onDropRejected: () => console.log('Rejected')
