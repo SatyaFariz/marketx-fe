@@ -19,6 +19,7 @@ const Component = props => {
   const { expiry } = props
   const _isMounted = useRef(true)
   const { mobileNumber, loading, onSubmit } = props
+  const handleSubmit = useRef(onSubmit)
   const [code, setCode] = useState('')
   const [expired, setExpired] = useState(false)
 
@@ -36,9 +37,13 @@ const Component = props => {
 
   useEffect(() => {
     if(code.length === codeLen) {
-      onSubmit(code)
+      handleSubmit.current(code)
     }
-  }, [code, onSubmit])
+  }, [code])
+
+  useEffect(() => {
+    handleSubmit.current = onSubmit
+  }, [onSubmit])
 
   useEffect(() => {
     return () => _isMounted.current = false
