@@ -306,6 +306,7 @@ const Component = props => {
                 }}>
                   <img
                     src={item.preview}
+                    alt={`product_preview_${i}`}
                     style={{
                       position: 'absolute',
                       height: '100%',

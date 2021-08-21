@@ -205,7 +205,7 @@ const Component = props => {
           </div>
           {product.images.map((item, i) => {
             return (
-              <ImageItem 
+              <ImageItem
                 image={item} 
                 key={item.id}
                 isMain={i === 0}

@@ -43,6 +43,7 @@ const Component = props => {
     >
       <img
         src={props.image.url}
+        alt={props.image.url}
         style={{
           position: 'absolute',
           height: '100%',
