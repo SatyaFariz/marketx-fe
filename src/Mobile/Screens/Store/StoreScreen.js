@@ -216,7 +216,7 @@ const Component = props => {
             }}>
               {edges.map((edge, i) => {
                 return (
-                  <ProductItem product={edge.node}/>
+                  <ProductItem key={edge.node.id} product={edge.node}/>
                 )
               })}
             </div>

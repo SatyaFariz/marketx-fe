@@ -56,7 +56,7 @@ const Component = props => {
             const names = [...category.ancestors, category].map(item => item.name)
             const name = names.join(' > ')
             return (
-              <ListItem 
+              <ListItem
                 component={Link}
                 button
                 href={`/new/product/${category.id}`}

@@ -86,7 +86,7 @@ const Component = props => {
         }}>
           {new Array(codeLen).fill(0).map((item, i) => {
             return (
-              <div style={{
+              <div key={i} style={{
                 borderBottom: `2px solid ${Color.primary}`,
                 paddingTop: 10,
                 paddingBottom: 10,
@@ -152,9 +152,10 @@ const Component = props => {
         width: '100%',
         backgroundColor: '#f1f1f1f1'
       }}>
-        {keys.map(key => {
+        {keys.map((key, i) => {
           return (
             <button 
+            key={i}
             onClick={() => enterKey(key)}
             style={{
               width: 'calc(100% / 3)',
