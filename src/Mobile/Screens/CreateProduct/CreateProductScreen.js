@@ -440,7 +440,7 @@ const Component = props => {
             label="Durasi Rental"
             fullWidth
             disabled={loading}
-            value={rentalDurationId}
+            value={rentalDurationId || ''}
             onChange={(e) => setRentalDurationId(e.target.value)}
             style={{
               marginTop: 10,
@@ -493,7 +493,7 @@ const Component = props => {
             label="Kondisi"
             fullWidth
             disabled={loading}
-            value={productConditionId}
+            value={productConditionId || ''}
             onChange={(e) => setProductConditionId(e.target.value)}
             style={{
               marginTop: 10,
