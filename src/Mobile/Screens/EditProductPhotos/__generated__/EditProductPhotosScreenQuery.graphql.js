@@ -40,7 +40,6 @@ fragment EditProductPhotosScreen_product on Product {
   images {
     id
     url
-    display
   }
 }
 */
@@ -125,13 +124,6 @@ return {
                 "kind": "ScalarField",
                 "name": "url",
                 "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "display",
-                "storageKey": null
               }
             ],
             "storageKey": null
@@ -142,12 +134,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a998c0100dec0a9a0627b0bcd697c0f6",
+    "cacheID": "5c5fa10d7d8c8ee8ff881bb55d7f95d9",
     "id": null,
     "metadata": {},
     "name": "EditProductPhotosScreenQuery",
     "operationKind": "query",
-    "text": "query EditProductPhotosScreenQuery(\n  $productId: String!\n) {\n  product(id: $productId) {\n    id\n    ...EditProductPhotosScreen_product\n  }\n}\n\nfragment EditProductPhotosScreen_product on Product {\n  id\n  images {\n    id\n    url\n    display\n  }\n}\n"
+    "text": "query EditProductPhotosScreenQuery(\n  $productId: String!\n) {\n  product(id: $productId) {\n    id\n    ...EditProductPhotosScreen_product\n  }\n}\n\nfragment EditProductPhotosScreen_product on Product {\n  id\n  images {\n    id\n    url\n  }\n}\n"
   }
 };
 })();

@@ -203,11 +203,12 @@ const Component = props => {
             }
             <input {...getInputProps()} />
           </div>
-          {product.images.map(item => {
+          {product.images.map((item, i) => {
             return (
               <ImageItem 
                 image={item} 
                 key={item.id}
+                isMain={i === 0}
                 selectedIds={selectedIds}
                 setSelectedIds={setSelectedIds}
                 updateMainImage={() => updateMainImage(item.id)}
@@ -226,8 +227,7 @@ export default createFragmentContainer(Component, {
       id,
       images {
         id,
-        url,
-        display
+        url
       }
     }
   `

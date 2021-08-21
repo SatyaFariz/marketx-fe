@@ -90,7 +90,7 @@ const Component = props => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {props.image.display !== 1 &&
+        {!props.isMain &&
         <MenuItem onClick={() => {
           props.updateMainImage()
           handleClose()

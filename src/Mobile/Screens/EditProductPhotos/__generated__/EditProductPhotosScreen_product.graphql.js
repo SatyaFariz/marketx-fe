@@ -16,7 +16,6 @@ export type EditProductPhotosScreen_product = {|
   +images: ?$ReadOnlyArray<?{|
     +id: ?string,
     +url: ?string,
-    +display: ?number,
   |}>,
   +$refType: EditProductPhotosScreen_product$ref,
 |};
@@ -59,13 +58,6 @@ return {
           "kind": "ScalarField",
           "name": "url",
           "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "display",
-          "storageKey": null
         }
       ],
       "storageKey": null
@@ -76,6 +68,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '6c9d9617c40c396069516fe4cdf17a0b';
+(node/*: any*/).hash = 'a0de91da90f947ff4024e77fe099a063';
 
 module.exports = node;
