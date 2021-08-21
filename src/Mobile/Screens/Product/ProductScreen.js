@@ -11,7 +11,7 @@ import BackButton from '../../Components/BackButton'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 import VerifiedIcon from '../../Components/VerifiedIcon'
-import { IoCloseOutline, IoCloseSharp, IoCheckmarkSharp, IoEllipsisVertical } from 'react-icons/io5'
+import { IoCloseOutline, IoCloseSharp, IoLogoWhatsapp, IoEllipsisVertical } from 'react-icons/io5'
 import Sheet from 'react-modal-sheet'
 import UpdateProductFeaturedStatus from '../../../mutations/UpdateProductFeaturedStatus'
 import SuspendProduct from '../../../mutations/SuspendProduct'
@@ -494,7 +494,26 @@ const Component = props => {
             disableElevation
             onClick={onActionButtonClick}
           >
-            {isMyProduct ? 'Edit' : 'Rent'}
+            {isMyProduct ?
+            <span style={{
+              textTransform: 'none',
+              letterSpacing: 0 
+            }}>Edit</span>
+            :
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '100%'
+            }}>
+              <IoLogoWhatsapp/>
+              <span style={{ 
+                marginLeft: 5, 
+                textTransform: 'none',
+                letterSpacing: 0 
+              }}>Chat</span>
+            </div>
+            }
           </Button>
           }
         </div>
