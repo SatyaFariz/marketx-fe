@@ -4,7 +4,14 @@ import graphql from 'babel-plugin-relay/macro'
 import useAppContext from '../../../hooks/useAppContext'
 import Color from '../../../Constants/Color'
 import { MdModeEdit } from 'react-icons/md'
-import { IoPeople, IoShieldCheckmark, IoHelpCircle, IoDocumentText, IoStorefront, IoChevronBackSharp } from 'react-icons/io5'
+import { 
+  IoPeople, 
+  IoShieldCheckmark, 
+  IoHelpCircle, 
+  IoDocumentText, 
+  IoStorefront, 
+  IoChevronBackSharp 
+} from 'react-icons/io5'
 import Link from '../../../Components/Link'
 
 const Component = props => {
