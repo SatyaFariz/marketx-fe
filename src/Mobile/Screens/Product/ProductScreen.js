@@ -289,7 +289,7 @@ const Component = props => {
             }}>
               {product.category.map((item, i) => {
                 return (
-                  <div style={{
+                  <div key={i} style={{
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
