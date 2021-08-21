@@ -30,7 +30,7 @@ const Component = props => {
     }
   }
 
-  const longPressEvent = useLongPress(toggleCheck, onImageClick)
+  // const longPressEvent = useLongPress(toggleCheck, onImageClick)
 
   return (
     <div
@@ -39,7 +39,8 @@ const Component = props => {
         width: '100%',
         paddingBottom: '100%',
       }}
-      {...longPressEvent}
+      // {...longPressEvent}
+      onClick={onImageClick}
     >
       <img
         src={props.image.url}
