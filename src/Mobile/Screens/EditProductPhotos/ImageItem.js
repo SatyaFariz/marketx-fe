@@ -1,7 +1,6 @@
 import { IconButton, Menu, MenuItem } from '@material-ui/core'
 import { MoreVert, LensOutlined, CheckCircleOutline } from '@material-ui/icons'
 import { useState } from 'react'
-import useLongPress from '../../hooks/useLongPress'
 
 const Component = props => {
   const [anchorEl, setAnchorEl] = useState(null)

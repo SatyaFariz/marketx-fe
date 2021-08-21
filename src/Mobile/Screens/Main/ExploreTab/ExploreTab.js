@@ -1,4 +1,3 @@
-import SearchBar from '../../../Components/SearchBar'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../../Constants'
 import Categories from '../../../Components/Categories'
 import FeaturedProductsList from '../../../Components/FeaturedProductsList'

@@ -1,7 +1,5 @@
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
-import Color from '../../Constants/Color'
 import { Button, TextField } from '@material-ui/core'
-import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
 import OTPView from '../../Components/OTPView'
 import { createFragmentContainer } from 'react-relay'
