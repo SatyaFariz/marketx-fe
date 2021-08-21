@@ -60,6 +60,7 @@ const Component = props => {
                   <div style={{
                     height: 24,
                     width: 24,
+                    border: `1px solid ${DIVIDER_COLOR}`,
                     borderRadius: '50%',
                     display: 'flex',
                     justifyContent: 'center',

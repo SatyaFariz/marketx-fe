@@ -233,6 +233,7 @@ const Component = props => {
             height: 100,
             width: 100,
             borderRadius: '50%',
+            border: `1px solid ${DIVIDER_COLOR}`,
             backgroundColor: me.profilePicture ? undefined : '#b1b6c9',
             display: 'flex',
             flexDirection: 'row',
