@@ -1,10 +1,10 @@
 import { IconButton, Menu, MenuItem } from '@material-ui/core'
 import { MoreVert, LensOutlined, CheckCircleOutline } from '@material-ui/icons'
 import { useState } from 'react'
+import useLongPress from '../../hooks/useLongPress'
 
 const Component = props => {
   const [anchorEl, setAnchorEl] = useState(null)
-  const open = Boolean(anchorEl)
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -24,6 +24,14 @@ const Component = props => {
     })
   }
 
+  const onImageClick = () => {
+    if(props.selectedIds.length > 0) {
+      toggleCheck()
+    }
+  }
+
+  const longPressEvent = useLongPress(toggleCheck, onImageClick)
+
   return (
     <div
       style={{
@@ -31,7 +39,7 @@ const Component = props => {
         width: '100%',
         paddingBottom: '100%',
       }}
-      onClick={props.selectedIds.length === 0 ? undefined : toggleCheck}
+      {...longPressEvent}
     >
       <img
         src={props.image.url}
