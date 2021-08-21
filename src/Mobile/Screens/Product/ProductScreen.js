@@ -416,6 +416,7 @@ const Component = props => {
                   <div style={{
                     height: 40,
                     width: 40,
+                    border: `1px solid ${DIVIDER_COLOR}`,
                     borderRadius: '50%',
                     backgroundColor: product.store.profilePicture ? undefined : Color.primary,
                     display: 'flex',
