@@ -14,6 +14,7 @@ import BackButton from '../../Components/BackButton'
 import VerifiedIcon from '../../Components/VerifiedIcon'
 
 const Component = props => {
+  const isMounted = useRef(true)
   const { categories, me, store, products } = props
   const { edges } = products.search
   const { history, queryParams, pathname } = useAppContext()
@@ -29,7 +30,7 @@ const Component = props => {
       return
     
     relay.loadMore(null, err => {
-      if(err)
+      if(isMounted.current && err)
         setErrorLoadingMore(true)
     })
 
@@ -45,6 +46,10 @@ const Component = props => {
       setShowCategory(selectCategory === '1')
     }
   }, [selectCategory, pathname])
+
+  useEffect(() => {
+    return () => isMounted.current = false
+  }, [])
 
   if(!store?.address) {
     return (

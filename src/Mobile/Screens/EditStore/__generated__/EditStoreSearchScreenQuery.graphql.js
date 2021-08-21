@@ -44,15 +44,6 @@ query EditStoreSearchScreenQuery {
   }
 }
 
-fragment EditAddressView_store on Store {
-  id
-  address {
-    fullAddress
-    lat
-    lng
-  }
-}
-
 fragment EditStoreScreen_provinces on AdministrativeArea {
   administrativeAreaId
   name
@@ -85,7 +76,6 @@ fragment EditStoreScreen_store on Store {
       name
     }
   }
-  ...EditAddressView_store
 }
 */
 
@@ -276,20 +266,6 @@ return {
                     "plural": false,
                     "selections": (v3/*: any*/),
                     "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "lat",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "lng",
-                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -313,12 +289,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "34f51b224a289a26e12906683cf93e73",
+    "cacheID": "0ae3b611ac66d61bfb04ad997c8eb657",
     "id": null,
     "metadata": {},
     "name": "EditStoreSearchScreenQuery",
     "operationKind": "query",
-    "text": "query EditStoreSearchScreenQuery {\n  me {\n    id\n    store {\n      id\n      ...EditStoreScreen_store\n    }\n  }\n  administrativeAreas {\n    ...EditStoreScreen_provinces\n  }\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment EditStoreScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment EditStoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n    province {\n      administrativeAreaId\n      name\n    }\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n  ...EditAddressView_store\n}\n"
+    "text": "query EditStoreSearchScreenQuery {\n  me {\n    id\n    store {\n      id\n      ...EditStoreScreen_store\n    }\n  }\n  administrativeAreas {\n    ...EditStoreScreen_provinces\n  }\n}\n\nfragment EditStoreScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment EditStoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n    province {\n      administrativeAreaId\n      name\n    }\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n"
   }
 };
 })();

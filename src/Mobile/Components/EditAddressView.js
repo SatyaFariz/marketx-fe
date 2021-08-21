@@ -1,4 +1,4 @@
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps"
 import { TextField, Button } from '@material-ui/core'
 import { useRef, useState, useEffect } from 'react'
 import UpdateStoreAddress from '../../mutations/UpdateStoreAddress'
@@ -45,9 +45,9 @@ const Component = props => {
     setFullAddress(e.target.value.trimLeft())
   }
 
-  const moveToLocation = (latLng) => {
-    mapRef.current.panTo(latLng);
-  }
+  // const moveToLocation = (latLng) => {
+  //   mapRef.current.panTo(latLng);
+  // }
 
   const save = () => {
     if(!loading) {

@@ -1,7 +1,7 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
-import { IoChevronBackSharp, IoCloseSharp } from 'react-icons/io5'
+import { IoCloseSharp } from 'react-icons/io5'
 import { LinearProgress } from '@material-ui/core'
 import { QueryRenderer } from 'react-relay'
 import useAppContext from '../../hooks/useAppContext'

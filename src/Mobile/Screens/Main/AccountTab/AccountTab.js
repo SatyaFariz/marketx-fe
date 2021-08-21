@@ -1,4 +1,3 @@
-import LogoutButton from '../../../Components/LogoutButton'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../../Constants'
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'

@@ -1,9 +1,5 @@
-import '../../../App.css';
-import BottomNav from '../../Components/BottomNav'
+import '../../../App.css'
 import ExploreTab from './ExploreTab/ExploreTab'
-import RentedTab from './RentedTab/RentedTab'
-import NotificationTab from './NotificationTab/NotificationTab'
-import AccountTab from './AccountTab/AccountTab'
 import useAppContext from '../../hooks/useAppContext'
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
@@ -20,6 +16,7 @@ function App(props) {
       setCurrentTab(tab)
     }
   }, [tab, pathname])
+
   return (
     <>
       {categories && featuredProducts &&
@@ -30,17 +27,6 @@ function App(props) {
         me={me}
       />
       }
-      {/* <RentedTab active={currentTab === 1}/>
-      <NotificationTab active={currentTab === 2}/>
-      
-      <AccountTab 
-        active={currentTab === 3}
-        me={me}
-      /> */}
-      
-      {/* <BottomNav 
-        me={me}
-      /> */}
 
     </>
   )

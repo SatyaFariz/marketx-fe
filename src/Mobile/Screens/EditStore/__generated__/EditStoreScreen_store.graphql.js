@@ -8,7 +8,6 @@
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
-type EditAddressView_store$ref = any;
 import type { FragmentReference } from "relay-runtime";
 declare export opaque type EditStoreScreen_store$ref: FragmentReference;
 declare export opaque type EditStoreScreen_store$fragmentType: EditStoreScreen_store$ref;
@@ -39,7 +38,6 @@ export type EditStoreScreen_store = {|
       +name: ?string,
     |},
   |},
-  +$fragmentRefs: EditAddressView_store$ref,
   +$refType: EditStoreScreen_store$ref,
 |};
 export type EditStoreScreen_store$data = EditStoreScreen_store;
@@ -168,11 +166,6 @@ return {
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "EditAddressView_store"
     }
   ],
   "type": "Store",
@@ -180,6 +173,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '06a077af43b5c6c860d83c7d637ae276';
+(node/*: any*/).hash = '1f71f0c69418648da6e3217c9849a911';
 
 module.exports = node;

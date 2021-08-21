@@ -1,7 +1,6 @@
-import { IoBackspaceOutline, IoChevronBackSharp } from 'react-icons/io5'
+import { IoBackspaceOutline } from 'react-icons/io5'
 import { HEADER_HEIGHT } from '../Constants'
 import Color from '../Constants/Color'
-import useAppContext from '../hooks/useAppContext'
 import { useState, useEffect, useRef } from 'react'
 import Countdown from 'react-countdown'
 import { Button } from '@material-ui/core'
@@ -19,7 +18,6 @@ const codeLen = 4
 const Component = props => {
   const { expiry } = props
   const _isMounted = useRef(true)
-  const { history } = useAppContext()
   const { mobileNumber, loading, onSubmit } = props
   const [code, setCode] = useState('')
   const [expired, setExpired] = useState(false)
@@ -40,7 +38,7 @@ const Component = props => {
     if(code.length === codeLen) {
       onSubmit(code)
     }
-  }, [code])
+  }, [code, onSubmit])
 
   useEffect(() => {
     return () => _isMounted.current = false

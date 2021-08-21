@@ -1,11 +1,10 @@
-import EditAddressView from '../../Components/EditAddressView'
+// import EditAddressView from '../../Components/EditAddressView'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import { TextField, Button, InputAdornment } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
-import Color from '../../Constants/Color'
 import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
 import UpdateStore from '../../../mutations/UpdateStore'
@@ -23,7 +22,7 @@ const Component = props => {
   const _isMounted = useRef(true)
   const store = props.store
   const { provinces } = props
-  const { history, queryParams, environment } = useAppContext()
+  const { environment } = useAppContext()
   const citiesLoader = new AdministrativeAreaLoader(environment)
   const districtsLoader = new AdministrativeAreaLoader(environment)
   const [name, setName] = useState(store.name)
@@ -220,11 +219,11 @@ const Component = props => {
     }
   }, [city])
 
-  if(queryParams.editAddress === '1') {
-    return (
-      <EditAddressView store={store}/>
-    )
-  }
+  // if(queryParams.editAddress === '1') {
+  //   return (
+  //     <EditAddressView store={store}/>
+  //   )
+  // }
 
   return (
     <div style={{
@@ -514,8 +513,7 @@ export default createFragmentContainer(Component, {
           administrativeAreaId,
           name
         }
-      },
-      ...EditAddressView_store
+      }
     }
   `,
   provinces: graphql`
