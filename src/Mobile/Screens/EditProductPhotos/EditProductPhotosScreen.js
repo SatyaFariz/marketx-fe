@@ -1,12 +1,9 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
-import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
-import Color from '../../Constants/Color'
-import { IoChevronBackSharp } from 'react-icons/io5'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import { IconButton, CircularProgress } from '@material-ui/core'
-import { Close, Delete } from '@material-ui/icons'
+import { IconButton, CircularProgress, Button } from '@material-ui/core'
 import '@brainhubeu/react-carousel/lib/style.css'
 import ImageItem from './ImageItem'
 import DeleteProductImages from '../../../mutations/DeleteProductImages'
@@ -15,12 +12,13 @@ import UpdateMainProductImage from '../../../mutations/UpdateMainProductImage'
 import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
 import BackButton from '../../Components/BackButton'
+import { IoCloseOutline } from 'react-icons/io5'
 
 const megabytes = 1048576
 
 const Component = props => {
   const _isMounted = useRef(true)
-  const { history, environment } = useAppContext()
+  const { environment } = useAppContext()
   const { product } = props
   const [uploading, setUploading] = useState(false)
   const [updating, setUpdating] = useState(false)
@@ -125,20 +123,28 @@ const Component = props => {
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
         {selectedIds.length > 0 ?
-        <div style={{ zIndex: 1 }}>
-        <IconButton onClick={() => setSelectedIds([])}>
-          <Close  style={{ color: 'black' }}/>
-        </IconButton>
+        <div style={{ zIndex: 1, marginLeft: 5 }}>
+          <IconButton onClick={() => setSelectedIds([])}>
+            <IoCloseOutline  style={{ color: 'black' }} size={30}/>
+          </IconButton>
         </div>
         :
         <BackButton/>
         }
 
         {selectedIds.length > 0 &&
-        <div style={{ zIndex: 1 }}>
-        <IconButton onClick={bulkDelete}>
+        <div style={{ zIndex: 1, marginRight: 15 }}>
+        {/* <IconButton onClick={bulkDelete}>
           <Delete style={{ color: 'black' }}/>
-        </IconButton>
+        </IconButton> */}
+          <Button
+            disableElevation
+            variant="contained"
+            onClick={bulkDelete}
+            disabled={deleting}
+          >
+            Hapus
+          </Button>
         </div>
         }
         
