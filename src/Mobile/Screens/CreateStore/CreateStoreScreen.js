@@ -14,7 +14,7 @@ const Component = props => {
   const { provinces } = props
   const _isMounted = useRef(true)
   const { history, environment } = useAppContext()
-  const areasLoader = new AdministrativeAreaLoader(environment)
+  const areasLoader = useRef(new AdministrativeAreaLoader(environment))
   const [storeName, setStoreName] = useState('')
   const [whatsappNumber, setWhatsappNumber] = useState('')
   const [loading, setLoading] = useState(false)
@@ -130,7 +130,7 @@ const Component = props => {
       setDistrict(null)
       setLoadingCities(true)
       setCities([])
-      areasLoader.load(province.administrativeAreaId, data => {
+      areasLoader.current.load(province.administrativeAreaId, data => {
         setCities(data)
         setLoadingCities(false)
       })
@@ -145,7 +145,7 @@ const Component = props => {
       setDistrict(null)
       setLoadingDistricts(true)
       setDistricts([])
-      areasLoader.load(city.administrativeAreaId, data => {
+      areasLoader.current.load(city.administrativeAreaId, data => {
         setDistricts(data)
         setLoadingDistricts(false)
       })
