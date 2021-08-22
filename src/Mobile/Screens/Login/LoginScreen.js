@@ -7,8 +7,11 @@ import Link from '../../Components/Link'
 import Color from '../../Constants/Color'
 import OTPView from '../../Components/OTPView'
 import Login from '../../../mutations/Login'
+import graphql from 'babel-plugin-relay/macro'
+import { createFragmentContainer } from 'react-relay'
 
 const Component = props => {
+  const { me } = props
   const _isMounted = useRef(true)
   const { history, environment, resetEnvironment, queryParams } = useAppContext()
   const [mobileNumber, setPhoneNumber] = useState('')
@@ -71,6 +74,14 @@ const Component = props => {
   useEffect(() => {
     return () => _isMounted.current = false
   }, [])
+
+  useEffect(() => {
+    if(me) {
+      history.replace('/')
+    }
+  }, [me])
+
+  if(me) return null
 
   return (
     <div>
@@ -170,4 +181,10 @@ const Component = props => {
   )
 }
 
-export default Component
+export default createFragmentContainer(Component, {
+  me: graphql`
+    fragment LoginScreen_me on User {
+      id
+    }
+  `
+})
