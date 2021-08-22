@@ -10,7 +10,7 @@ import Login from '../../../mutations/Login'
 
 const Component = props => {
   const _isMounted = useRef(true)
-  const { history, environment, resetEnvironment } = useAppContext()
+  const { history, environment, resetEnvironment, queryParams } = useAppContext()
   const [mobileNumber, setPhoneNumber] = useState('')
   const [loading, setLoading] = useState(false)
   const [sendingCode, setSendingCode] = useState(false)
@@ -58,7 +58,7 @@ const Component = props => {
           alert(message)
           if(!hasError) {
             // do sth
-            history.push('/')
+            history.replace(queryParams?.redirect ?? '/')
             resetEnvironment()
           }
         }

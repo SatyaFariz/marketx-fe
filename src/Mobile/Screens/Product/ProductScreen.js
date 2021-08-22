@@ -21,7 +21,7 @@ const Component = props => {
   const _isMounted = useRef(true)
   const scrollRef = useRef()
   const headerRef = useRef()
-  const { history, environment } = useAppContext()
+  const { history, environment, pathname } = useAppContext()
   const { product, me, suspensionReasons } = props
   const [carouselPos, setCarouselPos] = useState(0)
   const [showBottomSheet, setShowBottomSheet] = useState(false)
@@ -39,7 +39,11 @@ const Component = props => {
     if(me?.id === product.store.merchantId) {
       history.push(`/edit/product/${product.id}`)
     } else {
-      window.open(product.store.whatsappLink)
+      if(me) {
+        window.open(product.store.whatsappLink)
+      } else {
+        history.push(`/login?redirect=${pathname}`)
+      }
     }
   }
 
