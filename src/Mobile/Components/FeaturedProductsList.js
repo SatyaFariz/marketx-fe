@@ -14,15 +14,15 @@ const Component = props => {
     }}>
       <h1 style={{
         fontSize: 24,
-        // lineHeight: 27,
         fontWeight: 'bold',
-      }}>Featured Products</h1>
+      }}>Featured</h1>
 
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(2, 1fr)',
         gridColumnGap: 20,
-        gridRowGap: 15
+        gridRowGap: 15,
+        alignItems: 'start'
       }}>
         {featuredProducts.map((item, i) => {
           return (

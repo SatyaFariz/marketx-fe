@@ -265,8 +265,6 @@ const Component = props => {
         <Categories categories={categories}/>
         <FeaturedProductsList featuredProducts={featuredProducts}/>
       </div>
-{/* 
-      <SearchBar/> */}
     </div>
   )
 }
