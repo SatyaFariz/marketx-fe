@@ -232,19 +232,34 @@ const Component = props => {
 
           <div style={{
             padding: '0 15px',
-            margin: '5px 0'
+            margin: '5px 0',
+            display: 'flex'
           }}>
-            <div style={{
-              backgroundColor: '#f1f1f1',
-              height: 40,
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}>
-            <IconButton onClick={() => {}}>
-              <IoSearchOutline style={{ color: 'black' }}/>
-            </IconButton>
-            </div>
+            <ButtonBase 
+              disableRipple
+              component={Link}
+              href='/search'
+              style={{
+                display: 'flex',
+                flexGrow: 1
+              }}
+            >
+              <div style={{
+                backgroundColor: '#f1f1f1',
+                height: 40,
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center'
+              }}>
+                <IconButton 
+                  onClick={() => {}}
+                >
+                  <IoSearchOutline style={{ color: 'black' }}/>
+                </IconButton>
+                <span style={{ marginLeft: 5 }}>Cari...</span>
+              </div>
+            </ButtonBase>
           </div>
         </div>
         <Categories categories={categories}/>
