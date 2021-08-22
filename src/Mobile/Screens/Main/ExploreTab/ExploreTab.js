@@ -263,7 +263,9 @@ const Component = props => {
           </div>
         </div>
         <Categories categories={categories}/>
+        {featuredProducts.length >= 8 && featuredProducts.length % 2 === 0 &&
         <FeaturedProductsList featuredProducts={featuredProducts}/>
+        }
       </div>
     </div>
   )
