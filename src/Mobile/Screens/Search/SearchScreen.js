@@ -25,15 +25,19 @@ const Component = props => {
   }, [searchTermDebounced, history])
 
   return (
-    <div>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%',
+    }}>
       <div style={{
         height: HEADER_HEIGHT,
         backgroundColor: 'white',
         width: '100%',
         display: 'flex',
-        // justifyContent: 'center',
+        zIndex: 99,
         alignItems: 'center',
-        position: 'absolute',
+        position: 'sticky',
         top: 0,
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
@@ -83,7 +87,8 @@ const Component = props => {
       </div>
 
       <div style={{
-        // marginTop: HEADER_HEIGHT
+        position: 'relative',
+        flexGrow: 1
       }}>
         <QueryRenderer
           environment={environment}
@@ -95,7 +100,7 @@ const Component = props => {
               return null
             } else if(props) {
               return (
-                <SearchResultsList search={props} marginTop={HEADER_HEIGHT}/>
+                <SearchResultsList search={props}/>
               )
             }
 

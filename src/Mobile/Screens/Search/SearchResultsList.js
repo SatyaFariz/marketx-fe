@@ -32,13 +32,12 @@ const Component = props => {
     <div 
     ref={scrollRef}
     style={{
-      // backgroundColor: 'pink',
       overflow: 'auto',
       position: 'absolute',
       left: 0,
       right: 0,
       bottom: 0,
-      top: props.marginTop
+      top: 0
     }}>
       <div
       style={{
