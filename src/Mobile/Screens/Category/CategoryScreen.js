@@ -1,6 +1,6 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
-import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
 import { IoCloseSharp } from 'react-icons/io5'
 import { LinearProgress } from '@material-ui/core'
 import { QueryRenderer } from 'react-relay'
@@ -28,20 +28,24 @@ const Component = props => {
   }, [searchTermDebounced, id, history])
 
   return (
-    <div>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%',
+    }}>
       <div style={{
-        position: 'absolute',
+        position: 'sticky',
         top: 0,
-        width: '100%'
+        width: '100%',
+        zIndex: 99,
+        borderBottom: `1px solid ${DIVIDER_COLOR}`
       }}>
         <div style={{
           height: HEADER_HEIGHT,
           backgroundColor: 'white',
           width: '100%',
           display: 'flex',
-          // justifyContent: 'center',
           alignItems: 'center',
-          
           borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
         }}>
           <BackButton/>
@@ -103,7 +107,8 @@ const Component = props => {
       </div>
 
       <div style={{
-        // marginTop: HEADER_HEIGHT + 48
+        position: 'relative',
+        flexGrow: 1
       }}>
         <QueryRenderer
           environment={environment}
