@@ -8,8 +8,11 @@ import MobileNumberChecker from '../../../helpers/MobileNumberChecker'
 import { useDebounce } from 'use-debounce'
 import OTPView from '../../Components/OTPView'
 import Register from '../../../mutations/Register'
+import graphql from 'babel-plugin-relay/macro'
+import { createFragmentContainer } from 'react-relay'
 
 const Component = props => {
+  const { me } = props
   const _isMounted = useRef(true)
   const { history, environment, resetEnvironment, queryParams } = useAppContext()
   const [mobileNumber, setMobileNumber] = useState('')
@@ -114,6 +117,14 @@ const Component = props => {
     }
   }, [mobileNumberDebounced, environment])
 
+  useEffect(() => {
+    if(me) {
+      history.replace('/')
+    }
+  }, [me])
+
+  if(me) return null
+
   return (
     <div>
       <div style={{
@@ -214,4 +225,10 @@ const Component = props => {
   )
 }
 
-export default Component
+export default createFragmentContainer(Component, {
+  me: graphql`
+    fragment RegisterScreen_me on User {
+      id
+    }
+  `
+})

@@ -1,23 +1,17 @@
-// import graphql from 'babel-plugin-relay/macro'
+import graphql from 'babel-plugin-relay/macro'
 import FixedAddressBar from '../../Components/FixedAddressBar'
 
 const chunk = {
   path: '/register',
   components: () => [import('./RegisterScreen')],
-  // query: graphql`
-  //   query MainScreenAdminQuery($id: String!) {
-  //     me {
-  //       id,
-  //       ...RequiresRegisterContainer_user
-  //     },
-  //     recipe(id: $id) {
-  //       ...MainScreen_recipe
-  //     },
-  //     categories {
-  //       ...MainScreen_categories
-  //     }
-  //   }
-  // `,
+  query: graphql`
+    query RegisterQuery {
+      me {
+        id,
+        ...RegisterScreen_me
+      }
+    }
+  `,
   // prepareVariables: ({ params }) => params,
   render: ([RegisterScreen], data, context) => {
     
@@ -26,6 +20,7 @@ const chunk = {
       component: (
         <FixedAddressBar>
           <RegisterScreen
+            me={data?.me}
           />
         </FixedAddressBar>
         
