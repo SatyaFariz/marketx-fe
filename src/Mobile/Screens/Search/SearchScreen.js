@@ -48,7 +48,7 @@ const Component = props => {
           borderRadius: 6
         }}>
           <input
-            placeholder="What do you want to rent today?"
+            placeholder="Cari barang atau jasa apa?"
             style={{
               height: '100%',
               backgroundColor: 'transparent',

@@ -55,7 +55,7 @@ const Component = props => {
             borderRadius: 6
           }}>
             <input
-              placeholder="What do you want to rent today?"
+              placeholder="Cari..."
               style={{
                 height: '100%',
                 backgroundColor: 'transparent',
@@ -131,7 +131,8 @@ export default createFragmentContainer(Component, {
   category: graphql`
     fragment CategoryScreen_category on Category {
       id,
-      name
+      name,
+      listingType
     }
   `
 })

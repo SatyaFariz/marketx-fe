@@ -257,7 +257,7 @@ const Component = props => {
                 >
                   <IoSearchOutline style={{ color: 'black' }}/>
                 </IconButton>
-                <span style={{ marginLeft: 5 }}>Cari...</span>
+                <span style={{ marginLeft: 5 }}>Cari apa aja...</span>
               </div>
             </ButtonBase>
           </div>
