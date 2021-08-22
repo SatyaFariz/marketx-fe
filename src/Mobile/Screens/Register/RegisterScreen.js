@@ -121,7 +121,7 @@ const Component = props => {
     if(me) {
       history.replace('/')
     }
-  }, [me])
+  }, [me, history])
 
   if(me) return null
 
