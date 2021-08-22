@@ -571,11 +571,11 @@ const Component = props => {
                     value={specs[field.attribute.id]?.trim() === '' ? null : specs[field.attribute.id]}
                     onChange={(_, value) => _setSpecs(field)({ target: { value }})}
                     filterOptions={field.isEnum ? undefined : (options, params) => {
-                      const filtered = autocompleteFilter(options, params)
-                      const { inputValue } = params
+                      const inputValue = params.inputValue.trim()
+                      const filtered = autocompleteFilter(options, { ...params, inputValue })
               
                       // Create a new value
-                      if (inputValue !== '' && !filtered.includes(inputValue)) {
+                      if (inputValue !== '' && !filtered.find(item => item.trim().toLowerCase() === inputValue.toLowerCase())) {
                         filtered.push(inputValue)
                       }
               
