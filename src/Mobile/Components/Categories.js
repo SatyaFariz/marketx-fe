@@ -101,7 +101,12 @@ const Component = props => {
         {(tab === -1 ? categories : categories[tab].children).map((item, i) => {
           if(item.level > 2 || (tab === -1 && item.level > 1) || ['rental_product', 'service'].includes(item.listingType)) return null
           return (
-            <Link href={`/category/${item.id}`} key={item.id}>
+            <ButtonBase 
+              href={`/category/${item.id}`} 
+              key={item.id}
+              component={Link}
+              disableRipple
+            >
               <div key={i} style={{
                 width: 118,
                 display: 'flex',
@@ -121,7 +126,7 @@ const Component = props => {
                 />
                 <span style={{ textAlign: 'center' }}>{item.name}</span>
               </div>
-            </Link>
+            </ButtonBase>
           )
         })}
       </div>
