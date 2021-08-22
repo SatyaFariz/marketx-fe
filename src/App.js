@@ -44,6 +44,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    import("./mobile.css")
     const { history } = this.props;
     this.unlisten = history.listen(this.renderLocation);
     this.renderLocation(history.location);
