@@ -11,7 +11,7 @@ import Register from '../../../mutations/Register'
 
 const Component = props => {
   const _isMounted = useRef(true)
-  const { history, environment, resetEnvironment } = useAppContext()
+  const { history, environment, resetEnvironment, queryParams } = useAppContext()
   const [mobileNumber, setMobileNumber] = useState('')
   const [name, setName] = useState('')
   const [loading, setLoading] = useState(false)
@@ -89,7 +89,7 @@ const Component = props => {
           alert(message)
           if(!hasError) {
             // do sth
-            history.push('/')
+            history.replace(queryParams?.redirect ?? '/')
             resetEnvironment()
           }
         }

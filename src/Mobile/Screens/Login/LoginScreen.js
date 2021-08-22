@@ -135,7 +135,10 @@ const Component = props => {
           alignItems: 'center',
           marginTop: 20
         }}>
-          <Link href='/register' style={{ color: Color.link }}>
+          <Link 
+            href={queryParams?.redirect ? `/register?redirect=${queryParams.redirect}` : '/register'} 
+            style={{ color: Color.link }}
+          >
             <span>Create a new account</span>
           </Link>
         </div>
