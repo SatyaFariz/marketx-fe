@@ -5,16 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import createRelay from './Mobile/createRelay';
 import { createBrowserHistory as createHistory } from 'history';
-// import {
-//   isMobile
-// } from "react-device-detect"
+import Test from './Web/Test'
+import {
+  isMobile
+} from "react-device-detect"
 
 ReactDOM.render(
   <React.StrictMode>
-    {true ?
+    {isMobile ?
     <App history={createHistory()} createRelay={createRelay}/>
     :
-    <div></div>
+    <Test/>
     }
   </React.StrictMode>,
   document.getElementById('root')
