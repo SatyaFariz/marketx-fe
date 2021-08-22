@@ -1,4 +1,5 @@
 import { createFragmentContainer } from 'react-relay'
+import { DIVIDER_COLOR } from '../Constants'
 import graphql from 'babel-plugin-relay/macro'
 import Link from '../Components/Link'
 
@@ -6,12 +7,72 @@ const Component = props => {
   const { categories } = props
   return (
     <div>
-      <h1 style={{
+      <div style={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        padding: '20px 0',
+        // borderBottom: `1px solid ${DIVIDER_COLOR}`
+      }}>
+          <div style={{
+            width: 118,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'center'
+          }}>
+            <img
+              alt="Buy"
+              src="https://www.cumi.id/static/media/categoryClothingBeauty.f3b1100b.svg"
+              style={{
+                height: 70,
+                width: 70,
+                marginBottom: 10
+              }}
+            />
+            <span style={{ textAlign: 'center' }}>Beli</span>
+          </div>
+        {categories.map((item, i) => {
+          if(['rental_product', 'service'].includes(item.listingType) && item.level === 1) {
+            return (
+                <div key={i} style={{
+                  width: 118,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-start',
+                  alignItems: 'center'
+                }}>
+                  <img
+                    alt={item.name}
+                    src={item.icon?.url}
+                    style={{
+                      height: 70,
+                      width: 70,
+                      marginBottom: 10
+                    }}
+                  />
+                  <span style={{ textAlign: 'center' }}>{item.name}</span>
+                </div>
+            )
+          } else {
+            return null
+          }
+        })}
+      </div>
+
+      <div style={{
+        borderBottom: `1px solid ${DIVIDER_COLOR}`,
+        margin: '0 20px',
+        marginBottom: 20
+      }}/>
+      
+      {/* <h1 style={{
         fontSize: 24,
         // lineHeight: 27,
         fontWeight: 'bold',
         textAlign: 'center'
-      }}>Explore Our Categories</h1>
+      }}>Explore Our Categories</h1> */}
 
       <div style={{
         display: 'flex',
@@ -56,8 +117,17 @@ export default createFragmentContainer(Component, {
       id,
       name,
       level,
+      listingType,
       icon {
         url
+      },
+      children {
+        id,
+        name,
+        level,
+        icon {
+          url
+        }
       }
     }
   `

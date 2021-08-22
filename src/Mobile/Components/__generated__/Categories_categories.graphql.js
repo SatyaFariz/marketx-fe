@@ -15,9 +15,18 @@ export type Categories_categories = $ReadOnlyArray<{|
   +id: ?string,
   +name: ?string,
   +level: ?number,
+  +listingType: ?string,
   +icon: ?{|
     +url: ?string
   |},
+  +children: ?$ReadOnlyArray<?{|
+    +id: ?string,
+    +name: ?string,
+    +level: ?number,
+    +icon: ?{|
+      +url: ?string
+    |},
+  |}>,
   +$refType: Categories_categories$ref,
 |}>;
 export type Categories_categories$data = Categories_categories;
@@ -29,7 +38,47 @@ export type Categories_categories$key = $ReadOnlyArray<{
 */
 
 
-const node/*: ReaderFragment*/ = {
+const node/*: ReaderFragment*/ = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "level",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Image",
+  "kind": "LinkedField",
+  "name": "icon",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "url",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": {
@@ -37,42 +86,29 @@ const node/*: ReaderFragment*/ = {
   },
   "name": "Categories_categories",
   "selections": [
+    (v0/*: any*/),
+    (v1/*: any*/),
+    (v2/*: any*/),
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "id",
+      "name": "listingType",
       "storageKey": null
     },
+    (v3/*: any*/),
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "name",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "level",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "Image",
+      "concreteType": "Category",
       "kind": "LinkedField",
-      "name": "icon",
-      "plural": false,
+      "name": "children",
+      "plural": true,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "url",
-          "storageKey": null
-        }
+        (v0/*: any*/),
+        (v1/*: any*/),
+        (v2/*: any*/),
+        (v3/*: any*/)
       ],
       "storageKey": null
     }
@@ -80,7 +116,8 @@ const node/*: ReaderFragment*/ = {
   "type": "Category",
   "abstractKey": null
 };
+})();
 // prettier-ignore
-(node/*: any*/).hash = '7983f5cd8c8419f042707b0b4c3bf987';
+(node/*: any*/).hash = 'dd7d97880b4da35ad8e4d4fab4e9afaf';
 
 module.exports = node;
