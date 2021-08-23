@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Aug 22 2021 18:26:03 GMT+0700 (Western Indonesia Time)
+# timestamp: Mon Aug 23 2021 02:15:21 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -114,6 +114,7 @@ type Mutation {
   updateSpecField(id: String!, type: String!, max: Int, min: Int, options: [String!], isEnum: Boolean, isAutocomplete: Boolean): String
   updateProductCat(id: String!, path: String!): String
   createSubcategory(parentId: String!, name: String!): String
+  createPost(title: String!, content: String!, type: String!): String
 }
 
 """Information about pagination in a connection."""
