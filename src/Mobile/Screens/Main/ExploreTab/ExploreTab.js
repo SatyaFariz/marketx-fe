@@ -140,16 +140,21 @@ const Component = props => {
               <span style={{ marginLeft: 15 }}>Privacy Policy</span>
             </div>
 
-            <div style={{
-              padding: 15,
-              borderBottom: `1px solid ${DIVIDER_COLOR}`,
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center'
+            <ButtonBase href={'/faq'} component={Link} style={{
+              display: 'flex'
             }}>
-              <IoHelpCircle size={24}/>
-              <span style={{ marginLeft: 15 }}>Frequently Asked Questions</span>
-            </div>
+              <div style={{
+                padding: 15,
+                borderBottom: `1px solid ${DIVIDER_COLOR}`,
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                width: '100%'
+              }}>
+                <IoHelpCircle size={24}/>
+                <span style={{ marginLeft: 15 }}>Frequently Asked Questions</span>
+              </div>
+            </ButtonBase>
             
             {me &&
             <ButtonBase href={me.store ? `/store/${me.store.id}` : '/new/store'} component={Link} style={{
