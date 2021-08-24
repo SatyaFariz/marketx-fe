@@ -120,7 +120,10 @@ const Component = props => {
               return null
             } else if(props) {
               return (
-                <SearchResultsList search={props} marginTop={HEADER_HEIGHT + 48}/>
+                <SearchResultsList 
+                  search={props} 
+                  showsListingType={false}
+                />
               )
             }
 
@@ -136,8 +139,7 @@ export default createFragmentContainer(Component, {
   category: graphql`
     fragment CategoryScreen_category on Category {
       id,
-      name,
-      listingType
+      name
     }
   `
 })

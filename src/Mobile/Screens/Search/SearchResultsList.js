@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { CircularProgress } from '@material-ui/core'
 
 const Component = props => {
+  const { showsListingType } = props
   const [errorLoadingMore, setErrorLoadingMore] = useState(false)
   const { edges } = props.search.search
   
@@ -56,7 +57,11 @@ const Component = props => {
         }}>
           {edges.map((edge, i) => {
             return (
-              <ProductItem product={edge.node}/>
+              <ProductItem
+                key={edge.node.id}
+                product={edge.node}
+                showsListingType={showsListingType}
+              />
             )
           })}
         </div>

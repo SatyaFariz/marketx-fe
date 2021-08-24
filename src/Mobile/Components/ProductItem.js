@@ -7,7 +7,7 @@ import Link from '../Components/Link'
 import Color from '../Constants/Color'
 
 const Component = props => {
-  const { product } = props
+  const { product, showsListingType = true } = props
   return (
     <ButtonBase href={`/product/${product.id}`} component={Link} style={{
       display: 'flex'
@@ -80,14 +80,14 @@ const Component = props => {
           fontSize: 16
         }}>{formatCurrency(product.price)}</span>
         }
-        {product.listingType === 'rental_product' &&
+        {showsListingType && product.listingType === 'rental_product' &&
           <span style={{
             fontSize: 12,
             color: Color.link,
             marginTop: 7
           }}>Rental</span>
         }
-        {product.listingType === 'service' &&
+        {showsListingType && product.listingType === 'service' &&
           <span style={{
             fontSize: 12,
             color: Color.link,

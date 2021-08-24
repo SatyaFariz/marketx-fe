@@ -38,7 +38,6 @@ query CategorySearchScreenQuery(
 fragment CategoryScreen_category on Category {
   id
   name
-  listingType
 }
 */
 
@@ -113,13 +112,6 @@ return {
             "kind": "ScalarField",
             "name": "name",
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "listingType",
-            "storageKey": null
           }
         ],
         "storageKey": null
@@ -127,12 +119,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "963ccbb676dfbf686ca1d30fc22a498c",
+    "cacheID": "066b191590d617527c2770aaa349d36d",
     "id": null,
     "metadata": {},
     "name": "CategorySearchScreenQuery",
     "operationKind": "query",
-    "text": "query CategorySearchScreenQuery(\n  $id: String!\n) {\n  category(id: $id) {\n    id\n    ...CategoryScreen_category\n  }\n}\n\nfragment CategoryScreen_category on Category {\n  id\n  name\n  listingType\n}\n"
+    "text": "query CategorySearchScreenQuery(\n  $id: String!\n) {\n  category(id: $id) {\n    id\n    ...CategoryScreen_category\n  }\n}\n\nfragment CategoryScreen_category on Category {\n  id\n  name\n}\n"
   }
 };
 })();
