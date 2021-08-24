@@ -9,6 +9,9 @@ import Test from './Web/Test'
 import {
   isMobile
 } from "react-device-detect"
+import moment from 'moment'
+import 'moment/locale/id'  // without this line it didn't work
+moment.locale('id')
 
 ReactDOM.render(
   <React.StrictMode>

@@ -118,16 +118,22 @@ const Component = props => {
               <IoPeople size={24}/>
               <span style={{ marginLeft: 15 }}>About Us</span>
             </div>
-            <div style={{
-              padding: 15,
-              borderBottom: `1px solid ${DIVIDER_COLOR}`,
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center'
+
+            <ButtonBase href={'/terms-of-service'} component={Link} style={{
+              display: 'flex'
             }}>
-              <IoDocumentText size={24}/>
-              <span style={{ marginLeft: 15 }}>Terms of Service</span>
-            </div>
+              <div style={{
+                padding: 15,
+                borderBottom: `1px solid ${DIVIDER_COLOR}`,
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                width: '100%'
+              }}>
+                <IoDocumentText size={24}/>
+                <span style={{ marginLeft: 15 }}>Terms of Service</span>
+              </div>
+            </ButtonBase>
 
             <ButtonBase href={'/privacy-policy'} component={Link} style={{
               display: 'flex'

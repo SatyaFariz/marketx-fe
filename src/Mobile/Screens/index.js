@@ -16,6 +16,7 @@ import EditStore from './EditStore'
 import FeaturedProducts from './FeaturedProducts'
 import FAQ from './FAQ'
 import PrivacyPolicy from './PrivacyPolicy'
+import TermsOfService from './TermsOfService'
 
 const screens = [
   Main,
@@ -35,7 +36,8 @@ const screens = [
   EditStore,
   FeaturedProducts,
   FAQ,
-  PrivacyPolicy
+  PrivacyPolicy,
+  TermsOfService
 ]
 
 export default screens

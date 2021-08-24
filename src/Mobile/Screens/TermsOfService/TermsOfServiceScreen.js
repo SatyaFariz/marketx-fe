@@ -61,7 +61,7 @@ const Component = props => {
 
 export default createFragmentContainer(Component, {
   posts: graphql`
-    fragment PrivacyPolicyScreen_posts on Post @relay(plural: true) {
+    fragment TermsOfServiceScreen_posts on Post @relay(plural: true) {
       id,
       title,
       content,

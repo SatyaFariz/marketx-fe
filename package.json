@@ -17,6 +17,7 @@
     "graphql": "^15.5.1",
     "history": "^4.7.2",
     "imtool": "^1.1.4",
+    "moment": "^2.29.1",
     "query-string": "^6.13.7",
     "react": "^17.0.2",
     "react-bottom-scroll-listener": "^5.0.0",
