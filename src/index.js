@@ -15,7 +15,7 @@ moment.locale('id')
 
 ReactDOM.render(
   <React.StrictMode>
-    {isMobile ?
+    {true ?
     <App history={createHistory()} createRelay={createRelay}/>
     :
     <Test/>

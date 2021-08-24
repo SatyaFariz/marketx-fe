@@ -4,11 +4,21 @@ import { ButtonBase } from '@material-ui/core'
 import Color from '../Constants/Color'
 import graphql from 'babel-plugin-relay/macro'
 import Link from '../Components/Link'
-import { useState } from 'react'
+import useAppContext from '../hooks/useAppContext'
+import { useState, useEffect } from 'react'
 
 const Component = props => {
-  const [tab, setTab] = useState(-1)
+  const { queryParams, pathname } = useAppContext()
+  const { tab } = queryParams
   const { categories } = props
+  const [currentTab, setCurrentTab] = useState(tab ? parseInt(tab, 10) : -1)
+
+  useEffect(() => {
+    if(pathname === '/') {
+      setCurrentTab(tab ? parseInt(tab, 10) : -1)
+    }
+  }, [pathname, tab])
+
   return (
     <div>
       <div style={{
@@ -17,11 +27,12 @@ const Component = props => {
         flexWrap: 'wrap',
         justifyContent: 'center',
         padding: '20px 0',
-        // borderBottom: `1px solid ${DIVIDER_COLOR}`
       }}>
         <ButtonBase
+          component={Link}
+          href='/'
+          replace
           disableRipple
-          onClick={() => setTab(-1)}
         >
           <div style={{
             width: 118,
@@ -38,7 +49,7 @@ const Component = props => {
                 width: 70,
                 marginBottom: 10,
                 borderRadius: '50%',
-                border: tab === -1 ? `2px solid ${Color.link}` : undefined
+                border: currentTab === -1 ? `2px solid ${Color.link}` : undefined
               }}
             />
             <span style={{ textAlign: 'center' }}>Beli</span>
@@ -48,8 +59,11 @@ const Component = props => {
           if(['rental_product', 'service'].includes(item.listingType) && item.level === 1) {
             return (
               <ButtonBase
+                key={i}
+                component={Link}
+                replace
+                href={`?tab=${i}`}
                 disableRipple
-                onClick={() => setTab(i)}
               >
                 <div key={i} style={{
                   width: 118,
@@ -66,7 +80,7 @@ const Component = props => {
                       width: 70,
                       marginBottom: 10,
                       borderRadius: '50%',
-                      border: tab === i ? `2px solid ${Color.link}` : undefined
+                      border: currentTab === i ? `2px solid ${Color.link}` : undefined
                     }}
                   />
                   <span style={{ textAlign: 'center' }}>{item.name}</span>
@@ -84,13 +98,6 @@ const Component = props => {
         margin: '0 20px',
         marginBottom: 20
       }}/>
-      
-      {/* <h1 style={{
-        fontSize: 24,
-        // lineHeight: 27,
-        fontWeight: 'bold',
-        textAlign: 'center'
-      }}>Explore Our Categories</h1> */}
 
       <div style={{
         display: 'flex',
@@ -98,8 +105,8 @@ const Component = props => {
         flexWrap: 'wrap',
         justifyContent: 'center'
       }}>
-        {(tab === -1 ? categories : categories[tab].children).map((item, i) => {
-          if(item.level > 2 || (tab === -1 && item.level > 1) || ['rental_product', 'service'].includes(item.listingType)) return null
+        {(currentTab === -1 ? categories : categories[currentTab].children).map((item, i) => {
+          if(item.level > 2 || (currentTab === -1 && item.level > 1) || ['rental_product', 'service'].includes(item.listingType)) return null
           return (
             <ButtonBase 
               href={`/category/${item.id}`} 

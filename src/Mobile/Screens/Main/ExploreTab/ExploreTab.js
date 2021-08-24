@@ -12,11 +12,10 @@ import { IoPeople, IoShieldCheckmark, IoHelpCircle, IoDocumentText, IoStorefront
 
 const Component = props => {
   const [showDrawer, setShowDrawer] = useState(false)
-  const { active, categories, featuredProducts, me } = props
+  const { categories, featuredProducts, me } = props
   
   return (
     <div style={{
-      display: active ? undefined : 'none'
     }}>
       <Drawer anchor="left" open={showDrawer} onClose={() => setShowDrawer(false)}>
         <div style={{
