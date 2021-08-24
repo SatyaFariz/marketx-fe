@@ -2,13 +2,14 @@ import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
 import { IoCloseSharp } from 'react-icons/io5'
-import { LinearProgress } from '@material-ui/core'
+import { LinearProgress, ButtonBase } from '@material-ui/core'
 import { QueryRenderer } from 'react-relay'
 import useAppContext from '../../hooks/useAppContext'
 import { useState, useEffect } from 'react'
 import { useDebounce } from 'use-debounce'
 import SearchResultsList from '../Search/SearchResultsList'
 import BackButton from '../../Components/BackButton'
+import Link from '../../Components/Link'
 
 const query = graphql`
   query CategoryScreenQuery($q: String!, $first: Int!, $categoryId: String!) {
@@ -99,10 +100,43 @@ const Component = props => {
           paddingLeft: 15,
           paddingRight: 15
         }}>
+          {category.level > 1 ?
+          <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+            {category.ancestors.map((item, i) => {
+              return (
+                <div key={i} style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                  {i > 0 &&
+                  <span style={{ margin: '0 10px' }}>{'>'}</span>
+                  }
+                  <ButtonBase key={item.id} href={`/category/${item.id}`} component={Link}>
+                    <span>{item.name}</span>
+                  </ButtonBase>
+                </div>
+              )
+            })}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+              <span style={{ margin: '0 10px' }}>{'>'}</span>
+              <span>{category.name}</span>
+            </div>
+          </div>
+          :
           <span style={{
             fontSize: 18,
             fontWeight: '700'
           }}>{category.name}</span>
+          }
         </div>
       </div>
 
@@ -139,7 +173,12 @@ export default createFragmentContainer(Component, {
   category: graphql`
     fragment CategoryScreen_category on Category {
       id,
-      name
+      name,
+      level,
+      ancestors {
+        id,
+        name
+      }
     }
   `
 })

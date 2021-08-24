@@ -38,6 +38,11 @@ query CategorySearchScreenQuery(
 fragment CategoryScreen_category on Category {
   id
   name
+  level
+  ancestors {
+    id
+    name
+  }
 }
 */
 
@@ -61,6 +66,13 @@ v2 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 };
 return {
@@ -106,11 +118,25 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "name",
+            "name": "level",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Category",
+            "kind": "LinkedField",
+            "name": "ancestors",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/)
+            ],
             "storageKey": null
           }
         ],
@@ -119,12 +145,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "066b191590d617527c2770aaa349d36d",
+    "cacheID": "8599c3d4798bf8db4b5f8e97b1c6659c",
     "id": null,
     "metadata": {},
     "name": "CategorySearchScreenQuery",
     "operationKind": "query",
-    "text": "query CategorySearchScreenQuery(\n  $id: String!\n) {\n  category(id: $id) {\n    id\n    ...CategoryScreen_category\n  }\n}\n\nfragment CategoryScreen_category on Category {\n  id\n  name\n}\n"
+    "text": "query CategorySearchScreenQuery(\n  $id: String!\n) {\n  category(id: $id) {\n    id\n    ...CategoryScreen_category\n  }\n}\n\nfragment CategoryScreen_category on Category {\n  id\n  name\n  level\n  ancestors {\n    id\n    name\n  }\n}\n"
   }
 };
 })();
