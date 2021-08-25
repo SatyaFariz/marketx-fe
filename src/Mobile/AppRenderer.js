@@ -5,7 +5,7 @@ import Logo from '../logo.svg'
 const LoadingView = () => {
   return (
     <div style={{
-      position: 'absolute',
+      position: 'fixed',
       left: 0,
       right: 0,
       bottom: 0,
@@ -24,7 +24,7 @@ const LoadingView = () => {
 
 const defaultStates = {
   title: null,
-  component: () => <LoadingView/>,
+  component: null,
   error: null
 }
 
@@ -64,7 +64,7 @@ class AppRenderer extends Component {
       <ErrorScreen error={this.state.error} />
     ) : this.state.component ? (
       this.state.component
-    ) : null;
+    ) : <LoadingView/>;
   }
 }
 
