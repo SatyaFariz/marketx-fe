@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^12.8.3",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
+    "express": "^4.17.1",
     "framer-motion": "^4.1.17",
     "graphql": "^15.5.1",
     "history": "^4.7.2",
@@ -42,6 +43,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "server": "nodemon -L server.js",
     "relay": "relay-compiler --src ./src --schema ./schema.graphql",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -73,6 +75,7 @@
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-rename": "^2.0.0",
+    "nodemon": "^2.0.12",
     "relay-compiler": "^10.1.3"
   }
 }
