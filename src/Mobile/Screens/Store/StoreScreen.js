@@ -59,182 +59,195 @@ const Component = props => {
 
   return (
     <div style={{
-      height: '100%'
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column'
     }}>
       <div style={{
-        height: HEADER_HEIGHT,
-        backgroundColor: 'white',
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        position: 'absolute',
+        position: 'sticky',
         top: 0,
-        zIndex: 9999,
-        borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
+        zIndex: 9999
       }}>
-        <BackButton/>
-        
         <div style={{
-          position: 'absolute',
-          height: '100%',
+          height: HEADER_HEIGHT,
+          backgroundColor: 'white',
           width: '100%',
           display: 'flex',
-          justifyContent: 'center',
           alignItems: 'center',
-          zIndex: 0
+          // position: 'absolute',
+          // top: 0,
+          // zIndex: 9999,
+          borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
         }}>
-          <h1 style={{
-            margin: 0,
-            fontSize: 20,
-            fontWeight: 500,
-            textAlign: 'center',
-          }}>Store</h1>
+          <BackButton/>
+          
+          <div style={{
+            position: 'absolute',
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 0
+          }}>
+            <h1 style={{
+              margin: 0,
+              fontSize: 20,
+              fontWeight: 500,
+              textAlign: 'center',
+            }}>Store</h1>
+          </div>
         </div>
       </div>
-
+      
       <div style={{
-        top: HEADER_HEIGHT,
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0,
-        overflow: 'auto'
-      }}
-        ref={scrollRef}
-      >
+        position: 'relative',
+        flexGrow: 1
+      }}>
         <div style={{
-          maxHeight: 200,
-          backgroundColor: store?.banner ? undefined : 'rgb(207, 217, 222)',
-          width: '100%',
-          height: 127,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center center',
-          backgroundImage: store?.banner ? `url("${store?.banner.url}")` : undefined
+          top: 0,
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          overflow: 'auto'
         }}
-        />
-        <div style={{
-          paddingLeft: 15,
-          paddingRight: 15,
-          paddingBottom: 20
-        }}>
+          ref={scrollRef}
+        >
           <div style={{
+            maxHeight: 200,
+            backgroundColor: store?.banner ? undefined : 'rgb(207, 217, 222)',
+            width: '100%',
+            height: 127,
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             alignItems: 'center',
-            flexDirection: 'row'
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center center',
+            backgroundImage: store?.banner ? `url("${store?.banner.url}")` : undefined
+          }}
+          />
+          <div style={{
+            paddingLeft: 15,
+            paddingRight: 15,
+            paddingBottom: 20
           }}>
             <div style={{
-              height: 94,
-              width: 94,
-              backgroundColor: store?.profilePicture ? undefined : '#b1b6c9',
-              marginTop: -42,
-              borderRadius: '50%',
-              borderWidth: 2,
-              borderColor: 'white',
-              borderStyle: 'solid',
-              marginBottom: 0,
               display: 'flex',
-              justifyContent: 'center',
+              justifyContent: 'space-between',
               alignItems: 'center',
-              backgroundSize: 'cover',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center center',
-              backgroundImage: store?.profilePicture ? `url("${store?.profilePicture.url}")` : undefined
+              flexDirection: 'row'
             }}>
-              {!store.profilePicture &&
-              <span style={{ color: 'white', fontSize: 24 }}>{store.name[0].toUpperCase()}</span>
+              <div style={{
+                height: 94,
+                width: 94,
+                backgroundColor: store?.profilePicture ? undefined : '#b1b6c9',
+                marginTop: -42,
+                borderRadius: '50%',
+                borderWidth: 2,
+                borderColor: 'white',
+                borderStyle: 'solid',
+                marginBottom: 0,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center center',
+                backgroundImage: store?.profilePicture ? `url("${store?.profilePicture.url}")` : undefined
+              }}>
+                {!store.profilePicture &&
+                <span style={{ color: 'white', fontSize: 24 }}>{store.name[0].toUpperCase()}</span>
+                }
+              </div>
+
+              {store.merchantId === me?.id &&
+              <Button
+                disableElevation
+                variant="contained"
+                onClick={() => history.push(/*'/new/product'*/ '/edit/store')}
+              >
+                Edit
+              </Button>
               }
             </div>
 
-            {store.merchantId === me?.id &&
-            <Button
-              disableElevation
-              variant="contained"
-              onClick={() => history.push(/*'/new/product'*/ '/edit/store')}
-            >
-              Edit
-            </Button>
-            }
-          </div>
-
-          <div style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginTop: 10, 
-            marginBottom: 5
-          }}>
-            <h3 style={{ fontSize: 20, margin: 0 }}>{store.name}</h3>
-            {store.isVerified &&
-            <VerifiedIcon/>
-            }
-          </div>
-          
-          {me &&
-          <span style={{
-            color: 'rgb(83, 100, 113)',
-            fontSize: 14,
-            display: 'block'
-          }}>{store.whatsappNumber}</span>
-          }
-
-          <span style={{
-            display: 'block',
-            marginTop: 15,
-            fontSize: 14
-          }}>{store.address.fullAddress}</span>
-
-          <div style={{
-            height: 1,
-            backgroundColor: DIVIDER_COLOR,
-            margin: '15px 0'
-          }}/>
-
-          {edges.length === 0 ?
-          <div>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginTop: 10, 
+              marginBottom: 5
+            }}>
+              <h3 style={{ fontSize: 20, margin: 0 }}>{store.name}</h3>
+              {store.isVerified &&
+              <VerifiedIcon/>
+              }
+            </div>
+            
+            {me &&
             <span style={{
               color: 'rgb(83, 100, 113)',
               fontSize: 14,
+              display: 'block'
+            }}>{store.whatsappNumber}</span>
+            }
+
+            <span style={{
               display: 'block',
-              textAlign: 'center'
-            }}>
-              {store.merchantId === me?.id ? "You still don't have products. Add one!" : "This store doesn't have products yet."}
-            </span>
-          </div>
-          :
-          <div>
+              marginTop: 15,
+              fontSize: 14
+            }}>{store.address.fullAddress}</span>
+
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gridColumnGap: 15,
-              gridRowGap: 20,
-              alignItems: 'start'
-            }}>
-              {edges.map((edge, i) => {
-                return (
-                  <ProductItem key={edge.node.id} product={edge.node}/>
-                )
-              })}
+              height: 1,
+              backgroundColor: DIVIDER_COLOR,
+              margin: '15px 0'
+            }}/>
+
+            {edges.length === 0 ?
+            <div>
+              <span style={{
+                color: 'rgb(83, 100, 113)',
+                fontSize: 14,
+                display: 'block',
+                textAlign: 'center'
+              }}>
+                {store.merchantId === me?.id ? "You still don't have products. Add one!" : "This store doesn't have products yet."}
+              </span>
             </div>
-            
-            <div 
-              style={{ 
-                paddingTop: 20,
-                display: 'flex',
-                justifyContent: 'center'
-            }}>
-              <div style={{ visibility: !props.relay.hasMore() ? 'hidden' : undefined }}>
-                <CircularProgress />
+            :
+            <div>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gridColumnGap: 15,
+                gridRowGap: 20,
+                alignItems: 'start'
+              }}>
+                {edges.map((edge, i) => {
+                  return (
+                    <ProductItem key={edge.node.id} product={edge.node}/>
+                  )
+                })}
+              </div>
+              
+              <div 
+                style={{ 
+                  paddingTop: 20,
+                  display: 'flex',
+                  justifyContent: 'center'
+              }}>
+                <div style={{ visibility: !props.relay.hasMore() ? 'hidden' : undefined }}>
+                  <CircularProgress />
+                </div>
               </div>
             </div>
+            }
           </div>
-          }
+          
         </div>
-        
       </div>
 
       <div style={{
