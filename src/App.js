@@ -57,8 +57,7 @@ class App extends Component {
   }
 
   renderLocation = location => {
-    const { history } = this.props;
-    console.log(location)
+    const { history } = this.props
     const queryParams = qs.parse(location.search)
     this.setState({ queryParams, pathname: location.pathname })
     router
@@ -83,7 +82,7 @@ class App extends Component {
         loading: true,
         query,
         variables,
-        render: ({ error, props, retry }) => {console.log(error)
+        render: ({ error, props, retry }) => {
           if (error) {
             const err = new Error(error.message);
             err.code = error.code;
