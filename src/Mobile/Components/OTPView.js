@@ -3,7 +3,7 @@ import { HEADER_HEIGHT } from '../Constants'
 import Color from '../Constants/Color'
 import { useState, useEffect, useRef } from 'react'
 import Countdown from 'react-countdown'
-import { Button } from '@material-ui/core'
+import Button from './Button'
 import BackButton from './BackButton'
 
 const keys = [
@@ -64,16 +64,13 @@ const Component = props => {
       }}>
         <BackButton/>
         <Button
-          variant="contained"
-          disableElevation
+          label="Kirim ulang"
           style={{
-            textTransform: 'none',
             marginRight: 15
           }}
           onClick={props.resend}
-        >
-          Resend
-        </Button>
+          loading={props.sending}
+        />
       </div>
       
       <div style={{
