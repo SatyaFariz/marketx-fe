@@ -1,5 +1,5 @@
 import { LOGO_URL } from '../../Constants'
-import { TextField, Button } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import SendOtpCode from '../../../mutations/SendOtpCode'
@@ -10,6 +10,7 @@ import OTPView from '../../Components/OTPView'
 import Register from '../../../mutations/Register'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
+import Button from '../../Components/Button'
 
 const Component = props => {
   const { me } = props
@@ -184,19 +185,16 @@ const Component = props => {
         />
 
         <Button
-          variant="contained"
+          label="Daftar"
+          thick
           style={{
             marginTop: 10,
-            marginBottom: 10,
-            textTransform: 'none',
-            height: 44
+            marginBottom: 10
           }}
-          disableElevation
           fullWidth
+          loading={sendingCode || loading}
           onClick={sendOtpCode}
-        >
-          Create Account
-        </Button>
+        />
         
       </div>
 

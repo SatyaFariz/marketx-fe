@@ -6,14 +6,17 @@ const Component = props => {
     loading,
     disabled,
     icon,
+    thick,
     ...rest
   } = props
+  const style = thick ? { ...(props.style || {}), paddingTop: 10, paddingBottom: 10 } : props.style
   return (
     <Button 
       {...rest}
       variant="contained"
       disableElevation
       disabled={disabled || loading}
+      style={style}
     >
       <div style={{ position: 'relative' }}>
         <div style={{

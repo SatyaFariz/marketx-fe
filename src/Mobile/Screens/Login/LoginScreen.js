@@ -1,5 +1,5 @@
 import { LOGO_URL } from '../../Constants'
-import { TextField, Button } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import SendOtpCode from '../../../mutations/SendOtpCode'
@@ -9,6 +9,7 @@ import OTPView from '../../Components/OTPView'
 import Login from '../../../mutations/Login'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
+import Button from '../../Components/Button'
 
 const Component = props => {
   const { me } = props
@@ -125,20 +126,17 @@ const Component = props => {
         />
 
         <Button
-          variant="contained"
+          label="Masuk"
+          thick
           style={{
             marginTop: 10,
-            marginBottom: 10,
-            textTransform: 'none',
-            height: 44
+            marginBottom: 10
           }}
-          disableElevation
           fullWidth
           onClick={sendOtpCode}
+          loading={sendingCode || loading}
           disabled={mobileNumber.length < 12}
-        >
-          Log in
-        </Button>
+        />
 
         <div style={{
           display: 'flex',
