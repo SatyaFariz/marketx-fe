@@ -3,7 +3,7 @@ import { createFragmentContainer } from 'react-relay'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import { IconButton, CircularProgress, Button } from '@material-ui/core'
+import { IconButton, CircularProgress } from '@material-ui/core'
 import '@brainhubeu/react-carousel/lib/style.css'
 import ImageItem from './ImageItem'
 import DeleteProductImages from '../../../mutations/DeleteProductImages'
@@ -14,6 +14,7 @@ import { fromImage } from 'imtool'
 import BackButton from '../../Components/BackButton'
 import { IoCloseOutline } from 'react-icons/io5'
 import CameraIcon from '../../Components/CameraIcon'
+import Button from '../../Components/Button'
 
 const megabytes = 1048576
 const maxImages = 7
@@ -138,17 +139,11 @@ const Component = props => {
 
         {selectedIds.length > 0 &&
         <div style={{ zIndex: 1, marginRight: 15 }}>
-        {/* <IconButton onClick={bulkDelete}>
-          <Delete style={{ color: 'black' }}/>
-        </IconButton> */}
           <Button
-            disableElevation
-            variant="contained"
+            label="Hapus"
             onClick={bulkDelete}
-            disabled={deleting}
-          >
-            Hapus
-          </Button>
+            loading={deleting}
+          />
         </div>
         }
         
