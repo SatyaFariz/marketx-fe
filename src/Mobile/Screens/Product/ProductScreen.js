@@ -11,7 +11,7 @@ import BackButton from '../../Components/BackButton'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 import VerifiedIcon from '../../Components/VerifiedIcon'
-import { IoCloseOutline, IoCloseSharp, IoLogoWhatsapp, IoEllipsisVertical } from 'react-icons/io5'
+import { IoCloseOutline, IoCloseSharp, IoLogoWhatsapp, IoEllipsisVertical, IoStorefront } from 'react-icons/io5'
 import Sheet from 'react-modal-sheet'
 import UpdateProductFeaturedStatus from '../../../mutations/UpdateProductFeaturedStatus'
 import SuspendProduct from '../../../mutations/SuspendProduct'
@@ -416,7 +416,18 @@ const Component = props => {
                   width: '100%'
                 }}>
                   {!product.store.profilePicture ?
-                  null
+                  <div style={{
+                    height: 40,
+                    width: 40,
+                    backgroundColor: '#f1f1f1',
+                    marginRight: 15,
+                    borderRadius: '50%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                    <IoStorefront size={24}/>
+                  </div>
                   :  
                   <div style={{
                     height: 40,
