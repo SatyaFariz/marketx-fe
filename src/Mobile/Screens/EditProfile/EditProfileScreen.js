@@ -1,5 +1,5 @@
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
-import { Button, TextField } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 import useAppContext from '../../hooks/useAppContext'
 import OTPView from '../../Components/OTPView'
 import { createFragmentContainer } from 'react-relay'
@@ -15,6 +15,7 @@ import { fromImage } from 'imtool'
 import SendOtpCode from '../../../mutations/SendOtpCode'
 import UpdateProfile from '../../../mutations/UpdateProfile'
 import BackButton from '../../Components/BackButton'
+import Button from '../../Components/Button'
 
 const megabytes = 1048576
 
@@ -291,17 +292,15 @@ const Component = props => {
           />
 
           <Button
-            disableElevation
-            variant="contained"
+            label="Simpan"
+            thick
             fullWidth
-            style={{ 
-              textTransform: 'none',
+            style={{
               marginTop: 10
             }}
             onClick={save}
-          >
-            Save
-          </Button>
+            loading={loading || sendingOtpCode}
+          />
         </div>
       </div>
 

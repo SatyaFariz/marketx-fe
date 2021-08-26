@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core'
+import Button from './Button'
 import Logout from '../../mutations/Logout'
 import useAppContext from '../hooks/useAppContext'
 import { useState, useRef, useEffect } from 'react'
@@ -32,15 +32,10 @@ const Component = props => {
   }, [])
   return (
     <Button
-      variant="contained"
+      label="Keluar"
       onClick={logout}
-      style={{
-        textTransform: 'none'
-      }}
-      disableElevation
-    >
-      Log out
-    </Button>
+      loading={loading}
+    />
   )
 }
 
