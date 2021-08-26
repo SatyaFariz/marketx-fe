@@ -322,7 +322,7 @@ const Component = props => {
           mobileNumber={mobileNumber}
           resend={sendOtpCode}
           sending={sendingOtpCode}
-          goBack={() => setShowOTPView(false)}
+          onClose={() => setShowOTPView(false)}
         />
       </div>
       }

@@ -16,9 +16,8 @@ const keys = [
 const codeLen = 4
 
 const Component = props => {
-  const { expiry } = props
+  const { expiry, resend, sending, onClose, mobileNumber, loading, onSubmit } = props
   const _isMounted = useRef(true)
-  const { mobileNumber, loading, onSubmit } = props
   const handleSubmit = useRef(onSubmit)
   const [code, setCode] = useState('')
   const [expired, setExpired] = useState(false)
@@ -62,14 +61,14 @@ const Component = props => {
         alignItems: 'center',
         justifyContent: 'space-between'
       }}>
-        <BackButton/>
+        <BackButton onClick={onClose}/>
         <Button
           label="Kirim ulang"
           style={{
             marginRight: 15
           }}
-          onClick={props.resend}
-          loading={props.sending}
+          onClick={resend}
+          loading={sending}
         />
       </div>
       
