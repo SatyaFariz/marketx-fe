@@ -1,6 +1,6 @@
 import EditAddressView from '../../Components/EditAddressView'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
-import { Button, Fab } from '@material-ui/core'
+import { Fab } from '@material-ui/core'
 import { Add } from '@material-ui/icons'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
@@ -13,6 +13,9 @@ import { CircularProgress } from '@material-ui/core'
 import BackButton from '../../Components/BackButton'
 import VerifiedIcon from '../../Components/VerifiedIcon'
 import { IoStorefront } from 'react-icons/io5'
+import { IoMdCreate } from 'react-icons/io'
+import Button from '../../Components/Button'
+import Link from '../../Components/Link'
 
 const Component = props => {
   const headerRef = useRef()
@@ -248,9 +251,10 @@ const Component = props => {
 
               {store.merchantId === me?.id &&
               <Button
-                disableElevation
-                variant="contained"
-                onClick={() => history.push(/*'/new/product'*/ '/edit/store')}
+                label="Edit"
+                icon={<IoMdCreate/>}
+                component={Link}
+                href="/edit/store"
               >
                 Edit
               </Button>
