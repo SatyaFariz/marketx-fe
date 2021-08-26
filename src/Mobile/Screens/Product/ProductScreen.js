@@ -507,13 +507,14 @@ const Component = props => {
             }}>{formatCurrency(product.price)}</span>
           </div>
 
-          {!me?.isAdmin &&
           <Button
             label={isMyProduct ? 'Edit' : 'Chat'}
             icon={isMyProduct ? <IoMdCreate/> : <IoLogoWhatsapp/>}
             onClick={onActionButtonClick}
+            style={{
+              visibility: !me?.isAdmin ? undefined : 'hidden'
+            }}
           />
-          }
         </div>
       </div>
 
