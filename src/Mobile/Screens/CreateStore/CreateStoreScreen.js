@@ -1,5 +1,5 @@
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
-import { TextField, Button, InputAdornment } from '@material-ui/core'
+import { TextField, InputAdornment } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import CreateStore from '../../../mutations/CreateStore'
@@ -9,6 +9,7 @@ import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import { Autocomplete } from '@material-ui/lab'
 import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader'
+import Button from '../../Components/Button'
 
 const Component = props => {
   const { provinces } = props
@@ -183,7 +184,7 @@ const Component = props => {
             fontSize: 20,
             fontWeight: 500,
             textAlign: 'center',
-          }}>Create Store</h1>
+          }}>Buat Toko</h1>
         </div>
       </div>
 
@@ -196,7 +197,7 @@ const Component = props => {
       }}>
         <TextField
           variant="outlined"
-          label="Store Name"
+          label="Nama Toko"
           fullWidth
           disabled={loading}
           style={{
@@ -211,7 +212,7 @@ const Component = props => {
 
         <TextField
           variant="outlined"
-          label="WhatsApp Number"
+          label="Nomor WhatsApp"
           fullWidth
           disabled={loading}
           style={{
@@ -225,13 +226,10 @@ const Component = props => {
             endAdornment: (
               <InputAdornment position="start">
                 <Button
+                  label="Cek"
                   disabled={whatsappNumber.length < 10}
-                  disableElevation
-                  variant="contained"
                   onClick={() => window.open(`https://wa.me/${whatsappNumber}`)}
-                >
-                  Check
-                </Button>
+                />
               </InputAdornment>
             )
           }}
@@ -334,19 +332,16 @@ const Component = props => {
         />
 
         <Button
-          variant="contained"
+          label="Simpan"
+          thick
           style={{
             marginTop: 10,
-            marginBottom: 10,
-            textTransform: 'none',
-            height: 44
+            marginBottom: 10
           }}
-          disableElevation
           fullWidth
           onClick={createStore}
-        >
-          Next
-        </Button>
+          loading={loading}
+        />
       </div>
     </div>
   )
