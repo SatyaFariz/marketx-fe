@@ -1,6 +1,6 @@
 // import EditAddressView from '../../Components/EditAddressView'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
-import { TextField, Button, InputAdornment } from '@material-ui/core'
+import { TextField, InputAdornment } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import graphql from 'babel-plugin-relay/macro'
@@ -13,6 +13,7 @@ import CameraIcon from '../../Components/CameraIcon'
 import BackButton from '../../Components/BackButton'
 import { Autocomplete } from '@material-ui/lab'
 import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader'
+import Button from '../../Components/Button'
 
 const megabytes = 1048576
 
@@ -140,9 +141,9 @@ const Component = props => {
       profilePicture === null &&
       store?.name?.trim() === name.trim() &&
       store?.whatsappNumber?.trim() === whatsappNumber.trim() &&
-      store?.address?.province?.administrativeAreaId === province.administrativeAreaId &&
-      store?.address?.city?.administrativeAreaId === city.administrativeAreaId &&
-      store?.address?.district?.administrativeAreaId === district.administrativeAreaId &&
+      store?.address?.province?.administrativeAreaId === province?.administrativeAreaId &&
+      store?.address?.city?.administrativeAreaId === city?.administrativeAreaId &&
+      store?.address?.district?.administrativeAreaId === district?.administrativeAreaId &&
       store?.address?.fullAddress?.trim() === fullAddress.trim()
     )
   }
@@ -244,13 +245,12 @@ const Component = props => {
         <BackButton/>
 
         <Button
-          disableElevation
-          variant="contained"
+          label="Simpan"
           style={{ marginRight: 15, zIndex: 9999 }}
           onClick={save}
-        >
-          Save
-        </Button>
+          loading={loading}
+          disabled={isClean()}
+        />
         
         <div style={{
           position: 'absolute',
@@ -355,13 +355,10 @@ const Component = props => {
               endAdornment: (
                 <InputAdornment position="start">
                   <Button
+                    label="Cek"
                     disabled={whatsappNumber.length < 10}
-                    disableElevation
-                    variant="contained"
                     onClick={() => window.open(`https://wa.me/${whatsappNumber}`)}
-                  >
-                    Check
-                  </Button>
+                  />
                 </InputAdornment>
               )
             }}
