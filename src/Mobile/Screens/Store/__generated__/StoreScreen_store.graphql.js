@@ -27,7 +27,13 @@ export type StoreScreen_store = {|
     +url: ?string,
   |},
   +address: ?{|
-    +fullAddress: ?string
+    +fullAddress: ?string,
+    +city: ?{|
+      +name: ?string
+    |},
+    +district: ?{|
+      +name: ?string
+    |},
   |},
   +$fragmentRefs: EditAddressView_store$ref,
   +$refType: StoreScreen_store$ref,
@@ -49,7 +55,14 @@ var v0 = {
   "name": "id",
   "storageKey": null
 },
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v2 = [
   (v0/*: any*/),
   {
     "alias": null,
@@ -58,6 +71,9 @@ v1 = [
     "name": "url",
     "storageKey": null
   }
+],
+v3 = [
+  (v1/*: any*/)
 ];
 return {
   "argumentDefinitions": [],
@@ -66,13 +82,7 @@ return {
   "name": "StoreScreen_store",
   "selections": [
     (v0/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "name",
-      "storageKey": null
-    },
+    (v1/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -101,7 +111,7 @@ return {
       "kind": "LinkedField",
       "name": "profilePicture",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": (v2/*: any*/),
       "storageKey": null
     },
     {
@@ -111,7 +121,7 @@ return {
       "kind": "LinkedField",
       "name": "banner",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": (v2/*: any*/),
       "storageKey": null
     },
     {
@@ -128,6 +138,26 @@ return {
           "kind": "ScalarField",
           "name": "fullAddress",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AdministrativeArea",
+          "kind": "LinkedField",
+          "name": "city",
+          "plural": false,
+          "selections": (v3/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AdministrativeArea",
+          "kind": "LinkedField",
+          "name": "district",
+          "plural": false,
+          "selections": (v3/*: any*/),
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -143,6 +173,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e3195483d8a1b968796808ebccc6b2df';
+(node/*: any*/).hash = 'a63d3fabeea47f3fdbdca99e2719d304';
 
 module.exports = node;

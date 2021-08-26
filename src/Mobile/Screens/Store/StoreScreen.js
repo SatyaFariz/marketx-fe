@@ -14,6 +14,7 @@ import BackButton from '../../Components/BackButton'
 import VerifiedIcon from '../../Components/VerifiedIcon'
 
 const Component = props => {
+  const headerRef = useRef()
   const isMounted = useRef(true)
   const { categories, me, store, products } = props
   const { edges } = products.search
@@ -48,6 +49,17 @@ const Component = props => {
   }, [selectCategory, pathname])
 
   useEffect(() => {
+    scrollRef.current.onscroll = () => {
+      const pageYOffset = scrollRef.current?.scrollTop
+      if(headerRef.current) {
+        if(pageYOffset > window.innerWidth) {
+          headerRef.current.style.display = 'flex'
+        } else {
+          headerRef.current.style.display = 'none'
+        }
+      }
+    }
+
     return () => isMounted.current = false
   }, [])
 
@@ -96,6 +108,61 @@ const Component = props => {
               fontWeight: 500,
               textAlign: 'center',
             }}>Store</h1>
+          </div>
+        </div>
+
+        <div 
+          ref={headerRef}
+          style={{
+            height: HEADER_HEIGHT,
+            backgroundColor: 'white',
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            position: 'absolute',
+            top: 0,
+            zIndex: 9999,
+            display: 'none'
+          }}
+        >
+          <BackButton/>
+
+          <div style={{
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            <div style={{
+              height: 40,
+              width: 40,
+              borderRadius: '50%',
+              border: `1px solid ${DIVIDER_COLOR}`,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginRight: 10,
+              marginLeft: 5,
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center center',
+              backgroundImage: `url("${store.profilePicture.url}")`
+            }}/>
+            <div>
+              <h1 style={{
+                margin: 0,
+                fontSize: 18,
+                fontWeight: 500,
+              }}>{store.name}</h1>
+              <span style={{
+                color: 'rgb(83, 100, 113)',
+                fontSize: 12,
+                marginTop: 2,
+                display: 'block'
+              }}>
+                {store.address.city.name}, {store.address.district.name}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -300,7 +367,13 @@ export default createPaginationContainer(Component, {
         url
       },
       address {
-        fullAddress
+        fullAddress,
+        city {
+          name
+        },
+        district {
+          name
+        }
       }
       ...EditAddressView_store
     }
