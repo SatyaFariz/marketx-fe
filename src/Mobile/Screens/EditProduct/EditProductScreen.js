@@ -4,7 +4,7 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import { Button, TextField, InputAdornment, MenuItem, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress } from '@material-ui/core'
+import { TextField, InputAdornment, MenuItem, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import Carousel from '@brainhubeu/react-carousel'
@@ -17,6 +17,7 @@ import cleanNonNumericChars from '../../../helpers/cleanNonNumericChars'
 import { IoEllipsisVertical, IoCloseOutline } from 'react-icons/io5'
 import Sheet from 'react-modal-sheet'
 import Link from '../../Components/Link'
+import Button from '../../Components/Button'
 import NumberFormat from 'react-number-format'
 
 const autocompleteFilter = createFilterOptions()
@@ -662,18 +663,16 @@ const Component = props => {
             })}
 
             <Button
-              disabled={loading}
-              disableElevation
-              variant="contained"
+              thick
+              label={!product.isPublished ? 'Publikasi' : 'Simpan'}
+              disabled={product.isPublished && isClean()}
               fullWidth
               style={{
-                fontTransform: 'none',
                 marginTop: 10
               }}
               onClick={!product.isPublished ? () => save(true) : () => save(product.isPublished)}
-            >
-              {!product.isPublished ? 'Publish' : 'Save'}
-            </Button>
+              loading={loading}
+            />
           </div>
         </div>
 
@@ -703,6 +702,11 @@ const Component = props => {
                     onClick={() => save(!product.isPublished)}
                   >
                     <ListItemText primary={product.isPublished ? 'Unpublish' : "Publish"}/>
+                    {loading &&
+                    <ListItemSecondaryAction>
+                      <CircularProgress size={18}/>
+                    </ListItemSecondaryAction>
+                    }
                   </ListItem>
                   <ListItem
                     button
