@@ -12,6 +12,7 @@ import ProductItem from '../../Components/ProductItem'
 import { CircularProgress } from '@material-ui/core'
 import BackButton from '../../Components/BackButton'
 import VerifiedIcon from '../../Components/VerifiedIcon'
+import { IoStorefront } from 'react-icons/io5'
 
 const Component = props => {
   const headerRef = useRef()
@@ -132,6 +133,7 @@ const Component = props => {
             display: 'flex',
             alignItems: 'center'
           }}>
+            {store.profilePicture ?
             <div style={{
               height: 40,
               width: 40,
@@ -148,6 +150,21 @@ const Component = props => {
               backgroundPosition: 'center center',
               backgroundImage: `url("${store.profilePicture.url}")`
             }}/>
+            :
+            <div style={{
+              height: 40,
+              width: 40,
+              backgroundColor: '#f1f1f1',
+              marginLeft: 5,
+              marginRight: 10,
+              borderRadius: '50%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              <IoStorefront size={24}/>
+            </div>
+            }
             <div>
               <h1 style={{
                 margin: 0,
