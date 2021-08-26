@@ -6,7 +6,7 @@ import useAppContext from '../../hooks/useAppContext'
 import formatCurrency from '../../../helpers/formatCurrency'
 import { useRef, useEffect, useState } from 'react'
 import Link from '../../Components/Link'
-import { Button, ButtonBase, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress, TextField, MenuItem } from '@material-ui/core'
+import { ButtonBase, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress, TextField, MenuItem } from '@material-ui/core'
 import BackButton from '../../Components/BackButton'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
@@ -16,6 +16,8 @@ import Sheet from 'react-modal-sheet'
 import UpdateProductFeaturedStatus from '../../../mutations/UpdateProductFeaturedStatus'
 import SuspendProduct from '../../../mutations/SuspendProduct'
 import UnsuspendProduct from '../../../mutations/UnsuspendProduct'
+import Button from '../../Components/Button'
+import { IoMdCreate } from 'react-icons/io'
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -504,34 +506,13 @@ const Component = props => {
               display: 'block'
             }}>{formatCurrency(product.price)}</span>
           </div>
-          
+
           {!me?.isAdmin &&
-          <Button 
-            variant="contained" 
-            disableElevation
+          <Button
+            label={isMyProduct ? 'Edit' : 'Chat'}
+            icon={isMyProduct ? <IoMdCreate/> : <IoLogoWhatsapp/>}
             onClick={onActionButtonClick}
-          >
-            {isMyProduct ?
-            <span style={{
-              textTransform: 'none',
-              letterSpacing: 0 
-            }}>Edit</span>
-            :
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100%'
-            }}>
-              <IoLogoWhatsapp/>
-              <span style={{ 
-                marginLeft: 5, 
-                textTransform: 'none',
-                letterSpacing: 0 
-              }}>Chat</span>
-            </div>
-            }
-          </Button>
+          />
           }
         </div>
       </div>
@@ -539,7 +520,7 @@ const Component = props => {
       {(product.isDeleted ||
         (!isMyProduct && product.isSuspended) ||
         (!isMyProduct && !product.isPublished)
-      ) &&
+      ) && !me?.isAdmin &&
       <div style={{
         position: 'absolute',
         left: 0,
@@ -660,13 +641,11 @@ const Component = props => {
                   </IconButton> */}
                   <Button
                     onClick={suspend}
-                    variant="contained"
-                    disableElevation
                     style={{ marginRight: 10 }}
                     disabled={!suspensionReasonId}
-                  >
-                    Save
-                  </Button>
+                    loading={suspendingOrUnsuspending}
+                    label="Simpan"
+                  />
                 </div>
                 <div style={{
                   padding: 15
