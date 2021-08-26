@@ -42,7 +42,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "server": "nodemon -L server.js",
+    "dev-server": "nodemon -L server.js",
+    "production": "gulp set --env=prod && npm run build && node server.js",
     "relay": "relay-compiler --src ./src --schema ./schema.graphql",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
