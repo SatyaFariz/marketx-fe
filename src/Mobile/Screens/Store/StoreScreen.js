@@ -39,7 +39,7 @@ const Component = props => {
 
   const onEndReached = () => !errorLoadingMore && loadMore()
 
-  const scrollRef = useBottomScrollListener(onEndReached)
+  const scrollRef = useBottomScrollListener(onEndReached, { offset: 100 })
 
   useEffect(() => {
     if(pathname.split('/')[1] === 'store') {
