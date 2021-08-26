@@ -5,7 +5,7 @@ import Color from '../../Constants/Color'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import { Button, TextField, InputAdornment, MenuItem } from '@material-ui/core'
+import { TextField, InputAdornment, MenuItem } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import Carousel from '@brainhubeu/react-carousel'
@@ -15,6 +15,7 @@ import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
 import CreateProduct from '../../../mutations/CreateProduct'
 import BackButton from '../../Components/BackButton'
+import Button from '../../Components/Button'
 import NumberFormat from 'react-number-format'
 
 const megabytes = 1048576
@@ -341,8 +342,7 @@ const Component = props => {
                   borderRadius: '50%',
                   backgroundColor: i === carouselPos ? Color.primary : 'white',
                   marginLeft: 2,
-                  marginRight: 2,
-                  // border: `1px solid ${Color.primary}`,
+                  marginRight: 2
                 }}/>
               )
             })}
@@ -351,9 +351,7 @@ const Component = props => {
           <div {...getRootProps({className: 'dropzone'})}>
             <input {...getInputProps()} />
             <Button
-              disabled={loading}
-              disableElevation
-              variant="contained"
+              label={files.length > 0 ? "Edit foto" : "Tambah foto"}
               style={{
                 backgroundColor: 'white',
                 margin: 15,
@@ -362,9 +360,8 @@ const Component = props => {
                 bottom: 0
               }}
               onClick={open}
-            >
-              Edit Photos
-            </Button>
+              disabled={loading}
+            />
           </div>
         </div>
 
@@ -657,18 +654,15 @@ const Component = props => {
           })}
 
           <Button
-            disabled={loading}
-            disableElevation
-            variant="contained"
+            label="Publikasi"
+            thick
+            loading={loading}
             fullWidth
             style={{
-              fontTransform: 'none',
               marginTop: 10
             }}
             onClick={create}
-          >
-            Publish
-          </Button>
+          />
         </div>
       </div>
     </div>
