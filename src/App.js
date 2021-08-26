@@ -110,14 +110,14 @@ class App extends Component {
 
     return (
       <AppContext.Provider 
-      // key={query?.hash}
-      value={{
-        queryParams: this.state.queryParams,
-        pathname: this.state.pathname,
-        history: this.props.history,
-        environment: relay,
-        resetEnvironment: this.resetEnvironment
-      }}>
+        value={{
+          queryParams: this.state.queryParams,
+          pathname: this.state.pathname,
+          history: this.props.history,
+          environment: relay,
+          resetEnvironment: this.resetEnvironment
+        }}
+      >
 {/*       
         <CssBaseline/>
         <MuiThemeProvider theme={theme}>
@@ -142,7 +142,7 @@ class App extends Component {
           </div>
           }
           <QueryRenderer
-            // key={query?.hash}
+            fetchPolicy="store-and-network"
             environment={relay}
             query={query}
             variables={variables || {}}
