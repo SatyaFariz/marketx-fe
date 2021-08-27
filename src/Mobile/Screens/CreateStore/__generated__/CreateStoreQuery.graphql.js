@@ -8,16 +8,13 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type CreateStoreScreen_me$ref = any;
 type CreateStoreScreen_provinces$ref = any;
-type CreateStoreScreen_store$ref = any;
 export type CreateStoreQueryVariables = {||};
 export type CreateStoreQueryResponse = {|
   +me: ?{|
     +id: ?string,
-    +store: ?{|
-      +id: ?string,
-      +$fragmentRefs: CreateStoreScreen_store$ref,
-    |},
+    +$fragmentRefs: CreateStoreScreen_me$ref,
   |},
   +administrativeAreas: ?$ReadOnlyArray<?{|
     +$fragmentRefs: CreateStoreScreen_provinces$ref
@@ -34,23 +31,23 @@ export type CreateStoreQuery = {|
 query CreateStoreQuery {
   me {
     id
-    store {
-      id
-      ...CreateStoreScreen_store
-    }
+    ...CreateStoreScreen_me
   }
   administrativeAreas {
     ...CreateStoreScreen_provinces
   }
 }
 
+fragment CreateStoreScreen_me on User {
+  id
+  store {
+    id
+  }
+}
+
 fragment CreateStoreScreen_provinces on AdministrativeArea {
   administrativeAreaId
   name
-}
-
-fragment CreateStoreScreen_store on Store {
-  id
 }
 */
 
@@ -79,21 +76,9 @@ return {
         "selections": [
           (v0/*: any*/),
           {
-            "alias": null,
             "args": null,
-            "concreteType": "Store",
-            "kind": "LinkedField",
-            "name": "store",
-            "plural": false,
-            "selections": [
-              (v0/*: any*/),
-              {
-                "args": null,
-                "kind": "FragmentSpread",
-                "name": "CreateStoreScreen_store"
-              }
-            ],
-            "storageKey": null
+            "kind": "FragmentSpread",
+            "name": "CreateStoreScreen_me"
           }
         ],
         "storageKey": null
@@ -176,16 +161,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d57f5bddcd7a1cee40b9788d079972d4",
+    "cacheID": "c3ea0320a5cbab36732e19df931ec114",
     "id": null,
     "metadata": {},
     "name": "CreateStoreQuery",
     "operationKind": "query",
-    "text": "query CreateStoreQuery {\n  me {\n    id\n    store {\n      id\n      ...CreateStoreScreen_store\n    }\n  }\n  administrativeAreas {\n    ...CreateStoreScreen_provinces\n  }\n}\n\nfragment CreateStoreScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment CreateStoreScreen_store on Store {\n  id\n}\n"
+    "text": "query CreateStoreQuery {\n  me {\n    id\n    ...CreateStoreScreen_me\n  }\n  administrativeAreas {\n    ...CreateStoreScreen_provinces\n  }\n}\n\nfragment CreateStoreScreen_me on User {\n  id\n  store {\n    id\n  }\n}\n\nfragment CreateStoreScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '9364fd77363f1c303952b95dd16e2c73';
+(node/*: any*/).hash = '8b0e49910fbb1d607bf9c532a2523f2b';
 
 module.exports = node;

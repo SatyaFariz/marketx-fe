@@ -12,7 +12,7 @@ import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader
 import Button from '../../Components/Button'
 
 const Component = props => {
-  const { provinces, store } = props
+  const { provinces, me } = props
   const _isMounted = useRef(true)
   const { history, environment } = useAppContext()
   const areasLoader = useRef(new AdministrativeAreaLoader(environment))
@@ -156,12 +156,14 @@ const Component = props => {
   }, [city])
 
   useEffect(() => {
-    if(store) {
-      history.replace(`/store/${store.id}`)
+    if(!me) {
+      history.replace(`/login?redirect=/new/store`)
+    } else if(me.store) {
+      history.replace(`/store/${me.store.id}`)
     }
-  }, [store])
+  }, [me])
 
-  if(store) return null
+  if(!me || me.store) return null
 
   return (
     <div>
@@ -362,9 +364,12 @@ export default createFragmentContainer(Component, {
       name
     }
   `,
-  store: graphql`
-    fragment CreateStoreScreen_store on Store {
-      id
+  me: graphql`
+    fragment CreateStoreScreen_me on User {
+      id,
+      store {
+        id
+      }
     }
   `
 })

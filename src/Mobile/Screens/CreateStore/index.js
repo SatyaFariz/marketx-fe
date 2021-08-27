@@ -8,10 +8,7 @@ const chunk = {
     query CreateStoreQuery {
       me {
         id,
-        store {
-          id,
-          ...CreateStoreScreen_store
-        }
+        ...CreateStoreScreen_me
       },
       administrativeAreas {
         ...CreateStoreScreen_provinces
@@ -26,7 +23,7 @@ const chunk = {
       component: (
         <FixedAddressBar>
           <CreateStoreScreen
-            store={data.me?.store}
+            me={data.me}
             provinces={data.administrativeAreas}
           />
         </FixedAddressBar>
