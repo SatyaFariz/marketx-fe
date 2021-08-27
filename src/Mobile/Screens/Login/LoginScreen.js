@@ -10,6 +10,7 @@ import Login from '../../../mutations/Login'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import Button from '../../Components/Button'
+import App from '../../../app.json'
 
 const Component = props => {
   const { me } = props
@@ -104,7 +105,7 @@ const Component = props => {
         <h1 style={{
           marginTop: 30,
           marginBottom: 10
-        }}>Log in to RentX</h1>
+        }}>Log in to {App.name}</h1>
 
         <TextField
           variant="outlined"

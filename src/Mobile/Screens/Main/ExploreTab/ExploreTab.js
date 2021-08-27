@@ -9,6 +9,9 @@ import { IoSearchOutline, IoMenuOutline } from 'react-icons/io5'
 import { BiLogIn } from 'react-icons/bi'
 import { useState } from 'react'
 import { IoPeople, IoShieldCheckmark, IoHelpCircle, IoDocumentText, IoStorefront, IoPersonOutline } from 'react-icons/io5'
+import App from '../../../../app.json'
+
+const thisYear = new Date().getFullYear()
 
 const Component = props => {
   const [showDrawer, setShowDrawer] = useState(false)
@@ -286,6 +289,15 @@ const Component = props => {
         {featuredProducts.length >= 8 && featuredProducts.length % 2 === 0 &&
         <FeaturedProductsList featuredProducts={featuredProducts}/>
         }
+      </div>
+      <div style={{
+        padding: 15,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#f1f1f1'
+      }}>
+        <span>{App.name} © {App.year_founded}{App.year_founded === thisYear ? '' : ` - ${thisYear}`}</span>
       </div>
     </div>
   )
