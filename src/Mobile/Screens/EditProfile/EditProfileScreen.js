@@ -25,7 +25,7 @@ const Component = props => {
   const myCurrentMobileNumber = me?.mobileNumber
   const profilePictureUrl = me?.profilePicture?.url
   const [url, setUrl] = useState(profilePictureUrl)
-  const { environment } = useAppContext()
+  const { environment, history } = useAppContext()
   const [name, setName] = useState(me?.name)
   const [mobileNumber, setMobileNumber] = useState(myCurrentMobileNumber)
   const [mobileNumberDebounced] = useDebounce(mobileNumber, 500)
@@ -182,7 +182,14 @@ const Component = props => {
     }
   }, [mobileNumberDebounced, myCurrentMobileNumber, environment])
 
+  useEffect(() => {
+    if(!me) {
+      history.replace('/login?redirect=/profile')
+    }
+  }, [me])
+
   if(!me) return null
+
   return (
     <div>
       <div style={{
