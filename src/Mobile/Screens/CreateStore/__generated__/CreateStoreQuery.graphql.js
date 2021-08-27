@@ -9,10 +9,15 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type CreateStoreScreen_provinces$ref = any;
+type CreateStoreScreen_store$ref = any;
 export type CreateStoreQueryVariables = {||};
 export type CreateStoreQueryResponse = {|
   +me: ?{|
-    +id: ?string
+    +id: ?string,
+    +store: ?{|
+      +id: ?string,
+      +$fragmentRefs: CreateStoreScreen_store$ref,
+    |},
   |},
   +administrativeAreas: ?$ReadOnlyArray<?{|
     +$fragmentRefs: CreateStoreScreen_provinces$ref
@@ -29,6 +34,10 @@ export type CreateStoreQuery = {|
 query CreateStoreQuery {
   me {
     id
+    store {
+      id
+      ...CreateStoreScreen_store
+    }
   }
   administrativeAreas {
     ...CreateStoreScreen_provinces
@@ -39,25 +48,18 @@ fragment CreateStoreScreen_provinces on AdministrativeArea {
   administrativeAreaId
   name
 }
+
+fragment CreateStoreScreen_store on Store {
+  id
+}
 */
 
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = {
   "alias": null,
   "args": null,
-  "concreteType": "User",
-  "kind": "LinkedField",
-  "name": "me",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "id",
-      "storageKey": null
-    }
-  ],
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 };
 return {
@@ -67,7 +69,35 @@ return {
     "metadata": null,
     "name": "CreateStoreQuery",
     "selections": [
-      (v0/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v0/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Store",
+            "kind": "LinkedField",
+            "name": "store",
+            "plural": false,
+            "selections": [
+              (v0/*: any*/),
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "CreateStoreScreen_store"
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": null,
@@ -94,7 +124,30 @@ return {
     "kind": "Operation",
     "name": "CreateStoreQuery",
     "selections": [
-      (v0/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v0/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Store",
+            "kind": "LinkedField",
+            "name": "store",
+            "plural": false,
+            "selections": [
+              (v0/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": null,
@@ -123,16 +176,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "eba462eeed8befe2ebf5af475b409879",
+    "cacheID": "d57f5bddcd7a1cee40b9788d079972d4",
     "id": null,
     "metadata": {},
     "name": "CreateStoreQuery",
     "operationKind": "query",
-    "text": "query CreateStoreQuery {\n  me {\n    id\n  }\n  administrativeAreas {\n    ...CreateStoreScreen_provinces\n  }\n}\n\nfragment CreateStoreScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n"
+    "text": "query CreateStoreQuery {\n  me {\n    id\n    store {\n      id\n      ...CreateStoreScreen_store\n    }\n  }\n  administrativeAreas {\n    ...CreateStoreScreen_provinces\n  }\n}\n\nfragment CreateStoreScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment CreateStoreScreen_store on Store {\n  id\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'b2dfb15f65a6a5d69a10568a630cf34a';
+(node/*: any*/).hash = '9364fd77363f1c303952b95dd16e2c73';
 
 module.exports = node;

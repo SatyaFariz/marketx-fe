@@ -7,7 +7,11 @@ const chunk = {
   query: graphql`
     query CreateStoreQuery {
       me {
-        id
+        id,
+        store {
+          id,
+          ...CreateStoreScreen_store
+        }
       },
       administrativeAreas {
         ...CreateStoreScreen_provinces
@@ -22,6 +26,7 @@ const chunk = {
       component: (
         <FixedAddressBar>
           <CreateStoreScreen
+            store={data.me?.store}
             provinces={data.administrativeAreas}
           />
         </FixedAddressBar>

@@ -12,7 +12,7 @@ import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader
 import Button from '../../Components/Button'
 
 const Component = props => {
-  const { provinces } = props
+  const { provinces, store } = props
   const _isMounted = useRef(true)
   const { history, environment } = useAppContext()
   const areasLoader = useRef(new AdministrativeAreaLoader(environment))
@@ -154,6 +154,14 @@ const Component = props => {
       setDistrict(null)
     }
   }, [city])
+
+  useEffect(() => {
+    if(store) {
+      history.replace(`/store/${store.id}`)
+    }
+  }, [store])
+
+  if(store) return null
 
   return (
     <div>
@@ -352,6 +360,11 @@ export default createFragmentContainer(Component, {
     fragment CreateStoreScreen_provinces on AdministrativeArea @relay(plural: true) {
       administrativeAreaId,
       name
+    }
+  `,
+  store: graphql`
+    fragment CreateStoreScreen_store on Store {
+      id
     }
   `
 })
