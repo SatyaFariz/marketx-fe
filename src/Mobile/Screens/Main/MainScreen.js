@@ -24,9 +24,7 @@ export default createFragmentContainer(App, {
     fragment MainScreen_data on Query {
       me {
         id,
-        ...BottomNav_me,
         ...ExploreTab_me,
-        ...AccountTab_me
       }
       categories {
         id,
