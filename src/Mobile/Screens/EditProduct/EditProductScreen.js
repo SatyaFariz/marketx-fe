@@ -23,7 +23,8 @@ import NumberFormat from 'react-number-format'
 const autocompleteFilter = createFilterOptions()
 
 const Component = props => {
-  const { product, productConditions, rentalDurations } = props
+  const { me, product, productConditions, rentalDurations } = props
+  const merchantId = product.merchant.id
   const _isMounted = useRef(true)
   const scrollRef = useRef()
   const headerRef = useRef()
@@ -216,19 +217,30 @@ const Component = props => {
   }
 
   useEffect(() => {
-    scrollRef.current.onscroll = () => {
-      const pageYOffset = scrollRef.current?.scrollTop
-      if(headerRef.current) {
-        if(pageYOffset > window.innerWidth) {
-          headerRef.current.style.display = 'flex'
-        } else {
-          headerRef.current.style.display = 'none'
+    if(scrollRef.current) {
+      scrollRef.current.onscroll = () => {
+        const pageYOffset = scrollRef.current?.scrollTop
+        if(headerRef.current) {
+          if(pageYOffset > window.innerWidth) {
+            headerRef.current.style.display = 'flex'
+          } else {
+            headerRef.current.style.display = 'none'
+          }
         }
       }
     }
 
     return () => _isMounted.current = false
   }, [])
+
+  useEffect(() => {
+    if(merchantId !== me.id) {
+      history.replace('/')
+    }
+  }, [me, merchantId])
+
+
+  if(merchantId !== me.id) return null
 
   return (
     <div>
@@ -786,6 +798,9 @@ export default createFragmentContainer(Component, {
       rentalDuration {
         id
       },
+      merchant {
+        id
+      },
       category {
         id,
         name,
@@ -807,6 +822,11 @@ export default createFragmentContainer(Component, {
           isEnum
         }
       },
+    }
+  `,
+  me: graphql`
+    fragment EditProductScreen_me on User {
+      id
     }
   `,
   productConditions: graphql`
