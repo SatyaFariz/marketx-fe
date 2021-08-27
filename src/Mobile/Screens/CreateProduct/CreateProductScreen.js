@@ -214,19 +214,29 @@ const Component = props => {
   }
 
   useEffect(() => {
-    scrollRef.current.onscroll = () => {
-      const pageYOffset = scrollRef.current?.scrollTop
-      if(headerRef.current) {
-        if(pageYOffset > window.innerWidth) {
-          headerRef.current.style.display = 'flex'
-        } else {
-          headerRef.current.style.display = 'none'
+    if(scrollRef.current) {
+      scrollRef.current.onscroll = () => {
+        const pageYOffset = scrollRef.current?.scrollTop
+        if(headerRef.current) {
+          if(pageYOffset > window.innerWidth) {
+            headerRef.current.style.display = 'flex'
+          } else {
+            headerRef.current.style.display = 'none'
+          }
         }
       }
     }
 
     return () => _isMounted.current = false
   }, [])
+
+  useEffect(() => {
+    if(!me) {
+      history.replace('/')
+    }
+  }, [me])
+
+  if(!me) return null
   
   return (
     <div>
