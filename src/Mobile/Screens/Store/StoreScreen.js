@@ -65,7 +65,7 @@ const Component = props => {
     }
 
     return () => isMounted.current = false
-  }, [])
+  }, [scrollRef])
 
   if(!store?.address) {
     return (
@@ -121,7 +121,6 @@ const Component = props => {
             height: HEADER_HEIGHT,
             backgroundColor: 'white',
             width: '100%',
-            display: 'flex',
             alignItems: 'center',
             position: 'absolute',
             top: 0,
