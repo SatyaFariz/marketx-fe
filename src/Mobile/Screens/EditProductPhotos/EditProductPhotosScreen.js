@@ -21,8 +21,9 @@ const maxImages = 7
 
 const Component = props => {
   const _isMounted = useRef(true)
-  const { environment } = useAppContext()
-  const { product } = props
+  const { environment, history } = useAppContext()
+  const { product, me } = props
+  const merchantId = product?.merchant?.id
   const [uploading, setUploading] = useState(false)
   const [updating, setUpdating] = useState(false)
 
@@ -113,6 +114,14 @@ const Component = props => {
       })
     }
   }
+
+  useEffect(() => {
+    if(merchantId !== me?.id) {
+      history.replace('/')
+    }
+  }, [me, merchantId])
+
+  if(merchantId !== me?.id) return null
 
   return (
     <div>
@@ -223,7 +232,15 @@ export default createFragmentContainer(Component, {
       images {
         id,
         url
+      },
+      merchant {
+        id
       }
+    }
+  `,
+  me: graphql`
+    fragment EditProductPhotosScreen_me on User {
+      id
     }
   `
 })

@@ -17,6 +17,9 @@ export type EditProductPhotosScreen_product = {|
     +id: ?string,
     +url: ?string,
   |}>,
+  +merchant: ?{|
+    +id: ?string
+  |},
   +$refType: EditProductPhotosScreen_product$ref,
 |};
 export type EditProductPhotosScreen_product$data = EditProductPhotosScreen_product;
@@ -61,6 +64,18 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "User",
+      "kind": "LinkedField",
+      "name": "merchant",
+      "plural": false,
+      "selections": [
+        (v0/*: any*/)
+      ],
+      "storageKey": null
     }
   ],
   "type": "Product",
@@ -68,6 +83,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a0de91da90f947ff4024e77fe099a063';
+(node/*: any*/).hash = '0ab941de2be7c1f4356b4957f3387294';
 
 module.exports = node;
