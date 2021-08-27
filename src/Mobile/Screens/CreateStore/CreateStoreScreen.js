@@ -161,7 +161,7 @@ const Component = props => {
     } else if(me.store) {
       history.replace(`/store/${me.store.id}`)
     }
-  }, [me])
+  }, [me, history])
 
   if(!me || me.store) return null
 

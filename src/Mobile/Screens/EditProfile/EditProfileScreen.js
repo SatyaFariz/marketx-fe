@@ -186,7 +186,7 @@ const Component = props => {
     if(!me) {
       history.replace('/login?redirect=/profile')
     }
-  }, [me])
+  }, [me, history])
 
   if(!me) return null
 

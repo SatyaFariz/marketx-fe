@@ -237,7 +237,7 @@ const Component = props => {
     if(merchantId !== me.id) {
       history.replace('/')
     }
-  }, [me, merchantId])
+  }, [me, merchantId, history])
 
 
   if(merchantId !== me.id) return null

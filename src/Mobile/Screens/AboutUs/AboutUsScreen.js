@@ -2,7 +2,6 @@ import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import BackButton from '../../Components/BackButton'
-import moment from 'moment'
 
 const Component = props => {
   const { posts } = props
