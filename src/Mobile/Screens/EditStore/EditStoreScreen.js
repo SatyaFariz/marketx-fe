@@ -21,13 +21,13 @@ const Component = props => {
   const citiesFirstLoaded = useRef(true)
   const districtsFirstLoaded = useRef(true)
   const _isMounted = useRef(true)
-  const store = props.store
-  const { provinces } = props
-  const { environment } = useAppContext()
+  const { provinces, me } = props
+  const store = me?.store
+  const { environment, history } = useAppContext()
   const citiesLoader = useRef(new AdministrativeAreaLoader(environment))
   const districtsLoader = useRef(new AdministrativeAreaLoader(environment))
-  const [name, setName] = useState(store.name)
-  const [whatsappNumber, setWhatsappNumber] = useState(store.whatsappNumber)
+  const [name, setName] = useState(store?.name)
+  const [whatsappNumber, setWhatsappNumber] = useState(store?.whatsappNumber)
   const [banner, setBanner] = useState(null)
   const [profilePicture, setProfilePicture] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -220,11 +220,13 @@ const Component = props => {
     }
   }, [city])
 
-  // if(queryParams.editAddress === '1') {
-  //   return (
-  //     <EditAddressView store={store}/>
-  //   )
-  // }
+  useEffect(() => {
+    if(!me) {
+      history.replace('/')
+    }
+  }, [])
+  
+  if(!me) return null
 
   return (
     <div style={{
@@ -486,32 +488,35 @@ const Component = props => {
 }
 
 export default createFragmentContainer(Component, {
-  store: graphql`
-    fragment EditStoreScreen_store on Store {
+  me: graphql`
+    fragment EditStoreScreen_me on User {
       id,
-      name,
-      whatsappNumber,
-      profilePicture {
+      store {
         id,
-        url
-      },
-      banner {
-        id,
-        url
-      },
-      address {
-        fullAddress,
-        province {
-          administrativeAreaId,
-          name
+        name,
+        whatsappNumber,
+        profilePicture {
+          id,
+          url
         },
-        city {
-          administrativeAreaId,
-          name
+        banner {
+          id,
+          url
         },
-        district {
-          administrativeAreaId,
-          name
+        address {
+          fullAddress,
+          province {
+            administrativeAreaId,
+            name
+          },
+          city {
+            administrativeAreaId,
+            name
+          },
+          district {
+            administrativeAreaId,
+            name
+          }
         }
       }
     }

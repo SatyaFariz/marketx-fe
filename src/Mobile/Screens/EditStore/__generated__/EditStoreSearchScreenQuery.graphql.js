@@ -8,16 +8,13 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type EditStoreScreen_me$ref = any;
 type EditStoreScreen_provinces$ref = any;
-type EditStoreScreen_store$ref = any;
 export type EditStoreSearchScreenQueryVariables = {||};
 export type EditStoreSearchScreenQueryResponse = {|
   +me: ?{|
     +id: ?string,
-    +store: ?{|
-      +id: ?string,
-      +$fragmentRefs: EditStoreScreen_store$ref,
-    |},
+    +$fragmentRefs: EditStoreScreen_me$ref,
   |},
   +administrativeAreas: ?$ReadOnlyArray<?{|
     +$fragmentRefs: EditStoreScreen_provinces$ref
@@ -34,48 +31,48 @@ export type EditStoreSearchScreenQuery = {|
 query EditStoreSearchScreenQuery {
   me {
     id
-    store {
-      id
-      ...EditStoreScreen_store
-    }
+    ...EditStoreScreen_me
   }
   administrativeAreas {
     ...EditStoreScreen_provinces
   }
 }
 
+fragment EditStoreScreen_me on User {
+  id
+  store {
+    id
+    name
+    whatsappNumber
+    profilePicture {
+      id
+      url
+    }
+    banner {
+      id
+      url
+    }
+    address {
+      fullAddress
+      province {
+        administrativeAreaId
+        name
+      }
+      city {
+        administrativeAreaId
+        name
+      }
+      district {
+        administrativeAreaId
+        name
+      }
+    }
+  }
+}
+
 fragment EditStoreScreen_provinces on AdministrativeArea {
   administrativeAreaId
   name
-}
-
-fragment EditStoreScreen_store on Store {
-  id
-  name
-  whatsappNumber
-  profilePicture {
-    id
-    url
-  }
-  banner {
-    id
-    url
-  }
-  address {
-    fullAddress
-    province {
-      administrativeAreaId
-      name
-    }
-    city {
-      administrativeAreaId
-      name
-    }
-    district {
-      administrativeAreaId
-      name
-    }
-  }
 }
 */
 
@@ -131,21 +128,9 @@ return {
         "selections": [
           (v0/*: any*/),
           {
-            "alias": null,
             "args": null,
-            "concreteType": "Store",
-            "kind": "LinkedField",
-            "name": "store",
-            "plural": false,
-            "selections": [
-              (v0/*: any*/),
-              {
-                "args": null,
-                "kind": "FragmentSpread",
-                "name": "EditStoreScreen_store"
-              }
-            ],
-            "storageKey": null
+            "kind": "FragmentSpread",
+            "name": "EditStoreScreen_me"
           }
         ],
         "storageKey": null
@@ -289,16 +274,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0ae3b611ac66d61bfb04ad997c8eb657",
+    "cacheID": "eb935c2910dd31174a34b02d5db51e00",
     "id": null,
     "metadata": {},
     "name": "EditStoreSearchScreenQuery",
     "operationKind": "query",
-    "text": "query EditStoreSearchScreenQuery {\n  me {\n    id\n    store {\n      id\n      ...EditStoreScreen_store\n    }\n  }\n  administrativeAreas {\n    ...EditStoreScreen_provinces\n  }\n}\n\nfragment EditStoreScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment EditStoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n    province {\n      administrativeAreaId\n      name\n    }\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n"
+    "text": "query EditStoreSearchScreenQuery {\n  me {\n    id\n    ...EditStoreScreen_me\n  }\n  administrativeAreas {\n    ...EditStoreScreen_provinces\n  }\n}\n\nfragment EditStoreScreen_me on User {\n  id\n  store {\n    id\n    name\n    whatsappNumber\n    profilePicture {\n      id\n      url\n    }\n    banner {\n      id\n      url\n    }\n    address {\n      fullAddress\n      province {\n        administrativeAreaId\n        name\n      }\n      city {\n        administrativeAreaId\n        name\n      }\n      district {\n        administrativeAreaId\n        name\n      }\n    }\n  }\n}\n\nfragment EditStoreScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '35703adfe12d07dc04347a2ee50efce0';
+(node/*: any*/).hash = '0d9332c74d79df1fd31a10e6ea8b67f9';
 
 module.exports = node;
