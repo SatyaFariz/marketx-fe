@@ -103,7 +103,8 @@ const Component = props => {
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignContent: 'flex-start'
       }}>
         {(currentTab === -1 ? categories : categories[currentTab].children).map((item, i) => {
           if(item.level > 2 || (currentTab === -1 && item.level > 1) || ['rental_product', 'service'].includes(item.listingType)) return null
@@ -113,6 +114,9 @@ const Component = props => {
               key={item.id}
               component={Link}
               disableRipple
+              style={{
+                height: '100%'
+              }}
             >
               <div key={i} style={{
                 width: 118,
