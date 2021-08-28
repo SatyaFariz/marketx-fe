@@ -78,6 +78,7 @@ app.get('/', async (req, res) => {
 
 // app.use('*', express.static(path.join(__dirname, 'build')))
 app.use(express.static('build'))
+app.use(express.static('src'))
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

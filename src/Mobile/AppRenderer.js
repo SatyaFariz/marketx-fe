@@ -13,8 +13,7 @@ const LoadingView = () => {
       top: 0,
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center',
-      zIndex: 0
+      alignItems: 'center'
     }}>
       <img
         alt='applogo'
@@ -69,10 +68,13 @@ class AppRenderer extends Component {
       this.state.component
     ) : (
       <div>
-        <div style={{ opacity: 0, zIndex: 99999 }}>
-          {this.props.initialComponent || null}
+        {this.props.initialComponent ?
+        <div style={{ opacity: 0 }}>
+          {this.props.initialComponent}
         </div>
+        :
         <LoadingView/>
+        }
       </div>
     )
   }
