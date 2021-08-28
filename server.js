@@ -17,36 +17,48 @@ const port = parseInt(process.env.PORT || 5000, 10)
 app.disable('x-powered-by')
 
 app.get('/', async (req, res) => {
-  const app = ReactDOMServer.renderToString(<App history={createHistory()} createRelay={createRelay}/>)
+  // const app = ReactDOMServer.renderToString(<App history={createHistory()} createRelay={createRelay}/>)
+  // const indexFile = path.resolve('./build/index.html')
+  // console.log(req.url)
+  // // console.log('App', app)
+  // fs.readFile(indexFile, 'utf8', (err, data) => {
+  //   if (err) {
+  //     console.error('Something went wrong:', err)
+  //     return res.status(500).send('Oops, better luck next time!')
+  //   }
+  //   return res.send(
+  //     data.replace('<div id="root"></div>', `<div id="root" class="root">${app}</div>`)
+  //   )
+  // })
   const indexFile = path.resolve('./build/index.html')
-  console.log(req.url)
-  // console.log('App', app)
+  const page = await router.resolve({
+    pathname: req.url,
+    fetchQuery: (query, variables) => {
+      return new Promise(async (resolve) => {
+        resolve({ data: {}})
+      })
+    }
+  })
+  console.log('Page', page)
+  // const html = ReactDOMServer.renderToString(page.component)
+  const html = ReactDOMServer.renderToString(
+    <App 
+      history={createHistory()} 
+      createRelay={createRelay} 
+      initialData={page.data}
+      initialComponent={page.component}
+    />
+  )
+  console.log('HTML', html)
   fs.readFile(indexFile, 'utf8', (err, data) => {
     if (err) {
       console.error('Something went wrong:', err)
       return res.status(500).send('Oops, better luck next time!')
     }
     return res.send(
-      data.replace('<div id="root"></div>', `<div id="root" class="root">${app}</div>`)
+      data.replace('<div id="root"></div>', `<div id="root" class="root">${html}</div>`)
     )
   })
-
-  // const rendered = React.render(<App history={createHistory()}/>)
-  // const page = await router.resolve({
-  //   pathname: req.url,
-  //   // fetchQuery: (query, variables) => {
-  //   //   return new Promise(async (resolve) => {
-  //   //     resolve({})
-  //   //   })
-  //   // }
-  //   fetchQuery: rendered.fetchQuery
-  // })
-  // console.log('Page', page)
-  // // const html = ReactDOMServer.renderToString(page.component)
-  // // const html = ReactDOMServer.renderToString(<App history={createHistory()}/>)
-  // // return res.send(
-  // //   data.replace('<div id="root"></div>', `<div id="root" class="root">${html}</div>`)
-  // // )
 })
 
 // app.use('*', express.static(path.join(__dirname, 'build')))

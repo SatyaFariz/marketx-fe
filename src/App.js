@@ -15,8 +15,8 @@ class App extends Component {
   state = {
     query: null,
     variables: null,
-    render: () => <AppRenderer ref={this.rendererRef} />,
-    relay: this.props.createRelay(),
+    render: () => <AppRenderer ref={this.rendererRef} initialComponent={this.props.initialComponent}/>,
+    relay: this.props.createRelay(this.props.initialData),
     queryParams: {},
     pathname: '',
     loading: true,
@@ -146,7 +146,6 @@ class App extends Component {
             <LinearProgress/>
           </div>
           }
-          {relay &&
           <QueryRenderer
             fetchPolicy="store-and-network"
             environment={relay}
@@ -154,7 +153,6 @@ class App extends Component {
             variables={variables || {}}
             render={render}
           />
-          }
         </div>
       </AppContext.Provider>
     );

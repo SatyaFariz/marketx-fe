@@ -22,14 +22,22 @@ const LoadingView = () => {
   )
 }
 
-const defaultStates = {
-  title: null,
-  component: null,
-  error: null
-}
+// const defaultStates = {
+//   title: null,
+//   component: this.props.initialComponent || null,
+//   error: null
+// }
 
 class AppRenderer extends Component {
-  state = defaultStates
+  //state = defaultStates
+  constructor(props) {
+    super(props)
+    this.state = {
+      title: null,
+      component: this.props.initialComponent || null,
+      error: null
+    }
+  }
   
   componentDidUpdate() {
     if (this.state.title) {
@@ -56,7 +64,7 @@ class AppRenderer extends Component {
   }
 
   renderRoute = (route, cb) => {
-    this.setState({ ...defaultStates, ...route }, cb);
+    this.setState({ /*...defaultStates,*/ ...route }, cb);
   };
 
   render() {

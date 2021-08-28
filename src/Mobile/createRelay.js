@@ -12,13 +12,20 @@ const {
   REACT_APP_SUBSCRIPTION_URL
 } = process.env
 
-export default function createRelay() {
+let useInitialData = true
+
+export default function createRelay(initialData) {
   function fetchQuery(
     operation,
     variables,
     cacheConfig,
     uploadables,
   ) {
+
+    if(initialData && useInitialData) {
+      useInitialData = false
+      return initialData
+    }
     
     const method = 'POST'
     const credentials = 'include'
