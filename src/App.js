@@ -11,20 +11,22 @@ import AppContext from './Mobile/AppContext'
 import { LinearProgress } from '@material-ui/core'
 
 class App extends Component {
+  
   state = {
     query: null,
     variables: null,
     render: () => <AppRenderer ref={this.rendererRef} />,
-    relay: this.props.createRelay(),
+    relay: null,
     queryParams: {},
     pathname: '',
-    loading: true
+    loading: true,
+    createRelay: null
   };
 
   childContext = {
     history: this.props.history,
     reset: () => {
-      this.setState({ relay: this.props.createRelay() });
+      this.setState({ relay: this.state.createRelay() });
       this.props.history.replace(this.props.history.location);
       return new Promise(resolve => {
         this.onRenderComplete = resolve;
@@ -45,11 +47,14 @@ class App extends Component {
 
   componentDidMount() {
     import("./mobile.css")
+    import('./Mobile/createRelay').then(createRelay => {
+      this.setState({ createRelay, relay: createRelay() })
+    })
     const { history } = this.props;
     this.unlisten = history.listen(this.renderLocation);
     this.renderLocation(history.location);
     // disable context menu
-    document.oncontextmenu = () => false
+    // document.oncontextmenu = () => false
   }
 
   componentWillUnmount() {
@@ -141,6 +146,7 @@ class App extends Component {
             <LinearProgress/>
           </div>
           }
+          {relay &&
           <QueryRenderer
             fetchPolicy="store-and-network"
             environment={relay}
@@ -148,6 +154,7 @@ class App extends Component {
             variables={variables || {}}
             render={render}
           />
+          }
         </div>
       </AppContext.Provider>
     );
