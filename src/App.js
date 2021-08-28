@@ -16,7 +16,7 @@ class App extends Component {
     query: null,
     variables: null,
     render: () => <AppRenderer ref={this.rendererRef} initialComponent={this.props.initialComponent}/>,
-    relay: this.props.createRelay(this.props.initialData),
+    relay: this.props.createRelay(),
     queryParams: {},
     pathname: '',
     loading: true,
