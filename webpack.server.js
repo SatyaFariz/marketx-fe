@@ -18,6 +18,9 @@ module.exports = {
     new webpack.ProvidePlugin({
       "React": "react",
     }),
+    new webpack.DefinePlugin({
+      'process.env.BROWSER': JSON.stringify(true)
+    })
   ],
 
   module: {

@@ -16,7 +16,7 @@ class App extends Component {
     query: null,
     variables: null,
     render: () => <AppRenderer ref={this.rendererRef} />,
-    relay: null,
+    relay: this.props.createRelay(),
     queryParams: {},
     pathname: '',
     loading: true,
@@ -26,7 +26,7 @@ class App extends Component {
   childContext = {
     history: this.props.history,
     reset: () => {
-      this.setState({ relay: this.state.createRelay() });
+      this.setState({ relay: this.props.createRelay() });
       this.props.history.replace(this.props.history.location);
       return new Promise(resolve => {
         this.onRenderComplete = resolve;
@@ -47,9 +47,9 @@ class App extends Component {
 
   componentDidMount() {
     import("./mobile.css")
-    import('./Mobile/createRelay').then(createRelay => {
-      this.setState({ createRelay, relay: createRelay() })
-    })
+    // import('./Mobile/createRelay').then(createRelay => {
+    //   this.setState({ createRelay, relay: createRelay() })
+    // })
     const { history } = this.props;
     this.unlisten = history.listen(this.renderLocation);
     this.renderLocation(history.location);
