@@ -6,6 +6,7 @@ const app = express()
 const React = require('react')
 const ReactDOMServer = require('react-dom/server')
 
+import axios from 'axios'
 import { createMemoryHistory as createHistory } from 'history'
 import App  from './src/App'
 import createRelay from './src/Mobile/createRelay'
@@ -33,9 +34,23 @@ app.get('/', async (req, res) => {
   const indexFile = path.resolve('./build/index.html')
   const page = await router.resolve({
     pathname: req.url,
-    fetchQuery: (query, variables) => {
+    // fetchQuery: (query, variables) => {
+    //   return new Promise(async (resolve) => {
+    //     resolve({ data: {}})
+    //   })
+    // }
+    fetchQuery: (query, variables) => {console.log(query, variables)
       return new Promise(async (resolve) => {
-        resolve({ data: {}})
+        const res = await axios.post("http://192.168.1.74:4000/graphql", 
+          {
+            query: query.params.text,
+            variables
+          }, 
+          {
+            headers: {}
+          }
+        )
+        resolve(res.data.data)
       })
     }
   })
@@ -49,7 +64,7 @@ app.get('/', async (req, res) => {
       initialComponent={page.component}
     />
   )
-  console.log('HTML', html)
+  // console.log('HTML', html)
   fs.readFile(indexFile, 'utf8', (err, data) => {
     if (err) {
       console.error('Something went wrong:', err)

@@ -52,7 +52,7 @@ class AppRenderer extends Component {
 
   componentDidCatch(error) {
  //   gtag('event', 'exception', { description: error.message, fatal: false });
-    this.setState({ ...defaultStates, error });
+    this.setState({ /*...defaultStates,*/ error });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
