@@ -1,5 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const webpack = require('webpack')
 
 module.exports = {
   entry: './server.js',
@@ -13,6 +14,12 @@ module.exports = {
     filename: 'index.js'
   },
 
+  plugins: [
+    new webpack.ProvidePlugin({
+      "React": "react",
+    }),
+  ],
+
   module: {
     rules: [
       {
@@ -20,9 +27,21 @@ module.exports = {
         use: 'babel-loader',
         exclude: /node_modules/
       },
+      // {
+      //   test: /\.css$/i,
+      //   use: ["style-loader", "css-loader"]
+      // },
       {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"]
+        test: /\.css$/,
+        use: [
+          'isomorphic-style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1
+            }
+          }
+        ]
       },
       {
         test: /\.(png|jp(e*)g|svg|gif)$/,
