@@ -5,6 +5,7 @@ import Logo from '../logo.svg'
 const LoadingView = () => {
   return (
     <div style={{
+      backgroundColor: 'white',
       position: 'fixed',
       left: 0,
       right: 0,
@@ -12,7 +13,8 @@ const LoadingView = () => {
       top: 0,
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      zIndex: 0
     }}>
       <img
         alt='applogo'
@@ -22,19 +24,12 @@ const LoadingView = () => {
   )
 }
 
-// const defaultStates = {
-//   title: null,
-//   component: this.props.initialComponent || null,
-//   error: null
-// }
-
 class AppRenderer extends Component {
-  //state = defaultStates
   constructor(props) {
     super(props)
     this.state = {
       title: null,
-      component: this.props.initialComponent || null,
+      component: null,
       error: null
     }
   }
@@ -52,7 +47,7 @@ class AppRenderer extends Component {
 
   componentDidCatch(error) {
  //   gtag('event', 'exception', { description: error.message, fatal: false });
-    this.setState({ /*...defaultStates,*/ error });
+    this.setState({ error });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -64,7 +59,7 @@ class AppRenderer extends Component {
   }
 
   renderRoute = (route, cb) => {
-    this.setState({ /*...defaultStates,*/ ...route }, cb);
+    this.setState({ ...route }, cb);
   };
 
   render() {
@@ -72,7 +67,14 @@ class AppRenderer extends Component {
       <ErrorScreen error={this.state.error} />
     ) : this.state.component ? (
       this.state.component
-    ) : <LoadingView/>;
+    ) : (
+      <div>
+        <div style={{ opacity: 0, zIndex: 99999 }}>
+          {this.props.initialComponent || null}
+        </div>
+        <LoadingView/>
+      </div>
+    )
   }
 }
 
