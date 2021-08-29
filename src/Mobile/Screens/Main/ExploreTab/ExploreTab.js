@@ -4,7 +4,7 @@ import FeaturedProductsList from '../../../Components/FeaturedProductsList'
 import Link from '../../../Components/Link'
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
-import { IconButton, Drawer, ButtonBase } from '@material-ui/core'
+import { IconButton, SwipeableDrawer, ButtonBase } from '@material-ui/core'
 import { IoSearchOutline, IoMenuOutline } from 'react-icons/io5'
 import { BiLogIn } from 'react-icons/bi'
 import { useState } from 'react'
@@ -20,7 +20,12 @@ const Component = props => {
   return (
     <div style={{
     }}>
-      <Drawer anchor="left" open={showDrawer} onClose={() => setShowDrawer(false)}>
+      <SwipeableDrawer 
+        anchor="left" 
+        open={showDrawer} 
+        onClose={() => setShowDrawer(false)}
+        onOpen={() => setShowDrawer(true)}
+      >
         <div style={{
           width: '80vw',
           backgroundColor: 'white'
@@ -211,7 +216,7 @@ const Component = props => {
           </>
           }
         </div>
-      </Drawer>
+      </SwipeableDrawer>
       <div style={{
         
       }}>
