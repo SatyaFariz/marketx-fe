@@ -9,10 +9,16 @@ const ReactDOMServer = require('react-dom/server')
 import axios from 'axios'
 import { createMemoryHistory as createHistory } from 'history'
 import App  from './src/App'
-import createRelay from './src/Mobile/createRelay'
 import router from './src/Mobile/router'
 import qs from 'query-string'
 import routes from './src/Mobile/Screens'
+import {
+  Environment,
+  Network,
+  RecordSource,
+  Store,
+} from 'relay-runtime'
+
 React.useLayoutEffect = React.useEffect // fix warning
 const port = parseInt(process.env.PORT || 5000, 10)
 const expressRouter = express.Router()
@@ -42,12 +48,23 @@ routes.forEach(route => {
         })
       }
     })
+
+    const createRelay = () => {
+      const source = new RecordSource()
+      const store = new Store(source)
+      const network = Network.create(() => page.data)
+      const environment = new Environment({
+        network,
+        store
+      })
+    
+      return environment
+    }
     
     const html = ReactDOMServer.renderToString(
       <App 
         history={createHistory()} 
-        createRelay={createRelay} 
-        initialData={page.data}
+        createRelay={createRelay}
         initialComponent={page.component}
       />
     )
