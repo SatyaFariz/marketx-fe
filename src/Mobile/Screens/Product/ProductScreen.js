@@ -241,7 +241,7 @@ const Component = props => {
                   <SwiperSlide
                     key={i}
                   >
-                    <div key={i} style={{
+                    <div style={{
                       position: 'relative',
                       width: '100vw',
                       paddingBottom: '100%'

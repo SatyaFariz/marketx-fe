@@ -607,7 +607,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Mai
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return createRelay; });\n/* harmony import */ var relay_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! relay-runtime */ \"relay-runtime\");\n/* harmony import */ var relay_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(relay_runtime__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var subscriptions_transport_ws__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! subscriptions-transport-ws */ \"subscriptions-transport-ws\");\n/* harmony import */ var subscriptions_transport_ws__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(subscriptions_transport_ws__WEBPACK_IMPORTED_MODULE_1__);\n\n\nconst {\n  REACT_APP_API_KEY,\n  REACT_APP_API_URL,\n  REACT_APP_SUBSCRIPTION_URL\n} = process.env;\nlet useInitialData = true;\nfunction createRelay() {\n  function fetchQuery(operation, variables, cacheConfig, uploadables) {\n    const method = 'POST';\n    const credentials = 'include';\n    const API_KEY = REACT_APP_API_KEY;\n    let request;\n\n    if (uploadables) {\n      if (!window.FormData) throw new Error('Uploading files without `FormData` not supported.');\n      const formData = new FormData();\n      formData.append('query', operation.text);\n      formData.append('variables', JSON.stringify(variables));\n\n      for (const uploadable in uploadables) {\n        if (Object.prototype.hasOwnProperty.call(uploadables, uploadable)) formData.append(uploadable, uploadables[uploadable]);\n      }\n\n      request = {\n        method: method,\n        credentials: credentials,\n        body: formData,\n        headers: {\n          'Authorization': API_KEY\n        }\n      };\n    } else {\n      request = {\n        method: method,\n        credentials: credentials,\n        headers: {\n          'content-type': 'application/json',\n          'Authorization': API_KEY\n        },\n        body: JSON.stringify({\n          query: operation.text,\n          variables\n        })\n      };\n    }\n\n    return fetch(REACT_APP_API_URL, request).then(response => {\n      return response.json();\n    });\n  }\n\n  function setupSubscription(config, variables, cacheConfig, observer) {\n    const subscriptionsEndpoint = REACT_APP_SUBSCRIPTION_URL;\n    let query = config.text;\n    let {\n      onNext,\n      onError,\n      onCompleted\n    } = observer;\n    let subscriptionClient = new subscriptions_transport_ws__WEBPACK_IMPORTED_MODULE_1__[\"SubscriptionClient\"](subscriptionsEndpoint, {\n      reconnect: true\n    });\n    subscriptionClient.request({\n      query,\n      variables\n    }).subscribe(onNext, onError, onCompleted);\n  }\n\n  const source = new relay_runtime__WEBPACK_IMPORTED_MODULE_0__[\"RecordSource\"](window.records);\n  const store = new relay_runtime__WEBPACK_IMPORTED_MODULE_0__[\"Store\"](source);\n  const network = relay_runtime__WEBPACK_IMPORTED_MODULE_0__[\"Network\"].create(fetchQuery, setupSubscription); // see note below\n\n  const handlerProvider = null;\n  const environment = new relay_runtime__WEBPACK_IMPORTED_MODULE_0__[\"Environment\"]({\n    handlerProvider,\n    // Can omit.\n    network,\n    store\n  });\n  return environment;\n}\n\n//# sourceURL=webpack:///./src/Mobile/createRelay.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return createRelay; });\n/* harmony import */ var relay_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! relay-runtime */ \"relay-runtime\");\n/* harmony import */ var relay_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(relay_runtime__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var subscriptions_transport_ws__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! subscriptions-transport-ws */ \"subscriptions-transport-ws\");\n/* harmony import */ var subscriptions_transport_ws__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(subscriptions_transport_ws__WEBPACK_IMPORTED_MODULE_1__);\n\n\nconst {\n  REACT_APP_API_KEY,\n  REACT_APP_API_URL,\n  REACT_APP_SUBSCRIPTION_URL\n} = process.env;\nfunction createRelay() {\n  function fetchQuery(operation, variables, cacheConfig, uploadables) {\n    const method = 'POST';\n    const credentials = 'include';\n    const API_KEY = REACT_APP_API_KEY;\n    let request;\n\n    if (uploadables) {\n      if (!window.FormData) throw new Error('Uploading files without `FormData` not supported.');\n      const formData = new FormData();\n      formData.append('query', operation.text);\n      formData.append('variables', JSON.stringify(variables));\n\n      for (const uploadable in uploadables) {\n        if (Object.prototype.hasOwnProperty.call(uploadables, uploadable)) formData.append(uploadable, uploadables[uploadable]);\n      }\n\n      request = {\n        method: method,\n        credentials: credentials,\n        body: formData,\n        headers: {\n          'Authorization': API_KEY\n        }\n      };\n    } else {\n      request = {\n        method: method,\n        credentials: credentials,\n        headers: {\n          'content-type': 'application/json',\n          'Authorization': API_KEY\n        },\n        body: JSON.stringify({\n          query: operation.text,\n          variables\n        })\n      };\n    }\n\n    return fetch(REACT_APP_API_URL, request).then(response => {\n      return response.json();\n    });\n  }\n\n  function setupSubscription(config, variables, cacheConfig, observer) {\n    const subscriptionsEndpoint = REACT_APP_SUBSCRIPTION_URL;\n    let query = config.text;\n    let {\n      onNext,\n      onError,\n      onCompleted\n    } = observer;\n    let subscriptionClient = new subscriptions_transport_ws__WEBPACK_IMPORTED_MODULE_1__[\"SubscriptionClient\"](subscriptionsEndpoint, {\n      reconnect: true\n    });\n    subscriptionClient.request({\n      query,\n      variables\n    }).subscribe(onNext, onError, onCompleted);\n  }\n\n  const source = new relay_runtime__WEBPACK_IMPORTED_MODULE_0__[\"RecordSource\"](window.records);\n  const store = new relay_runtime__WEBPACK_IMPORTED_MODULE_0__[\"Store\"](source);\n  const network = relay_runtime__WEBPACK_IMPORTED_MODULE_0__[\"Network\"].create(fetchQuery, setupSubscription); // see note below\n\n  const handlerProvider = null;\n  const environment = new relay_runtime__WEBPACK_IMPORTED_MODULE_0__[\"Environment\"]({\n    handlerProvider,\n    // Can omit.\n    network,\n    store\n  });\n  return environment;\n}\n\n//# sourceURL=webpack:///./src/Mobile/createRelay.js?");
 
 /***/ }),
 
@@ -632,28 +632,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var univ
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (__webpack_require__.p + \"32eda6c9f53bb0bb63207230a3220d57.svg\");\n\n//# sourceURL=webpack:///./src/logo.svg?");
-
-/***/ }),
-
-/***/ "@brainhubeu/react-carousel":
-/*!*********************************************!*\
-  !*** external "@brainhubeu/react-carousel" ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = require(\"@brainhubeu/react-carousel\");\n\n//# sourceURL=webpack:///external_%22@brainhubeu/react-carousel%22?");
-
-/***/ }),
-
-/***/ "@brainhubeu/react-carousel/lib/style.css":
-/*!***********************************************************!*\
-  !*** external "@brainhubeu/react-carousel/lib/style.css" ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = require(\"@brainhubeu/react-carousel/lib/style.css\");\n\n//# sourceURL=webpack:///external_%22@brainhubeu/react-carousel/lib/style.css%22?");
 
 /***/ }),
 
@@ -951,6 +929,28 @@ eval("module.exports = require(\"relay-runtime\");\n\n//# sourceURL=webpack:///e
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"subscriptions-transport-ws\");\n\n//# sourceURL=webpack:///external_%22subscriptions-transport-ws%22?");
+
+/***/ }),
+
+/***/ "swiper/react":
+/*!*******************************!*\
+  !*** external "swiper/react" ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"swiper/react\");\n\n//# sourceURL=webpack:///external_%22swiper/react%22?");
+
+/***/ }),
+
+/***/ "swiper/swiper.min.css":
+/*!****************************************!*\
+  !*** external "swiper/swiper.min.css" ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"swiper/swiper.min.css\");\n\n//# sourceURL=webpack:///external_%22swiper/swiper.min.css%22?");
 
 /***/ }),
 
