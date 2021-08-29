@@ -220,21 +220,8 @@ const Component = props => {
       <div style={{
         
       }}>
-        {/* <img
-          src="https://www.lesitedelasneaker.com/wp-content/images/2019/11/air-jordan-1-high-bloodline-banner.jpg"
-          alt="test"
-          style={{
-            // height: 200,
-            width: '100%'
-          }}
-        /> */}
         <div style={{
-          // height: 56,
           borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`,
-          // display: 'flex',
-          // // flexDirection: 'row',
-          // justifyContent: 'space-between',
-          // alignItems: 'center',
           position: 'sticky',
           top: 0,
           backgroundColor: 'white',
