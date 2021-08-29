@@ -12,8 +12,6 @@ const {
   REACT_APP_SUBSCRIPTION_URL
 } = process.env
 
-let useInitialData = true
-
 export default function createRelay() {
   function fetchQuery(
     operation,

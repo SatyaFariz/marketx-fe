@@ -36,6 +36,7 @@
     "react-scripts": "4.0.3",
     "react-spring-bottom-sheet": "^3.4.0",
     "subscriptions-transport-ws": "^0.9.19",
+    "swiper": "^6.8.4",
     "universal-router": "^6.0.0",
     "use-debounce": "^7.0.0",
     "validator": "^13.6.0",

@@ -8,8 +8,6 @@ import { useRef, useEffect, useState } from 'react'
 import Link from '../../Components/Link'
 import { ButtonBase, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress, TextField, MenuItem } from '@material-ui/core'
 import BackButton from '../../Components/BackButton'
-import Carousel from '@brainhubeu/react-carousel'
-import '@brainhubeu/react-carousel/lib/style.css'
 import VerifiedIcon from '../../Components/VerifiedIcon'
 import { IoCloseOutline, IoCloseSharp, IoLogoWhatsapp, IoEllipsisVertical, IoStorefront } from 'react-icons/io5'
 import Sheet from 'react-modal-sheet'
@@ -18,6 +16,8 @@ import SuspendProduct from '../../../mutations/SuspendProduct'
 import UnsuspendProduct from '../../../mutations/UnsuspendProduct'
 import Button from '../../Components/Button'
 import { IoMdCreate } from 'react-icons/io'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/swiper.min.css'
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -32,9 +32,8 @@ const Component = props => {
   const [suspendingOrUnsuspending, setSuspendingOrUnsuspending] = useState(false)
   const [suspensionReasonId, setSuspensionReasonId] = useState(null)
 
-  const handleCarouselChange = (value) => {
-    if(!isNaN(value))
-      setCarouselPos(value)
+  const handleSwipe = (obj) => {
+    setCarouselPos(obj.activeIndex)
   }
 
   const onActionButtonClick = () => {
@@ -232,30 +231,36 @@ const Component = props => {
           width: '100vw',
           height: '100vw',
         }}>
-          <Carousel onChange={handleCarouselChange} value={carouselPos} draggable={product.images.length > 1}>
+          <Swiper 
+            onSlideChange={handleSwipe}
+          >
             {product.images.map((item, i) => {
               return (
-                <div key={i} style={{
-                  position: 'relative',
-                  width: '100vw',
-                  paddingBottom: '100%'
-                }}>
-                  <img
-                    src={item.url}
-                    alt={product.name}
-                    style={{
-                      position: 'absolute',
-                      height: '100%',
-                      width: '100%',
-                      left: 0,
-                      bottom: 0,
-                      objectFit: 'cover'
-                    }}
-                  />
-                </div>
+                <SwiperSlide
+                  key={i}
+                >
+                  <div key={i} style={{
+                    position: 'relative',
+                    width: '100vw',
+                    paddingBottom: '100%'
+                  }}>
+                    <img
+                      src={item.url}
+                      alt={product.name}
+                      style={{
+                        position: 'absolute',
+                        height: '100%',
+                        width: '100%',
+                        left: 0,
+                        bottom: 0,
+                        objectFit: 'cover'
+                      }}
+                    />
+                  </div>
+                </SwiperSlide>
               )
             })}
-          </Carousel>
+          </Swiper>
           {product.images.length > 1 &&
           <div style={{
             position: 'absolute',
@@ -266,6 +271,7 @@ const Component = props => {
             flexDirection: 'row',
             justifyContent: 'center',
             backgroundColor: 'white',
+            zIndex: 99
           }} pointerEvents="none">
             {product.images.map((item, i) => {
               return (
