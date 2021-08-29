@@ -15,11 +15,11 @@ import qs from 'query-string'
 import routes from './src/Mobile/Screens'
 React.useLayoutEffect = React.useEffect // fix warning
 const port = parseInt(process.env.PORT || 5000, 10)
-
+const expressRouter = express.Router()
 app.disable('x-powered-by')
 
 routes.forEach(route => {
-  app.get(route.path, async (req, res) => {
+  expressRouter.get(route.path, async (req, res) => {
     const parts = req.url.split('?')
     const pathname = parts[0]
     const queryParams = parts[1] ? qs.parse(parts[1]) : {}
@@ -64,10 +64,16 @@ routes.forEach(route => {
   })
 })
 
+expressRouter.use((req, res, next) => {
+  if (!req.route)
+    return res.status(500).send('Oops, better luck next time!')
+  next()
+})
 
 // app.use('*', express.static(path.join(__dirname, 'build')))
 app.use(express.static('build'))
 app.use(express.static('src'))
+app.use(expressRouter)
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
