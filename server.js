@@ -13,7 +13,7 @@ import createRelay from './src/Mobile/createRelay'
 import router from './src/Mobile/router'
 import qs from 'query-string'
 import routes from './src/Mobile/Screens'
-
+React.useLayoutEffect = React.useEffect // fix warning
 const port = parseInt(process.env.PORT || 5000, 10)
 
 app.disable('x-powered-by')
