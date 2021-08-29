@@ -231,61 +231,78 @@ const Component = props => {
           width: '100vw',
           height: '100vw',
         }}>
-          <Swiper 
-            onSlideChange={handleSwipe}
-          >
-            {product.images.map((item, i) => {
-              return (
-                <SwiperSlide
-                  key={i}
-                >
+          {product.images.length > 1 ?
+          <>
+            <Swiper 
+              onSlideChange={handleSwipe}
+            >
+              {product.images.map((item, i) => {
+                return (
+                  <SwiperSlide
+                    key={i}
+                  >
+                    <div key={i} style={{
+                      position: 'relative',
+                      width: '100vw',
+                      paddingBottom: '100%'
+                    }}>
+                      <img
+                        src={item.url}
+                        alt={product.name}
+                        style={{
+                          position: 'absolute',
+                          height: '100%',
+                          width: '100%',
+                          left: 0,
+                          bottom: 0,
+                          objectFit: 'cover'
+                        }}
+                      />
+                    </div>
+                  </SwiperSlide>
+                )
+              })}
+            </Swiper>
+            {product.images.length > 1 &&
+            <div style={{
+              position: 'absolute',
+              width: '100%',
+              bottom: 15,
+              height: 0,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              backgroundColor: 'white',
+              zIndex: 99
+            }} pointerEvents="none">
+              {product.images.map((item, i) => {
+                return (
                   <div key={i} style={{
-                    position: 'relative',
-                    width: '100vw',
-                    paddingBottom: '100%'
-                  }}>
-                    <img
-                      src={item.url}
-                      alt={product.name}
-                      style={{
-                        position: 'absolute',
-                        height: '100%',
-                        width: '100%',
-                        left: 0,
-                        bottom: 0,
-                        objectFit: 'cover'
-                      }}
-                    />
-                  </div>
-                </SwiperSlide>
-              )
-            })}
-          </Swiper>
-          {product.images.length > 1 &&
-          <div style={{
-            position: 'absolute',
-            width: '100%',
-            bottom: 15,
-            height: 0,
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            backgroundColor: 'white',
-            zIndex: 99
-          }} pointerEvents="none">
-            {product.images.map((item, i) => {
-              return (
-                <div key={i} style={{
-                  height: 5,
-                  width: 5,
-                  borderRadius: '50%',
-                  backgroundColor: i === carouselPos ? Color.primary : 'white',
-                  marginLeft: 2,
-                  marginRight: 2,
-                }}/>
-              )
-            })}
-          </div>
+                    height: 5,
+                    width: 5,
+                    borderRadius: '50%',
+                    backgroundColor: i === carouselPos ? Color.primary : 'white',
+                    marginLeft: 2,
+                    marginRight: 2,
+                  }}/>
+                )
+              })}
+            </div>
+            }
+          </>
+          :
+          <img
+            src={product.images[0].url}
+            alt={product.name}
+            style={{
+              position: 'absolute',
+              height: '100%',
+              width: '100%',
+              left: 0,
+              bottom: 0,
+              objectFit: 'cover'
+            }}
+          />
           }
         </div>
 
