@@ -235,6 +235,7 @@ const Component = props => {
           <>
             <Swiper 
               onSlideChange={handleSwipe}
+              style={{ zIndex: 0 }}
             >
               {product.images.map((item, i) => {
                 return (
@@ -272,8 +273,7 @@ const Component = props => {
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'center',
-              backgroundColor: 'white',
-              zIndex: 99
+              backgroundColor: 'white'
             }} pointerEvents="none">
               {product.images.map((item, i) => {
                 return (

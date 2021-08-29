@@ -8,8 +8,6 @@ import { useRef, useEffect, useState } from 'react'
 import { TextField, InputAdornment, MenuItem } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import { createFilterOptions } from '@material-ui/lab/Autocomplete'
-import Carousel from '@brainhubeu/react-carousel'
-import '@brainhubeu/react-carousel/lib/style.css'
 import Validator from '../../../helpers/validator'
 import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
@@ -17,6 +15,8 @@ import CreateProduct from '../../../mutations/CreateProduct'
 import BackButton from '../../Components/BackButton'
 import Button from '../../Components/Button'
 import NumberFormat from 'react-number-format'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/swiper.min.css'
 
 const megabytes = 1048576
 const autocompleteFilter = createFilterOptions()
@@ -64,9 +64,8 @@ const Component = props => {
   }, {}))
   const [validation, setValidation] = useState({ isValid: false })
 
-  const handleCarouselChange = (value) => {
-    if(!isNaN(value))
-      setCarouselPos(value)
+  const handleSwipe = (obj) => {
+    setCarouselPos(obj.activeIndex)
   }
 
   const _setSpecs = field => e => {
@@ -308,55 +307,78 @@ const Component = props => {
           backgroundColor: 'rgb(207, 217, 222)',
           height: '100vw',
         }}>
-          
-          <Carousel key={files.map(x => x.preview).join()} onChange={handleCarouselChange} value={carouselPos} draggable={files.length > 1}>
-            {files.map((item, i) => {
-              return (
-                <div key={i} style={{
-                  position: 'relative',
-                  width: '100vw',
-                  paddingBottom: '100%'
-                }}>
-                  <img
-                    src={item.preview}
-                    alt={`product_preview_${i}`}
-                    style={{
-                      position: 'absolute',
-                      height: '100%',
-                      width: '100%',
-                      left: 0,
-                      bottom: 0,
-                      objectFit: 'cover'
-                    }}
-                  />
-                </div>
-              )
-            })}
-          </Carousel>
-          {files.length > 1 &&
-          <div style={{
-            position: 'absolute',
-            width: '100%',
-            bottom: 15,
-            height: 0,
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            backgroundColor: 'white',
-          }} pointerEvents="none">
-            {files.map((item, i) => {
-              return (
-                <div key={i} style={{
-                  height: 5,
-                  width: 5,
-                  borderRadius: '50%',
-                  backgroundColor: i === carouselPos ? Color.primary : 'white',
-                  marginLeft: 2,
-                  marginRight: 2
-                }}/>
-              )
-            })}
-          </div>
+          {files.length !== 1 ?
+          <>
+            <Swiper 
+              onSlideChange={handleSwipe}
+              style={{ zIndex: 0 }}
+            >
+              {files.map((item, i) => {
+                return (
+                  <SwiperSlide
+                    key={i}
+                  >
+                    <div style={{
+                      position: 'relative',
+                      width: '100vw',
+                      paddingBottom: '100%'
+                    }}>
+                      <img
+                        src={item.preview}
+                        alt={`product_preview_${i}`}
+                        style={{
+                          position: 'absolute',
+                          height: '100%',
+                          width: '100%',
+                          left: 0,
+                          bottom: 0,
+                          objectFit: 'cover'
+                        }}
+                      />
+                    </div>
+                  </SwiperSlide>
+                )
+              })}
+            </Swiper>
+            {files.length > 1 &&
+            <div style={{
+              position: 'absolute',
+              width: '100%',
+              bottom: 15,
+              height: 0,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              backgroundColor: 'white',
+            }} pointerEvents="none">
+              {files.map((item, i) => {
+                return (
+                  <div key={i} style={{
+                    height: 5,
+                    width: 5,
+                    borderRadius: '50%',
+                    backgroundColor: i === carouselPos ? Color.primary : 'white',
+                    marginLeft: 2,
+                    marginRight: 2
+                  }}/>
+                )
+              })}
+            </div>
+            }
+          </>
+          :
+          <img
+            src={files[0].preview}
+            alt={`product_preview_0`}
+            style={{
+              position: 'absolute',
+              height: '100%',
+              width: '100%',
+              left: 0,
+              bottom: 0,
+              objectFit: 'cover'
+            }}
+          />
           }
           <div {...getRootProps({className: 'dropzone'})}>
             <input {...getInputProps()} />
@@ -367,7 +389,7 @@ const Component = props => {
                 margin: 15,
                 position: 'absolute',
                 right: 0,
-                bottom: 0
+                bottom: 0,
               }}
               onClick={open}
               disabled={loading}

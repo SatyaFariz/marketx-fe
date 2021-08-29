@@ -331,6 +331,7 @@ const Component = props => {
             <>
               <Swiper 
                 onSlideChange={handleSwipe}
+                style={{ zIndex: 0 }}
               >
                 {product.images.map((item, i) => {
                   return (
