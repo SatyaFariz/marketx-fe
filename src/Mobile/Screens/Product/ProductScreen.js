@@ -17,7 +17,6 @@ import UnsuspendProduct from '../../../mutations/UnsuspendProduct'
 import Button from '../../Components/Button'
 import { IoMdCreate } from 'react-icons/io'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/swiper.min.css'
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -235,6 +234,7 @@ const Component = props => {
           <>
             <Swiper 
               onSlideChange={handleSwipe}
+              virtual={false}
               style={{ zIndex: 0 }}
             >
               {product.images.map((item, i) => {

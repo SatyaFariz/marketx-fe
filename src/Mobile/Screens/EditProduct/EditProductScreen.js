@@ -18,7 +18,6 @@ import Link from '../../Components/Link'
 import Button from '../../Components/Button'
 import NumberFormat from 'react-number-format'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/swiper.min.css'
 
 const autocompleteFilter = createFilterOptions()
 
@@ -331,6 +330,7 @@ const Component = props => {
             <>
               <Swiper 
                 onSlideChange={handleSwipe}
+                virtual={false}
                 style={{ zIndex: 0 }}
               >
                 {product.images.map((item, i) => {

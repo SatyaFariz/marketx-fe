@@ -16,7 +16,6 @@ import BackButton from '../../Components/BackButton'
 import Button from '../../Components/Button'
 import NumberFormat from 'react-number-format'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/swiper.min.css'
 
 const megabytes = 1048576
 const autocompleteFilter = createFilterOptions()
@@ -311,6 +310,7 @@ const Component = props => {
           <>
             <Swiper 
               onSlideChange={handleSwipe}
+              virtual={false}
               style={{ zIndex: 0 }}
             >
               {files.map((item, i) => {

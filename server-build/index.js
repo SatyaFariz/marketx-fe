@@ -943,17 +943,6 @@ eval("module.exports = require(\"swiper/react\");\n\n//# sourceURL=webpack:///ex
 
 /***/ }),
 
-/***/ "swiper/swiper.min.css":
-/*!****************************************!*\
-  !*** external "swiper/swiper.min.css" ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = require(\"swiper/swiper.min.css\");\n\n//# sourceURL=webpack:///external_%22swiper/swiper.min.css%22?");
-
-/***/ }),
-
 /***/ "universal-router":
 /*!***********************************!*\
   !*** external "universal-router" ***!
