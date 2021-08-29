@@ -47,6 +47,7 @@ class App extends Component {
 
   componentDidMount() {
     import("./mobile.css")
+    import('swiper/swiper.min.css')
     // import('./Mobile/createRelay').then(createRelay => {
     //   this.setState({ createRelay, relay: createRelay() })
     // })
