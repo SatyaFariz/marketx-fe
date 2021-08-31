@@ -1,10 +1,9 @@
-const express = require('express')
-const path = require('path')
-const fs = require('fs')
-const app = express()
-const React = require('react')
-const ReactDOMServer = require('react-dom/server')
-
+import dotenv from 'dotenv'
+import express from 'express'
+import path from 'path'
+import fs from 'fs'
+import React from 'react'
+import ReactDOMServer from 'react-dom/server'
 import axios from 'axios'
 import { createMemoryHistory as createHistory } from 'history'
 import App  from './src/App'
@@ -17,6 +16,9 @@ import {
   RecordSource,
   Store,
 } from 'relay-runtime'
+
+dotenv.config()
+const app = express()
 
 React.useLayoutEffect = React.useEffect // fix warning
 const port = parseInt(process.env.PORT || 5000, 10)
@@ -34,7 +36,7 @@ routes.forEach(route => {
       pathname,
       fetchQuery: (query, variables) => {
         return new Promise(async (resolve) => {
-          const res = await axios.post("http://192.168.1.74:4000/graphql", 
+          const res = await axios.post(process.env.REACT_APP_API_URL, 
             {
               query: query.params.text,
               variables
@@ -81,14 +83,14 @@ routes.forEach(route => {
 })
 
 expressRouter.use((req, res, next) => {
-  if (!req.route)
+  if (!req.route) {
     return res.status(500).send('Oops, better luck next time!')
+  }
   next()
 })
 
-// app.use('*', express.static(path.join(__dirname, 'build')))
 app.use(express.static('build'))
-app.use(express.static('src'))
+app.use(express.static('server-build'))
 app.use(expressRouter)
 
 app.listen(port, () => {
