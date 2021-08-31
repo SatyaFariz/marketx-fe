@@ -26,7 +26,7 @@ const expressRouter = express.Router()
 app.disable('x-powered-by')
 
 routes.forEach(route => {
-  expressRouter.get(route.path, async (req, res) => {
+  (route.path === '/' ? app : expressRouter).get(route.path, async (req, res) => {
     const parts = req.url.split('?')
     const pathname = parts[0]
     const queryParams = parts[1] ? qs.parse(parts[1]) : {}
