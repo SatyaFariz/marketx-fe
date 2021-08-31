@@ -1,25 +1,39 @@
-import '../../../App.css';
-import BottomNav from '../../Components/BottomNav'
+import '../../../App.css'
 import ExploreTab from './ExploreTab/ExploreTab'
-import RentedTab from './RentedTab/RentedTab'
-import NotificationTab from './NotificationTab/NotificationTab'
-import ProfileTab from './ProfileTab/ProfileTab'
-import { useState } from 'react'
+import { createFragmentContainer } from 'react-relay'
+import graphql from 'babel-plugin-relay/macro'
 
-function App() {
-  const [index, setIndex] = useState(0)
-  const onIndexChange = index => setIndex(index)
+function App(props) {
+  const { categories, featuredProducts, me } = props.data
   return (
     <>
-      <ExploreTab active={index === 0}/>
-      <RentedTab active={index === 1}/>
-      <NotificationTab active={index === 2}/>
-      <ProfileTab active={index === 3}/>
-      
-      <BottomNav onIndexChange={onIndexChange}/>
+      {categories && featuredProducts &&
+      <ExploreTab 
+        categories={categories}
+        featuredProducts={featuredProducts}
+        me={me}
+      />
+      }
 
     </>
   )
 }
 
-export default App;
+export default createFragmentContainer(App, {
+  data: graphql`
+    fragment MainScreen_data on Query {
+      me {
+        id,
+        ...ExploreTab_me,
+      }
+      categories {
+        id,
+        ...ExploreTab_categories
+      },
+      featuredProducts {
+        id,
+        ...ExploreTab_featuredProducts
+      }
+    }
+  `
+});

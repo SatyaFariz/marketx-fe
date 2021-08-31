@@ -1,14 +1,37 @@
 import { Component } from 'react'
 import ErrorScreen from './Screens/ErrorScreen'
+import Logo from '../logo.svg'
 
-const defaultStates = {
-  title: null,
-  component: null,
-  error: null
+const LoadingView = () => {
+  return (
+    <div style={{
+      backgroundColor: 'white',
+      position: 'fixed',
+      left: 0,
+      right: 0,
+      bottom: 0,
+      top: 0,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}>
+      <img
+        alt='applogo'
+        src={Logo}
+      />
+    </div>
+  )
 }
 
 class AppRenderer extends Component {
-  state = defaultStates
+  constructor(props) {
+    super(props)
+    this.state = {
+      title: null,
+      component: null,
+      error: null
+    }
+  }
   
   componentDidUpdate() {
     if (this.state.title) {
@@ -23,7 +46,7 @@ class AppRenderer extends Component {
 
   componentDidCatch(error) {
  //   gtag('event', 'exception', { description: error.message, fatal: false });
-    this.setState({ ...defaultStates, error });
+    this.setState({ error });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -35,7 +58,7 @@ class AppRenderer extends Component {
   }
 
   renderRoute = (route, cb) => {
-    this.setState({ ...defaultStates, ...route }, cb);
+    this.setState({ ...route }, cb);
   };
 
   render() {
@@ -43,7 +66,17 @@ class AppRenderer extends Component {
       <ErrorScreen error={this.state.error} />
     ) : this.state.component ? (
       this.state.component
-    ) : null;
+    ) : (
+      <div>
+        {this.props.initialComponent ?
+        <div style={{ opacity: 0 }}>
+          {this.props.initialComponent}
+        </div>
+        :
+        <LoadingView/>
+        }
+      </div>
+    )
   }
 }
 

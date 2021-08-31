@@ -6,7 +6,11 @@ import {
 } from 'relay-runtime'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 
-// const {  REACT_APP_SUBSCRIPTION_URL } = process.env
+const {
+  REACT_APP_API_KEY,
+  REACT_APP_API_URL,
+  REACT_APP_SUBSCRIPTION_URL
+} = process.env
 
 export default function createRelay() {
   function fetchQuery(
@@ -18,7 +22,7 @@ export default function createRelay() {
     
     const method = 'POST'
     const credentials = 'include'
-    const API_KEY = 'Basic d2suRDNBPkt3ezdUUkxFazROVHhudDdTOllrbTpTWWIjeTtHa2MuXlBwVFJbbWg='
+    const API_KEY = REACT_APP_API_KEY
     let request
 
     if(uploadables) {
@@ -59,7 +63,7 @@ export default function createRelay() {
     
 
     
-    return fetch('/graphql', request).then(response => {
+    return fetch(REACT_APP_API_URL, request).then(response => {
       return response.json()
     })
     
@@ -71,8 +75,7 @@ export default function createRelay() {
     cacheConfig,
     observer
   ) {
-    // const subscriptionsEndpoint = REACT_APP_SUBSCRIPTION_URL
-    const subscriptionsEndpoint = 'ws://tuan-rumah.herokuapp.com/subscriptions'
+    const subscriptionsEndpoint = REACT_APP_SUBSCRIPTION_URL
     let query = config.text
     let { onNext, onError, onCompleted } = observer
     let subscriptionClient = new SubscriptionClient(subscriptionsEndpoint, { reconnect: true })

@@ -1,0 +1,306 @@
+# source: http://localhost:4000/graphql
+# timestamp: Tue Aug 24 2021 19:34:35 GMT+0700 (Western Indonesia Time)
+
+type ActionInfo {
+  hasError: Boolean
+  message: String
+}
+
+type ActionOnProductPayload {
+  actionInfo: ActionInfo
+  product: Product
+  cursor: String
+}
+
+type ActionOnStorePayload {
+  actionInfo: ActionInfo
+  store: Store
+}
+
+type ActionOnUserPayload {
+  actionInfo: ActionInfo
+  user: User
+}
+
+type Address {
+  lat: Float
+  lng: Float
+  fullAddress: String
+  province: AdministrativeArea
+  city: AdministrativeArea
+  district: AdministrativeArea
+}
+
+input AddressInput {
+  fullAddress: String!
+  lat: Float
+  lng: Float
+  provinceId: Int!
+  cityId: Int!
+  districtId: Int!
+}
+
+type AdministrativeArea {
+  administrativeAreaId: Int
+  name: String
+}
+
+type Attribute {
+  id: ID
+  name: String
+  icon: Image
+}
+
+type Category {
+  id: ID
+  name: String
+  code: String
+  path: String
+  level: Int
+  isPublished: Boolean
+  requiresProductCondition: Boolean
+  showsProductConditionField: Boolean
+  listingType: String
+  icon: Image
+  ancestors: [Category]
+  children: [Category]
+  specFields: [SpecificationField]
+}
+
+"""
+The Email scalar type represents E-Mail addresses compliant to RFC 822.
+"""
+scalar Email
+
+type Image {
+  id: ID
+  url: String
+  height: Float
+  width: Float
+  aspectRatio: Float
+  bytes: Float
+  format: String
+  display: Int
+}
+
+type Mutation {
+  sendTelegramMessage(chatId: String!, message: String!): String
+  addIcon(id: String!, url: String!): String
+  setProductImage(id: String!, url: String!): String
+  setAttributeIcon(id: String!, url: String!): String
+  updateDescription(id: String!, desc: String!): String
+  addSpec(id: String!, attributeId: String!, value: String!): String
+  sendOtpCode(mobileNumber: String!, action: UserActionEnum): SendOtpPayload
+  login(loginId: String!, password: String!): ActionOnUserPayload
+  register(name: String!, loginId: String!, password: String!): ActionOnUserPayload
+  logout: ActionInfo
+  updateProfile(otpCode: String, input: UpdateProfileInput!): ActionOnUserPayload
+  createStore(name: String!, whatsappNumber: String!, address: AddressInput!): ActionOnStorePayload
+  updateStoreAddress(id: String!, address: AddressInput!): ActionOnStorePayload
+  updateStore(id: String!, name: String!, whatsappNumber: String!, address: AddressInput!): ActionOnStorePayload
+  addSpecFieldToCategory(categoryId: String!, attributeId: String!, type: String!, isRequired: Boolean): String
+  updateProduct(id: String!, input: ProductInput!): ActionOnProductPayload
+  deleteProduct(id: String!): ActionOnProductPayload
+  updateProductFeaturedStatus(id: String!, isFeatured: Boolean!): ActionOnProductPayload
+  suspendProduct(id: String!, suspensionReasonId: String!): ActionOnProductPayload
+  unsuspendProduct(id: String!): ActionOnProductPayload
+  createProduct(type: ProductTypeEnum!, storeId: String!, categoryId: String!, input: ProductInput!): ActionOnProductPayload
+  deleteProductImages(id: String!, imageIds: [String!]!): ActionOnProductPayload
+  addProductImages(id: String!): ActionOnProductPayload
+  updateMainProductImage(id: String!, imageId: String!): ActionOnProductPayload
+  updateProfilePicture: ActionOnUserPayload
+  updateStoreProfilePicture(id: String!): ActionOnStorePayload
+  updateStoreBanner(id: String!): ActionOnStorePayload
+  updateSpecField(id: String!, type: String!, max: Int, min: Int, options: [String!], isEnum: Boolean, isAutocomplete: Boolean): String
+  updateProductCat(id: String!, path: String!): String
+  createSubcategory(parentId: String!, name: String!): String
+  createPost(title: String!, content: String!, type: String!): String
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Post {
+  id: ID
+  title: String
+  content: String
+  type: String
+  updatedAt: String
+}
+
+enum PostTypeEnum {
+  faq
+  privacy_policy
+  terms_of_service
+  about_us
+}
+
+type Product {
+  id: ID
+  name: String
+  desc: String
+  price: Float
+  rentalDuration: Unit
+  condition: ProductCondition
+  category: [Category]
+  merchant: User
+  store: Store
+  isPublished: Boolean
+  isFeatured: Boolean
+  isDeleted: Boolean
+  isSuspended: Boolean
+  stock: Int
+  listingType: String
+  mainImage: Image
+  images: [Image]
+  specs: [Specification]
+}
+
+type ProductCondition {
+  id: ID
+  display: String
+  desc: String
+}
+
+"""A connection to a list of items."""
+type ProductConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ProductEdge]
+}
+
+"""An edge in a connection."""
+type ProductEdge {
+  """The item at the end of the edge"""
+  node: Product
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input ProductInput {
+  name: String!
+  desc: String!
+  price: Float!
+  isPublished: Boolean!
+  specs: [SpecificationInput!]!
+  rentalDurationId: String
+  productConditionId: String
+}
+
+enum ProductTypeEnum {
+  for_rent
+  for_sale
+  service
+}
+
+type Query {
+  mobileNumberExists(mobileNumber: String!): Boolean
+  me: User
+  attributes: [Attribute]
+  categories(hasChild: Boolean): [Category]
+  category(id: String!): Category
+  rentalDurations: [Unit]
+  product(id: String!): Product
+  user(id: String!): User
+  store(id: String!): Store
+  featuredProducts: [Product]
+  search(q: String!, categoryId: String, storeId: String, published: Boolean, after: String, first: Int): ProductConnection
+  administrativeAreas(parentId: Int): [AdministrativeArea]
+  suspensionReasons: [SuspensionReason]
+  productConditions: [ProductCondition]
+  posts(type: PostTypeEnum!, limit: Int!): [Post]
+}
+
+type SendOtpPayload {
+  actionInfo: ActionInfo
+  cooldownExpiry: String
+  expiry: String
+}
+
+type Specification {
+  id: ID
+  attribute: Attribute
+  value: String
+}
+
+type SpecificationField {
+  id: ID
+  attribute: Attribute
+  isRequired: Boolean
+  type: String
+  max: Int
+  min: Int
+  options: [String]
+  isEnum: Boolean
+  isAutocomplete: Boolean
+}
+
+input SpecificationInput {
+  attributeId: String!
+  value: String!
+}
+
+type Store {
+  id: ID
+  name: String
+  whatsappNumber: String
+  whatsappLink: String
+  merchantId: String
+  address: Address
+  profilePicture: Image
+  isVerified: Boolean
+  banner: Image
+}
+
+type Subscription {
+  test: String
+}
+
+type SuspensionReason {
+  id: ID
+  title: String
+  desc: String
+}
+
+type Unit {
+  id: ID
+  display: String
+  name: String
+  value: Float
+}
+
+input UpdateProfileInput {
+  name: String!
+  mobileNumber: String!
+  email: Email
+}
+
+type User {
+  id: ID
+  name: String
+  isAdmin: Boolean
+  mobileNumber: String
+  profilePicture: Image
+  store: Store
+}
+
+enum UserActionEnum {
+  login
+  register
+  edit_profile
+}

@@ -31,7 +31,11 @@ class Link extends React.Component {
     }
 
     event.preventDefault();
-    this.context.history.push(event.currentTarget.getAttribute('href'));
+    const href = event.currentTarget.getAttribute('href')
+    if(this.props.replace)
+      this.context.history.replace(href);
+    else
+      this.context.history.push(href);
   };
 
   render() {
