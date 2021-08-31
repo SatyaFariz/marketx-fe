@@ -49,13 +49,14 @@
     "build": "react-scripts build",
     "dev-server": "nodemon -L server.js",
     "production": "gulp set --env=prod && npm run build && node server.js",
-    "staging": "gulp set --env=staging && npm run build && node server.js",
+    "staging": "gulp set --env=staging && webpack --config webpack.server.js && npm run build && node ./server-build/index.js",
     "relay": "relay-compiler --src ./src --schema ./schema.graphql",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start-dev": "gulp set --env=dev && npm start"
+    "start-dev": "gulp set --env=dev && npm start",
+    "docker:staging": "docker-compose -f docker-compose.yml -f docker-compose.staging.yml -p staging up --remove-orphans --force-recreate --build"
   },
   "eslintConfig": {
     "extends": [
