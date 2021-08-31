@@ -1,4 +1,4 @@
-import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps"
+// import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps"
 import { TextField, Button } from '@material-ui/core'
 import { useRef, useState, useEffect } from 'react'
 import UpdateStoreAddress from '../../mutations/UpdateStoreAddress'
@@ -9,24 +9,24 @@ import { createFragmentContainer } from 'react-relay'
 const initialLatLng = { lat: -7.431391, lng: 109.247833 }
 const FOOTER_HEIGHT = 210
 
-const MyMapComponent = withScriptjs(withGoogleMap((props) => {
-  const onCenterChanged = () => {
-    const obj = props.mapRef.current.getCenter()
-    const lat = obj.lat()
-    const lng = obj.lng()
-    props.onCenterChanged({ lat, lng })
-  }
+// const MyMapComponent = withScriptjs(withGoogleMap((props) => {
+//   const onCenterChanged = () => {
+//     const obj = props.mapRef.current.getCenter()
+//     const lat = obj.lat()
+//     const lng = obj.lng()
+//     props.onCenterChanged({ lat, lng })
+//   }
 
-  return (
-    <GoogleMap
-      ref={props.mapRef}
-      defaultZoom={18}
-      defaultCenter={initialLatLng}
-      onCenterChanged={onCenterChanged}
-    >
-    </GoogleMap>
-  )
-}))
+//   return (
+//     <GoogleMap
+//       ref={props.mapRef}
+//       defaultZoom={18}
+//       defaultCenter={initialLatLng}
+//       onCenterChanged={onCenterChanged}
+//     >
+//     </GoogleMap>
+//   )
+// }))
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -87,7 +87,7 @@ const Component = props => {
         bottom: FOOTER_HEIGHT,
         width: '100%'
       }}>
-        <MyMapComponent 
+        {/* <MyMapComponent 
           mapRef={mapRef}
           isMarkerShown={false} 
           googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
@@ -95,7 +95,7 @@ const Component = props => {
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}
           onCenterChanged={onCenterChanged}
-        />
+        /> */}
         <div 
         
         style={{
