@@ -17,9 +17,6 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       "React": "react",
-    }),
-    new webpack.DefinePlugin({
-      'process.env.BROWSER': JSON.stringify(true)
     })
   ],
 
@@ -30,10 +27,6 @@ module.exports = {
         use: 'babel-loader',
         exclude: /node_modules/
       },
-      // {
-      //   test: /\.css$/i,
-      //   use: ["style-loader", "css-loader"]
-      // },
       {
         test: /\.css$/,
         use: [
