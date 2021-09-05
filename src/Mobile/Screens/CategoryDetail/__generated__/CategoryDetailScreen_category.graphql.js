@@ -22,6 +22,9 @@ export type CategoryDetailScreen_category = {|
     +id: ?string,
     +name: ?string,
   |}>,
+  +icon: ?{|
+    +url: ?string
+  |},
   +$refType: CategoryDetailScreen_category$ref,
 |};
 export type CategoryDetailScreen_category$data = CategoryDetailScreen_category;
@@ -96,6 +99,24 @@ return {
         (v1/*: any*/)
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Image",
+      "kind": "LinkedField",
+      "name": "icon",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "url",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Category",
@@ -103,6 +124,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '63d790d67f80764e90ce569e8baf5dfe';
+(node/*: any*/).hash = '0c690cfb02736e3c09f8d4e30f62bb50';
 
 module.exports = node;

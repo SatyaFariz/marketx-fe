@@ -53,6 +53,10 @@ fragment CategoryDetailScreen_category on Category {
     id
     name
   }
+  icon {
+    url
+    id
+  }
 }
 */
 
@@ -189,6 +193,25 @@ return {
               (v4/*: any*/)
             ],
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Image",
+            "kind": "LinkedField",
+            "name": "icon",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "url",
+                "storageKey": null
+              },
+              (v1/*: any*/)
+            ],
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -196,12 +219,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e624f416b1f251bc9a493c046518b269",
+    "cacheID": "eec4f9a7e01ec4047e0885a493374e1e",
     "id": null,
     "metadata": {},
     "name": "CategoryDetailScreenQuery",
     "operationKind": "query",
-    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  listingType\n  ancestors {\n    id\n    name\n  }\n}\n"
+    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  listingType\n  ancestors {\n    id\n    name\n  }\n  icon {\n    url\n    id\n  }\n}\n"
   }
 };
 })();
