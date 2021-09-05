@@ -66,8 +66,8 @@ fragment CategoryDetailScreen_category on Category {
     max
     min
     attribute {
-      name
       id
+      name
     }
     id
   }
@@ -121,7 +121,11 @@ v4 = {
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
-};
+},
+v5 = [
+  (v1/*: any*/),
+  (v4/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -202,10 +206,7 @@ return {
             "kind": "LinkedField",
             "name": "ancestors",
             "plural": true,
-            "selections": [
-              (v1/*: any*/),
-              (v4/*: any*/)
-            ],
+            "selections": (v5/*: any*/),
             "storageKey": null
           },
           {
@@ -291,10 +292,7 @@ return {
                 "kind": "LinkedField",
                 "name": "attribute",
                 "plural": false,
-                "selections": [
-                  (v4/*: any*/),
-                  (v1/*: any*/)
-                ],
+                "selections": (v5/*: any*/),
                 "storageKey": null
               },
               (v1/*: any*/)
@@ -307,12 +305,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0aa390787eebe7a20b682aadadc9fe11",
+    "cacheID": "af12617f90ea5b138a11e6f9dba3f7ea",
     "id": null,
     "metadata": {},
     "name": "CategoryDetailScreenQuery",
     "operationKind": "query",
-    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  listingType\n  ancestors {\n    id\n    name\n  }\n  icon {\n    url\n    id\n  }\n  specFields {\n    type\n    isRequired\n    isEnum\n    isAutocomplete\n    options\n    max\n    min\n    attribute {\n      name\n      id\n    }\n    id\n  }\n}\n"
+    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  listingType\n  ancestors {\n    id\n    name\n  }\n  icon {\n    url\n    id\n  }\n  specFields {\n    type\n    isRequired\n    isEnum\n    isAutocomplete\n    options\n    max\n    min\n    attribute {\n      id\n      name\n    }\n    id\n  }\n}\n"
   }
 };
 })();

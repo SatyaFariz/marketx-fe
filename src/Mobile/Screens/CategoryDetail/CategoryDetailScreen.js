@@ -43,20 +43,20 @@ const Accordion = withStyles({
   expanded: {},
 })(MuiAccordion)
 
-const specFieldTypes = [
-  {
-    label: 'Text',
-    value: 'string'
-  },
-  {
-    label: 'Year',
-    value: 'year'
-  },
-  {
-    label: 'Integer',
-    value: 'int'
-  }
-]
+// const specFieldTypes = [
+//   {
+//     label: 'Text',
+//     value: 'string'
+//   },
+//   {
+//     label: 'Year',
+//     value: 'year'
+//   },
+//   {
+//     label: 'Integer',
+//     value: 'int'
+//   }
+// ]
 
 const Component = props => {
   const isMounted = useRef(true)
@@ -69,6 +69,10 @@ const Component = props => {
   const [validation, setValidation] = useState({ isValid: false })
   const [specFields, setSpecFields] = useState(category.specFields.map((field, i) => ({
     ...field,
+    type: field.type || 'string',
+    isRequired: field.isRequired || false,
+    isAutocomplete: field.isAutocomplete || false,
+    isEnum: field.isEnum || false,
     options: (field.options || []).join(', ') || '',
     key: i,
     expanded: false,
@@ -298,8 +302,10 @@ const Component = props => {
                       </div>
                     </AccordionSummary>
                     <AccordionDetails>
-                      <div>
-                        <TextField
+                      <div style={{
+                        flexGrow: 1
+                      }}>
+                        {/* <TextField
                           select
                           variant="outlined"
                           label="Type"
@@ -319,8 +325,45 @@ const Component = props => {
                               {option.label}
                             </MenuItem>
                           ))}
-                        </TextField>
+                        </TextField> */}
+                        
+                        {field.type === 'int' &&
+                        <>
+                          <TextField
+                            variant="outlined"
+                            label="Max"
+                            fullWidth
+                            disabled={loading}
+                            style={{
+                              marginTop: 10,
+                              marginBottom: 10
+                            }}
+                            multiline
+                            onChange={e => setFields(i, 'max', e.target.value.trimLeft())}
+                            value={field.max}
+                            error={validation?.name?.isInvalid}
+                            helperText={validation?.name?.message}
+                          />
 
+                          <TextField
+                            variant="outlined"
+                            label="Min"
+                            fullWidth
+                            disabled={loading}
+                            style={{
+                              marginTop: 10,
+                              marginBottom: 10
+                            }}
+                            multiline
+                            onChange={e => setFields(i, 'min', e.target.value.trimLeft())}
+                            value={field.max}
+                            error={validation?.name?.isInvalid}
+                            helperText={validation?.name?.message}
+                          />
+                        </>
+                        }
+
+                        {field.type === 'string' &&
                         <TextField
                           variant="outlined"
                           label="Options"
@@ -336,6 +379,62 @@ const Component = props => {
                           error={validation?.name?.isInvalid}
                           helperText={validation?.name?.message}
                         />
+                        }
+
+                        <div style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          marginTop: 10,
+                          marginBottom: 10
+                        }}>
+                          <span>Required</span>
+
+                          <Switch
+                            checked={field.isRequired}
+                            onChange={() => setFields(i, 'isRequired', !field.isRequired)}
+                            disabled={loading}
+                          />
+                        </div>
+
+                        {field.type === 'string' &&
+                        <>
+                          <div style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            marginTop: 10,
+                            marginBottom: 10
+                          }}>
+                            <span>Autocomplete</span>
+
+                            <Switch
+                              checked={field.isAutocomplete}
+                              onChange={() => setFields(i, 'isAutocomplete', !field.isAutocomplete)}
+                              disabled={loading}
+                            />
+                          </div>
+
+                          <div style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            marginTop: 10,
+                            marginBottom: 10
+                          }}>
+                            <span>Enum</span>
+
+                            <Switch
+                              checked={field.isEnum}
+                              onChange={() => setFields(i, 'isEnum', !field.isEnum)}
+                              disabled={loading}
+                            />
+                          </div>
+                        </>
+                        }
                       </div>
                     </AccordionDetails>
                   </Accordion>
@@ -376,6 +475,7 @@ export default createFragmentContainer(Component, {
         max,
         min,
         attribute {
+          id,
           name
         }
       }

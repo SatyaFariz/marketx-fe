@@ -34,7 +34,8 @@ export type CategoryDetailScreen_category = {|
     +max: ?number,
     +min: ?number,
     +attribute: ?{|
-      +name: ?string
+      +id: ?string,
+      +name: ?string,
     |},
   |}>,
   +$refType: CategoryDetailScreen_category$ref,
@@ -62,7 +63,11 @@ v1 = {
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
-};
+},
+v2 = [
+  (v0/*: any*/),
+  (v1/*: any*/)
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -106,10 +111,7 @@ return {
       "kind": "LinkedField",
       "name": "ancestors",
       "plural": true,
-      "selections": [
-        (v0/*: any*/),
-        (v1/*: any*/)
-      ],
+      "selections": (v2/*: any*/),
       "storageKey": null
     },
     {
@@ -194,9 +196,7 @@ return {
           "kind": "LinkedField",
           "name": "attribute",
           "plural": false,
-          "selections": [
-            (v1/*: any*/)
-          ],
+          "selections": (v2/*: any*/),
           "storageKey": null
         }
       ],
@@ -208,6 +208,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '2b9e873e8048d660c6dad18b3051b4df';
+(node/*: any*/).hash = 'e87dedef0b73d267b2a2443c246640b7';
 
 module.exports = node;
