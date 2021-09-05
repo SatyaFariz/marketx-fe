@@ -25,6 +25,18 @@ export type CategoryDetailScreen_category = {|
   +icon: ?{|
     +url: ?string
   |},
+  +specFields: ?$ReadOnlyArray<?{|
+    +type: ?string,
+    +isRequired: ?boolean,
+    +isEnum: ?boolean,
+    +isAutocomplete: ?boolean,
+    +options: ?$ReadOnlyArray<?string>,
+    +max: ?number,
+    +min: ?number,
+    +attribute: ?{|
+      +name: ?string
+    |},
+  |}>,
   +$refType: CategoryDetailScreen_category$ref,
 |};
 export type CategoryDetailScreen_category$data = CategoryDetailScreen_category;
@@ -117,6 +129,78 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "SpecificationField",
+      "kind": "LinkedField",
+      "name": "specFields",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "type",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "isRequired",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "isEnum",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "isAutocomplete",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "options",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "max",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "min",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Attribute",
+          "kind": "LinkedField",
+          "name": "attribute",
+          "plural": false,
+          "selections": [
+            (v1/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Category",
@@ -124,6 +208,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0c690cfb02736e3c09f8d4e30f62bb50';
+(node/*: any*/).hash = '2b9e873e8048d660c6dad18b3051b4df';
 
 module.exports = node;

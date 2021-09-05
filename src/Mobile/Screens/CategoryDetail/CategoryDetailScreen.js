@@ -4,7 +4,44 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import BackButton from '../../Components/BackButton'
 import { FcStackOfPhotos } from 'react-icons/fc'
 import { useState, useEffect, useRef } from 'react'
-import { TextField, Switch } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+import { TextField, Switch, Accordion as MuiAccordion, AccordionSummary as MuiAccordionSummary, AccordionDetails } from '@material-ui/core'
+import Button from '../../Components/Button'
+
+const AccordionSummary = withStyles({
+  root: {
+    backgroundColor: 'rgba(0, 0, 0, .03)',
+    borderBottom: '1px solid rgba(0, 0, 0, .125)',
+    marginBottom: -1,
+    minHeight: 56,
+    '&$expanded': {
+      minHeight: 56,
+    },
+  },
+  content: {
+    '&$expanded': {
+      margin: '12px 0',
+    },
+  },
+  expanded: {},
+})(MuiAccordionSummary)
+
+const Accordion = withStyles({
+  root: {
+    // border: '1px solid rgba(0, 0, 0, .125)',
+    boxShadow: 'none',
+    '&:not(:last-child)': {
+      borderBottom: 0,
+    },
+    '&:before': {
+      display: 'none',
+    },
+    '&$expanded': {
+      margin: 'auto',
+    },
+  },
+  expanded: {},
+})(MuiAccordion)
 
 const Component = props => {
   const isMounted = useRef(true)
@@ -15,6 +52,20 @@ const Component = props => {
   const [isPublished, setIsPublished] = useState(category.isPublished || false)
   const [loading, setLoading] = useState(false)
   const [validation, setValidation] = useState({ isValid: false })
+  const [specFields, setSpecFields] = useState(category.specFields.map((field, i) => ({
+    ...field,
+    key: i,
+    expanded: false,
+    deleted: false
+  })))
+
+  const setFields = (i, key, value) => {
+    setSpecFields(prev => {
+      const copy = [...prev]
+      copy[i][key] = value
+      return copy
+    })
+  }
 
   useEffect(() => {
     return () => isMounted.current = false
@@ -185,6 +236,76 @@ const Component = props => {
               disabled={loading}
             />
           </div>
+
+          <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}>
+            <h3>Specification Fields</h3>
+            <span>
+              Add
+            </span>
+          </div>
+
+          {category.specFields.length === 0 ?
+          <div>
+            <span>There is no specification fields.</span>
+          </div>
+          :
+          <div>
+            {specFields.map((field, i) => {
+              return (
+                <div key={field.key} style={{ marginBottom: 10 }}>
+                  <Accordion 
+                    expanded={field.deleted ? false : field.expanded}
+                    onChange={field.deleted ? () => {} : () => setFields(i, 'expanded', !field.expanded)}
+                  >
+                    <AccordionSummary>
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        flexGrow: 1
+                      }}>
+                        <span>{field.attribute.name} {field.deleted ? '(Deleted)' : ''}</span>
+                        <Button
+                          label={field.deleted ? 'Undo' : 'Delete'}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setFields(i, 'deleted', !field.deleted)
+                          }}
+                          disabled={loading}
+                        />
+                      </div>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <div>
+                        <TextField
+                          variant="outlined"
+                          label="Type"
+                          fullWidth
+                          disabled={loading}
+                          style={{
+                            marginTop: 10,
+                            marginBottom: 10
+                          }}
+                          onChange={e => setFields(i, 'type', e.target.value.trimLeft())}
+                          value={field.type}
+                          error={validation?.name?.isInvalid}
+                          helperText={validation?.name?.message}
+                        />
+                      </div>
+                    </AccordionDetails>
+                  </Accordion>
+                </div>
+              )
+            })}
+          </div>
+          }
+          
         </div>
       </div>
     </div>
@@ -206,6 +327,18 @@ export default createFragmentContainer(Component, {
       },
       icon {
         url
+      },
+      specFields {
+        type,
+        isRequired,
+        isEnum,
+        isAutocomplete,
+        options,
+        max,
+        min,
+        attribute {
+          name
+        }
       }
     }
   `
