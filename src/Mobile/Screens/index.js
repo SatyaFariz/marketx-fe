@@ -15,6 +15,7 @@ import FAQ from './FAQ'
 import PrivacyPolicy from './PrivacyPolicy'
 import TermsOfService from './TermsOfService'
 import AboutUs from './AboutUs'
+import CategoriesList from './CategoriesList'
 
 const screens = [
   Main,
@@ -33,7 +34,8 @@ const screens = [
   FAQ,
   PrivacyPolicy,
   TermsOfService,
-  AboutUs
+  AboutUs,
+  CategoriesList
 ]
 
 export default screens

@@ -219,6 +219,20 @@ const Component = props => {
                   <span>Featured</span>
                 </div>
               </ButtonBase>
+              <ButtonBase href="/categories" component={Link} style={{
+                display: 'flex'
+              }}>
+                <div style={{
+                  padding: 15,
+                  borderBottom: `1px solid ${DIVIDER_COLOR}`,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  width: '100%'
+                }}>
+                  <span>Kategori</span>
+                </div>
+              </ButtonBase>
             </>
             }
           </div>
