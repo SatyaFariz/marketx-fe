@@ -54,6 +54,7 @@ const Component = props => {
   const [validation, setValidation] = useState({ isValid: false })
   const [specFields, setSpecFields] = useState(category.specFields.map((field, i) => ({
     ...field,
+    options: (field.options || []).join(', ') || '',
     key: i,
     expanded: false,
     deleted: false
@@ -294,6 +295,22 @@ const Component = props => {
                           }}
                           onChange={e => setFields(i, 'type', e.target.value.trimLeft())}
                           value={field.type}
+                          error={validation?.name?.isInvalid}
+                          helperText={validation?.name?.message}
+                        />
+
+                        <TextField
+                          variant="outlined"
+                          label="Options"
+                          fullWidth
+                          disabled={loading}
+                          style={{
+                            marginTop: 10,
+                            marginBottom: 10
+                          }}
+                          multiline
+                          onChange={e => setFields(i, 'options', e.target.value.trimLeft())}
+                          value={field.options}
                           error={validation?.name?.isInvalid}
                           helperText={validation?.name?.message}
                         />
