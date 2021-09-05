@@ -5,7 +5,7 @@ import BackButton from '../../Components/BackButton'
 import { FcStackOfPhotos } from 'react-icons/fc'
 import { useState, useEffect, useRef } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { TextField, Switch, Accordion as MuiAccordion, AccordionSummary as MuiAccordionSummary, AccordionDetails } from '@material-ui/core'
+import { TextField, MenuItem, Switch, Accordion as MuiAccordion, AccordionSummary as MuiAccordionSummary, AccordionDetails } from '@material-ui/core'
 import Button from '../../Components/Button'
 
 const AccordionSummary = withStyles({
@@ -42,6 +42,21 @@ const Accordion = withStyles({
   },
   expanded: {},
 })(MuiAccordion)
+
+const specFieldTypes = [
+  {
+    label: 'Text',
+    value: 'string'
+  },
+  {
+    label: 'Year',
+    value: 'year'
+  },
+  {
+    label: 'Integer',
+    value: 'int'
+  }
+]
 
 const Component = props => {
   const isMounted = useRef(true)
@@ -285,6 +300,7 @@ const Component = props => {
                     <AccordionDetails>
                       <div>
                         <TextField
+                          select
                           variant="outlined"
                           label="Type"
                           fullWidth
@@ -297,7 +313,13 @@ const Component = props => {
                           value={field.type}
                           error={validation?.name?.isInvalid}
                           helperText={validation?.name?.message}
-                        />
+                        >
+                          {specFieldTypes.map((option, i) => (
+                            <MenuItem key={i} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </TextField>
 
                         <TextField
                           variant="outlined"
