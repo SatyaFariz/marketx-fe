@@ -15,6 +15,7 @@ export type Categories_categories = $ReadOnlyArray<{|
   +id: ?string,
   +name: ?string,
   +level: ?number,
+  +isPublished: ?boolean,
   +listingType: ?string,
   +icon: ?{|
     +url: ?string
@@ -93,6 +94,13 @@ return {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "isPublished",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "listingType",
       "storageKey": null
     },
@@ -118,6 +126,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'dd7d97880b4da35ad8e4d4fab4e9afaf';
+(node/*: any*/).hash = '92e6bc7ec1856e29e5b54befbf43606f';
 
 module.exports = node;

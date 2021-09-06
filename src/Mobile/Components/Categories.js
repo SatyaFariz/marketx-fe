@@ -107,7 +107,7 @@ const Component = props => {
         alignContent: 'flex-start'
       }}>
         {(currentTab === -1 ? categories : categories[currentTab].children).map((item, i) => {
-          if(item.level > 2 || (currentTab === -1 && item.level > 1) || ['rental_product', 'service'].includes(item.listingType)) return null
+          if(item.level > 2 || !item.isPublished || (currentTab === -1 && item.level > 1) || ['rental_product', 'service'].includes(item.listingType)) return null
           return (
             <ButtonBase 
               href={`/category/${item.id}`} 
@@ -151,6 +151,7 @@ export default createFragmentContainer(Component, {
       id,
       name,
       level,
+      isPublished,
       listingType,
       icon {
         url
