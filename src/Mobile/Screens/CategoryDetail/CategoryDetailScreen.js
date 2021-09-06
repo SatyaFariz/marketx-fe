@@ -77,6 +77,8 @@ const Component = props => {
     isAutocomplete: field.isAutocomplete || false,
     isEnum: field.isEnum || false,
     options: (field.options || []).join(', ') || '',
+    min: field.min?.toString() || '',
+    max: field.max?.toString() || '',
     key: i,
     expanded: false,
     deleted: false
@@ -120,12 +122,12 @@ const Component = props => {
           return {
             attributeId: field.attribute.id,
             type: field.type,
-            options: field.options.split(',').map(item => item.trim()),
+            options: field.options.trim().length === 0 ? [] : field.options.split(',').map(item => item.trim()),
             isRequired: field.isRequired,
             isAutocomplete: field.isAutocomplete,
             isEnum: field.isEnum,
-            max: field.max,
-            min: field.min
+            max: field.max.trim().length > 0 ? parseFloat(field.max, 10) : null,
+            min: field.min.trim().length > 0 ? parseFloat(field.min, 10) : null
           }
         })
       }
@@ -423,7 +425,7 @@ const Component = props => {
                             }}
                             multiline
                             onChange={e => setFields(i, 'min', e.target.value.trimLeft())}
-                            value={field.max}
+                            value={field.min}
                             error={validation?.name?.isInvalid}
                             helperText={validation?.name?.message}
                           />
