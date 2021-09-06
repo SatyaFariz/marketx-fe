@@ -1,9 +1,14 @@
 # source: http://localhost:4000/graphql
-# timestamp: Tue Aug 24 2021 19:34:35 GMT+0700 (Western Indonesia Time)
+# timestamp: Mon Sep 06 2021 23:51:36 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
   message: String
+}
+
+type ActionOnCategoryPayload {
+  actionInfo: ActionInfo
+  category: Category
 }
 
 type ActionOnProductPayload {
@@ -67,6 +72,17 @@ type Category {
   specFields: [SpecificationField]
 }
 
+input CategorySpecificationFieldInput {
+  attributeId: String!
+  type: String!
+  options: [String!]!
+  isRequired: Boolean!
+  isAutocomplete: Boolean
+  isEnum: Boolean
+  max: Float
+  min: Float
+}
+
 """
 The Email scalar type represents E-Mail addresses compliant to RFC 822.
 """
@@ -113,8 +129,10 @@ type Mutation {
   updateStoreBanner(id: String!): ActionOnStorePayload
   updateSpecField(id: String!, type: String!, max: Int, min: Int, options: [String!], isEnum: Boolean, isAutocomplete: Boolean): String
   updateProductCat(id: String!, path: String!): String
-  createSubcategory(parentId: String!, name: String!): String
+  createCategory(name: String!, listingType: String, requiresProductCondition: Boolean!, showsProductConditionField: Boolean!, iconUrl: String!): String
+  createSubcategory(parentId: String!, name: String!, iconUrl: String!): String
   createPost(title: String!, content: String!, type: String!): String
+  updateCategory(input: UpdateCategoryInput!): ActionOnCategoryPayload
 }
 
 """Information about pagination in a connection."""
@@ -282,6 +300,15 @@ type Unit {
   display: String
   name: String
   value: Float
+}
+
+input UpdateCategoryInput {
+  id: String!
+  name: String!
+  isPublished: Boolean!
+  showsProductConditionField: Boolean
+  requiresProductCondition: Boolean
+  specFields: [CategorySpecificationFieldInput!]!
 }
 
 input UpdateProfileInput {

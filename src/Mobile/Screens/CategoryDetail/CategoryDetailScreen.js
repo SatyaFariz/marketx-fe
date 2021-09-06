@@ -7,6 +7,8 @@ import { useState, useEffect, useRef } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { TextField, MenuItem, Switch, Accordion as MuiAccordion, AccordionSummary as MuiAccordionSummary, AccordionDetails } from '@material-ui/core'
 import Button from '../../Components/Button'
+import Validator from '../../../helpers/validator'
+import UpdateCategory from '../../../mutations/UpdateCategory'
 
 const AccordionSummary = withStyles({
   root: {
@@ -60,6 +62,7 @@ const Accordion = withStyles({
 
 const Component = props => {
   const isMounted = useRef(true)
+  const { environment } = props.relay
   const { category } = props
   const [name, setName] = useState(category.name)
   const [showsProductConditionField, setShowsProductConditionField] = useState(category.showsProductConditionField || false)
@@ -87,6 +90,60 @@ const Component = props => {
     })
   }
 
+  const isValid = () => {
+    const validator = new Validator([
+      {
+        field: 'name',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'This field is required.'
+      }
+    ])
+
+    const validation = validator.validate({
+      name
+    })
+
+    setValidation(validation)
+    return validation.isValid
+  }
+
+  const save = () => {
+    if(isValid() && !loading) {
+      const input = {
+        id: category.id,
+        name,
+        showsProductConditionField,
+        requiresProductCondition,
+        isPublished,
+        specFields: specFields.map(field => {
+          return {
+            attributeId: field.attribute.id,
+            type: field.type,
+            options: field.options.split(',').map(item => item.trim()),
+            isRequired: field.isRequired,
+            isAutocomplete: field.isAutocomplete,
+            isEnum: field.isEnum,
+            max: field.max,
+            min: field.min
+          }
+        })
+      }
+
+      UpdateCategory(environment, { input }, null, (payload, error) => {
+        if(error) console.log(error)
+        else if(payload) {
+          const { message } = payload.actionInfo
+          alert(message)
+        }
+
+        isMounted.current && setLoading(false)
+      })
+
+      setLoading(true)
+    }
+  }
+
   useEffect(() => {
     return () => isMounted.current = false
   }, [])
@@ -104,12 +161,22 @@ const Component = props => {
         width: '100%',
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'space-between',
         position: 'sticky',
         top: 0,
         zIndex: 9999,
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
         <BackButton/>
+        <Button
+          label="Save"
+          onClick={save}
+          loading={loading}
+          style={{
+            marginRight: 15,
+            zIndex: 9
+          }}
+        />
         
         <div style={{
           position: 'absolute',
