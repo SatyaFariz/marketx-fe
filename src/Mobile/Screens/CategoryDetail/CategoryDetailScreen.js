@@ -5,10 +5,11 @@ import BackButton from '../../Components/BackButton'
 import { FcStackOfPhotos } from 'react-icons/fc'
 import { useState, useEffect, useRef } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { TextField, MenuItem, Switch, Accordion as MuiAccordion, AccordionSummary as MuiAccordionSummary, AccordionDetails } from '@material-ui/core'
+import { TextField, InputAdornment, Switch, Accordion as MuiAccordion, AccordionSummary as MuiAccordionSummary, AccordionDetails } from '@material-ui/core'
 import Button from '../../Components/Button'
 import Validator from '../../../helpers/validator'
 import UpdateCategory from '../../../mutations/UpdateCategory'
+import NumberFormat from 'react-number-format'
 
 const AccordionSummary = withStyles({
   root: {
@@ -374,60 +375,55 @@ const Component = props => {
                       <div style={{
                         flexGrow: 1
                       }}>
-                        {/* <TextField
-                          select
-                          variant="outlined"
-                          label="Type"
-                          fullWidth
-                          disabled={loading}
-                          style={{
-                            marginTop: 10,
-                            marginBottom: 10
-                          }}
-                          onChange={e => setFields(i, 'type', e.target.value.trimLeft())}
-                          value={field.type}
-                          error={validation?.name?.isInvalid}
-                          helperText={validation?.name?.message}
-                        >
-                          {specFieldTypes.map((option, i) => (
-                            <MenuItem key={i} value={option.value}>
-                              {option.label}
-                            </MenuItem>
-                          ))}
-                        </TextField> */}
                         
                         {field.type === 'int' &&
                         <>
-                          <TextField
+                          <NumberFormat
+                            customInput={TextField}
                             variant="outlined"
                             label="Max"
+                            value={field.max}
+                            onValueChange={({ value }) => setFields(i, 'max', value.trimLeft())}
                             fullWidth
                             disabled={loading}
                             style={{
                               marginTop: 10,
                               marginBottom: 10
                             }}
-                            multiline
-                            onChange={e => setFields(i, 'max', e.target.value.trimLeft())}
-                            value={field.max}
-                            error={validation?.name?.isInvalid}
-                            helperText={validation?.name?.message}
+                            inputProps={{
+                              pattern: "[0-9]*",
+                              type: "text",
+                              inputMode: "numeric"
+                            }}
+                            // error={validation?.price?.isInvalid}
+                            // helperText={validation?.price?.message}
+                            allowNegative={false}
+                            decimalSeparator={null}
+                            thousandSeparator="."
                           />
 
-                          <TextField
+                          <NumberFormat
+                            customInput={TextField}
                             variant="outlined"
                             label="Min"
+                            value={field.min}
+                            onValueChange={({ value }) => setFields(i, 'min', value.trimLeft())}
                             fullWidth
                             disabled={loading}
                             style={{
                               marginTop: 10,
                               marginBottom: 10
                             }}
-                            multiline
-                            onChange={e => setFields(i, 'min', e.target.value.trimLeft())}
-                            value={field.min}
-                            error={validation?.name?.isInvalid}
-                            helperText={validation?.name?.message}
+                            inputProps={{
+                              pattern: "[0-9]*",
+                              type: "text",
+                              inputMode: "numeric"
+                            }}
+                            // error={validation?.price?.isInvalid}
+                            // helperText={validation?.price?.message}
+                            allowNegative={false}
+                            decimalSeparator={null}
+                            thousandSeparator="."
                           />
                         </>
                         }
@@ -445,8 +441,6 @@ const Component = props => {
                           multiline
                           onChange={e => setFields(i, 'options', e.target.value.trimLeft())}
                           value={field.options}
-                          error={validation?.name?.isInvalid}
-                          helperText={validation?.name?.message}
                         />
                         }
 
