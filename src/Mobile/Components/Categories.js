@@ -159,6 +159,7 @@ export default createFragmentContainer(Component, {
       children {
         id,
         name,
+        isPublished,
         level,
         icon {
           url
