@@ -5,11 +5,15 @@ import BackButton from '../../Components/BackButton'
 import { FcStackOfPhotos } from 'react-icons/fc'
 import { useState, useEffect, useRef } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { TextField, InputAdornment, Switch, Accordion as MuiAccordion, AccordionSummary as MuiAccordionSummary, AccordionDetails } from '@material-ui/core'
+import { TextField, Switch, Accordion as MuiAccordion, AccordionSummary as MuiAccordionSummary, AccordionDetails } from '@material-ui/core'
 import Button from '../../Components/Button'
 import Validator from '../../../helpers/validator'
 import UpdateCategory from '../../../mutations/UpdateCategory'
 import NumberFormat from 'react-number-format'
+import { useDropzone } from 'react-dropzone'
+import { fromImage } from 'imtool'
+
+const megabytes = 1048576
 
 const AccordionSummary = withStyles({
   root: {
@@ -46,25 +50,11 @@ const Accordion = withStyles({
   expanded: {},
 })(MuiAccordion)
 
-// const specFieldTypes = [
-//   {
-//     label: 'Text',
-//     value: 'string'
-//   },
-//   {
-//     label: 'Year',
-//     value: 'year'
-//   },
-//   {
-//     label: 'Integer',
-//     value: 'int'
-//   }
-// ]
-
 const Component = props => {
   const isMounted = useRef(true)
   const { environment } = props.relay
   const { category } = props
+  const [file, setFile] = useState(null)
   const [name, setName] = useState(category.name)
   const [showsProductConditionField, setShowsProductConditionField] = useState(category.showsProductConditionField || false)
   const [requiresProductCondition, setRequiresProductCondition] = useState(category.requiresProductCondition || false)
@@ -84,6 +74,24 @@ const Component = props => {
     expanded: false,
     deleted: false
   })))
+
+  const { getRootProps, getInputProps } = useDropzone({
+    // Disable click and keydown behavior
+    accept: 'image/jpeg',
+    disabled: loading,
+    maxSize: 6 * megabytes,
+    maxFiles: 1,
+    onDrop: async (acceptedFiles) => {
+      if(acceptedFiles.length > 0) {
+        const file = acceptedFiles[0]
+        const tool = await fromImage(file)
+        const image = await tool.quality(0.4).toFile(file.name)
+        image.preview = URL.createObjectURL(image)
+        setFile(image)
+      }
+    },
+    onDropRejected: () => console.log('Rejected')
+  })
 
   const setFields = (i, key, value) => {
     setSpecFields(prev => {
@@ -133,14 +141,17 @@ const Component = props => {
         })
       }
 
-      UpdateCategory(environment, { input }, null, (payload, error) => {
+      UpdateCategory(environment, { input }, file, (payload, error) => {
         if(error) console.log(error)
         else if(payload) {
           const { message } = payload.actionInfo
           alert(message)
         }
 
-        isMounted.current && setLoading(false)
+        if(isMounted.current) {
+          setFile(null)
+          setLoading(false)
+        }
       })
 
       setLoading(true)
@@ -233,27 +244,53 @@ const Component = props => {
             paddingBottom: 20
           }}>
             {category.icon ?
-            <img
-              alt={category.name}
-              src={category.icon?.url}
-              style={{
-                height: 60,
-                width: 60,
-                borderRadius: '50%'
-              }}
-            />
-            :
-            <div style={{
-              height: 60,
-              width: 60,
-              borderRadius: '50%',
-              backgroundColor: '#f1f1f1',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              <FcStackOfPhotos size={30}/>
+            <div {...getRootProps({className: 'dropzone'})}>
+              <img
+                alt={category.name}
+                src={file ? file.preview : category.icon?.url}
+                style={{
+                  height: 60,
+                  width: 60,
+                  borderRadius: '50%',
+                  objectFit: 'cover'
+                }}
+              />
+              <input {...getInputProps()} />
             </div>
+            :
+            <>
+              {file ?
+              <div {...getRootProps({className: 'dropzone'})}>
+                <img
+                  alt={category.name}
+                  src={file.preview}
+                  style={{
+                    height: 60,
+                    width: 60,
+                    borderRadius: '50%',
+                    objectFit: 'cover'
+                  }}
+                />
+                <input {...getInputProps()} />
+              </div>
+              :
+              <div
+                style={{
+                  height: 60,
+                  width: 60,
+                  borderRadius: '50%',
+                  backgroundColor: '#f1f1f1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                {...getRootProps({className: 'dropzone'})}
+              >
+                <FcStackOfPhotos size={30}/>
+                <input {...getInputProps()} />
+              </div>
+              }
+            </>
             }
           </div>
           
