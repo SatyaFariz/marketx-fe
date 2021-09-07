@@ -32,14 +32,14 @@ const Component = props => {
   const _isMounted = useRef(true)
   const { store } = props
   const { environment } = useAppContext()
-  const [latLng, setLatLng] = useState(store.address ? { lat: store.lat, lng: store.lng } : initialLatLng)
+  const [latLng/*, setLatLng*/] = useState(store.address ? { lat: store.lat, lng: store.lng } : initialLatLng)
   const [fullAddress, setFullAddress] = useState(store.address?.fullAddress || '')
   const [loading, setLoading] = useState(false)
-  const mapRef = useRef()
+  // const mapRef = useRef()
 
-  const onCenterChanged = (latLng) => {
-    setLatLng(latLng)
-  }
+  // const onCenterChanged = (latLng) => {
+  //   setLatLng(latLng)
+  // }
 
   const _setFullAddress = e => {
     setFullAddress(e.target.value.trimLeft())
