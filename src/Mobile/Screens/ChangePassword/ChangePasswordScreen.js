@@ -18,25 +18,6 @@ const Component = props => {
   const [loading, setLoading] = useState(false)
   const [validation, setValidation] = useState({ isValid: false })
 
-  // const request = () => {
-  //   if(!loading) {
-  //     setLoading(true)
-  //     RequestPasswordResetLink(environment, { email }, (payload, error) => {
-  //       if(error) {
-  //         console.log(error)
-  //       } else if(payload) {
-  //         const { hasError, message } = payload
-  //         alert(message)
-  //         if(!hasError) {
-  //           // do sth
-  //         }
-  //       }
-
-  //       _isMounted.current && setLoading(false)
-  //     })
-  //   }
-  // }
-
   const isValid = () => {
     const validator = new Validator([
       {
