@@ -21,7 +21,7 @@ const Reset = (environment, variables, callback) => {
           if(err)
             callback(null, err)
           else {
-            const payload = res.login
+            const payload = res.resetPassword
             callback(payload, null)
           }
         }

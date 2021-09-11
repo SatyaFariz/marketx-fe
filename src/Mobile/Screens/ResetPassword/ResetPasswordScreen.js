@@ -56,7 +56,7 @@ const Component = props => {
     if(isValid() && !loading) {
       const variables = {
         id: '60f4320604b7cc0455c7b6bb',
-        token: '123',
+        token: '$2a$10$QAuK638jIBn3E1VF/kjDf.PJDr.x2qc6mNzY8hbTKNiDAbhoRGNcS',
         newPassword: password
       }
       setLoading(true)
