@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Sep 12 2021 02:09:38 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Sep 12 2021 02:27:39 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -235,6 +235,7 @@ enum ProductTypeEnum {
 
 type Query {
   mobileNumberExists(mobileNumber: String!): Boolean
+  emailExists(email: Email!): Boolean
   me: User
   attributes: [Attribute]
   categories(hasChild: Boolean): [Category]

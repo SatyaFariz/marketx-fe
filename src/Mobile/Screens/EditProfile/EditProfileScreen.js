@@ -27,6 +27,7 @@ const Component = props => {
   const [url, setUrl] = useState(profilePictureUrl)
   const { environment, history } = useAppContext()
   const [name, setName] = useState(me?.name)
+  const [email] = useState(me?.email || '')
   const [mobileNumber, setMobileNumber] = useState(myCurrentMobileNumber)
   const [mobileNumberDebounced] = useDebounce(mobileNumber, 500)
   const [validation, setValidation] = useState({ isValid: false })
@@ -280,7 +281,7 @@ const Component = props => {
               marginTop: 10,
               marginBottom: 10
             }}
-            value={me?.email || ''}
+            value={email}
           />
 
           {false &&

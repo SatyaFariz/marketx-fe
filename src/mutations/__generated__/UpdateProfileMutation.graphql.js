@@ -10,8 +10,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 export type UpdateProfileInput = {|
   name: string,
-  mobileNumber: string,
-  email?: ?any,
+  mobileNumber?: ?string,
 |};
 export type UpdateProfileMutationVariables = {|
   otpCode?: ?string,
