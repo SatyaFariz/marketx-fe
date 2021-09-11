@@ -147,6 +147,7 @@ const Component = props => {
             }}
             onChange={(e) => setEmail(e.target.value.trim())}
             value={email}
+            type="email"
           />
 
           <TextField
