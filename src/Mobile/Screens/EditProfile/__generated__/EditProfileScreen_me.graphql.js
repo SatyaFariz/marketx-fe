@@ -14,7 +14,7 @@ declare export opaque type EditProfileScreen_me$fragmentType: EditProfileScreen_
 export type EditProfileScreen_me = {|
   +id: ?string,
   +name: ?string,
-  +mobileNumber: ?string,
+  +email: ?string,
   +profilePicture: ?{|
     +url: ?string
   |},
@@ -53,7 +53,7 @@ const node/*: ReaderFragment*/ = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "mobileNumber",
+      "name": "email",
       "storageKey": null
     },
     {
@@ -79,6 +79,6 @@ const node/*: ReaderFragment*/ = {
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = '23e3d2a983021bf7d2667399e7429d07';
+(node/*: any*/).hash = 'e74414ec026d7a3e874d36fbd18d5323';
 
 module.exports = node;

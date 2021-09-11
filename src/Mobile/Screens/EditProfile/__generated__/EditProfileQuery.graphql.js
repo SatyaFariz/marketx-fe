@@ -34,7 +34,7 @@ query EditProfileQuery {
 fragment EditProfileScreen_me on User {
   id
   name
-  mobileNumber
+  email
   profilePicture {
     url
     id
@@ -104,7 +104,7 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "mobileNumber",
+            "name": "email",
             "storageKey": null
           },
           {
@@ -132,12 +132,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b98a5fcf42867195026f44b643b2ab5c",
+    "cacheID": "8e134120b139609f1d538b7148d67041",
     "id": null,
     "metadata": {},
     "name": "EditProfileQuery",
     "operationKind": "query",
-    "text": "query EditProfileQuery {\n  me {\n    id\n    ...EditProfileScreen_me\n  }\n}\n\nfragment EditProfileScreen_me on User {\n  id\n  name\n  mobileNumber\n  profilePicture {\n    url\n    id\n  }\n}\n"
+    "text": "query EditProfileQuery {\n  me {\n    id\n    ...EditProfileScreen_me\n  }\n}\n\nfragment EditProfileScreen_me on User {\n  id\n  name\n  email\n  profilePicture {\n    url\n    id\n  }\n}\n"
   }
 };
 })();
