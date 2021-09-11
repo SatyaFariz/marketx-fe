@@ -163,11 +163,23 @@ const Component = props => {
             type="password"
           />
 
+          <div style={{
+            display: 'flex',
+            justifyContent: 'flex-end'
+          }}>
+            <Link 
+              href={'/forgot-password'} 
+              style={{ color: Color.link }}
+            >
+              <span style={{ fontSize: 12 }}>Lupa password</span>
+            </Link>
+          </div>
+
           <Button
             label="Masuk"
             thick
             style={{
-              marginTop: 10,
+              marginTop: 20,
               marginBottom: 10
             }}
             fullWidth
