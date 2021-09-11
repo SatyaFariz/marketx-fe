@@ -5,6 +5,7 @@ import useAppContext from '../../hooks/useAppContext'
 import SendOtpCode from '../../../mutations/SendOtpCode'
 import Validator from '../../../helpers/validator'
 import MobileNumberChecker from '../../../helpers/MobileNumberChecker'
+import EmailChecker from '../../../helpers/EmailChecker'
 import { useDebounce } from 'use-debounce'
 import OTPView from '../../Components/OTPView'
 import Register from '../../../mutations/Register'
@@ -30,9 +31,11 @@ const Component = props => {
   const [emailVerificationCode, setEmailVerificationCode] = useState('')
   const [sendingEmailVerificationCode, setSendingEmailVerificationCode] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [emailDebounced] = useDebounce(email, 500)
   const [mobileNumberDebounced] = useDebounce(mobileNumber, 500)
   const [validation, setValidation] = useState({ isValid: false })
   const [numberExistance, setNumberExistance] = useState(null)
+  const [emailExistance, setEmailExistance] = useState(null)
   const [sendingCode, setSendingCode] = useState(false)
   const [expiry, setExpiry] = useState(null)
   const [showOTPView, setShowOTPView] = useState(false)
@@ -75,6 +78,12 @@ const Component = props => {
         method: v => isEmail(v),
         validWhen: true,
         message: 'Enter a valid email.'
+      },
+      {
+        field: 'email',
+        method: () => emailExistance?.exists === true,
+        validWhen: false,
+        message: 'This email is already registered.'
       },
       {
         field: 'password',
@@ -129,7 +138,7 @@ const Component = props => {
       emailVerificationCode
     } : { name, mobileNumber })
     setValidation(validation)
-    return validation.isValid && numberExistance?.exists !== true
+    return validation.isValid
   }
 
   const sendOtpCode = () => {
@@ -232,6 +241,17 @@ const Component = props => {
       })
     }
   }, [mobileNumberDebounced, environment])
+
+  useEffect(() => {
+    if(!isEmail(email)) {
+      setEmailExistance(null)
+    } else {
+      const checker = new EmailChecker(environment)
+      checker.checkExistance(emailDebounced, (data) => {
+        setEmailExistance(data)
+      })
+    }
+  }, [emailDebounced, environment])
 
   useEffect(() => {
     if(me) {
