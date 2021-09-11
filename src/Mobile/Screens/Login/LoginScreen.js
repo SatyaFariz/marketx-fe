@@ -7,16 +7,22 @@ import Link from '../../Components/Link'
 import Color from '../../Constants/Color'
 import OTPView from '../../Components/OTPView'
 import Login from '../../../mutations/Login'
+import LoginWithEmail from '../../../mutations/LoginWithEmail'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import Button from '../../Components/Button'
 import App from '../../../app.json'
+import { isEmail } from 'validator'
+
+const useEmail = true
 
 const Component = props => {
   const { me } = props
   const _isMounted = useRef(true)
   const { history, environment, resetEnvironment, queryParams } = useAppContext()
   const [mobileNumber, setPhoneNumber] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [sendingCode, setSendingCode] = useState(false)
   const [expiry, setExpiry] = useState(null)
@@ -73,6 +79,27 @@ const Component = props => {
     }
   }
 
+  const loginWithEmail = () => {
+    if(!loading) {
+      setLoading(true)
+      LoginWithEmail(environment, { email, password }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            // do sth
+            history.replace(queryParams?.redirect ?? '/')
+            resetEnvironment()
+          }
+        }
+
+        _isMounted.current && setLoading(false)
+      })
+    }
+  }
+
   useEffect(() => {
     return () => _isMounted.current = false
   }, [])
@@ -107,42 +134,89 @@ const Component = props => {
           marginBottom: 10
         }}>Log in to {App.name}</h1>
 
-        <TextField
-          variant="outlined"
-          label="Mobile Number"
-          fullWidth
-          disabled={loading || sendingCode}
-          style={{
-            marginTop: 10,
-            marginBottom: 10
-          }}
-          onChange={handleChange}
-          value={mobileNumber}
-          placeholder="Ex: 082322343005"
-          inputProps={{
-            pattern: "[0-9]*",
-            type: "text",
-            inputMode: "numeric"
-          }}
-        />
+        {useEmail ?
+        <>
+          <TextField
+            variant="outlined"
+            label="Email"
+            fullWidth
+            disabled={loading}
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            onChange={(e) => setEmail(e.target.value.trimLeft())}
+            value={email}
+          />
 
-        <Button
-          label="Masuk"
-          thick
-          style={{
-            marginTop: 10,
-            marginBottom: 10
-          }}
-          fullWidth
-          onClick={sendOtpCode}
-          loading={sendingCode || loading}
-          disabled={mobileNumber.length < 12}
-        />
+          <TextField
+            variant="outlined"
+            label="Password"
+            fullWidth
+            disabled={loading}
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            onChange={(e) => setPassword(e.target.value.trim())}
+            value={password}
+            type="password"
+          />
 
+          <Button
+            label="Masuk"
+            thick
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            fullWidth
+            onClick={loginWithEmail}
+            loading={loading}
+            disabled={!isEmail(email) || password.length === 0}
+          />
+        </>
+        :
+        <>
+          <TextField
+            variant="outlined"
+            label="Mobile Number"
+            fullWidth
+            disabled={loading || sendingCode}
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            onChange={handleChange}
+            value={mobileNumber}
+            placeholder="Ex: 082322343005"
+            inputProps={{
+              pattern: "[0-9]*",
+              type: "text",
+              inputMode: "numeric"
+            }}
+          />
+
+          <Button
+            label="Masuk"
+            thick
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            fullWidth
+            onClick={sendOtpCode}
+            loading={sendingCode || loading}
+            disabled={mobileNumber.length < 12}
+          />
+        </>
+        }
+        
         <div style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          flexDirection: 'row',
           marginTop: 20
         }}>
           <Link 

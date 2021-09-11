@@ -70,7 +70,7 @@ v2 = [
         "variableName": "mobileNumber"
       }
     ],
-    "concreteType": "SendOtpPayload",
+    "concreteType": "SendVerificationCodePayload",
     "kind": "LinkedField",
     "name": "sendOtpCode",
     "plural": false,

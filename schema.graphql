@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Mon Sep 06 2021 23:51:36 GMT+0700 (Western Indonesia Time)
+# timestamp: Sat Sep 11 2021 20:34:57 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -106,7 +106,12 @@ type Mutation {
   setAttributeIcon(id: String!, url: String!): String
   updateDescription(id: String!, desc: String!): String
   addSpec(id: String!, attributeId: String!, value: String!): String
-  sendOtpCode(mobileNumber: String!, action: UserActionEnum): SendOtpPayload
+  sendOtpCode(mobileNumber: String!, action: UserActionEnum): SendVerificationCodePayload
+  sendVerificationCode(id: String!, action: UserActionEnum): SendVerificationCodePayload
+  requestPasswordResetToken(email: String!): ActionInfo
+  resetPassword(id: String!, token: String!, newPassword: String!): ActionInfo
+  registerWithEmail(name: String!, email: Email!, password: String!, verificationCode: String!): ActionOnUserPayload
+  loginWithEmail(email: String!, password: String!): ActionOnUserPayload
   login(loginId: String!, password: String!): ActionOnUserPayload
   register(name: String!, loginId: String!, password: String!): ActionOnUserPayload
   logout: ActionInfo
@@ -244,7 +249,7 @@ type Query {
   posts(type: PostTypeEnum!, limit: Int!): [Post]
 }
 
-type SendOtpPayload {
+type SendVerificationCodePayload {
   actionInfo: ActionInfo
   cooldownExpiry: String
   expiry: String
@@ -320,6 +325,7 @@ input UpdateProfileInput {
 type User {
   id: ID
   name: String
+  email: String
   isAdmin: Boolean
   mobileNumber: String
   profilePicture: Image
