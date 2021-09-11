@@ -5,7 +5,7 @@ import useAppContext from '../../hooks/useAppContext'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import Button from '../../Components/Button'
-import RequestPasswordResetLink from '../../../mutations/RequestPasswordResetLink'
+import ResetPassword from '../../../mutations/ResetPassword'
 import Validator from '../../../helpers/validator'
 
 const Component = props => {
@@ -16,25 +16,6 @@ const Component = props => {
   const [repassword, setRepassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [validation, setValidation] = useState({ isValid: false })
-
-  // const request = () => {
-  //   if(!loading) {
-  //     setLoading(true)
-  //     RequestPasswordResetLink(environment, { email }, (payload, error) => {
-  //       if(error) {
-  //         console.log(error)
-  //       } else if(payload) {
-  //         const { hasError, message } = payload
-  //         alert(message)
-  //         if(!hasError) {
-  //           // do sth
-  //         }
-  //       }
-
-  //       _isMounted.current && setLoading(false)
-  //     })
-  //   }
-  // }
 
   const isValid = () => {
     const validator = new Validator([
@@ -73,7 +54,25 @@ const Component = props => {
 
   const reset = () => {
     if(isValid() && !loading) {
+      const variables = {
+        id: '60f4320604b7cc0455c7b6bb',
+        token: '123',
+        newPassword: password
+      }
+      setLoading(true)
+      ResetPassword(environment, variables, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload
+          alert(message)
+          if(!hasError) {
+            // do sth
+          }
+        }
 
+        _isMounted.current && setLoading(false)
+      })
     }
   }
 
