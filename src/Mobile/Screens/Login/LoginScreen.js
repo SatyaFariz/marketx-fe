@@ -145,7 +145,7 @@ const Component = props => {
               marginTop: 10,
               marginBottom: 10
             }}
-            onChange={(e) => setEmail(e.target.value.trimLeft())}
+            onChange={(e) => setEmail(e.target.value.trim())}
             value={email}
           />
 

@@ -1,5 +1,5 @@
 import { LOGO_URL } from '../../Constants'
-import { TextField } from '@material-ui/core'
+import { TextField, InputAdornment } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import SendOtpCode from '../../../mutations/SendOtpCode'
@@ -10,7 +10,11 @@ import OTPView from '../../Components/OTPView'
 import Register from '../../../mutations/Register'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
+import clearNonNumericChars from '../../../helpers/cleanNonNumericChars'
 import Button from '../../Components/Button'
+import { isEmail } from 'validator'
+
+const useEmail = true
 
 const Component = props => {
   const { me } = props
@@ -18,6 +22,10 @@ const Component = props => {
   const { history, environment, resetEnvironment, queryParams } = useAppContext()
   const [mobileNumber, setMobileNumber] = useState('')
   const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [repassword, setRepassword] = useState('')
+  const [emailVerificationCode, setEmailVerificationCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [mobileNumberDebounced] = useDebounce(mobileNumber, 500)
   const [validation, setValidation] = useState({ isValid: false })
@@ -36,11 +44,66 @@ const Component = props => {
 
   const setFullname = (e) => {
     const { value } = e.target
-    setName(value)
+    setName(value.trimLeft())
   }
 
   const isValid = () => {
-    const validator = new Validator([
+    const validator = new Validator(useEmail ? [
+      {
+        field: 'name',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'Fill in your name.'
+      },
+      {
+        field: 'name',
+        method: v => v.length > 1,
+        validWhen: true,
+        message: 'Min 2 chars.'
+      },
+      {
+        field: 'email',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'Fill in your email.'
+      },
+      {
+        field: 'email',
+        method: v => isEmail(v),
+        validWhen: true,
+        message: 'Enter a valid email.'
+      },
+      {
+        field: 'password',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'Fill in your password.'
+      },
+      {
+        field: 'repassword',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'Fill in your password confirmation.'
+      },
+      {
+        field: 'repassword',
+        method: () => Validator.isEmpty(password),
+        validWhen: false,
+        message: 'Fill in your password first.'
+      },
+      {
+        field: 'repassword',
+        method: v => v === password,
+        validWhen: true,
+        message: 'Must match your password.'
+      },
+      {
+        field: 'emailVerificationCode',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'Fill in with the code sent to your email.'
+      },
+    ] : [
       {
         field: 'name',
         method: Validator.isEmpty,
@@ -55,7 +118,13 @@ const Component = props => {
       },
     ])
 
-    const validation = validator.validate({ name, mobileNumber })
+    const validation = validator.validate(useEmail ? {
+      name,
+      email,
+      password,
+      repassword,
+      emailVerificationCode
+    } : { name, mobileNumber })
     setValidation(validation)
     return validation.isValid && numberExistance?.exists !== true
   }
@@ -103,6 +172,16 @@ const Component = props => {
     }
   }
 
+  const registerWithEmail = () => {
+    if(isValid() && !loading) {
+
+    }
+  }
+
+  const sendEmailVerificationCode = () => {
+
+  }
+
   useEffect(() => {
     return () => _isMounted.current = false
   }, [])
@@ -148,53 +227,165 @@ const Component = props => {
           marginBottom: 10
         }}>Create a new account</h1>
 
-        <TextField
-          variant="outlined"
-          label="Full Name"
-          fullWidth
-          style={{
-            marginTop: 10,
-            marginBottom: 10
-          }}
-          onChange={setFullname}
-          value={name}
-          disabled={loading || sendingCode}
-          error={validation?.name?.isInvalid}
-          helperText={validation?.name?.message}
-        />
+        {useEmail ?
+        <>
+          <TextField
+            variant="outlined"
+            label="Nama Lengkap"
+            fullWidth
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            onChange={setFullname}
+            value={name}
+            disabled={loading}
+            error={validation?.name?.isInvalid}
+            helperText={validation?.name?.message}
+          />
 
-        <TextField
-          variant="outlined"
-          label="Mobile Number"
-          fullWidth
-          style={{
-            marginTop: 10,
-            marginBottom: 10
-          }}
-          onChange={handleChange}
-          value={mobileNumber}
-          disabled={loading || sendingCode}
-          placeholder="Ex: 082322343005"
-          inputProps={{
-            pattern: "[0-9]*",
-            type: "text",
-            inputMode: "numeric"
-          }}
-          error={numberExistance?.exists || validation?.mobileNumber?.isInvalid}
-          helperText={numberExistance?.exists ? 'This number has already been registered.' : validation?.mobileNumber?.message}
-        />
+          <TextField
+            variant="outlined"
+            label="Email"
+            fullWidth
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            onChange={(e) => setEmail(e.target.value.trim())}
+            value={email}
+            disabled={loading}
+            error={validation?.email?.isInvalid}
+            helperText={validation?.email?.message}
+            type="email"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">
+                  <Button
+                    label="Kirim Kode"
+                    disabled={!isEmail(email)}
+                    onClick={sendEmailVerificationCode}
+                  />
+                </InputAdornment>
+              )
+            }}
+          />
 
-        <Button
-          label="Daftar"
-          thick
-          style={{
-            marginTop: 10,
-            marginBottom: 10
-          }}
-          fullWidth
-          loading={sendingCode || loading}
-          onClick={sendOtpCode}
-        />
+          <TextField
+            variant="outlined"
+            label="Password"
+            fullWidth
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            onChange={(e) => setPassword(e.target.value.trim())}
+            value={password}
+            disabled={loading}
+            error={validation?.password?.isInvalid}
+            helperText={validation?.password?.message}
+            type="password"
+          />
+
+          <TextField
+            variant="outlined"
+            label="Konfirmasi Password"
+            fullWidth
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            onChange={(e) => setRepassword(e.target.value.trim())}
+            value={repassword}
+            disabled={loading}
+            error={validation?.repassword?.isInvalid}
+            helperText={validation?.repassword?.message}
+            type="password"
+          />
+
+          <TextField
+            variant="outlined"
+            label="Kode Verifikasi Email"
+            fullWidth
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            onChange={(e) => setEmailVerificationCode(clearNonNumericChars(e.target.value.trim()))}
+            value={emailVerificationCode}
+            disabled={loading}
+            error={validation?.emailVerificationCode?.isInvalid}
+            helperText={validation?.emailVerificationCode?.message}
+            inputProps={{
+              pattern: "[0-9]*",
+              type: "text",
+              inputMode: "numeric"
+            }}
+          />
+
+          <Button
+            label="Daftar"
+            thick
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            fullWidth
+            loading={loading}
+            onClick={registerWithEmail}
+          />
+        </>
+        :
+        <>
+          <TextField
+            variant="outlined"
+            label="Full Name"
+            fullWidth
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            onChange={setFullname}
+            value={name}
+            disabled={loading || sendingCode}
+            error={validation?.name?.isInvalid}
+            helperText={validation?.name?.message}
+          />
+
+          <TextField
+            variant="outlined"
+            label="Mobile Number"
+            fullWidth
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            onChange={handleChange}
+            value={mobileNumber}
+            disabled={loading || sendingCode}
+            placeholder="Ex: 082322343005"
+            inputProps={{
+              pattern: "[0-9]*",
+              type: "text",
+              inputMode: "numeric"
+            }}
+            error={numberExistance?.exists || validation?.mobileNumber?.isInvalid}
+            helperText={numberExistance?.exists ? 'This number has already been registered.' : validation?.mobileNumber?.message}
+          />
+
+          <Button
+            label="Daftar"
+            thick
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            fullWidth
+            loading={sendingCode || loading}
+            onClick={sendOtpCode}
+          />
+        </>
+        }
         
       </div>
 
