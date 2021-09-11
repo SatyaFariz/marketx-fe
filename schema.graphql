@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sat Sep 11 2021 22:22:49 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Sep 12 2021 01:41:21 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -100,6 +100,7 @@ type Image {
 }
 
 type Mutation {
+  hash(string: String!): String
   sendTelegramMessage(chatId: String!, message: String!): String
   addIcon(id: String!, url: String!): String
   setProductImage(id: String!, url: String!): String
@@ -107,6 +108,7 @@ type Mutation {
   updateDescription(id: String!, desc: String!): String
   addSpec(id: String!, attributeId: String!, value: String!): String
   sendOtpCode(mobileNumber: String!, action: UserActionEnum): SendVerificationCodePayload
+  changePassword(currentPassword: String!, newPassword: String!): ActionInfo
   sendVerificationCode(id: String!, action: UserActionEnum): SendVerificationCodePayload
   requestPasswordResetLink(email: Email!): ActionInfo
   resetPassword(id: String!, token: String!, newPassword: String!): ActionInfo

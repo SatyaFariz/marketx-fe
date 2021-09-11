@@ -5,7 +5,7 @@ import useAppContext from '../../hooks/useAppContext'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import Button from '../../Components/Button'
-import RequestPasswordResetLink from '../../../mutations/RequestPasswordResetLink'
+import ChangePassword from '../../../mutations/ChangePassword'
 import Validator from '../../../helpers/validator'
 
 const Component = props => {
@@ -81,7 +81,22 @@ const Component = props => {
 
   const save = () => {
     if(isValid() && !loading) {
-      
+      if(!loading) {
+        setLoading(true)
+        ChangePassword(environment, { currentPassword, newPassword: password }, (payload, error) => {
+          if(error) {
+            console.log(error)
+          } else if(payload) {
+            const { hasError, message } = payload
+            alert(message)
+            if(!hasError) {
+              // do sth
+            }
+          }
+  
+          _isMounted.current && setLoading(false)
+        })
+      }
     }
   }
 
