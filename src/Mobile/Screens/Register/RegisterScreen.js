@@ -13,6 +13,7 @@ import { createFragmentContainer } from 'react-relay'
 import clearNonNumericChars from '../../../helpers/cleanNonNumericChars'
 import Button from '../../Components/Button'
 import { isEmail } from 'validator'
+import SendVerificationCode from '../../../mutations/SendVerificationCode'
 
 const useEmail = true
 
@@ -180,7 +181,19 @@ const Component = props => {
   }
 
   const sendEmailVerificationCode = () => {
+    if(!sendingEmailVerificationCode) {
+      setSendingEmailVerificationCode(true)
+      SendVerificationCode(environment, { id: email }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { message } = payload.actionInfo
+          alert(message)
+        }
 
+        _isMounted.current && setSendingEmailVerificationCode(false)
+      })
+    }
   }
 
   useEffect(() => {
