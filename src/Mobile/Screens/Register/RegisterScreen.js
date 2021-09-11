@@ -26,6 +26,7 @@ const Component = props => {
   const [password, setPassword] = useState('')
   const [repassword, setRepassword] = useState('')
   const [emailVerificationCode, setEmailVerificationCode] = useState('')
+  const [sendingEmailVerificationCode, setSendingEmailVerificationCode] = useState(false)
   const [loading, setLoading] = useState(false)
   const [mobileNumberDebounced] = useDebounce(mobileNumber, 500)
   const [validation, setValidation] = useState({ isValid: false })
@@ -263,7 +264,8 @@ const Component = props => {
                 <InputAdornment position="start">
                   <Button
                     label="Kirim Kode"
-                    disabled={!isEmail(email)}
+                    disabled={!isEmail(email) || loading}
+                    loading={sendingEmailVerificationCode}
                     onClick={sendEmailVerificationCode}
                   />
                 </InputAdornment>
