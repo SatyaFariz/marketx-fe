@@ -14,6 +14,7 @@ import clearNonNumericChars from '../../../helpers/cleanNonNumericChars'
 import Button from '../../Components/Button'
 import { isEmail } from 'validator'
 import SendVerificationCode from '../../../mutations/SendVerificationCode'
+import RegisterWithEmail from '../../../mutations/RegisterWithEmail'
 
 const useEmail = true
 
@@ -176,7 +177,28 @@ const Component = props => {
 
   const registerWithEmail = () => {
     if(isValid() && !loading) {
+      const variables = {
+        name,
+        email,
+        password,
+        verificationCode: emailVerificationCode
+      }
+      setLoading(true)
+      RegisterWithEmail(environment, variables, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            // do sth
+            history.replace(queryParams?.redirect ?? '/')
+            resetEnvironment()
+          }
+        }
 
+        _isMounted.current && setLoading(false)
+      })
     }
   }
 
