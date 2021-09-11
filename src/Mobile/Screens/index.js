@@ -16,6 +16,7 @@ import PrivacyPolicy from './PrivacyPolicy'
 import TermsOfService from './TermsOfService'
 import AboutUs from './AboutUs'
 import ForgotPassword from './ForgotPassword'
+import ResetPassword from './ResetPassword'
 import CategoriesList from './CategoriesList'
 import CategoryDetail from './CategoryDetail'
 
@@ -38,6 +39,7 @@ const screens = [
   TermsOfService,
   AboutUs,
   ForgotPassword,
+  ResetPassword,
   CategoriesList,
   CategoryDetail
 ]
