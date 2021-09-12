@@ -33,6 +33,12 @@ const Component = props => {
         message: 'Fill in your password.'
       },
       {
+        field: 'password',
+        method: Validator.isStrongPassword,
+        validWhen: true,
+        message: 'Password must contain at least 1 lower case, 1 upper case, 1 number, min 6 characters and max 30 characters.'
+      },
+      {
         field: 'repassword',
         method: Validator.isEmpty,
         validWhen: false,
