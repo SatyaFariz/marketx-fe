@@ -243,7 +243,7 @@ const Component = props => {
   }, [mobileNumberDebounced, environment])
 
   useEffect(() => {
-    if(!isEmail(email)) {
+    if(!isEmail(emailDebounced)) {
       setEmailExistance(null)
     } else {
       const checker = new EmailChecker(environment)

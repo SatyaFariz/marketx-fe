@@ -11,7 +11,7 @@ import Validator from '../../../helpers/validator'
 const Component = props => {
   const { me } = props
   const _isMounted = useRef(true)
-  const { history, environment } = useAppContext()
+  const { history, environment, queryParams } = useAppContext()
   const [password, setPassword] = useState('')
   const [repassword, setRepassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -55,8 +55,8 @@ const Component = props => {
   const reset = () => {
     if(isValid() && !loading) {
       const variables = {
-        id: '60f4320604b7cc0455c7b6bb',
-        token: '$2a$10$QAuK638jIBn3E1VF/kjDf.PJDr.x2qc6mNzY8hbTKNiDAbhoRGNcS',
+        id: queryParams.id,
+        token: queryParams.token,
         newPassword: password
       }
       setLoading(true)
@@ -68,6 +68,7 @@ const Component = props => {
           alert(message)
           if(!hasError) {
             // do sth
+            history.replace('/')
           }
         }
 
