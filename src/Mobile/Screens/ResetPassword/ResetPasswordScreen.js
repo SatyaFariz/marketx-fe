@@ -68,7 +68,7 @@ const Component = props => {
           alert(message)
           if(!hasError) {
             // do sth
-            history.replace('/')
+            history.replace('/login')
           }
         }
 
