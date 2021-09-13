@@ -15,6 +15,11 @@ class Validator {
     }
   }
 
+  static isStrongPassword(pwd) {
+    const regexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,30}$/
+    return pwd.search(regexp) !== -1
+  }
+
   static isEmpty(val) {
     if(typeof val === 'string')
       return isEmpty(val.trim())

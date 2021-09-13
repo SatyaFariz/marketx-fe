@@ -9,37 +9,39 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type UserActionEnum = "edit_profile" | "login" | "register" | "%future added value";
-export type SendOtpCodeMutationVariables = {|
-  mobileNumber: string,
+export type SendVerificationCodeMutationVariables = {|
+  id: string,
   action?: ?UserActionEnum,
 |};
-export type SendOtpCodeMutationResponse = {|
-  +sendOtpCode: ?{|
+export type SendVerificationCodeMutationResponse = {|
+  +sendVerificationCode: ?{|
     +actionInfo: ?{|
       +hasError: ?boolean,
       +message: ?string,
     |},
     +expiry: ?string,
+    +cooldownExpiry: ?string,
   |}
 |};
-export type SendOtpCodeMutation = {|
-  variables: SendOtpCodeMutationVariables,
-  response: SendOtpCodeMutationResponse,
+export type SendVerificationCodeMutation = {|
+  variables: SendVerificationCodeMutationVariables,
+  response: SendVerificationCodeMutationResponse,
 |};
 */
 
 
 /*
-mutation SendOtpCodeMutation(
-  $mobileNumber: String!
+mutation SendVerificationCodeMutation(
+  $id: String!
   $action: UserActionEnum
 ) {
-  sendOtpCode(mobileNumber: $mobileNumber, action: $action) {
+  sendVerificationCode(id: $id, action: $action) {
     actionInfo {
       hasError
       message
     }
     expiry
+    cooldownExpiry
   }
 }
 */
@@ -53,7 +55,7 @@ var v0 = {
 v1 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "mobileNumber"
+  "name": "id"
 },
 v2 = [
   {
@@ -66,13 +68,13 @@ v2 = [
       },
       {
         "kind": "Variable",
-        "name": "mobileNumber",
-        "variableName": "mobileNumber"
+        "name": "id",
+        "variableName": "id"
       }
     ],
     "concreteType": "SendVerificationCodePayload",
     "kind": "LinkedField",
-    "name": "sendOtpCode",
+    "name": "sendVerificationCode",
     "plural": false,
     "selections": [
       {
@@ -106,6 +108,13 @@ v2 = [
         "kind": "ScalarField",
         "name": "expiry",
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "cooldownExpiry",
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -119,7 +128,7 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "SendOtpCodeMutation",
+    "name": "SendVerificationCodeMutation",
     "selections": (v2/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -131,20 +140,20 @@ return {
       (v0/*: any*/)
     ],
     "kind": "Operation",
-    "name": "SendOtpCodeMutation",
+    "name": "SendVerificationCodeMutation",
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "a5d53f209656b5f3ebcffec698278b7b",
+    "cacheID": "49e7db5771c0d1cd05872a27f69686c2",
     "id": null,
     "metadata": {},
-    "name": "SendOtpCodeMutation",
+    "name": "SendVerificationCodeMutation",
     "operationKind": "mutation",
-    "text": "mutation SendOtpCodeMutation(\n  $mobileNumber: String!\n  $action: UserActionEnum\n) {\n  sendOtpCode(mobileNumber: $mobileNumber, action: $action) {\n    actionInfo {\n      hasError\n      message\n    }\n    expiry\n  }\n}\n"
+    "text": "mutation SendVerificationCodeMutation(\n  $id: String!\n  $action: UserActionEnum\n) {\n  sendVerificationCode(id: $id, action: $action) {\n    actionInfo {\n      hasError\n      message\n    }\n    expiry\n    cooldownExpiry\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'cce87c17a5f828cd08631e770e09c070';
+(node/*: any*/).hash = 'afda759e038fb074c51b556c82568c0d';
 
 module.exports = node;

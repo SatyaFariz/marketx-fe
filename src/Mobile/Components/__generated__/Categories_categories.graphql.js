@@ -15,6 +15,7 @@ export type Categories_categories = $ReadOnlyArray<{|
   +id: ?string,
   +name: ?string,
   +level: ?number,
+  +isPublished: ?boolean,
   +listingType: ?string,
   +icon: ?{|
     +url: ?string
@@ -22,6 +23,7 @@ export type Categories_categories = $ReadOnlyArray<{|
   +children: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
+    +isPublished: ?boolean,
     +level: ?number,
     +icon: ?{|
       +url: ?string
@@ -63,6 +65,13 @@ v2 = {
 v3 = {
   "alias": null,
   "args": null,
+  "kind": "ScalarField",
+  "name": "isPublished",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
   "concreteType": "Image",
   "kind": "LinkedField",
   "name": "icon",
@@ -89,6 +98,7 @@ return {
     (v0/*: any*/),
     (v1/*: any*/),
     (v2/*: any*/),
+    (v3/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -96,7 +106,7 @@ return {
       "name": "listingType",
       "storageKey": null
     },
-    (v3/*: any*/),
+    (v4/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -107,8 +117,9 @@ return {
       "selections": [
         (v0/*: any*/),
         (v1/*: any*/),
+        (v3/*: any*/),
         (v2/*: any*/),
-        (v3/*: any*/)
+        (v4/*: any*/)
       ],
       "storageKey": null
     }
@@ -118,6 +129,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'dd7d97880b4da35ad8e4d4fab4e9afaf';
+(node/*: any*/).hash = '073f9c93547b22c77aae702baf7fc175';
 
 module.exports = node;

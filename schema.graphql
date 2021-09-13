@@ -1,9 +1,14 @@
 # source: http://localhost:4000/graphql
-# timestamp: Tue Aug 24 2021 19:34:35 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Sep 12 2021 02:27:39 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
   message: String
+}
+
+type ActionOnCategoryPayload {
+  actionInfo: ActionInfo
+  category: Category
 }
 
 type ActionOnProductPayload {
@@ -67,6 +72,17 @@ type Category {
   specFields: [SpecificationField]
 }
 
+input CategorySpecificationFieldInput {
+  attributeId: String!
+  type: String!
+  options: [String!]!
+  isRequired: Boolean!
+  isAutocomplete: Boolean
+  isEnum: Boolean
+  max: Float
+  min: Float
+}
+
 """
 The Email scalar type represents E-Mail addresses compliant to RFC 822.
 """
@@ -84,13 +100,20 @@ type Image {
 }
 
 type Mutation {
+  hash(string: String!): String
   sendTelegramMessage(chatId: String!, message: String!): String
   addIcon(id: String!, url: String!): String
   setProductImage(id: String!, url: String!): String
   setAttributeIcon(id: String!, url: String!): String
   updateDescription(id: String!, desc: String!): String
   addSpec(id: String!, attributeId: String!, value: String!): String
-  sendOtpCode(mobileNumber: String!, action: UserActionEnum): SendOtpPayload
+  sendOtpCode(mobileNumber: String!, action: UserActionEnum): SendVerificationCodePayload
+  changePassword(currentPassword: String!, newPassword: String!): ActionInfo
+  sendVerificationCode(id: String!, action: UserActionEnum): SendVerificationCodePayload
+  requestPasswordResetLink(email: Email!): ActionInfo
+  resetPassword(id: String!, token: String!, newPassword: String!): ActionInfo
+  registerWithEmail(name: String!, email: Email!, password: String!, verificationCode: String!): ActionOnUserPayload
+  loginWithEmail(email: String!, password: String!): ActionOnUserPayload
   login(loginId: String!, password: String!): ActionOnUserPayload
   register(name: String!, loginId: String!, password: String!): ActionOnUserPayload
   logout: ActionInfo
@@ -113,8 +136,10 @@ type Mutation {
   updateStoreBanner(id: String!): ActionOnStorePayload
   updateSpecField(id: String!, type: String!, max: Int, min: Int, options: [String!], isEnum: Boolean, isAutocomplete: Boolean): String
   updateProductCat(id: String!, path: String!): String
-  createSubcategory(parentId: String!, name: String!): String
+  createCategory(name: String!, listingType: String, requiresProductCondition: Boolean!, showsProductConditionField: Boolean!, iconUrl: String!): String
+  createSubcategory(parentId: String!, name: String!, iconUrl: String!): String
   createPost(title: String!, content: String!, type: String!): String
+  updateCategory(input: UpdateCategoryInput!): ActionOnCategoryPayload
 }
 
 """Information about pagination in a connection."""
@@ -210,6 +235,7 @@ enum ProductTypeEnum {
 
 type Query {
   mobileNumberExists(mobileNumber: String!): Boolean
+  emailExists(email: Email!): Boolean
   me: User
   attributes: [Attribute]
   categories(hasChild: Boolean): [Category]
@@ -226,7 +252,7 @@ type Query {
   posts(type: PostTypeEnum!, limit: Int!): [Post]
 }
 
-type SendOtpPayload {
+type SendVerificationCodePayload {
   actionInfo: ActionInfo
   cooldownExpiry: String
   expiry: String
@@ -284,15 +310,24 @@ type Unit {
   value: Float
 }
 
+input UpdateCategoryInput {
+  id: String!
+  name: String!
+  isPublished: Boolean!
+  showsProductConditionField: Boolean
+  requiresProductCondition: Boolean
+  specFields: [CategorySpecificationFieldInput!]!
+}
+
 input UpdateProfileInput {
   name: String!
-  mobileNumber: String!
-  email: Email
+  mobileNumber: String
 }
 
 type User {
   id: ID
   name: String
+  email: String
   isAdmin: Boolean
   mobileNumber: String
   profilePicture: Image

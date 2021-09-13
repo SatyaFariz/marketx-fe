@@ -22,11 +22,12 @@ const megabytes = 1048576
 const Component = props => {
   const _isMounted = useRef(true)
   const { me } = props
-  const myCurrentMobileNumber = me?.mobileNumber
+  const myCurrentMobileNumber = me?.mobileNumber || ''
   const profilePictureUrl = me?.profilePicture?.url
   const [url, setUrl] = useState(profilePictureUrl)
   const { environment, history } = useAppContext()
   const [name, setName] = useState(me?.name)
+  const [email] = useState(me?.email || '')
   const [mobileNumber, setMobileNumber] = useState(myCurrentMobileNumber)
   const [mobileNumberDebounced] = useDebounce(mobileNumber, 500)
   const [validation, setValidation] = useState({ isValid: false })
@@ -123,21 +124,15 @@ const Component = props => {
         validWhen: false,
         message: 'Fill in your name.'
       },
-      {
-        field: 'mobileNumber',
-        method: Validator.isEmpty,
-        validWhen: false,
-        message: 'Fill in your mobile number.'
-      }
     ])
 
-    const validation = validator.validate({ name, mobileNumber })
+    const validation = validator.validate({ name })
     setValidation(validation)
     return validation.isValid && numberExistance?.exists !== true
   }
 
   const isMobileNumberClean = () => {
-    return mobileNumber.trim() === me.mobileNumber.trim()
+    return mobileNumber.trim() === (me.mobileNumber || '').trim()
   }
 
   const isClean = () => {
@@ -279,6 +274,19 @@ const Component = props => {
 
           <TextField
             variant="outlined"
+            label="Email"
+            fullWidth
+            disabled
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            value={email}
+          />
+
+          {false &&
+          <TextField
+            variant="outlined"
             label="Mobile Number"
             fullWidth
             disabled={sendingOtpCode || loading}
@@ -297,6 +305,7 @@ const Component = props => {
             error={numberExistance?.exists || validation?.mobileNumber?.isInvalid}
             helperText={numberExistance?.exists ? 'This number has already been registered.' : validation?.mobileNumber?.message}
           />
+          }
 
           <Button
             label="Simpan"
@@ -341,7 +350,7 @@ export default createFragmentContainer(Component, {
     fragment EditProfileScreen_me on User {
       id,
       name,
-      mobileNumber,
+      email,
       profilePicture {
         url
       }

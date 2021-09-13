@@ -8,6 +8,7 @@ import { IconButton, SwipeableDrawer, ButtonBase } from '@material-ui/core'
 import { IoSearchOutline, IoMenuOutline } from 'react-icons/io5'
 import { BiLogIn } from 'react-icons/bi'
 import { useState } from 'react'
+import { RiLockPasswordFill } from 'react-icons/ri'
 import { IoPeople, IoShieldCheckmark, IoHelpCircle, IoDocumentText, IoStorefront, IoPersonOutline } from 'react-icons/io5'
 import App from '../../../../app.json'
 
@@ -186,21 +187,39 @@ const Component = props => {
               </ButtonBase>
               
               {me &&
-              <ButtonBase href={me.store ? `/store/${me.store.id}` : '/new/store'} component={Link} style={{
-                display: 'flex'
-              }}>
-                <div style={{
-                  padding: 15,
-                  borderBottom: `1px solid ${DIVIDER_COLOR}`,
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  width: '100%'
+              <>
+                <ButtonBase href={'/change-password'} component={Link} style={{
+                  display: 'flex'
                 }}>
-                  <IoStorefront size={24}/>
-                  <span style={{ marginLeft: 15 }}>{me.store ? 'My Store' : 'Become a Merchant'}</span>
-                </div>
-              </ButtonBase>
+                  <div style={{
+                    padding: 15,
+                    borderBottom: `1px solid ${DIVIDER_COLOR}`,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    width: '100%'
+                  }}>
+                    <RiLockPasswordFill size={24}/>
+                    <span style={{ marginLeft: 15 }}>Ubah Password</span>
+                  </div>
+                </ButtonBase>
+
+                <ButtonBase href={me.store ? `/store/${me.store.id}` : '/new/store'} component={Link} style={{
+                  display: 'flex'
+                }}>
+                  <div style={{
+                    padding: 15,
+                    borderBottom: `1px solid ${DIVIDER_COLOR}`,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    width: '100%'
+                  }}>
+                    <IoStorefront size={24}/>
+                    <span style={{ marginLeft: 15 }}>{me.store ? 'My Store' : 'Become a Merchant'}</span>
+                  </div>
+                </ButtonBase>
+              </>
               }
             </>
             :
@@ -217,6 +236,20 @@ const Component = props => {
                   width: '100%'
                 }}>
                   <span>Featured</span>
+                </div>
+              </ButtonBase>
+              <ButtonBase href="/categories" component={Link} style={{
+                display: 'flex'
+              }}>
+                <div style={{
+                  padding: 15,
+                  borderBottom: `1px solid ${DIVIDER_COLOR}`,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  width: '100%'
+                }}>
+                  <span>Kategori</span>
                 </div>
               </ButtonBase>
             </>

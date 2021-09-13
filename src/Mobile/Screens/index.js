@@ -15,6 +15,11 @@ import FAQ from './FAQ'
 import PrivacyPolicy from './PrivacyPolicy'
 import TermsOfService from './TermsOfService'
 import AboutUs from './AboutUs'
+import ForgotPassword from './ForgotPassword'
+import ResetPassword from './ResetPassword'
+import ChangePassword from './ChangePassword'
+import CategoriesList from './CategoriesList'
+import CategoryDetail from './CategoryDetail'
 
 const screens = [
   Main,
@@ -33,7 +38,12 @@ const screens = [
   FAQ,
   PrivacyPolicy,
   TermsOfService,
-  AboutUs
+  AboutUs,
+  ForgotPassword,
+  ResetPassword,
+  ChangePassword,
+  CategoriesList,
+  CategoryDetail
 ]
 
 export default screens
