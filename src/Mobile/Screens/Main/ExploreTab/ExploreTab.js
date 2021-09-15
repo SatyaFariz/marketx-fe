@@ -327,7 +327,8 @@ const Component = props => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#f1f1f1'
+        backgroundColor: '#f1f1f1',
+        fontSize: 11
       }}>
         <span>{App.name} © {App.year_founded}{App.year_founded === thisYear ? '' : ` - ${thisYear}`}</span>
       </div>
