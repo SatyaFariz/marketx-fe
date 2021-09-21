@@ -56,7 +56,7 @@
     "deploy": "gh-pages -d build",
     "start-dev": "gulp set --env=dev && npm start",
     "docker:staging": "docker-compose -f docker-compose.yml -f docker-compose.staging.yml -p staging up --remove-orphans --force-recreate --build",
-    "image:prod": "docker build -t satyafariz/marketplace:latest ."
+    "build:image": "docker build -t satyafariz/marketplace:latest ."
   },
   "eslintConfig": {
     "extends": [
