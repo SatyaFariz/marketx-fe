@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    image: satyafariz/myapp:latest
+    image: satyafariz/marketplace:latest
     restart: always
     ports:
       - "5001:3000"
