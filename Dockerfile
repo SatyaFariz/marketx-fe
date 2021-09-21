@@ -10,4 +10,10 @@ RUN npm install
 
 COPY . .
 
-CMD ["npm", "run", "start"]
+RUN npm install --global gulp-cli
+RUN npm install --global webpack-cli@^4.8.0 webpack@^4.44.2
+RUN gulp set --env=staging
+RUN npm run build
+RUN webpack --config webpack.server.js
+
+CMD ["node", "./server-build/index.js"]
