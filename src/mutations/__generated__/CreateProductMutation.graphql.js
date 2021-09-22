@@ -75,7 +75,7 @@ export type CreateProductMutationResponse = {|
       +store: ?{|
         +id: ?string,
         +name: ?string,
-        +whatsappLink: ?string,
+        +whatsappUrl: ?string,
       |},
     |},
   |}
@@ -141,7 +141,7 @@ mutation CreateProductMutation(
       store {
         id
         name
-        whatsappLink
+        whatsappUrl
       }
     }
   }
@@ -375,7 +375,7 @@ v18 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "whatsappLink",
+      "name": "whatsappUrl",
       "storageKey": null
     }
   ],
@@ -502,16 +502,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1c7b9ca98d4503c29837ceecf10896c0",
+    "cacheID": "614ed98ede87036781d1cb3f0770a9e4",
     "id": null,
     "metadata": {},
     "name": "CreateProductMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateProductMutation(\n  $storeId: String!\n  $type: ProductTypeEnum!\n  $categoryId: String!\n  $input: ProductInput!\n) {\n  createProduct(storeId: $storeId, type: $type, categoryId: $categoryId, input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      name\n      desc\n      price\n      isPublished\n      images {\n        id\n        url\n        display\n      }\n      category {\n        id\n        name\n      }\n      rentalDuration {\n        display\n        id\n      }\n      specs {\n        id\n        attribute {\n          id\n          name\n          icon {\n            id\n            url\n          }\n        }\n        value\n      }\n      merchant {\n        id\n        name\n        profilePicture {\n          id\n          url\n        }\n      }\n      store {\n        id\n        name\n        whatsappLink\n      }\n    }\n  }\n}\n"
+    "text": "mutation CreateProductMutation(\n  $storeId: String!\n  $type: ProductTypeEnum!\n  $categoryId: String!\n  $input: ProductInput!\n) {\n  createProduct(storeId: $storeId, type: $type, categoryId: $categoryId, input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      name\n      desc\n      price\n      isPublished\n      images {\n        id\n        url\n        display\n      }\n      category {\n        id\n        name\n      }\n      rentalDuration {\n        display\n        id\n      }\n      specs {\n        id\n        attribute {\n          id\n          name\n          icon {\n            id\n            url\n          }\n        }\n        value\n      }\n      merchant {\n        id\n        name\n        profilePicture {\n          id\n          url\n        }\n      }\n      store {\n        id\n        name\n        whatsappUrl\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '63820f9100b555aeea080ddc0a57c274';
+(node/*: any*/).hash = 'ca62e777dd3b9fd85816bd5e89766eaa';
 
 module.exports = node;
