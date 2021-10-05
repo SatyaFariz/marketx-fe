@@ -169,6 +169,18 @@ const Component = props => {
     }
   }
 
+  const redirectAfterLogin = () => {
+    if(queryParams?.redirect) {
+      if(queryParams.redirect === '/sell') {
+        history.replace('/new/store')
+      } else {
+        history.replace(queryParams.redirect)
+      }
+    } else {
+      history.replace('/')
+    }
+  }
+
   const register = (code) => {
     if(!loading) {
       setLoading(true)
@@ -180,7 +192,7 @@ const Component = props => {
           alert(message)
           if(!hasError) {
             // do sth
-            history.replace(queryParams?.redirect ?? '/')
+            redirectAfterLogin()
             resetEnvironment()
           }
         }
@@ -207,7 +219,7 @@ const Component = props => {
           alert(message)
           if(!hasError) {
             // do sth
-            history.replace(queryParams?.redirect ?? '/')
+            redirectAfterLogin()
             resetEnvironment()
           }
         }

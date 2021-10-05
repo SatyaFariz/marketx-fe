@@ -58,6 +58,24 @@ const Component = props => {
     }
   }
 
+  const redirectAfterLogin = (user) => {
+    if(queryParams?.redirect) {
+      if(queryParams.redirect === '/sell') {
+        // from clicking "JUAL" button in home screen
+        const { store } = user
+        if(store) {
+          history.replace(`/store/${store.id}?selectCategory=1`)
+        } else {
+          history.replace('/new/store')
+        }
+      } else {
+        history.replace(queryParams.redirect)
+      }
+    } else {
+      history.replace('/')
+    }
+  }
+
   const login = (code) => {
     if(!loading) {
       setLoading(true)
@@ -69,7 +87,7 @@ const Component = props => {
           alert(message)
           if(!hasError) {
             // do sth
-            history.replace(queryParams?.redirect ?? '/')
+            redirectAfterLogin(payload.user)
             resetEnvironment()
           }
         }
@@ -90,7 +108,7 @@ const Component = props => {
           alert(message)
           if(!hasError) {
             // do sth
-            history.replace(queryParams?.redirect ?? '/')
+            redirectAfterLogin(payload.user)
             resetEnvironment()
           }
         }
