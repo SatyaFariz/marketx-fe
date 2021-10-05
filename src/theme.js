@@ -1,11 +1,12 @@
 import { createTheme } from '@material-ui/core/styles'
+import Color from './Mobile/Constants/Color'
 
 // https://material-ui-next.com/customization/themes/
 // https://material-ui-next.com/style/color/
 export default createTheme({
   palette: {
     primary: {
-      main: '#2196f3'
+      main: Color.primary
     },
   },
   overrides: {

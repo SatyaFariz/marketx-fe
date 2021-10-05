@@ -1,4 +1,5 @@
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../../Constants'
+import Color from '../../../Constants/Color'
 import Categories from '../../../Components/Categories'
 import FeaturedProductsList from '../../../Components/FeaturedProductsList'
 import Link from '../../../Components/Link'
@@ -277,7 +278,7 @@ const Component = props => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: '#2196f3',
+              backgroundColor: Color.primary,
               fontSize: 11
             }}>
               <span style={{ color: 'white' }}>Copyright © {App.year_founded}{App.year_founded === thisYear ? '' : ` - ${thisYear}`} {App.name}</span>
@@ -367,7 +368,7 @@ const Component = props => {
         left: '50%', /* position the left edge of the element at the middle of the parent */
         transform: 'translateX(-50%)',
         // boxShadow: 'rgb(0 0 0 / 10%) 0px 0px 8px',
-        backgroundColor: '#2196f3',
+        backgroundColor: Color.primary,
         borderRadius: 999
       }}>
         <div style={{
