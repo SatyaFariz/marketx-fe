@@ -136,7 +136,7 @@ const Component = props => {
   }
 
   const isClean = () => {
-    return (
+    const _isClean = (
       banner === null &&
       profilePicture === null &&
       store?.name?.trim() === name.trim() &&
@@ -146,6 +146,10 @@ const Component = props => {
       store?.address?.district?.administrativeAreaId === district?.administrativeAreaId &&
       store?.address?.fullAddress?.trim() === fullAddress.trim()
     )
+    
+    if(_isClean) alert('Tidak ada perubahan.')
+
+    return _isClean
   }
 
   const save = () => {
@@ -251,7 +255,7 @@ const Component = props => {
           style={{ marginRight: 15, zIndex: 9999 }}
           onClick={save}
           loading={loading}
-          disabled={isClean()}
+          // disabled={isClean()}
         />
         
         <div style={{

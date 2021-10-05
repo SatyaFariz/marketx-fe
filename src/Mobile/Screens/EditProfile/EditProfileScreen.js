@@ -136,11 +136,15 @@ const Component = props => {
   }
 
   const isClean = () => {
-    return (
+    const _isClean = (
       file === null &&
       name.trim() === me.name.trim() &&
       isMobileNumberClean()
     )
+
+    if(_isClean) alert('Tidak ada perubahan.')
+
+    return _isClean
   }
 
   const save = () => {
