@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { QueryRenderer } from 'react-relay'
 import qs from 'query-string'
-// import { MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 // import CssBaseline from '@material-ui/core/CssBaseline'
 
 import router from './Mobile/router'
-// import theme from './theme'
+import theme from './theme'
 import AppRenderer from './Mobile/AppRenderer'
 import AppContext from './Mobile/AppContext'
 import { LinearProgress } from '@material-ui/core'
@@ -124,37 +124,29 @@ class App extends Component {
           resetEnvironment: this.resetEnvironment
         }}
       >
-{/*       
-        <CssBaseline/>
         <MuiThemeProvider theme={theme}>
-          <QueryRenderer
-            environment={relay}
-            query={query}
-            variables={variables || {}}
-            render={render}
-          />
-        </MuiThemeProvider> */}
-        <div style={{
-          position: 'relative'
-        }}>
-          {loading &&
           <div style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            zIndex: 99999999999999999999
+            position: 'relative'
           }}>
-            <LinearProgress/>
+            {loading &&
+            <div style={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              zIndex: 99999999999999999999
+            }}>
+              <LinearProgress/>
+            </div>
+            }
+            <QueryRenderer
+              fetchPolicy="store-and-network"
+              environment={relay}
+              query={query}
+              variables={variables || {}}
+              render={render}
+            />
           </div>
-          }
-          <QueryRenderer
-            fetchPolicy="store-and-network"
-            environment={relay}
-            query={query}
-            variables={variables || {}}
-            render={render}
-          />
-        </div>
+        </MuiThemeProvider>
       </AppContext.Provider>
     );
   }
