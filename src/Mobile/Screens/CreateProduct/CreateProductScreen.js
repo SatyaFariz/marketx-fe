@@ -386,6 +386,7 @@ const Component = props => {
               label={files.length > 0 ? "Edit foto" : "Tambah foto"}
               style={{
                 backgroundColor: 'white',
+                color: 'black',
                 margin: 15,
                 position: 'absolute',
                 right: 0,

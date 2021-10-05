@@ -7,16 +7,19 @@ const Component = props => {
     disabled,
     icon,
     thick,
+    onClick,
     ...rest
   } = props
   const style = thick ? { ...(props.style || {}), paddingTop: 10, paddingBottom: 10 } : props.style
   return (
     <Button 
       {...rest}
+      onClick={loading ? () => {} : onClick}
       variant="contained"
       disableElevation
-      disabled={disabled || loading}
+      disabled={disabled}
       style={style}
+      color="primary"
     >
       <div style={{ position: 'relative' }}>
         <div style={{
@@ -45,7 +48,7 @@ const Component = props => {
           justifyContent: 'center',
           alignItems: 'center'
         }}>
-          <CircularProgress size={18} style={{ color: 'grey' }}/>
+          <CircularProgress size={18} style={{ color: 'white' }}/>
         </div>
         }
       </div>
