@@ -205,13 +205,19 @@ const Component = props => {
       }
     }
 
-    return (
+    const _isClean = (
       product.name.trim() === name.trim() &&
       product.desc.trim() === desc.trim() &&
       product.price === parseFloat(price) &&
       (product.condition?.id || '') === (productConditionId || '') &&
       (product.rentalDuration?.id || '') === (rentalDurationId || '')
     )
+
+    if(_isClean) {
+      alert('Tidak ada perubahan.')
+    }
+
+    return _isClean
   }
 
   useEffect(() => {
@@ -698,7 +704,7 @@ const Component = props => {
             <Button
               thick
               label={!product.isPublished ? 'Publikasi' : 'Simpan'}
-              disabled={product.isPublished && isClean()}
+              // disabled={product.isPublished && isClean()}
               fullWidth
               style={{
                 marginTop: 10

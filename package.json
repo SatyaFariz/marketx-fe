@@ -1,5 +1,5 @@
 {
-  "name": "rental-app-web",
+  "name": "marketx",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -57,7 +57,8 @@
     "start-dev": "gulp set --env=dev && npm start",
     "docker:staging": "docker-compose -f docker-compose.yml -f docker-compose.staging.yml -p staging up --remove-orphans --force-recreate --build",
     "build:image": "docker build -t satyafariz/marketplace:latest .",
-    "docker:push": "docker push satyafariz/marketplace:latest"
+    "docker:push": "docker push satyafariz/marketplace:latest",
+    "docker:pull": "docker pull satyafariz/marketplace:latest"
   },
   "eslintConfig": {
     "extends": [
@@ -90,6 +91,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "eslint-plugin-jest": "^24.5.2",
     "gh-pages": "^3.2.3",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",

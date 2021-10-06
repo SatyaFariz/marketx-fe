@@ -17,7 +17,13 @@ export type LoginWithEmailMutationResponse = {|
     +actionInfo: ?{|
       +hasError: ?boolean,
       +message: ?string,
-    |}
+    |},
+    +user: ?{|
+      +id: ?string,
+      +store: ?{|
+        +id: ?string
+      |},
+    |},
   |}
 |};
 export type LoginWithEmailMutation = {|
@@ -37,6 +43,12 @@ mutation LoginWithEmailMutation(
       hasError
       message
     }
+    user {
+      id
+      store {
+        id
+      }
+    }
   }
 }
 */
@@ -54,7 +66,14 @@ var v0 = [
     "name": "password"
   }
 ],
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v2 = [
   {
     "alias": null,
     "args": [
@@ -98,6 +117,30 @@ v1 = [
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "user",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Store",
+            "kind": "LinkedField",
+            "name": "store",
+            "plural": false,
+            "selections": [
+              (v1/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -109,7 +152,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "LoginWithEmailMutation",
-    "selections": (v1/*: any*/),
+    "selections": (v2/*: any*/),
     "type": "Mutation",
     "abstractKey": null
   },
@@ -118,19 +161,19 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "LoginWithEmailMutation",
-    "selections": (v1/*: any*/)
+    "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "fe1e9b80656e0c509e9de540f0851cd9",
+    "cacheID": "4efc2da028d056762487f4456adba417",
     "id": null,
     "metadata": {},
     "name": "LoginWithEmailMutation",
     "operationKind": "mutation",
-    "text": "mutation LoginWithEmailMutation(\n  $email: String!\n  $password: String!\n) {\n  loginWithEmail(email: $email, password: $password) {\n    actionInfo {\n      hasError\n      message\n    }\n  }\n}\n"
+    "text": "mutation LoginWithEmailMutation(\n  $email: String!\n  $password: String!\n) {\n  loginWithEmail(email: $email, password: $password) {\n    actionInfo {\n      hasError\n      message\n    }\n    user {\n      id\n      store {\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'ba33de16d8ec5be56ce0d9ba0c8b7abd';
+(node/*: any*/).hash = 'e7a0e2ae8092f91af9b9c6dc4d6049b3';
 
 module.exports = node;

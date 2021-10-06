@@ -40,7 +40,7 @@ const Component = props => {
       history.push(`/edit/product/${product.id}`)
     } else {
       if(me) {
-        window.open(product.store.whatsappLink)
+        window.open(product.store.whatsappUrl)
       } else {
         history.push(`/login?redirect=${pathname}`)
       }
@@ -762,7 +762,7 @@ export default createFragmentContainer(Component, {
       store {
         id,
         name,
-        whatsappLink,
+        whatsappUrl,
         merchantId,
         isVerified,
         profilePicture {

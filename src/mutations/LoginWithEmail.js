@@ -7,6 +7,12 @@ const mutation = graphql`
       actionInfo {
         hasError,
         message
+      },
+      user {
+        id,
+        store {
+          id
+        }
       }
     }
   }

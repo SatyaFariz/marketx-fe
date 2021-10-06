@@ -52,7 +52,7 @@ const mutation = graphql`
         store {
           id,
           name,
-          whatsappLink
+          whatsappUrl
         }
       }
     }
