@@ -55,7 +55,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start-dev": "gulp set --env=dev && npm start",
-    "docker:staging": "docker-compose -f docker-compose.yml -f docker-compose.staging.yml -p staging up --remove-orphans --force-recreate --build",
+    "docker:staging": "docker-compose -f docker-compose.yml -f docker-compose.staging.yml -p marketx_fe up --remove-orphans --force-recreate --build",
     "build:image": "docker build -t satyafariz/marketplace:latest .",
     "docker:push": "docker push satyafariz/marketplace:latest",
     "docker:pull": "docker pull satyafariz/marketplace:latest"
