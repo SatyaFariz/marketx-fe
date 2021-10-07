@@ -345,29 +345,18 @@ const Component = props => {
               </ButtonBase>
             </div>
           </div>
-          <Categories categories={categories}/>
+          <Categories categories={categories} me={me}/>
           {featuredProducts.length >= 8 && featuredProducts.length % 2 === 0 &&
           <FeaturedProductsList featuredProducts={featuredProducts}/>
           }
         </div>
       </div>
-      {/* <div style={{
-        padding: 15,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#f1f1f1',
-        fontSize: 11
-      }}>
-        <span>{App.name} © {App.year_founded}{App.year_founded === thisYear ? '' : ` - ${thisYear}`}</span>
-      </div> */}
 
       <ButtonBase component={Link} href={getSellButtonUrl()} style={{
         position: 'absolute',
         bottom: 16,
-        left: '50%', /* position the left edge of the element at the middle of the parent */
+        left: '50%',
         transform: 'translateX(-50%)',
-        // boxShadow: 'rgb(0 0 0 / 10%) 0px 0px 8px',
         backgroundColor: Color.primary,
         borderRadius: 999
       }}>
@@ -402,6 +391,7 @@ export default createFragmentContainer(Component, {
       id,
       name,
       isAdmin,
+      ...Categories_me,
       profilePicture {
         id,
         url

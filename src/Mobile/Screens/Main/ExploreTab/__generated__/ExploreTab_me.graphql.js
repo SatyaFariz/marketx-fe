@@ -8,6 +8,7 @@
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
+type Categories_me$ref = any;
 import type { FragmentReference } from "relay-runtime";
 declare export opaque type ExploreTab_me$ref: FragmentReference;
 declare export opaque type ExploreTab_me$fragmentType: ExploreTab_me$ref;
@@ -22,6 +23,7 @@ export type ExploreTab_me = {|
   +store: ?{|
     +id: ?string
   |},
+  +$fragmentRefs: Categories_me$ref,
   +$refType: ExploreTab_me$ref,
 |};
 export type ExploreTab_me$data = ExploreTab_me;
@@ -92,6 +94,11 @@ return {
         (v0/*: any*/)
       ],
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "Categories_me"
     }
   ],
   "type": "User",
@@ -99,6 +106,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a1f3aca045931567e0a4722c23dad86e';
+(node/*: any*/).hash = '297140f6bf6413ca64cebfaab1c207a5';
 
 module.exports = node;

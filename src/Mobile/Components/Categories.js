@@ -6,12 +6,18 @@ import graphql from 'babel-plugin-relay/macro'
 import Link from '../Components/Link'
 import useAppContext from '../hooks/useAppContext'
 import { useState, useEffect } from 'react'
+import { useLongPress } from 'use-long-press'
+import CategoryItem from './CategoryItem'
 
 const Component = props => {
   const { queryParams, pathname } = useAppContext()
   const { tab } = queryParams
-  const { categories } = props
+  const { categories, me } = props
   const [currentTab, setCurrentTab] = useState(tab ? parseInt(tab, 10) : -1)
+
+  const handleLongPress = useLongPress(() => {
+    alert('Long pressed!')
+  })
 
   useEffect(() => {
     if(pathname === '/') {
@@ -28,64 +34,28 @@ const Component = props => {
         justifyContent: 'center',
         padding: '20px 0',
       }}>
-        <ButtonBase
-          component={Link}
+        <CategoryItem
           href='/'
-          replace
-          disableRipple
-        >
-          <div style={{
-            width: 118,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-start',
-            alignItems: 'center'
-          }}>
-            <img
-              alt="Buy"
-              src="https://www.cumi.id/static/media/categoryClothingBeauty.f3b1100b.svg"
-              style={{
-                height: 70,
-                width: 70,
-                marginBottom: 10,
-                borderRadius: '50%',
-                border: currentTab === -1 ? `2px solid ${Color.link}` : undefined
-              }}
-            />
-            <span style={{ textAlign: 'center' }}>Beli</span>
-          </div>
-        </ButtonBase>
+          category={{
+            name: 'Beli',
+            icon: {
+              url: 'https://www.cumi.id/static/media/categoryClothingBeauty.f3b1100b.svg'
+            }
+          }}
+          me={me}
+          highlight={currentTab === -1}
+        />
+        
         {categories.map((item, i) => {
           if(['rental_product', 'service'].includes(item.listingType) && item.level === 1) {
             return (
-              <ButtonBase
-                key={i}
-                component={Link}
-                replace
+              <CategoryItem
+                key={item.id}
                 href={`?tab=${i}`}
-                disableRipple
-              >
-                <div key={i} style={{
-                  width: 118,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-start',
-                  alignItems: 'center'
-                }}>
-                  <img
-                    alt={item.name}
-                    src={item.icon?.url}
-                    style={{
-                      height: 70,
-                      width: 70,
-                      marginBottom: 10,
-                      borderRadius: '50%',
-                      border: currentTab === i ? `2px solid ${Color.link}` : undefined
-                    }}
-                  />
-                  <span style={{ textAlign: 'center' }}>{item.name}</span>
-                </div>
-              </ButtonBase>
+                category={item}
+                me={me}
+                highlight={currentTab === i}
+              />
             )
           } else {
             return null
@@ -109,35 +79,15 @@ const Component = props => {
         {(currentTab === -1 ? categories : categories[currentTab].children).map((item, i) => {
           if(item.level > 2 || !item.isPublished || (currentTab === -1 && item.level > 1) || ['rental_product', 'service'].includes(item.listingType)) return null
           return (
-            <ButtonBase 
-              href={`/category/${item.id}`} 
+            <CategoryItem
               key={item.id}
-              component={Link}
-              disableRipple
+              href={`/category/${item.id}`} 
+              category={item}
+              me={me}
               style={{
-                height: '100%'
-              }}
-            >
-              <div key={i} style={{
-                width: 118,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'flex-start',
-                alignItems: 'center',
                 marginBottom: 15
-              }}>
-                <img
-                  alt={item.name}
-                  src={item.icon?.url}
-                  style={{
-                    height: 70,
-                    width: 70,
-                    marginBottom: 10
-                  }}
-                />
-                <span style={{ textAlign: 'center' }}>{item.name}</span>
-              </div>
-            </ButtonBase>
+              }}
+            />
           )
         })}
       </div>
@@ -146,6 +96,12 @@ const Component = props => {
 }
 
 export default createFragmentContainer(Component, {
+  me: graphql`
+    fragment Categories_me on User {
+      id,
+      ...CategoryItem_me
+    }
+  `,
   categories: graphql`
     fragment Categories_categories on Category @relay(plural: true) {
       id,
