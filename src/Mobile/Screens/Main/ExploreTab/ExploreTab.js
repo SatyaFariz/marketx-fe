@@ -241,6 +241,53 @@ const Component = props => {
               </>
               :
               <>
+                <ButtonBase href="/profile" component={Link} style={{
+                  display: 'flex'
+                }}>
+                  <div style={{
+                    padding: 15,
+                    borderBottom: `1px solid ${DIVIDER_COLOR}`,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    width: '100%'
+                  }}>
+                    {me.profilePicture ?
+                    
+                    <div style={{
+                      height: 24,
+                      width: 24,
+                      border: `1px solid ${DIVIDER_COLOR}`,
+                      borderRadius: '50%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundSize: 'cover',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundPosition: 'center center',
+                      backgroundImage: `url("${me.profilePicture.url}")`
+                    }}
+                    />
+                      :
+                    <div style={{
+                        height: 24,
+                        width: 24,
+                        backgroundColor: '#f1f1f1',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center center',
+                      }}
+                    >
+                    <IoPersonOutline size={18} color="black"/>
+                    </div>
+                    }
+                    <span style={{ marginLeft: 15 }}>{me.name}</span>
+                  </div>
+                </ButtonBase>
                 <ButtonBase href="/featured" component={Link} style={{
                   display: 'flex'
                 }}>
