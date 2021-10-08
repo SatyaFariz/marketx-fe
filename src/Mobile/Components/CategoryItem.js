@@ -20,7 +20,12 @@ const Component = props => {
   }
 
   return (
-    <div>
+    <div style={{
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      height: '100%'
+    }}>
       <Menu
         anchorEl={anchorEl}
         keepMounted
