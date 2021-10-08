@@ -10,6 +10,10 @@ const chunk = {
         id,
         isAdmin
       },
+      attributes {
+        id,
+        ...AttributesListScreen_attributes
+      }
     }
   `,
   prepareVariables: ({ params }) => params,
@@ -22,6 +26,7 @@ const chunk = {
           {data.me?.isAdmin &&
           <AttributesListScreen
             me={data.me}
+            attributes={data.attributes}
           />
           }
         </FixedAddressBar>
