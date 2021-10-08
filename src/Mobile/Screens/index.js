@@ -20,6 +20,7 @@ import ResetPassword from './ResetPassword'
 import ChangePassword from './ChangePassword'
 import CategoriesList from './CategoriesList'
 import CategoryDetail from './CategoryDetail'
+import AttributesList from './AttributesList'
 
 const screens = [
   Main,
@@ -43,7 +44,8 @@ const screens = [
   ResetPassword,
   ChangePassword,
   CategoriesList,
-  CategoryDetail
+  CategoryDetail,
+  AttributesList
 ]
 
 export default screens
