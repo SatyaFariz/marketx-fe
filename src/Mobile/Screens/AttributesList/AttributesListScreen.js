@@ -4,9 +4,13 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import BackButton from '../../Components/BackButton'
 import { List, ListItem, ListItemText } from '@material-ui/core'
 import Button from '../../Components/Button'
+import Link from '../../Components/Link'
+import CreateAttributesModal from './CreateAttributesModal'
+import useAppContext from '../../hooks/useAppContext'
 
 const Component = props => {
   const { attributes } = props
+  const { queryParams } = useAppContext()
   return (
     <div style={{
       height: '100%',
@@ -28,7 +32,11 @@ const Component = props => {
       }}>
         <BackButton/>
         <div style={{ marginRight: 15, zIndex: 1 }}>
-          <Button label="Add"/>
+          <Button 
+            label="Add"
+            component={Link}
+            href='/attributes?action=create'
+          />
         </div>
         
         <div style={{
@@ -65,6 +73,19 @@ const Component = props => {
             )
           })}
         </List>
+      </div>
+
+      <div style={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        backgroundColor: 'white',
+        zIndex: 9999,
+        display: queryParams?.action === 'create' ? undefined : 'none'
+      }}>
+        <CreateAttributesModal/>
       </div>
     </div>
   )

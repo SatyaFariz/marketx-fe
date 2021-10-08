@@ -22,6 +22,16 @@ const CreateAttributes = (environment, variables, callback) => {
     {
       mutation,
       variables,
+      updater: (store) => {
+        const payload = store.getRootField('createAttributes', variables)
+        const createAttributes = payload?.getLinkedRecords('attributes')
+      
+        const root = store.getRoot()
+        const attributes = root.getLinkedRecords('attributes')
+        
+        if(attributes)
+          root.setLinkedRecords([...createAttributes, ...attributes], 'attributes')
+      },
       onCompleted: (res, err) => {
         if(typeof callback === 'function') {
           if(err)
