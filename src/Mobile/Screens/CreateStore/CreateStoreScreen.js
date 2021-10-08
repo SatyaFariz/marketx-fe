@@ -202,8 +202,8 @@ const Component = props => {
         marginTop: HEADER_HEIGHT,
         paddingTop: 20,
         paddingBottom: 20,
-        paddingLeft: 30,
-        paddingRight: 30
+        paddingLeft: 20,
+        paddingRight: 20
       }}>
         <TextField
           variant="outlined"
