@@ -6,7 +6,7 @@ import BackButton from '../../Components/BackButton'
 import { useState, useEffect, useRef } from 'react'
 import { TextField, MenuItem, Switch } from '@material-ui/core'
 import Button from '../../Components/Button'
-import Link from '../../Components/Link'
+import NumberFormat from 'react-number-format'
 import { Add } from '@material-ui/icons'
 import { Autocomplete } from '@material-ui/lab'
 import { Fab, ButtonBase } from '@material-ui/core'
@@ -25,6 +25,10 @@ const typeOptions = [
   {
     label: 'String',
     value: 'string'
+  },
+  {
+    label: 'Integer',
+    value: 'int'
   },
   {
     label: 'Year',
@@ -212,7 +216,8 @@ const Component = props => {
                         </MenuItem>
                       ))}
                     </TextField>
-
+                    
+                    {item.type === 'string' &&
                     <TextField
                       variant="outlined"
                       label="Options"
@@ -228,6 +233,59 @@ const Component = props => {
                       error={validation['field.attribute.id']?.isInvalid}
                       helperText={validation['field.attribute.id']?.message}
                     />
+                    }
+
+                    {item.type === 'int' &&
+                    <>
+                      <NumberFormat
+                        customInput={TextField}
+                        variant="outlined"
+                        label="Max"
+                        value={item.max}
+                        onValueChange={({ value }) => setFieldValue(i, 'max', value.trimLeft())}
+                        fullWidth
+                        disabled={loading}
+                        style={{
+                          marginTop: 10,
+                          marginBottom: 10
+                        }}
+                        inputProps={{
+                          pattern: "[0-9]*",
+                          type: "text",
+                          inputMode: "numeric"
+                        }}
+                        // error={validation?.price?.isInvalid}
+                        // helperText={validation?.price?.message}
+                        allowNegative={false}
+                        decimalSeparator={null}
+                        thousandSeparator="."
+                      />
+
+                      <NumberFormat
+                        customInput={TextField}
+                        variant="outlined"
+                        label="Min"
+                        value={item.min}
+                        onValueChange={({ value }) => setFieldValue(i, 'min', value.trimLeft())}
+                        fullWidth
+                        disabled={loading}
+                        style={{
+                          marginTop: 10,
+                          marginBottom: 10
+                        }}
+                        inputProps={{
+                          pattern: "[0-9]*",
+                          type: "text",
+                          inputMode: "numeric"
+                        }}
+                        // error={validation?.price?.isInvalid}
+                        // helperText={validation?.price?.message}
+                        allowNegative={false}
+                        decimalSeparator={null}
+                        thousandSeparator="."
+                      />
+                    </>
+                    }
 
                     <div style={{
                       display: 'flex',
@@ -246,56 +304,60 @@ const Component = props => {
                       />
                     </div>
 
-                    <div style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginTop: 10,
-                      marginBottom: 10
-                    }}>
-                      <span>Autocomplete</span>
+                    {item.type === 'string' &&
+                    <>
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginTop: 10,
+                        marginBottom: 10
+                      }}>
+                        <span>Autocomplete</span>
 
-                      <Switch
-                        checked={item.isAutocomplete}
-                        onChange={() => setFieldValue(i, 'isAutocomplete', !item.isAutocomplete)}
-                        disabled={loading}
-                      />
-                    </div>
+                        <Switch
+                          checked={item.isAutocomplete}
+                          onChange={() => setFieldValue(i, 'isAutocomplete', !item.isAutocomplete)}
+                          disabled={loading}
+                        />
+                      </div>
 
-                    <div style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginTop: 10,
-                      marginBottom: 10
-                    }}>
-                      <span>Enum</span>
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginTop: 10,
+                        marginBottom: 10
+                      }}>
+                        <span>Enum</span>
 
-                      <Switch
-                        checked={item.isEnum}
-                        onChange={() => setFieldValue(i, 'isEnum', !item.isEnum)}
-                        disabled={loading}
-                      />
-                    </div>
+                        <Switch
+                          checked={item.isEnum}
+                          onChange={() => setFieldValue(i, 'isEnum', !item.isEnum)}
+                          disabled={loading}
+                        />
+                      </div>
 
-                    <div style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginTop: 10,
-                      marginBottom: 10
-                    }}>
-                      <span>Multi</span>
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginTop: 10,
+                        marginBottom: 10
+                      }}>
+                        <span>Multi</span>
 
-                      <Switch
-                        checked={item.isMulti}
-                        onChange={() => setFieldValue(i, 'isMulti', !item.isMulti)}
-                        disabled={loading}
-                      />
-                    </div>
+                        <Switch
+                          checked={item.isMulti}
+                          onChange={() => setFieldValue(i, 'isMulti', !item.isMulti)}
+                          disabled={loading}
+                        />
+                      </div>
+                    </>
+                    }
                   </div>
                 </div>
               )
