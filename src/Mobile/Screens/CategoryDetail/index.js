@@ -12,6 +12,10 @@ const chunk = {
       },
       category(id: $id) {
         ...CategoryDetailScreen_category
+      },
+      attributes {
+        id,
+        ...CategoryDetailScreen_attributes
       }
     }
   `,
@@ -26,6 +30,7 @@ const chunk = {
           <CategoryDetailScreen
             me={data.me}
             category={data.category}
+            attributes={data.attributes}
           />
           }
         </FixedAddressBar>

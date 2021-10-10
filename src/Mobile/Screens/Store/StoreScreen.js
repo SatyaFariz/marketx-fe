@@ -353,6 +353,7 @@ const Component = props => {
       <Fab color="primary" aria-label="add" style={{
         zIndex: 99,
         position: 'absolute',
+        boxShadow: 'none',
         right: 15,
         bottom: 15
       }}

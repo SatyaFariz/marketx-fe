@@ -1,17 +1,21 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
+import Color from '../../Constants/Color'
 import BackButton from '../../Components/BackButton'
 import { FcStackOfPhotos } from 'react-icons/fc'
 import { useState, useEffect, useRef } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { TextField, Switch, Accordion as MuiAccordion, AccordionSummary as MuiAccordionSummary, AccordionDetails } from '@material-ui/core'
+import { TextField, ButtonBase, Switch, Accordion as MuiAccordion, AccordionSummary as MuiAccordionSummary, AccordionDetails } from '@material-ui/core'
 import Button from '../../Components/Button'
 import Validator from '../../../helpers/validator'
 import UpdateCategory from '../../../mutations/UpdateCategory'
 import NumberFormat from 'react-number-format'
 import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
+import Link from '../../Components/Link'
+import useAppContext from '../../hooks/useAppContext'
+import CreateSpecificationFieldsModal from './CreateSpecificationFieldsModal'
 
 const megabytes = 1048576
 
@@ -53,7 +57,8 @@ const Accordion = withStyles({
 const Component = props => {
   const isMounted = useRef(true)
   const { environment } = props.relay
-  const { category } = props
+  const { category, attributes } = props
+  const { queryParams } = useAppContext()
   const [file, setFile] = useState(null)
   const [name, setName] = useState(category.name)
   const [showsProductConditionField, setShowsProductConditionField] = useState(category.showsProductConditionField || false)
@@ -371,9 +376,15 @@ const Component = props => {
             justifyContent: 'space-between'
           }}>
             <h3>Specification Fields</h3>
-            <span>
-              Add
-            </span>
+            <ButtonBase
+              component={Link}
+              href={`/category/${category.id}/detail?action=createFields`}
+              style={{ color: Color.primary }}
+            >
+              <span>
+                Add
+              </span>
+            </ButtonBase>
           </div>
 
           {category.specFields.length === 0 ?
@@ -546,6 +557,19 @@ const Component = props => {
           
         </div>
       </div>
+
+      <div style={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        backgroundColor: 'white',
+        zIndex: 9999,
+        display: queryParams?.action === 'createFields' ? undefined : 'none'
+      }}>
+        <CreateSpecificationFieldsModal attributes={attributes}/>
+      </div>
     </div>
   )
 }
@@ -579,6 +603,12 @@ export default createFragmentContainer(Component, {
           name
         }
       }
+    }
+  `,
+  attributes: graphql`
+    fragment CategoryDetailScreen_attributes on Attribute @relay(plural: true) {
+      id,
+      ...CreateSpecificationFieldsModal_attributes
     }
   `
 })

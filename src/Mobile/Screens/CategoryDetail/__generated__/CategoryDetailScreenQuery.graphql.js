@@ -8,6 +8,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type CategoryDetailScreen_attributes$ref = any;
 type CategoryDetailScreen_category$ref = any;
 export type CategoryDetailScreenQueryVariables = {|
   id: string
@@ -20,6 +21,10 @@ export type CategoryDetailScreenQueryResponse = {|
   +category: ?{|
     +$fragmentRefs: CategoryDetailScreen_category$ref
   |},
+  +attributes: ?$ReadOnlyArray<?{|
+    +id: ?string,
+    +$fragmentRefs: CategoryDetailScreen_attributes$ref,
+  |}>,
 |};
 export type CategoryDetailScreenQuery = {|
   variables: CategoryDetailScreenQueryVariables,
@@ -40,6 +45,15 @@ query CategoryDetailScreenQuery(
     ...CategoryDetailScreen_category
     id
   }
+  attributes {
+    id
+    ...CategoryDetailScreen_attributes
+  }
+}
+
+fragment CategoryDetailScreen_attributes on Attribute {
+  id
+  ...CreateSpecificationFieldsModal_attributes
 }
 
 fragment CategoryDetailScreen_category on Category {
@@ -71,6 +85,11 @@ fragment CategoryDetailScreen_category on Category {
     }
     id
   }
+}
+
+fragment CreateSpecificationFieldsModal_attributes on Attribute {
+  id
+  name
 }
 */
 
@@ -146,6 +165,23 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "CategoryDetailScreen_category"
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Attribute",
+        "kind": "LinkedField",
+        "name": "attributes",
+        "plural": true,
+        "selections": [
+          (v1/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CategoryDetailScreen_attributes"
           }
         ],
         "storageKey": null
@@ -301,20 +337,30 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Attribute",
+        "kind": "LinkedField",
+        "name": "attributes",
+        "plural": true,
+        "selections": (v5/*: any*/),
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "af12617f90ea5b138a11e6f9dba3f7ea",
+    "cacheID": "80bcb8313caf1e573a7d7bfca8f9498a",
     "id": null,
     "metadata": {},
     "name": "CategoryDetailScreenQuery",
     "operationKind": "query",
-    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  listingType\n  ancestors {\n    id\n    name\n  }\n  icon {\n    url\n    id\n  }\n  specFields {\n    type\n    isRequired\n    isEnum\n    isAutocomplete\n    options\n    max\n    min\n    attribute {\n      id\n      name\n    }\n    id\n  }\n}\n"
+    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n  attributes {\n    id\n    ...CategoryDetailScreen_attributes\n  }\n}\n\nfragment CategoryDetailScreen_attributes on Attribute {\n  id\n  ...CreateSpecificationFieldsModal_attributes\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  listingType\n  ancestors {\n    id\n    name\n  }\n  icon {\n    url\n    id\n  }\n  specFields {\n    type\n    isRequired\n    isEnum\n    isAutocomplete\n    options\n    max\n    min\n    attribute {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment CreateSpecificationFieldsModal_attributes on Attribute {\n  id\n  name\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0e794e96a62d5481ad950e2165cc2f13';
+(node/*: any*/).hash = '6f34f6d59255537059a5cbbf270e8558';
 
 module.exports = node;
