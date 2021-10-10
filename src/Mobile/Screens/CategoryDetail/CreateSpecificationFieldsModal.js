@@ -10,6 +10,7 @@ import NumberFormat from 'react-number-format'
 import { Add } from '@material-ui/icons'
 import { Autocomplete } from '@material-ui/lab'
 import { Fab, ButtonBase } from '@material-ui/core'
+import Validator from '../../../helpers/validator'
 
 const obj = {
   attribute: null,
@@ -39,12 +40,47 @@ const typeOptions = [
 const Component = props => {
   const { attributes } = props
   const isMounted = useRef(true)
+  const [fieldId, setFieldId] = useState(0)
   const [loading, setLoading] = useState(false)
-  const [fields, setFields] = useState([obj])
+  const [fields, setFields] = useState([{ ...obj, fieldId }])
   const [validation, setValidation] = useState({ isValid: false })
 
-  const save = () => {
+  const isValid = () => {
+    const flat = fields.reduce((obj, currentVal) => {
+      obj[`attribute_${currentVal.fieldId}`] = currentVal.attribute
+      obj[`type_${currentVal.fieldId}`] = currentVal.type
 
+      return obj
+    }, {})
+
+    const rules = fields.reduce((arr, currentVal) => {
+      arr.push({
+        field: `attribute_${currentVal.fieldId}`,
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'This field is required.'
+      })
+
+      arr.push({
+        field: `type_${currentVal.fieldId}`,
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'This field is required.'
+      })
+
+      return arr
+    }, [])
+
+    const validator = new Validator(rules)
+    const validation = validator.validate(flat)
+    setValidation(validation)
+    return validation.isValid
+  }
+
+  const save = () => {
+    if(!loading && isValid()) {
+      alert('save now')
+    }
   }
 
   const setFieldValue = (i, key, value) => {
@@ -182,8 +218,8 @@ const Component = props => {
                             marginTop: 10,
                             marginBottom: 10
                           }}
-                          error={validation['test']?.isInvalid}
-                          helperText={validation['tst']?.message}
+                          error={validation[`attribute_${item.fieldId}`]?.isInvalid}
+                          helperText={validation[`attribute_${item.fieldId}`]?.message}
                         />
                       }
                     />
@@ -200,8 +236,8 @@ const Component = props => {
                         marginTop: 10,
                         marginBottom: 10
                       }}
-                      error={validation['field.attribute.id']?.isInvalid}
-                      helperText={validation['field.attribute.id']?.message}
+                      error={validation[`type_${item.fieldId}`]?.isInvalid}
+                      helperText={validation[`type_${item.fieldId}`]?.message}
                       SelectProps={{
                         MenuProps: {
                           style: {
@@ -230,8 +266,8 @@ const Component = props => {
                         marginTop: 10,
                         marginBottom: 10
                       }}
-                      error={validation['field.attribute.id']?.isInvalid}
-                      helperText={validation['field.attribute.id']?.message}
+                      // error={validation['field.attribute.id']?.isInvalid}
+                      // helperText={validation['field.attribute.id']?.message}
                     />
                     }
 
@@ -374,7 +410,9 @@ const Component = props => {
                   boxShadow: 'none'
                 }}
                 onClick={() => {
-                  setFields(prev => [...prev, obj])
+                  const nextId = fieldId + 1
+                  setFieldId(nextId)
+                  setFields(prev => [...prev, { ...obj, fieldId: nextId }])
                 }}
               >
                 <Add />
