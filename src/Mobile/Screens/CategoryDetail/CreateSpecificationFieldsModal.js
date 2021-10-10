@@ -43,6 +43,21 @@ const Component = props => {
 
   }
 
+  const setFieldValue = (i, key, value) => {
+    setFields(prev => {
+      return prev.map((field, j) => {
+        if(i === j) {
+          return {
+            ...field,
+            [key]: value
+          }
+        } else {
+          return field
+        }
+      })
+    })
+  }
+
   useEffect(() => {
     return () => isMounted.current = false
   }, [])
@@ -151,13 +166,7 @@ const Component = props => {
                       options={attributes}
                       getOptionLabel={(option) => option.name}
                       value={item.attribute}
-                      onChange={(_, value) => {
-                        setFields(prev => {
-                          let copy = prev.slice()
-                          copy[i].attribute = value
-                          return copy
-                        })
-                      }}
+                      onChange={(_, value) => setFieldValue(i, 'attribute', value)}
                       renderInput={(params) => 
                         <TextField 
                           {...params} 
@@ -182,11 +191,7 @@ const Component = props => {
                       fullWidth
                       disabled={loading}
                       value={item.type}
-                      onChange={e => setFields(prev => {
-                        let copy = prev.slice()
-                        copy[i].type = e.target.value
-                        return copy
-                      })}
+                      onChange={e => setFieldValue(i, 'type', e.target.value)}
                       style={{
                         marginTop: 10,
                         marginBottom: 10
@@ -215,11 +220,7 @@ const Component = props => {
                       multiline
                       disabled={loading}
                       value={item.options}
-                      onChange={e => setFields(prev => {
-                        let copy = prev.slice()
-                        copy[i].options = e.target.value
-                        return copy
-                      })}
+                      onChange={e => setFieldValue(i, 'options', e.target.value)}
                       style={{
                         marginTop: 10,
                         marginBottom: 10
@@ -240,11 +241,7 @@ const Component = props => {
 
                       <Switch
                         checked={item.isRequired}
-                        onChange={() => setFields(prev => {
-                          let copy = prev.slice()
-                          copy[i].isRequired = !copy[i].isRequired
-                          return copy
-                        })}
+                        onChange={() => setFieldValue(i, 'isRequired', !item.isRequired)}
                         disabled={loading}
                       />
                     </div>
@@ -261,11 +258,7 @@ const Component = props => {
 
                       <Switch
                         checked={item.isAutocomplete}
-                        onChange={() => setFields(prev => {
-                          let copy = prev.slice()
-                          copy[i].isAutocomplete = !copy[i].isAutocomplete
-                          return copy
-                        })}
+                        onChange={() => setFieldValue(i, 'isAutocomplete', !item.isAutocomplete)}
                         disabled={loading}
                       />
                     </div>
@@ -282,11 +275,7 @@ const Component = props => {
 
                       <Switch
                         checked={item.isEnum}
-                        onChange={() => setFields(prev => {
-                          let copy = prev.slice()
-                          copy[i].isEnum = !copy[i].isEnum
-                          return copy
-                        })}
+                        onChange={() => setFieldValue(i, 'isEnum', !item.isEnum)}
                         disabled={loading}
                       />
                     </div>
@@ -303,11 +292,7 @@ const Component = props => {
 
                       <Switch
                         checked={item.isMulti}
-                        onChange={() => setFields(prev => {
-                          let copy = prev.slice()
-                          copy[i].isMulti = !copy[i].isMulti
-                          return copy
-                        })}
+                        onChange={() => setFieldValue(i, 'isMulti', !item.isMulti)}
                         disabled={loading}
                       />
                     </div>
