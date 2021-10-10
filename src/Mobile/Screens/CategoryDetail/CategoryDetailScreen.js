@@ -132,22 +132,25 @@ const Component = props => {
         showsProductConditionField,
         requiresProductCondition,
         isPublished,
-        specFields: specFields.map(field => {
-          return {
-            attributeId: field.attribute.id,
-            type: field.type,
-            options: field.type === 'string' ? field.options.split(',').reduce((arr, currentVal) => {
-              const trimmed = currentVal.trim()
-              if(trimmed.length > 0) arr.push(trimmed)
-              return arr
-            }, []) : [],
-            isRequired: field.isRequired,
-            isAutocomplete: field.isAutocomplete,
-            isEnum: field.isEnum,
-            max: field.max.trim().length > 0 ? parseFloat(field.max, 10) : null,
-            min: field.min.trim().length > 0 ? parseFloat(field.min, 10) : null
+        specFields: specFields.reduce((fields, field) => {
+          if(!field.deleted) {
+            fields.push({
+              attributeId: field.attribute.id,
+              type: field.type,
+              options: field.type === 'string' ? field.options.split(',').reduce((arr, currentVal) => {
+                const trimmed = currentVal.trim()
+                if(trimmed.length > 0) arr.push(trimmed)
+                return arr
+              }, []) : [],
+              isRequired: field.isRequired,
+              isAutocomplete: field.isAutocomplete,
+              isEnum: field.isEnum,
+              max: field.max.trim().length > 0 ? parseFloat(field.max, 10) : null,
+              min: field.min.trim().length > 0 ? parseFloat(field.min, 10) : null
+            })
           }
-        })
+          return fields
+        }, [])
       }
 
       UpdateCategory(environment, { input }, file, (payload, error) => {
