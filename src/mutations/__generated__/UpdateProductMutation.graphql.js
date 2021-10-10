@@ -20,6 +20,7 @@ export type ProductInput = {|
 export type SpecificationInput = {|
   attributeId: string,
   value: string,
+  isMulti?: ?boolean,
 |};
 export type UpdateProductMutationVariables = {|
   id: string,

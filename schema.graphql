@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sat Oct 09 2021 00:58:15 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Oct 10 2021 20:19:40 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -146,6 +146,7 @@ type Mutation {
   createPost(title: String!, content: String!, type: String!): String
   updateCategory(input: UpdateCategoryInput!): ActionOnCategoryPayload
   createAttributes(names: [String!]!): CreateAttributesPayload
+  createSpecificationFields(categoryId: String!, fields: [SpecificationFieldInput!]!): ActionOnCategoryPayload
 }
 
 """Information about pagination in a connection."""
@@ -268,6 +269,7 @@ type Specification {
   id: ID
   attribute: Attribute
   value: String
+  isMulti: Boolean
 }
 
 type SpecificationField {
@@ -279,12 +281,25 @@ type SpecificationField {
   min: Int
   options: [String]
   isEnum: Boolean
+  isMulti: Boolean
+  isAutocomplete: Boolean
+}
+
+input SpecificationFieldInput {
+  attributeId: String!
+  isRequired: Float
+  type: String
+  max: Float
+  options: [String]
+  isEnum: Boolean
+  isMulti: Boolean
   isAutocomplete: Boolean
 }
 
 input SpecificationInput {
   attributeId: String!
   value: String!
+  isMulti: Boolean
 }
 
 type Store {
