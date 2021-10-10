@@ -566,7 +566,8 @@ const Component = props => {
         bottom: 0,
         backgroundColor: 'white',
         zIndex: 9999,
-        display: queryParams?.action === 'createFields' ? undefined : 'none'
+        opacity: queryParams?.action === 'createFields' ? 1 : 0,
+        pointerEvents: queryParams?.action === 'createFields' ? undefined : 'none'
       }}>
         <CreateSpecificationFieldsModal attributes={attributes}/>
       </div>
