@@ -28,14 +28,12 @@ const mutation = graphql`
   }
 `
 
-const CreateSpecificationFields = (environment, variables, file, callback) => {
-  const uploadables = { file }
+const CreateSpecificationFields = (environment, variables, callback) => {
   commitMutation(
     environment,
     {
       mutation,
       variables,
-      uploadables,
       onCompleted: (res, err) => {
         if(typeof callback === 'function') {
           if(err)

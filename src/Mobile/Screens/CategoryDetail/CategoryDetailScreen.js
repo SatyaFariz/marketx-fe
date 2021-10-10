@@ -569,7 +569,7 @@ const Component = props => {
         opacity: queryParams?.action === 'createFields' ? 1 : 0,
         pointerEvents: queryParams?.action === 'createFields' ? undefined : 'none'
       }}>
-        <CreateSpecificationFieldsModal attributes={attributes}/>
+        <CreateSpecificationFieldsModal attributes={attributes} category={category}/>
       </div>
     </div>
   )
@@ -584,6 +584,7 @@ export default createFragmentContainer(Component, {
       showsProductConditionField,
       requiresProductCondition,
       listingType,
+      ...CreateSpecificationFieldsModal_category,
       ancestors {
         id,
         name

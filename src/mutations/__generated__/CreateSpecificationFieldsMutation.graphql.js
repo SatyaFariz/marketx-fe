@@ -10,9 +10,10 @@
 import type { ConcreteRequest } from 'relay-runtime';
 export type SpecificationFieldInput = {|
   attributeId: string,
-  isRequired?: ?number,
+  isRequired?: ?boolean,
   type?: ?string,
   max?: ?number,
+  min?: ?number,
   options?: ?$ReadOnlyArray<?string>,
   isEnum?: ?boolean,
   isMulti?: ?boolean,

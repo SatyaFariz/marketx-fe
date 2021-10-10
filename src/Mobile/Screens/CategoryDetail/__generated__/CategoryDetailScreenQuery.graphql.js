@@ -63,6 +63,7 @@ fragment CategoryDetailScreen_category on Category {
   showsProductConditionField
   requiresProductCondition
   listingType
+  ...CreateSpecificationFieldsModal_category
   ancestors {
     id
     name
@@ -90,6 +91,10 @@ fragment CategoryDetailScreen_category on Category {
 fragment CreateSpecificationFieldsModal_attributes on Attribute {
   id
   name
+}
+
+fragment CreateSpecificationFieldsModal_category on Category {
+  id
 }
 */
 
@@ -351,12 +356,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "80bcb8313caf1e573a7d7bfca8f9498a",
+    "cacheID": "aaf33b8e4b7091c218b20255e408e65d",
     "id": null,
     "metadata": {},
     "name": "CategoryDetailScreenQuery",
     "operationKind": "query",
-    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n  attributes {\n    id\n    ...CategoryDetailScreen_attributes\n  }\n}\n\nfragment CategoryDetailScreen_attributes on Attribute {\n  id\n  ...CreateSpecificationFieldsModal_attributes\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  listingType\n  ancestors {\n    id\n    name\n  }\n  icon {\n    url\n    id\n  }\n  specFields {\n    type\n    isRequired\n    isEnum\n    isAutocomplete\n    options\n    max\n    min\n    attribute {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment CreateSpecificationFieldsModal_attributes on Attribute {\n  id\n  name\n}\n"
+    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n  attributes {\n    id\n    ...CategoryDetailScreen_attributes\n  }\n}\n\nfragment CategoryDetailScreen_attributes on Attribute {\n  id\n  ...CreateSpecificationFieldsModal_attributes\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  listingType\n  ...CreateSpecificationFieldsModal_category\n  ancestors {\n    id\n    name\n  }\n  icon {\n    url\n    id\n  }\n  specFields {\n    type\n    isRequired\n    isEnum\n    isAutocomplete\n    options\n    max\n    min\n    attribute {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment CreateSpecificationFieldsModal_attributes on Attribute {\n  id\n  name\n}\n\nfragment CreateSpecificationFieldsModal_category on Category {\n  id\n}\n"
   }
 };
 })();

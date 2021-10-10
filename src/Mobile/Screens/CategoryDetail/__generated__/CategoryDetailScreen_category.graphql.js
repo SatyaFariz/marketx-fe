@@ -8,6 +8,7 @@
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
+type CreateSpecificationFieldsModal_category$ref = any;
 import type { FragmentReference } from "relay-runtime";
 declare export opaque type CategoryDetailScreen_category$ref: FragmentReference;
 declare export opaque type CategoryDetailScreen_category$fragmentType: CategoryDetailScreen_category$ref;
@@ -38,6 +39,7 @@ export type CategoryDetailScreen_category = {|
       +name: ?string,
     |},
   |}>,
+  +$fragmentRefs: CreateSpecificationFieldsModal_category$ref,
   +$refType: CategoryDetailScreen_category$ref,
 |};
 export type CategoryDetailScreen_category$data = CategoryDetailScreen_category;
@@ -201,6 +203,11 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "CreateSpecificationFieldsModal_category"
     }
   ],
   "type": "Category",
@@ -208,6 +215,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e87dedef0b73d267b2a2443c246640b7';
+(node/*: any*/).hash = '4dac412c50673d75b1de15b2dc461d7d';
 
 module.exports = node;

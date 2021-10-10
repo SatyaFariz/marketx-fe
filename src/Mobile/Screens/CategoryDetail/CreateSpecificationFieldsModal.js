@@ -7,10 +7,12 @@ import { useState, useEffect, useRef } from 'react'
 import { TextField, MenuItem, Switch } from '@material-ui/core'
 import Button from '../../Components/Button'
 import NumberFormat from 'react-number-format'
+import useAppContext from '../../hooks/useAppContext'
 import { Add } from '@material-ui/icons'
 import { Autocomplete } from '@material-ui/lab'
 import { Fab, ButtonBase } from '@material-ui/core'
 import Validator from '../../../helpers/validator'
+import CreateSpecificationFields from '../../../mutations/CreateSpecificationFields'
 
 const obj = {
   attribute: null,
@@ -38,7 +40,8 @@ const typeOptions = [
 ]
 
 const Component = props => {
-  const { attributes } = props
+  const { attributes, category, relay: { environment }} = props
+  const { history } = useAppContext()
   const isMounted = useRef(true)
   const [fieldId, setFieldId] = useState(0)
   const [loading, setLoading] = useState(false)
@@ -79,7 +82,52 @@ const Component = props => {
 
   const save = () => {
     if(!loading && isValid()) {
-      alert('save now')
+      const _fields = fields.map(field => {
+        const attributeId = field.attribute.id
+        const type = field.type
+        const options = type === 'string' ? field.options.split(',').reduce((arr, currentVal) => {
+          const trimmed = currentVal.trim()
+          if(trimmed.length > 0) arr.push(trimmed)
+          return arr
+        }, []) : []
+        const max = type === 'int' && field.max.length > 0 ? parseFloat(field.max, 10) : null
+        const min = type === 'int' && field.min.length > 0 ? parseFloat(field.min, 10) : null
+        const isRequired = field.isRequired
+        const isAutocomplete = type === 'string' ? field.isAutocomplete : null
+        const isEnum = type === 'string' ? field.isEnum : null
+        const isMulti = type === 'string' ? field.isMulti : null
+
+        return {
+          attributeId,
+          type,
+          options,
+          max,
+          min,
+          isRequired,
+          isAutocomplete,
+          isEnum,
+          isMulti
+        }
+      })
+
+      const variables = {
+        categoryId: category.id,
+        fields: _fields
+      }
+
+      CreateSpecificationFields(environment, variables, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { message, hasError } = payload.actionInfo
+          alert(message)
+          if(!hasError)
+            history.goBack()
+        }
+
+        isMounted.current && setLoading(false)
+      })
+      setLoading(true)
     }
   }
 
@@ -426,6 +474,11 @@ const Component = props => {
 }
 
 export default createFragmentContainer(Component, {
+  category: graphql`
+    fragment CreateSpecificationFieldsModal_category on Category {
+      id
+    }
+  `,
   attributes: graphql`
     fragment CreateSpecificationFieldsModal_attributes on Attribute @relay(plural: true) {
       id,
