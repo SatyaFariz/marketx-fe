@@ -136,7 +136,11 @@ const Component = props => {
           return {
             attributeId: field.attribute.id,
             type: field.type,
-            options: field.options.trim().length === 0 ? [] : field.options.split(',').map(item => item.trim()),
+            options: field.type === 'string' ? field.options.split(',').reduce((arr, currentVal) => {
+              const trimmed = currentVal.trim()
+              if(trimmed.length > 0) arr.push(trimmed)
+              return arr
+            }, []) : [],
             isRequired: field.isRequired,
             isAutocomplete: field.isAutocomplete,
             isEnum: field.isEnum,
