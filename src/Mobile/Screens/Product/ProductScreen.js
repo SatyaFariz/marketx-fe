@@ -17,6 +17,7 @@ import UnsuspendProduct from '../../../mutations/UnsuspendProduct'
 import Button from '../../Components/Button'
 import { IoMdCreate } from 'react-icons/io'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import truncate from 'truncate'
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -201,7 +202,7 @@ const Component = props => {
                 margin: 0,
                 fontSize: 18,
                 fontWeight: 500,
-              }}>{product.name}</h1>
+              }}>{truncate(product.name, 18)}</h1>
               <span style={{
                 color: 'rgb(83, 100, 113)',
                 fontSize: 12,
