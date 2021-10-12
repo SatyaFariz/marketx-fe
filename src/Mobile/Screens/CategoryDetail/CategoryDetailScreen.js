@@ -72,6 +72,7 @@ const Component = props => {
     type: field.type || 'string',
     isRequired: field.isRequired || false,
     isAutocomplete: field.isAutocomplete || false,
+    isMulti: field.isMulti || false,
     isEnum: field.isEnum || false,
     options: (field.options || []).join(', ') || '',
     min: field.min?.toString() || '',
@@ -445,7 +446,7 @@ const Component = props => {
                                     justifyContent: 'space-between',
                                     flexGrow: 1
                                   }}>
-                                    <span>{field.attribute.name} {field.deleted ? '(Deleted)' : ''}</span>
+                                    <span>{field.attribute.name} {field.isMulti ? '(Multi)' : ''} {field.deleted ? '(Deleted)' : ''}</span>
                                     <Button
                                       label={field.deleted ? 'Undo' : 'Delete'}
                                       onClick={(e) => {
@@ -640,6 +641,7 @@ export default createFragmentContainer(Component, {
         type,
         isRequired,
         isEnum,
+        isMulti,
         isAutocomplete,
         options,
         max,
