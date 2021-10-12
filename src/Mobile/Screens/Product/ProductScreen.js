@@ -391,13 +391,14 @@ const Component = props => {
                 </div>
                 }
                 {product.specs.map((item, i) => {
+                  if(item.isMulti && JSON.parse(item.value).length === 0) return null
                   if(item.value?.trim() === '') return null
                   return (
                     <div key={i} style={{
                       display: 'flex',
                       flexDirection: 'row',
                       justifyContent: 'space-between',
-                      alignItems: 'center',
+                      alignItems: 'flex-start',
                       paddingTop: 10,
                       paddingBottom: 10
                     }}>
@@ -417,7 +418,24 @@ const Component = props => {
                         /> */}
                         <span>{item.attribute.name}</span>
                       </div>
+                      {item.isMulti ?
+                      <div>
+                        {JSON.parse(item.value).map((val, i) => {
+                          return (
+                            <div style={{
+                              display: 'flex',
+                              justifyContent: 'flex-end',
+                              marginBottom: 5
+                            }}>
+                              {val}
+                            </div>
+                          )
+                        })}
+                      </div>
+                      :
                       <span>{item.value}</span>
+                      }
+
                     </div>
                   )
                 })}
@@ -757,7 +775,8 @@ export default createFragmentContainer(Component, {
             url
           }
         },
-        value
+        value,
+        isMulti
       },
       store {
         id,
