@@ -16,6 +16,7 @@ import { fromImage } from 'imtool'
 import Link from '../../Components/Link'
 import useAppContext from '../../hooks/useAppContext'
 import CreateSpecificationFieldsModal from './CreateSpecificationFieldsModal'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 const megabytes = 1048576
 
@@ -168,6 +169,18 @@ const Component = props => {
 
       setLoading(true)
     }
+  }
+
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return
+
+    setSpecFields(prev => {
+      const items = Array.from(prev)
+      const [reorderedItem] = items.splice(result.source.index, 1)
+      items.splice(result.destination.index, 0, reorderedItem)
+
+      return items
+    })
   }
 
   useEffect(() => {
@@ -399,167 +412,191 @@ const Component = props => {
             <span>There is no specification fields.</span>
           </div>
           :
-          <div>
-            {specFields.map((field, i) => {
-              return (
-                <div key={field.key} style={{ marginBottom: 10 }}>
-                  <Accordion 
-                    expanded={field.deleted ? false : field.expanded}
-                    onChange={field.deleted ? () => {} : () => setFields(i, 'expanded', !field.expanded)}
-                  >
-                    <AccordionSummary>
-                      <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        flexGrow: 1
-                      }}>
-                        <span>{field.attribute.name} {field.deleted ? '(Deleted)' : ''}</span>
-                        <Button
-                          label={field.deleted ? 'Undo' : 'Delete'}
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            setFields(i, 'deleted', !field.deleted)
-                          }}
-                          disabled={loading}
-                        />
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="fields">
+              {(provided) => (
+                <div className="fields" {...provided.droppableProps} ref={provided.innerRef}>
+                  {specFields.map((field, i) => {
+                    return (
+                      <div
+                        key={field.key}
+                      >
+                        <Draggable
+                          draggableId={field.key.toString()}
+                          index={i}
+                        >
+                          {provided => (
+                            <div
+                              ref={provided.innerRef} 
+                              {...provided.draggableProps} 
+                              {...provided.dragHandleProps}
+                              
+                            >
+                              <Accordion
+                                style={{ paddingBottom: 10, backgroundColor: 'transparent' }}
+                                expanded={field.deleted ? false : field.expanded}
+                                onChange={field.deleted ? () => {} : () => setFields(i, 'expanded', !field.expanded)}
+                              >
+                                <AccordionSummary>
+                                  <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    flexGrow: 1
+                                  }}>
+                                    <span>{field.attribute.name} {field.deleted ? '(Deleted)' : ''}</span>
+                                    <Button
+                                      label={field.deleted ? 'Undo' : 'Delete'}
+                                      onClick={(e) => {
+                                        e.stopPropagation()
+                                        setFields(i, 'deleted', !field.deleted)
+                                      }}
+                                      disabled={loading}
+                                    />
+                                  </div>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                  <div style={{
+                                    flexGrow: 1
+                                  }}>
+                                    
+                                    {field.type === 'int' &&
+                                    <>
+                                      <NumberFormat
+                                        customInput={TextField}
+                                        variant="outlined"
+                                        label="Max"
+                                        value={field.max}
+                                        onValueChange={({ value }) => setFields(i, 'max', value.trimLeft())}
+                                        fullWidth
+                                        disabled={loading}
+                                        style={{
+                                          marginTop: 10,
+                                          marginBottom: 10
+                                        }}
+                                        inputProps={{
+                                          pattern: "[0-9]*",
+                                          type: "text",
+                                          inputMode: "numeric"
+                                        }}
+                                        // error={validation?.price?.isInvalid}
+                                        // helperText={validation?.price?.message}
+                                        allowNegative={false}
+                                        decimalSeparator={null}
+                                        thousandSeparator="."
+                                      />
+
+                                      <NumberFormat
+                                        customInput={TextField}
+                                        variant="outlined"
+                                        label="Min"
+                                        value={field.min}
+                                        onValueChange={({ value }) => setFields(i, 'min', value.trimLeft())}
+                                        fullWidth
+                                        disabled={loading}
+                                        style={{
+                                          marginTop: 10,
+                                          marginBottom: 10
+                                        }}
+                                        inputProps={{
+                                          pattern: "[0-9]*",
+                                          type: "text",
+                                          inputMode: "numeric"
+                                        }}
+                                        // error={validation?.price?.isInvalid}
+                                        // helperText={validation?.price?.message}
+                                        allowNegative={false}
+                                        decimalSeparator={null}
+                                        thousandSeparator="."
+                                      />
+                                    </>
+                                    }
+
+                                    {field.type === 'string' &&
+                                    <TextField
+                                      variant="outlined"
+                                      label="Options"
+                                      fullWidth
+                                      disabled={loading}
+                                      style={{
+                                        marginTop: 10,
+                                        marginBottom: 10
+                                      }}
+                                      multiline
+                                      onChange={e => setFields(i, 'options', e.target.value.trimLeft())}
+                                      value={field.options}
+                                    />
+                                    }
+
+                                    <div style={{
+                                      display: 'flex',
+                                      flexDirection: 'row',
+                                      justifyContent: 'space-between',
+                                      alignItems: 'center',
+                                      marginTop: 10,
+                                      marginBottom: 10
+                                    }}>
+                                      <span>Required</span>
+
+                                      <Switch
+                                        checked={field.isRequired}
+                                        onChange={() => setFields(i, 'isRequired', !field.isRequired)}
+                                        disabled={loading}
+                                      />
+                                    </div>
+
+                                    {field.type === 'string' &&
+                                    <>
+                                      <div style={{
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        marginTop: 10,
+                                        marginBottom: 10
+                                      }}>
+                                        <span>Autocomplete</span>
+
+                                        <Switch
+                                          checked={field.isAutocomplete}
+                                          onChange={() => setFields(i, 'isAutocomplete', !field.isAutocomplete)}
+                                          disabled={loading}
+                                        />
+                                      </div>
+
+                                      <div style={{
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        marginTop: 10,
+                                        marginBottom: 10
+                                      }}>
+                                        <span>Enum</span>
+
+                                        <Switch
+                                          checked={field.isEnum}
+                                          onChange={() => setFields(i, 'isEnum', !field.isEnum)}
+                                          disabled={loading}
+                                        />
+                                      </div>
+                                    </>
+                                    }
+                                  </div>
+                                </AccordionDetails>
+                              </Accordion>
+                            </div>
+                          )}
+                        </Draggable>
                       </div>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <div style={{
-                        flexGrow: 1
-                      }}>
-                        
-                        {field.type === 'int' &&
-                        <>
-                          <NumberFormat
-                            customInput={TextField}
-                            variant="outlined"
-                            label="Max"
-                            value={field.max}
-                            onValueChange={({ value }) => setFields(i, 'max', value.trimLeft())}
-                            fullWidth
-                            disabled={loading}
-                            style={{
-                              marginTop: 10,
-                              marginBottom: 10
-                            }}
-                            inputProps={{
-                              pattern: "[0-9]*",
-                              type: "text",
-                              inputMode: "numeric"
-                            }}
-                            // error={validation?.price?.isInvalid}
-                            // helperText={validation?.price?.message}
-                            allowNegative={false}
-                            decimalSeparator={null}
-                            thousandSeparator="."
-                          />
-
-                          <NumberFormat
-                            customInput={TextField}
-                            variant="outlined"
-                            label="Min"
-                            value={field.min}
-                            onValueChange={({ value }) => setFields(i, 'min', value.trimLeft())}
-                            fullWidth
-                            disabled={loading}
-                            style={{
-                              marginTop: 10,
-                              marginBottom: 10
-                            }}
-                            inputProps={{
-                              pattern: "[0-9]*",
-                              type: "text",
-                              inputMode: "numeric"
-                            }}
-                            // error={validation?.price?.isInvalid}
-                            // helperText={validation?.price?.message}
-                            allowNegative={false}
-                            decimalSeparator={null}
-                            thousandSeparator="."
-                          />
-                        </>
-                        }
-
-                        {field.type === 'string' &&
-                        <TextField
-                          variant="outlined"
-                          label="Options"
-                          fullWidth
-                          disabled={loading}
-                          style={{
-                            marginTop: 10,
-                            marginBottom: 10
-                          }}
-                          multiline
-                          onChange={e => setFields(i, 'options', e.target.value.trimLeft())}
-                          value={field.options}
-                        />
-                        }
-
-                        <div style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          marginTop: 10,
-                          marginBottom: 10
-                        }}>
-                          <span>Required</span>
-
-                          <Switch
-                            checked={field.isRequired}
-                            onChange={() => setFields(i, 'isRequired', !field.isRequired)}
-                            disabled={loading}
-                          />
-                        </div>
-
-                        {field.type === 'string' &&
-                        <>
-                          <div style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            marginTop: 10,
-                            marginBottom: 10
-                          }}>
-                            <span>Autocomplete</span>
-
-                            <Switch
-                              checked={field.isAutocomplete}
-                              onChange={() => setFields(i, 'isAutocomplete', !field.isAutocomplete)}
-                              disabled={loading}
-                            />
-                          </div>
-
-                          <div style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            marginTop: 10,
-                            marginBottom: 10
-                          }}>
-                            <span>Enum</span>
-
-                            <Switch
-                              checked={field.isEnum}
-                              onChange={() => setFields(i, 'isEnum', !field.isEnum)}
-                              disabled={loading}
-                            />
-                          </div>
-                        </>
-                        }
-                      </div>
-                    </AccordionDetails>
-                  </Accordion>
+                    )
+                  })}
+                  {provided.placeholder}
                 </div>
-              )
-            })}
-          </div>
+              )}
+            </Droppable>
+          </DragDropContext>
           }
           
         </div>
