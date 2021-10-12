@@ -23,6 +23,7 @@ export type CategorySpecificationFieldInput = {|
   isRequired: boolean,
   isAutocomplete?: ?boolean,
   isEnum?: ?boolean,
+  isMulti?: ?boolean,
   max?: ?number,
   min?: ?number,
 |};

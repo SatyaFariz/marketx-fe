@@ -147,6 +147,7 @@ const Component = props => {
               isRequired: field.isRequired,
               isAutocomplete: field.isAutocomplete,
               isEnum: field.isEnum,
+              isMulti: field.isMulti,
               max: field.max.trim().length > 0 ? parseFloat(field.max, 10) : null,
               min: field.min.trim().length > 0 ? parseFloat(field.min, 10) : null
             })

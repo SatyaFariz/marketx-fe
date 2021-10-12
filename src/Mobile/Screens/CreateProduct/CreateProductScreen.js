@@ -5,7 +5,7 @@ import Color from '../../Constants/Color'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import { TextField, InputAdornment, MenuItem } from '@material-ui/core'
+import { TextField, InputAdornment, MenuItem, ListItemText, Checkbox } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import Validator from '../../../helpers/validator'
@@ -58,7 +58,7 @@ const Component = props => {
   const [productConditionId, setProductConditionId] = useState(null)
   const [rentalDurationId, setRentalDurationId] = useState(null)
   const [specs, setSpecs] = useState(category.specFields.reduce((obj, currentVal) => {
-    obj[currentVal.attribute.id] = ''
+    obj[currentVal.attribute.id] = currentVal.isMulti ? [] : ''
     return obj
   }, {}))
   const [validation, setValidation] = useState({ isValid: false })
@@ -68,7 +68,7 @@ const Component = props => {
   }
 
   const _setSpecs = field => e => {
-    const value = e.target.value?.trimLeft() || null
+    const value = field.isMulti ? e.target.value : (e.target.value?.trimLeft() || null)
     setSpecs(prev => ({ ...prev, [field.attribute.id]: value }))
   }
 
@@ -164,7 +164,12 @@ const Component = props => {
     setRentalDurationId(null)
     setSpecs(prev => {
       const newSpecs = {}
-      for(let key in prev) newSpecs[key] = ''
+      for(let key in prev) {
+        if(typeof prev[key] === 'object') 
+          newSpecs[key] = []
+        else
+          newSpecs[key] = ''
+      }
       return newSpecs
     })
   }
@@ -175,7 +180,8 @@ const Component = props => {
       for(let key in specs) {
         productSpecs.push({
           attributeId: key,
-          value: specs[key]
+          value: Array.isArray(specs[key]) ? JSON.stringify(specs[key]) : specs[key],
+          isMulti: Array.isArray(specs[key])
         })
       }
 
@@ -637,7 +643,7 @@ const Component = props => {
                   label={field.attribute.name}
                   fullWidth
                   disabled={loading}
-                  value={specs[field.attribute.id]?.trim() === '' ? '' : specs[field.attribute.id]}
+                  value={field.isMulti ? specs[field.attribute.id] : (specs[field.attribute.id]?.trim() === '' ? '' : specs[field.attribute.id])}
                   onChange={_setSpecs(field)}
                   style={{
                     marginTop: 10,
@@ -646,7 +652,10 @@ const Component = props => {
                   error={validation[field.attribute.id]?.isInvalid}
                   helperText={validation[field.attribute.id]?.message}
                   SelectProps={{
+                    multiple: field.isMulti,
+                    renderValue: (selected) => selected.join(', '),
                     MenuProps: {
+                      disableAutoFocusItem: true,
                       style: {
                         maxHeight: 500
                       }
@@ -655,14 +664,19 @@ const Component = props => {
                 >
                   {field.options.map((option, i) => (
                     <MenuItem key={i} value={option}>
-                      {option}
+                      {field.isMulti &&
+                        <Checkbox
+                          checked={specs[field.attribute.id].indexOf(option) > -1} 
+                        />
+                      }
+                      <ListItemText primary={option}/>
                     </MenuItem>
                   ))}
-                  {!field.options.includes(specs[field.attribute.id]) &&
+                  {/*!field.options.includes(specs[field.attribute.id]) &&
                     <MenuItem value={specs[field.attribute.id]}>
                       {specs[field.attribute.id]}
                     </MenuItem>
-                  }
+                  */}
                 </TextField>
               )
               
@@ -727,7 +741,8 @@ export default createFragmentContainer(Component, {
         max,
         min,
         options,
-        isEnum
+        isEnum,
+        isMulti
       }
     }
   `,
