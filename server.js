@@ -4,6 +4,7 @@ import path from 'path'
 import fs from 'fs'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
+import { resetServerContext } from 'react-beautiful-dnd'
 import axios from 'axios'
 import { createMemoryHistory as createHistory } from 'history'
 import App  from './src/App'
@@ -24,6 +25,7 @@ React.useLayoutEffect = React.useEffect // fix warning
 const port = parseInt(process.env.PORT || 5000, 10)
 const expressRouter = express.Router()
 app.disable('x-powered-by')
+resetServerContext()
 
 routes.forEach(route => {
   (route.path === '/' ? app : expressRouter).get(route.path, async (req, res) => {
