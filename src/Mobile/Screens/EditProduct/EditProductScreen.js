@@ -64,6 +64,7 @@ const Component = props => {
     } else {
       if(field.isMulti) {
         value = e.target.value
+        value.sort()
       } else {
         value = (e.target.value || '').trimLeft()
       }

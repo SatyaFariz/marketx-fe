@@ -79,8 +79,15 @@ const Component = props => {
     let value = ''
     if(['int'].indexOf(field.type) > -1)
       value = e.value
-    else
-      value = field.isMulti ? e.target.value : (e.target.value?.trimLeft() || null)
+    else {
+      if(field.isMulti) {
+        value = e.target.value
+        value.sort()
+      } else {
+        value = (e.target.value || '').trimLeft()
+      }
+    }
+
     setSpecs(prev => ({ ...prev, [field.attribute.id]: value }))
   }
 
