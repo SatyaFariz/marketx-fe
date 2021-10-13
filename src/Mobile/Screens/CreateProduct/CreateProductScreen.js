@@ -76,7 +76,11 @@ const Component = props => {
   }
 
   const _setSpecs = field => e => {
-    const value = field.isMulti ? e.target.value : (e.target.value?.trimLeft() || null)
+    let value = ''
+    if(['int'].indexOf(field.type) > -1)
+      value = e.value
+    else
+      value = field.isMulti ? e.target.value : (e.target.value?.trimLeft() || null)
     setSpecs(prev => ({ ...prev, [field.attribute.id]: value }))
   }
 
@@ -690,36 +694,76 @@ const Component = props => {
                 </TextField>
               )
               
+            } else {
+              if(['int'].indexOf(field.type) > -1) {
+                return (
+                  <NumberFormat
+                    customInput={TextField}
+                    variant="outlined"
+                    label={field.attribute.name}
+                    fullWidth
+                    disabled={loading}
+                    value={specs[field.attribute.id]}
+                    onValueChange={_setSpecs(field)}
+                    style={{
+                      marginTop: 10,
+                      marginBottom: 10
+                    }}
+                    inputProps={{
+                      pattern: "[0-9]*",
+                      type: "text",
+                      inputMode: "numeric"
+                    }}
+                    error={validation[field.attribute.id]?.isInvalid}
+                    helperText={validation[field.attribute.id]?.message}
+                    allowNegative={field.min?.trim()?.length > 0 && parseInt(field.min, 10) < 0}
+                    decimalSeparator={null}
+                    thousandSeparator="."
+                    InputProps={{
+                      startAdornment: field.prefix?.trim()?.length > 0 ? (
+                        <InputAdornment>
+                          {field.prefix}
+                        </InputAdornment>
+                      ) : null,
+                      endAdornment: field.suffix?.trim()?.length > 0 ? (
+                        <InputAdornment>
+                          {field.suffix}
+                        </InputAdornment>
+                      ) : null
+                    }}
+                  />
+                )
+              }
+              return (
+                <TextField
+                  key={field.id}
+                  variant="outlined"
+                  label={field.attribute.name}
+                  fullWidth
+                  disabled={loading}
+                  value={specs[field.attribute.id]}
+                  onChange={_setSpecs(field)}
+                  style={{
+                    marginTop: 10,
+                    marginBottom: 10
+                  }}
+                  error={validation[field.attribute.id]?.isInvalid}
+                  helperText={validation[field.attribute.id]?.message}
+                  InputProps={{
+                    startAdornment: field.prefix?.trim()?.length > 0 ? (
+                      <InputAdornment>
+                        {field.prefix}
+                      </InputAdornment>
+                    ) : null,
+                    endAdornment: field.suffix?.trim()?.length > 0 ? (
+                      <InputAdornment>
+                        {field.suffix}
+                      </InputAdornment>
+                    ) : null
+                  }}
+                />
+              )
             }
-            return (
-              <TextField
-                key={field.id}
-                variant="outlined"
-                label={field.attribute.name}
-                fullWidth
-                disabled={loading}
-                value={specs[field.attribute.id]}
-                onChange={_setSpecs(field)}
-                style={{
-                  marginTop: 10,
-                  marginBottom: 10
-                }}
-                error={validation[field.attribute.id]?.isInvalid}
-                helperText={validation[field.attribute.id]?.message}
-                InputProps={{
-                  startAdornment: field.prefix?.trim()?.length > 0 ? (
-                    <InputAdornment>
-                      {field.prefix}
-                    </InputAdornment>
-                  ) : null,
-                  endAdornment: field.suffix?.trim()?.length > 0 ? (
-                    <InputAdornment>
-                      {field.suffix}
-                    </InputAdornment>
-                  ) : null
-                }}
-              />
-            )
           })}
 
           <Button
