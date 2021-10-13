@@ -4,7 +4,7 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import { TextField, InputAdornment, MenuItem, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress } from '@material-ui/core'
+import { TextField, InputAdornment, MenuItem, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress, Checkbox } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import Validator from '../../../helpers/validator'
@@ -32,7 +32,13 @@ const Component = props => {
   const [price, setPrice] = useState(product.price.toString())
   const [desc, setDesc] = useState(product.desc)
   const [specs, setSpecs] = useState(product.category[product.category.length - 1].specFields.reduce((obj, currentVal) => {
-    obj[currentVal.attribute.id] = product.specs.find(item => item.attribute.id === currentVal.attribute.id)?.value || ''
+    const value = product.specs.find(item => item.attribute.id === currentVal.attribute.id)?.value
+    if(currentVal.isMulti) {
+      obj[currentVal.attribute.id] = value ? JSON.parse(value) : []
+    } else {
+      obj[currentVal.attribute.id] = value || ''
+    }
+    
     return obj
   }, {}))
   const [productConditionId, setProductConditionId] = useState(product.condition?.id)
@@ -48,13 +54,19 @@ const Component = props => {
   }
 
   const _setSpecs = field => e => {
-    let value = (e.target.value || '').trimLeft()
+    let value = ''
     if(field.type === 'int') {
       value = cleanNonNumericChars(value, { allowNegative: field.min < 0 })
       if(value.startsWith('0'))
         value = parseInt(value, 10).toString()
 
       value = value.substr(0, 12)
+    } else {
+      if(field.isMulti) {
+        value = e.target.value
+      } else {
+        value = (e.target.value || '').trimLeft()
+      }
     }
     setSpecs(prev => ({ ...prev, [field.attribute.id]: value }))
   }
@@ -143,7 +155,8 @@ const Component = props => {
       for(let key in specs) {
         productSpecs.push({
           attributeId: key,
-          value: specs[key]
+          value: Array.isArray(specs[key]) ? JSON.stringify(specs[key]) : specs[key],
+          isMulti: Array.isArray(specs[key]),
         })
       }
 
@@ -200,7 +213,16 @@ const Component = props => {
       const spec = product.specs[i]
       const attributeId = spec.attribute.id
       const { value } = spec
-      if(value?.trim() !== specs[attributeId]?.trim()) {
+      if(Array.isArray(specs[attributeId])) {
+        const values = specs[attributeId].slice()
+        values.sort()
+        const prevValues = JSON.parse(value)
+        prevValues.sort()
+        if(JSON.stringify(values) !== JSON.stringify(prevValues)) {
+          return false
+        }
+      }
+      else if(value?.trim() !== specs[attributeId]?.trim()) {
         return false
       }
     }
@@ -639,6 +661,16 @@ const Component = props => {
                     />
                   )
                 }
+
+                const options = field.options.slice()
+                if(field.isMulti) {
+                  const values = specs[field.attribute.id]
+                  values.forEach(value => {
+                    if(options.indexOf(value) === -1) {
+                      options.push(value)
+                    }
+                  })
+                }
                 return (
                   <TextField
                     key={field.id}
@@ -647,7 +679,7 @@ const Component = props => {
                     label={field.attribute.name}
                     fullWidth
                     disabled={loading}
-                    value={specs[field.attribute.id]?.trim() === '' ? undefined : specs[field.attribute.id]}
+                    value={field.isMulti ? specs[field.attribute.id] : (specs[field.attribute.id]?.trim() === '' ? '' : specs[field.attribute.id])}
                     onChange={_setSpecs(field)}
                     style={{
                       marginTop: 10,
@@ -656,23 +688,31 @@ const Component = props => {
                     error={validation[field.attribute.id]?.isInvalid}
                     helperText={validation[field.attribute.id]?.message}
                     SelectProps={{
+                      multiple: field.isMulti,
+                      renderValue: (selected) => selected.join(', '),
                       MenuProps: {
+                        disableAutoFocusItem: true,
                         style: {
                           maxHeight: 500
                         }
                       }
                     }}
                   >
-                    {field.options.map((option, i) => (
+                    {options.map((option, i) => (
                       <MenuItem key={i} value={option}>
-                        {option}
+                        {field.isMulti &&
+                          <Checkbox
+                            checked={specs[field.attribute.id].indexOf(option) > -1} 
+                          />
+                        }
+                        <ListItemText primary={option}/>
                       </MenuItem>
                     ))}
-                    {!field.options.includes(specs[field.attribute.id]) &&
+                    {/*!options.includes(specs[field.attribute.id]) &&
                       <MenuItem value={specs[field.attribute.id]}>
                         {specs[field.attribute.id]}
                       </MenuItem>
-                    }
+                    */}
                   </TextField>
                 )
                 
@@ -846,7 +886,10 @@ export default createFragmentContainer(Component, {
           max,
           min,
           options,
-          isEnum
+          isEnum,
+          isMulti,
+          prefix,
+          suffix
         }
       },
     }

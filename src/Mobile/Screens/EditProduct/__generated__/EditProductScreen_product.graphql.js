@@ -57,6 +57,9 @@ export type EditProductScreen_product = {|
       +min: ?number,
       +options: ?$ReadOnlyArray<?string>,
       +isEnum: ?boolean,
+      +isMulti: ?boolean,
+      +prefix: ?string,
+      +suffix: ?string,
     |}>,
   |}>,
   +$refType: EditProductScreen_product$ref,
@@ -303,6 +306,27 @@ return {
               "kind": "ScalarField",
               "name": "isEnum",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "isMulti",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "prefix",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "suffix",
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -316,6 +340,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '3bd3e28d3490b5d7b4c18813e0cf4dee';
+(node/*: any*/).hash = 'd4c5144677cd62b07a3809546eacf7f6';
 
 module.exports = node;
