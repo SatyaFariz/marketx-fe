@@ -26,6 +26,8 @@ export type CategorySpecificationFieldInput = {|
   isMulti?: ?boolean,
   max?: ?number,
   min?: ?number,
+  prefix?: ?string,
+  suffix?: ?string,
 |};
 export type UpdateCategoryMutationVariables = {|
   input: UpdateCategoryInput

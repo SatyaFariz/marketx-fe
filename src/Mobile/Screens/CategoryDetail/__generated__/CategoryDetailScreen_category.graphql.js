@@ -31,6 +31,8 @@ export type CategoryDetailScreen_category = {|
     +isRequired: ?boolean,
     +isEnum: ?boolean,
     +isMulti: ?boolean,
+    +suffix: ?string,
+    +prefix: ?string,
     +isAutocomplete: ?boolean,
     +options: ?$ReadOnlyArray<?string>,
     +max: ?number,
@@ -175,6 +177,20 @@ return {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
+          "name": "suffix",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "prefix",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
           "name": "isAutocomplete",
           "storageKey": null
         },
@@ -223,6 +239,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c009d8499541c6df9c70dc95190fb4b0';
+(node/*: any*/).hash = 'd850287b379cacb26f12720cc1540f27';
 
 module.exports = node;

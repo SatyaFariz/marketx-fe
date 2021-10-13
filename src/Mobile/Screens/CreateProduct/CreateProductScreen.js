@@ -742,7 +742,9 @@ export default createFragmentContainer(Component, {
         min,
         options,
         isEnum,
-        isMulti
+        isMulti,
+        prefix,
+        suffix
       }
     }
   `,

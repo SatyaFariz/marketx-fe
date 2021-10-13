@@ -21,7 +21,11 @@ const obj = {
   isRequired: false,
   isAutocomplete: false,
   isEnum: false,
-  isMulti: false
+  isMulti: false,
+  max: '',
+  min: '',
+  prefix: '',
+  suffix: ''
 }
 
 const typeOptions = [
@@ -96,6 +100,8 @@ const Component = props => {
         const isAutocomplete = type === 'string' ? field.isAutocomplete : null
         const isEnum = type === 'string' ? field.isEnum : null
         const isMulti = type === 'string' ? field.isMulti : null
+        const prefix = field.prefix.trim().length > 0 ? field.prefix : null
+        const suffix = field.suffix.trim().length > 0 ? field.suffix : null
 
         return {
           attributeId,
@@ -106,7 +112,9 @@ const Component = props => {
           isRequired,
           isAutocomplete,
           isEnum,
-          isMulti
+          isMulti,
+          prefix,
+          suffix
         }
       })
 
@@ -309,7 +317,43 @@ const Component = props => {
                       multiline
                       disabled={loading}
                       value={item.options}
-                      onChange={e => setFieldValue(i, 'options', e.target.value)}
+                      onChange={e => setFieldValue(i, 'options', e.target.value.trimLeft())}
+                      style={{
+                        marginTop: 10,
+                        marginBottom: 10
+                      }}
+                      // error={validation['field.attribute.id']?.isInvalid}
+                      // helperText={validation['field.attribute.id']?.message}
+                    />
+                    }
+
+                    {['string', 'int'].indexOf(item.type) > -1 &&
+                    <TextField
+                      variant="outlined"
+                      label="Prefix"
+                      fullWidth
+                      multiline
+                      disabled={loading}
+                      value={item.prefix}
+                      onChange={e => setFieldValue(i, 'prefix', e.target.value.trimLeft())}
+                      style={{
+                        marginTop: 10,
+                        marginBottom: 10
+                      }}
+                      // error={validation['field.attribute.id']?.isInvalid}
+                      // helperText={validation['field.attribute.id']?.message}
+                    />
+                    }
+
+                    {['string', 'int'].indexOf(item.type) > -1 &&
+                    <TextField
+                      variant="outlined"
+                      label="Suffix"
+                      fullWidth
+                      multiline
+                      disabled={loading}
+                      value={item.suffix}
+                      onChange={e => setFieldValue(i, 'suffix', e.target.value.trimLeft())}
                       style={{
                         marginTop: 10,
                         marginBottom: 10

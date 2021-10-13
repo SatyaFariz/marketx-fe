@@ -18,6 +18,8 @@ export type SpecificationFieldInput = {|
   isEnum?: ?boolean,
   isMulti?: ?boolean,
   isAutocomplete?: ?boolean,
+  prefix?: ?string,
+  suffix?: ?string,
 |};
 export type CreateSpecificationFieldsMutationVariables = {|
   categoryId: string,

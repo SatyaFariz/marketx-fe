@@ -77,6 +77,8 @@ const Component = props => {
     options: (field.options || []).join(', ') || '',
     min: field.min?.toString() || '',
     max: field.max?.toString() || '',
+    prefix: field.prefix,
+    suffix: field.suffix,
     key: i,
     expanded: false,
     deleted: false
@@ -148,6 +150,8 @@ const Component = props => {
               isAutocomplete: field.isAutocomplete,
               isEnum: field.isEnum,
               isMulti: field.isMulti,
+              prefix: field.prefix,
+              suffix: field.suffix,
               max: field.max.trim().length > 0 ? parseFloat(field.max, 10) : null,
               min: field.min.trim().length > 0 ? parseFloat(field.min, 10) : null
             })
@@ -462,6 +466,17 @@ const Component = props => {
                                   <div style={{
                                     flexGrow: 1
                                   }}>
+                                    <div>
+                                      {field.prefix?.trim()?.length > 0 &&
+                                      <span style={{ fontSize: 12 }}>Prefix: {field.prefix}</span>
+                                      }
+                                      {field.prefix?.trim()?.length > 0 && field.suffix?.trim()?.length > 0 &&
+                                      <span style={{ fontSize: 12 }}>{', '}</span>
+                                      }
+                                      {field.suffix?.trim()?.length > 0 &&
+                                      <span style={{ fontSize: 12 }}>Suffix: {field.suffix}</span>
+                                      }
+                                    </div>
                                     
                                     {field.type === 'int' &&
                                     <>
@@ -643,6 +658,8 @@ export default createFragmentContainer(Component, {
         isRequired,
         isEnum,
         isMulti,
+        suffix,
+        prefix,
         isAutocomplete,
         options,
         max,

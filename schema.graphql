@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Wed Oct 13 2021 00:48:50 GMT+0700 (Western Indonesia Time)
+# timestamp: Wed Oct 13 2021 17:08:52 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -82,6 +82,8 @@ input CategorySpecificationFieldInput {
   isMulti: Boolean
   max: Float
   min: Float
+  prefix: String
+  suffix: String
 }
 
 type CreateAttributesPayload {
@@ -271,6 +273,8 @@ type Specification {
   attribute: Attribute
   value: String
   isMulti: Boolean
+  prefix: String
+  suffix: String
 }
 
 type SpecificationField {
@@ -284,6 +288,8 @@ type SpecificationField {
   isEnum: Boolean
   isMulti: Boolean
   isAutocomplete: Boolean
+  prefix: String
+  suffix: String
 }
 
 input SpecificationFieldInput {
@@ -296,12 +302,16 @@ input SpecificationFieldInput {
   isEnum: Boolean
   isMulti: Boolean
   isAutocomplete: Boolean
+  prefix: String
+  suffix: String
 }
 
 input SpecificationInput {
   attributeId: String!
   value: String!
   isMulti: Boolean
+  prefix: String
+  suffix: String
 }
 
 type Store {

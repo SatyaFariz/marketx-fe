@@ -777,7 +777,9 @@ export default createFragmentContainer(Component, {
           }
         },
         value,
-        isMulti
+        isMulti,
+        prefix,
+        suffix
       },
       store {
         id,

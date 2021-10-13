@@ -21,6 +21,8 @@ export type SpecificationInput = {|
   attributeId: string,
   value: string,
   isMulti?: ?boolean,
+  prefix?: ?string,
+  suffix?: ?string,
 |};
 export type UpdateProductMutationVariables = {|
   id: string,
