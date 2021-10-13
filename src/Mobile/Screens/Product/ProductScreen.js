@@ -209,7 +209,7 @@ const Component = props => {
                 marginTop: 2,
                 display: 'block'
               }}>
-                {product.store.address.city.name}, {product.store.address.district.name}
+                {product.store.address.district.name}, {product.store.address.city.name}
               </span>
             </div>
           </div>
@@ -520,7 +520,7 @@ const Component = props => {
                       marginTop: 2,
                       display: 'block'
                     }}>
-                      {product.store.address.city.name}, {product.store.address.district.name}
+                      {product.store.address.district.name}, {product.store.address.city.name}
                     </span>
                   </div>
                 </div>
