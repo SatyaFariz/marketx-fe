@@ -61,6 +61,14 @@ const Component = props => {
     obj[currentVal.attribute.id] = currentVal.isMulti ? [] : ''
     return obj
   }, {}))
+  const [specFields] = useState(category.specFields.reduce((obj, currentVal) => {
+    obj[currentVal.attribute.id] = {
+      prefix: currentVal.prefix,
+      suffix: currentVal.suffix
+    }
+    return obj
+  }, {}))
+
   const [validation, setValidation] = useState({ isValid: false })
 
   const handleSwipe = (obj) => {
@@ -181,7 +189,9 @@ const Component = props => {
         productSpecs.push({
           attributeId: key,
           value: Array.isArray(specs[key]) ? JSON.stringify(specs[key]) : specs[key],
-          isMulti: Array.isArray(specs[key])
+          isMulti: Array.isArray(specs[key]),
+          prefix: specFields[key].prefix,
+          suffix: specFields[key].suffix
         })
       }
 
@@ -696,6 +706,18 @@ const Component = props => {
                 }}
                 error={validation[field.attribute.id]?.isInvalid}
                 helperText={validation[field.attribute.id]?.message}
+                InputProps={{
+                  startAdornment: field.prefix?.trim()?.length > 0 ? (
+                    <InputAdornment>
+                      {field.prefix}
+                    </InputAdornment>
+                  ) : null,
+                  endAdornment: field.suffix?.trim()?.length > 0 ? (
+                    <InputAdornment>
+                      {field.suffix}
+                    </InputAdornment>
+                  ) : null
+                }}
               />
             )
           })}
