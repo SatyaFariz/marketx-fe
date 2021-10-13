@@ -421,12 +421,12 @@ const Component = props => {
                       </div>
                       {item.isMulti ?
                       <div>
-                        {JSON.parse(item.value).map((val, i) => {
+                        {JSON.parse(item.value).map((val, i, arr) => {
                           return (
                             <div style={{
                               display: 'flex',
                               justifyContent: 'flex-end',
-                              marginBottom: 5
+                              marginBottom: i < arr.length - 1 ? 5 : 0
                             }}>
                               {val}
                             </div>
@@ -434,7 +434,7 @@ const Component = props => {
                         })}
                       </div>
                       :
-                      <span>{item.value}</span>
+                      <span>{`${item.prefix?.length > 0 ? `${item.prefix} ` : ''}${item.value}${item.suffix?.length > 0 ? ` ${item.suffix}` : ''}`}</span>
                       }
 
                     </div>

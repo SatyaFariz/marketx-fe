@@ -41,6 +41,13 @@ const Component = props => {
     
     return obj
   }, {}))
+  const [specFields] = useState(product.category[product.category.length - 1].specFields.reduce((obj, currentVal) => {
+    obj[currentVal.attribute.id] = {
+      prefix: currentVal.prefix,
+      suffix: currentVal.suffix
+    }
+    return obj
+  }, {}))
   const [productConditionId, setProductConditionId] = useState(product.condition?.id)
   const [rentalDurationId, setRentalDurationId] = useState(product.rentalDuration?.id)
   const [carouselPos, setCarouselPos] = useState(0)
@@ -55,12 +62,8 @@ const Component = props => {
 
   const _setSpecs = field => e => {
     let value = ''
-    if(field.type === 'int') {
-      value = cleanNonNumericChars(value, { allowNegative: field.min < 0 })
-      if(value.startsWith('0'))
-        value = parseInt(value, 10).toString()
-
-      value = value.substr(0, 12)
+    if(['int'].indexOf(field.type) > -1) {
+      value = e.value
     } else {
       if(field.isMulti) {
         value = e.target.value
@@ -158,6 +161,8 @@ const Component = props => {
           attributeId: key,
           value: Array.isArray(specs[key]) ? JSON.stringify(specs[key]) : specs[key],
           isMulti: Array.isArray(specs[key]),
+          prefix: specFields[key].prefix,
+          suffix: specFields[key].suffix
         })
       }
 
@@ -717,29 +722,70 @@ const Component = props => {
                   </TextField>
                 )
                 
+              } else {
+                if(['int'].indexOf(field.type) > -1) {
+                  return (
+                    <NumberFormat
+                      customInput={TextField}
+                      variant="outlined"
+                      label={field.attribute.name}
+                      value={specs[field.attribute.id]}
+                      onValueChange={_setSpecs(field)}
+                      fullWidth
+                      disabled={loading}
+                      style={{
+                        marginTop: 10,
+                        marginBottom: 10
+                      }}
+                      inputProps={{
+                        pattern: "[0-9]*",
+                        type: "text",
+                        inputMode: "numeric"
+                      }}
+                      error={validation[field.attribute.id]?.isInvalid}
+                      helperText={validation[field.attribute.id]?.message}
+                      allowNegative={false}
+                      decimalSeparator={null}
+                      thousandSeparator="."
+                      InputProps={{
+                        startAdornment: field.prefix?.trim()?.length > 0 ? (
+                          <InputAdornment>
+                            {field.prefix}
+                          </InputAdornment>
+                        ) : null,
+                        endAdornment: field.suffix?.trim()?.length > 0 ? (
+                          <InputAdornment>
+                            {field.suffix}
+                          </InputAdornment>
+                        ) : null
+                      }}
+                    />
+                  )
+                }
+
+                return (
+                  <TextField
+                    key={field.id}
+                    variant="outlined"
+                    label={field.attribute.name}
+                    fullWidth
+                    disabled={loading}
+                    value={specs[field.attribute.id]}
+                    onChange={_setSpecs(field)}
+                    style={{
+                      marginTop: 10,
+                      marginBottom: 10
+                    }}
+                    error={validation[field.attribute.id]?.isInvalid}
+                    helperText={validation[field.attribute.id]?.message}
+                    inputProps={['int', 'float'].includes(field.type) && {
+                      pattern: "[0-9]*",
+                      type: "text",
+                      inputMode: "numeric"
+                    }}
+                  />
+                )
               }
-              return (
-                <TextField
-                  key={field.id}
-                  variant="outlined"
-                  label={field.attribute.name}
-                  fullWidth
-                  disabled={loading}
-                  value={specs[field.attribute.id]}
-                  onChange={_setSpecs(field)}
-                  style={{
-                    marginTop: 10,
-                    marginBottom: 10
-                  }}
-                  error={validation[field.attribute.id]?.isInvalid}
-                  helperText={validation[field.attribute.id]?.message}
-                  inputProps={['int', 'float'].includes(field.type) && {
-                    pattern: "[0-9]*",
-                    type: "text",
-                    inputMode: "numeric"
-                  }}
-                />
-              )
             })}
 
             <Button
