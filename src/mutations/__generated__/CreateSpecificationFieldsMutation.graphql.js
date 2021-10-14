@@ -14,6 +14,7 @@ export type SpecificationFieldInput = {|
   type?: ?string,
   max?: ?number,
   min?: ?number,
+  numberOfLines?: ?number,
   options?: ?$ReadOnlyArray<?string>,
   isEnum?: ?boolean,
   isMulti?: ?boolean,

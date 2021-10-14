@@ -77,6 +77,7 @@ const Component = props => {
     options: (field.options || []).join(', ') || '',
     min: field.min?.toString() || '',
     max: field.max?.toString() || '',
+    numberOfLines: field.numberOfLines?.toString() || '',
     prefix: field.prefix,
     suffix: field.suffix,
     key: i,
@@ -153,7 +154,8 @@ const Component = props => {
               prefix: field.prefix,
               suffix: field.suffix,
               max: field.max.trim().length > 0 ? parseFloat(field.max, 10) : null,
-              min: field.min.trim().length > 0 ? parseFloat(field.min, 10) : null
+              min: field.min.trim().length > 0 ? parseFloat(field.min, 10) : null,
+              numberOfLines: field.numberOfLines.trim().length > 0 ? parseInt(field.numberOfLines, 10) : null
             })
           }
           return fields
@@ -546,6 +548,29 @@ const Component = props => {
                                     />
                                     }
 
+                                    {field.type === 'string' &&
+                                    <NumberFormat
+                                      customInput={TextField}
+                                      variant="outlined"
+                                      label="Number of Lines"
+                                      value={field.numberOfLines}
+                                      onValueChange={({ value }) => setFields(i, 'numberOfLines', value.trimLeft())}
+                                      fullWidth
+                                      disabled={loading}
+                                      style={{
+                                        marginTop: 10,
+                                        marginBottom: 10
+                                      }}
+                                      inputProps={{
+                                        pattern: "[0-9]*",
+                                        type: "text",
+                                        inputMode: "numeric"
+                                      }}
+                                      allowNegative={false}
+                                      decimalSeparator={null}
+                                    />
+                                    }
+
                                     <div style={{
                                       display: 'flex',
                                       flexDirection: 'row',
@@ -664,6 +689,7 @@ export default createFragmentContainer(Component, {
         options,
         max,
         min,
+        numberOfLines,
         attribute {
           id,
           name

@@ -26,6 +26,7 @@ export type CategorySpecificationFieldInput = {|
   isMulti?: ?boolean,
   max?: ?number,
   min?: ?number,
+  numberOfLines?: ?number,
   prefix?: ?string,
   suffix?: ?string,
 |};
