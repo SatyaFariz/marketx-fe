@@ -218,7 +218,7 @@ const Component = props => {
                       width: '100%'
                     }}>
                       <RiLockPasswordFill size={24}/>
-                      <span style={{ marginLeft: 15 }}>Ubah Password</span>
+                      <span style={{ marginLeft: 15 }}>Ubah Kata Sandi</span>
                     </div>
                   </ButtonBase>
 
