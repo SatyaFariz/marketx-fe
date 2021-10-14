@@ -62,7 +62,7 @@ const Component = props => {
 
   const _setSpecs = field => e => {
     let value = ''
-    if(['int'].indexOf(field.type) > -1) {
+    if(['int', 'float'].indexOf(field.type) > -1) {
       value = e.value
     } else {
       if(field.isMulti) {
@@ -77,9 +77,7 @@ const Component = props => {
 
   const _setPrice = (values) => {
     const { value } = values
-    const allowedChars = '0123456789'
-    if(value !== '0' && (value === '' || allowedChars.includes(value[value.length - 1])))
-      setPrice(value)
+    setPrice(value)
   }
 
   const isValid = () => {
@@ -723,7 +721,7 @@ const Component = props => {
                 )
                 
               } else {
-                if(['int'].indexOf(field.type) > -1) {
+                if(['int', 'float'].indexOf(field.type) > -1) {
                   return (
                     <NumberFormat
                       customInput={TextField}
@@ -744,9 +742,9 @@ const Component = props => {
                       }}
                       error={validation[field.attribute.id]?.isInvalid}
                       helperText={validation[field.attribute.id]?.message}
-                      allowNegative={false}
-                      decimalSeparator={null}
-                      thousandSeparator="."
+                      allowNegative={field.min < 0}
+                      decimalSeparator={field.type === 'float' ? '.' : null}
+                      decimalScale={2}
                       InputProps={{
                         startAdornment: field.prefix?.trim()?.length > 0 ? (
                           <InputAdornment>
@@ -778,10 +776,17 @@ const Component = props => {
                     }}
                     error={validation[field.attribute.id]?.isInvalid}
                     helperText={validation[field.attribute.id]?.message}
-                    inputProps={['int', 'float'].includes(field.type) && {
-                      pattern: "[0-9]*",
-                      type: "text",
-                      inputMode: "numeric"
+                    InputProps={{
+                      startAdornment: field.prefix?.trim()?.length > 0 ? (
+                        <InputAdornment>
+                          {field.prefix}
+                        </InputAdornment>
+                      ) : null,
+                      endAdornment: field.suffix?.trim()?.length > 0 ? (
+                        <InputAdornment>
+                          {field.suffix}
+                        </InputAdornment>
+                      ) : null
                     }}
                   />
                 )
