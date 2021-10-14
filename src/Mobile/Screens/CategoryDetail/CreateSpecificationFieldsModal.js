@@ -38,6 +38,10 @@ const typeOptions = [
     value: 'int'
   },
   {
+    label: 'Float',
+    value: 'float'
+  },
+  {
     label: 'Year',
     value: 'year'
   }
@@ -94,8 +98,8 @@ const Component = props => {
           if(trimmed.length > 0) arr.push(trimmed)
           return arr
         }, []) : []
-        const max = type === 'int' && field.max.length > 0 ? parseFloat(field.max, 10) : null
-        const min = type === 'int' && field.min.length > 0 ? parseFloat(field.min, 10) : null
+        const max = ['int', 'float'].indexOf(type) > -1 && field.max.length > 0 ? parseFloat(field.max, 10) : null
+        const min = ['int', 'float'].indexOf(type) > -1 && field.min.length > 0 ? parseFloat(field.min, 10) : null
         const isRequired = field.isRequired
         const isAutocomplete = type === 'string' ? field.isAutocomplete : null
         const isEnum = type === 'string' ? field.isEnum : null
@@ -327,7 +331,7 @@ const Component = props => {
                     />
                     }
 
-                    {['string', 'int'].indexOf(item.type) > -1 &&
+                    {['string', 'int', 'float'].indexOf(item.type) > -1 &&
                     <TextField
                       variant="outlined"
                       label="Prefix"
@@ -345,7 +349,7 @@ const Component = props => {
                     />
                     }
 
-                    {['string', 'int'].indexOf(item.type) > -1 &&
+                    {['string', 'int', 'float'].indexOf(item.type) > -1 &&
                     <TextField
                       variant="outlined"
                       label="Suffix"
@@ -363,7 +367,7 @@ const Component = props => {
                     />
                     }
 
-                    {item.type === 'int' &&
+                    {['int', 'float'].indexOf(item.type) > -1 &&
                     <>
                       <NumberFormat
                         customInput={TextField}
@@ -386,7 +390,7 @@ const Component = props => {
                         // helperText={validation?.price?.message}
                         allowNegative={false}
                         decimalSeparator={null}
-                        thousandSeparator="."
+                        // thousandSeparator="."
                       />
 
                       <NumberFormat
@@ -410,7 +414,7 @@ const Component = props => {
                         // helperText={validation?.price?.message}
                         allowNegative={false}
                         decimalSeparator={null}
-                        thousandSeparator="."
+                        // thousandSeparator="."
                       />
                     </>
                     }

@@ -77,7 +77,7 @@ const Component = props => {
 
   const _setSpecs = field => e => {
     let value = ''
-    if(['int'].indexOf(field.type) > -1)
+    if(['int', 'float'].indexOf(field.type) > -1)
       value = e.value
     else {
       if(field.isMulti) {
@@ -93,10 +93,7 @@ const Component = props => {
 
   const _setPrice = (values) => {
     const { value } = values
-    if(value.startsWith('0')) return
-    const allowedChars = '0123456789'
-    if(value !== '0' && (value === '' || allowedChars.includes(value[value.length - 1])))
-      setPrice(value)
+    setPrice(value)
   }
 
   const isValid = () => {
@@ -693,16 +690,11 @@ const Component = props => {
                       <ListItemText primary={option}/>
                     </MenuItem>
                   ))}
-                  {/*!field.options.includes(specs[field.attribute.id]) &&
-                    <MenuItem value={specs[field.attribute.id]}>
-                      {specs[field.attribute.id]}
-                    </MenuItem>
-                  */}
                 </TextField>
               )
               
             } else {
-              if(['int'].indexOf(field.type) > -1) {
+              if(['int', 'float'].indexOf(field.type) > -1) {
                 return (
                   <NumberFormat
                     customInput={TextField}
@@ -723,9 +715,9 @@ const Component = props => {
                     }}
                     error={validation[field.attribute.id]?.isInvalid}
                     helperText={validation[field.attribute.id]?.message}
-                    allowNegative={field.min?.trim()?.length > 0 && parseInt(field.min, 10) < 0}
-                    decimalSeparator={null}
-                    thousandSeparator="."
+                    allowNegative={field.min < 0}
+                    decimalSeparator={field.type === 'float' ? '.' : null}
+                    decimalScale={2}
                     InputProps={{
                       startAdornment: field.prefix?.trim()?.length > 0 ? (
                         <InputAdornment>
