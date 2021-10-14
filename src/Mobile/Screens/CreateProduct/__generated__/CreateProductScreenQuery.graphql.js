@@ -87,6 +87,7 @@ fragment CreateProductScreen_category on Category {
     isMulti
     prefix
     suffix
+    numberOfLines
   }
 }
 
@@ -369,6 +370,13 @@ return {
                 "kind": "ScalarField",
                 "name": "suffix",
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "numberOfLines",
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -437,12 +445,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1a9efe88330ffbf674b2a89c674582e4",
+    "cacheID": "c229ee164eaf73e7a7170e05c5700dae",
     "id": null,
     "metadata": {},
     "name": "CreateProductScreenQuery",
     "operationKind": "query",
-    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n  productConditions {\n    ...CreateProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...CreateProductScreen_rentalDurations\n    id\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  requiresProductCondition\n  showsProductConditionField\n  listingType\n  ancestors {\n    id\n    name\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n    isMulti\n    prefix\n    suffix\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n  }\n}\n\nfragment CreateProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment CreateProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n"
+    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n  productConditions {\n    ...CreateProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...CreateProductScreen_rentalDurations\n    id\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  requiresProductCondition\n  showsProductConditionField\n  listingType\n  ancestors {\n    id\n    name\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n    isMulti\n    prefix\n    suffix\n    numberOfLines\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n  }\n}\n\nfragment CreateProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment CreateProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n"
   }
 };
 })();

@@ -767,6 +767,8 @@ const Component = props => {
                     variant="outlined"
                     label={field.attribute.name}
                     fullWidth
+                    multiline={field.numberOfLines > 1}
+                    rows={field.numberOfLines?.toString()}
                     disabled={loading}
                     value={specs[field.attribute.id]}
                     onChange={_setSpecs(field)}
@@ -941,7 +943,8 @@ export default createFragmentContainer(Component, {
           isEnum,
           isMulti,
           prefix,
-          suffix
+          suffix,
+          numberOfLines
         }
       },
     }

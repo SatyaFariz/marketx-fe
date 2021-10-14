@@ -38,6 +38,7 @@ export type CreateProductScreen_category = {|
     +isMulti: ?boolean,
     +prefix: ?string,
     +suffix: ?string,
+    +numberOfLines: ?number,
   |}>,
   +$refType: CreateProductScreen_category$ref,
 |};
@@ -203,6 +204,13 @@ return {
           "kind": "ScalarField",
           "name": "suffix",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "numberOfLines",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -213,6 +221,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '9872f2d92412dee91c65288432700eb0';
+(node/*: any*/).hash = '0a414b09deb0b2b34415bc7b59f09371';
 
 module.exports = node;
