@@ -341,7 +341,7 @@ const Component = props => {
             fontSize: 20,
             fontWeight: 500,
             textAlign: 'center'
-          }}>Create Product</h1>
+          }}>Iklan Baru</h1>
         </div>
         
       </div>
@@ -481,7 +481,7 @@ const Component = props => {
 
           <TextField
             variant="outlined"
-            label="Product Name"
+            label="Judul"
             fullWidth
             disabled={loading}
             value={name}
@@ -497,7 +497,7 @@ const Component = props => {
           <NumberFormat
             customInput={TextField}
             variant="outlined"
-            label="Product Price"
+            label="Harga"
             fullWidth
             disabled={loading}
             value={price}
@@ -525,7 +525,7 @@ const Component = props => {
           <TextField
             variant="outlined"
             select
-            label="Durasi Rental"
+            label="Durasi sewa"
             fullWidth
             disabled={loading}
             value={rentalDurationId || ''}
@@ -554,7 +554,7 @@ const Component = props => {
 
           <TextField
             variant="outlined"
-            label="Product Description"
+            label="Deskripsi"
             disabled={loading}
             value={desc}
             onChange={e => setDesc(e.target.value.trimLeft())}
@@ -571,7 +571,7 @@ const Component = props => {
 
           {(category.showsProductConditionField || 
             category.specFields.length > 0) &&
-          <h3 style={{ margin: '10px 0'}}>Specifications</h3>
+          <h3 style={{ margin: '10px 0'}}>Rincian</h3>
           }
 
           {category.showsProductConditionField &&
