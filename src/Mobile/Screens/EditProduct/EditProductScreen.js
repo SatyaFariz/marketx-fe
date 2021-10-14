@@ -90,6 +90,38 @@ const Component = props => {
           message: 'This field is required.'
         })
       }
+
+      if(['int', 'float'].indexOf(currentVal.type) > -1 && typeof currentVal.max === 'number') {
+        rules.push({
+          field: currentVal.attribute.id,
+          method: val => {
+            if(val.length === 0) {
+              return true
+            }
+
+            const value = parseFloat(val, 10)
+            return value <= currentVal.max
+          },
+          validWhen: true,
+          message: `Maks: ${currentVal.max}`
+        })
+      }
+
+      if(['int', 'float'].indexOf(currentVal.type) > -1 && typeof currentVal.min === 'number') {
+        rules.push({
+          field: currentVal.attribute.id,
+          method: val => {
+            if(val.length === 0) {
+              return true
+            }
+
+            const value = parseFloat(val, 10)
+            return value >= currentVal.min
+          },
+          validWhen: true,
+          message: `Min: ${currentVal.min}`
+        })
+      }
       
       return rules
     }, [])
