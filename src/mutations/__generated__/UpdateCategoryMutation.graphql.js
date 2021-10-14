@@ -14,9 +14,9 @@ export type UpdateCategoryInput = {|
   isPublished: boolean,
   showsProductConditionField?: ?boolean,
   requiresProductCondition?: ?boolean,
-  specFields: $ReadOnlyArray<CategorySpecificationFieldInput>,
+  specFields: $ReadOnlyArray<SpecificationFieldInput>,
 |};
-export type CategorySpecificationFieldInput = {|
+export type SpecificationFieldInput = {|
   attributeId: string,
   type: string,
   options: $ReadOnlyArray<string>,

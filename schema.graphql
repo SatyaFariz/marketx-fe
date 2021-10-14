@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Fri Oct 15 2021 01:35:04 GMT+0700 (Western Indonesia Time)
+# timestamp: Fri Oct 15 2021 01:45:22 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -70,21 +70,6 @@ type Category {
   ancestors: [Category]
   children: [Category]
   specFields: [SpecificationField]
-}
-
-input CategorySpecificationFieldInput {
-  attributeId: String!
-  type: String!
-  options: [String!]!
-  isRequired: Boolean!
-  isAutocomplete: Boolean
-  isEnum: Boolean
-  isMulti: Boolean
-  max: Float
-  min: Float
-  numberOfLines: Int
-  prefix: String
-  suffix: String
 }
 
 type CreateAttributesPayload {
@@ -353,7 +338,7 @@ input UpdateCategoryInput {
   isPublished: Boolean!
   showsProductConditionField: Boolean
   requiresProductCondition: Boolean
-  specFields: [CategorySpecificationFieldInput!]!
+  specFields: [SpecificationFieldInput!]!
 }
 
 input UpdateProfileInput {
