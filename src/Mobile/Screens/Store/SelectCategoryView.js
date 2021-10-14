@@ -39,7 +39,7 @@ const Component = props => {
             fontSize: 20,
             fontWeight: 500,
             textAlign: 'center',
-          }}>Select Category</h1>
+          }}>Pilih Kategori</h1>
         </div>
       </div>
       <div style={{
