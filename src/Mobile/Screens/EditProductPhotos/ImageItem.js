@@ -71,7 +71,13 @@ const Component = props => {
         right: 5
       }}>
       {props.selectedIds.length === 0 ?
-      <IconButton size="small" onClick={handleClick}>
+      <IconButton 
+        size="small" 
+        onClick={handleClick}
+        style={{
+          backgroundColor: 'rgba(0, 0, 0, 0.2)'
+        }}
+      >
         <MoreVert style={{ color: 'white' }} />
       </IconButton>
       :
