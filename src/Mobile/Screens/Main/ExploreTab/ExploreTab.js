@@ -11,7 +11,8 @@ import { BiLogIn } from 'react-icons/bi'
 import { useState } from 'react'
 import { MdAdd } from 'react-icons/md'
 import { RiLockPasswordFill } from 'react-icons/ri'
-import { IoPeople, IoShieldCheckmark, IoHelpCircle, IoDocumentText, IoStorefront, IoPersonOutline } from 'react-icons/io5'
+import { IoPeople, IoShieldCheckmark, IoHelpCircle, IoDocumentText, IoPersonOutline } from 'react-icons/io5'
+import { FcDocument } from 'react-icons/fc'
 import App from '../../../../app.json'
 
 const thisYear = new Date().getFullYear()
@@ -47,7 +48,7 @@ const Component = props => {
           onOpen={() => setShowDrawer(true)}
         >
           <div style={{
-            width: '80vw',
+            width: '85vw',
             height: '100%',
             backgroundColor: 'white',
             display: 'flex',
@@ -134,7 +135,7 @@ const Component = props => {
                       width: '100%'
                     }}>
                       <BiLogIn size={24}/>
-                      <span style={{ marginLeft: 15 }}>Log in / Register</span>
+                      <span style={{ marginLeft: 15 }}>Masuk / Daftar</span>
                     </div>
                   </ButtonBase>
                 }
@@ -151,7 +152,7 @@ const Component = props => {
                     width: '100%'
                   }}>
                     <IoPeople size={24}/>
-                    <span style={{ marginLeft: 15 }}>About Us</span>
+                    <span style={{ marginLeft: 15 }}>Tentang Kami</span>
                   </div>
                 </ButtonBase>
 
@@ -167,7 +168,7 @@ const Component = props => {
                     width: '100%'
                   }}>
                     <IoDocumentText size={24}/>
-                    <span style={{ marginLeft: 15 }}>Terms of Service</span>
+                    <span style={{ marginLeft: 15 }}>Ketentuan Layanan</span>
                   </div>
                 </ButtonBase>
 
@@ -183,7 +184,7 @@ const Component = props => {
                     width: '100%'
                   }}>
                     <IoShieldCheckmark size={24}/>
-                    <span style={{ marginLeft: 15 }}>Privacy Policy</span>
+                    <span style={{ marginLeft: 15 }}>Kebijakan Privasi</span>
                   </div>
                 </ButtonBase>
 
@@ -199,7 +200,7 @@ const Component = props => {
                     width: '100%'
                   }}>
                     <IoHelpCircle size={24}/>
-                    <span style={{ marginLeft: 15 }}>Frequently Asked Questions</span>
+                    <span style={{ marginLeft: 15 }}>Pertanyaan yg Sering Ditanyakan</span>
                   </div>
                 </ButtonBase>
                 
@@ -232,8 +233,8 @@ const Component = props => {
                       alignItems: 'center',
                       width: '100%'
                     }}>
-                      <IoStorefront size={24}/>
-                      <span style={{ marginLeft: 15 }}>{me.store ? 'My Store' : 'Become a Merchant'}</span>
+                      <FcDocument size={24}/>
+                      <span style={{ marginLeft: 15 }}>{me.store ? 'Iklan Saya' : 'Buat Iklan'}</span>
                     </div>
                   </ButtonBase>
                 </>
