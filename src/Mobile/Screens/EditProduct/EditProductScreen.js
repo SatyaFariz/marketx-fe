@@ -370,7 +370,7 @@ const Component = props => {
               fontSize: 20,
               fontWeight: 500,
               textAlign: 'center'
-            }}>Edit Product</h1>
+            }}>Edit Iklan</h1>
           </div>
           
         </div>
@@ -493,7 +493,7 @@ const Component = props => {
             
             <TextField
               variant="outlined"
-              label="Product Name"
+              label="Judul"
               value={name}
               onChange={e => setName(e.target.value.trimLeft())}
               fullWidth
@@ -509,7 +509,7 @@ const Component = props => {
             <NumberFormat
               customInput={TextField}
               variant="outlined"
-              label="Product Price"
+              label="Harga"
               value={price}
               onValueChange={_setPrice}
               fullWidth
@@ -537,7 +537,7 @@ const Component = props => {
             <TextField
               variant="outlined"
               select
-              label="Durasi Rental"
+              label="Durasi sewa"
               fullWidth
               disabled={loading}
               value={rentalDurationId || ''}
@@ -566,7 +566,7 @@ const Component = props => {
             
             <TextField
               variant="outlined"
-              label="Product Description"
+              label="Deskripsi"
               value={desc}
               onChange={e => setDesc(e.target.value.trimLeft())}
               multiline
@@ -583,7 +583,7 @@ const Component = props => {
 
             {(product.category[product.category.length - 1].showsProductConditionField || 
               product.category[product.category.length - 1].specFields.length > 0) &&
-            <h3 style={{ margin: '10px 0'}}>Specifications</h3>
+            <h3 style={{ margin: '10px 0'}}>Rincian</h3>
             }
 
             {product.category[product.category.length - 1].showsProductConditionField &&
@@ -860,13 +860,13 @@ const Component = props => {
                     component={Link}
                     href={`/edit/photos/${product.id}`}
                   >
-                    <ListItemText primary="Edit photos"/>
+                    <ListItemText primary="Edit foto"/>
                   </ListItem>
                   <ListItem
                     button
                     onClick={() => save(!product.isPublished)}
                   >
-                    <ListItemText primary={product.isPublished ? 'Unpublish' : "Publish"}/>
+                    <ListItemText primary={product.isPublished ? 'Batal publikasi' : "Publikasi"}/>
                     {loading &&
                     <ListItemSecondaryAction>
                       <CircularProgress size={18}/>
@@ -877,7 +877,7 @@ const Component = props => {
                     button
                     onClick={deleteProduct}
                   >
-                    <ListItemText primary="Delete"/>
+                    <ListItemText primary="Hapus"/>
                     {deleting &&
                     <ListItemSecondaryAction>
                       <CircularProgress size={18}/>
