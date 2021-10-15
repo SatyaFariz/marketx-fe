@@ -64,6 +64,7 @@ const Component = props => {
   const [name, setName] = useState(category.name)
   const [showsProductConditionField, setShowsProductConditionField] = useState(category.showsProductConditionField || false)
   const [requiresProductCondition, setRequiresProductCondition] = useState(category.requiresProductCondition || false)
+  const [forceLocationInput, setForceLocationInput] = useState(category.forceLocationInput || false)
   const [isPublished, setIsPublished] = useState(category.isPublished || false)
   const [loading, setLoading] = useState(false)
   const [validation, setValidation] = useState({ isValid: false })
@@ -136,6 +137,7 @@ const Component = props => {
         name,
         showsProductConditionField,
         requiresProductCondition,
+        forceLocationInput,
         isPublished,
         specFields: specFields.reduce((fields, field) => {
           if(!field.deleted) {
@@ -375,6 +377,23 @@ const Component = props => {
                 checked={!showsProductConditionField ? false : requiresProductCondition}
                 onChange={() => setRequiresProductCondition(prev => !prev)}
                 disabled={loading || !showsProductConditionField}
+              />
+            </div>
+
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginTop: 10,
+              marginBottom: 10
+            }}>
+              <span>Force Location Input</span>
+
+              <Switch
+                checked={forceLocationInput}
+                onChange={() => setForceLocationInput(prev => !prev)}
+                disabled={loading}
               />
             </div>
           </>
@@ -669,6 +688,7 @@ export default createFragmentContainer(Component, {
       isPublished,
       showsProductConditionField,
       requiresProductCondition,
+      forceLocationInput,
       listingType,
       ...CreateSpecificationFieldsModal_category,
       ancestors {

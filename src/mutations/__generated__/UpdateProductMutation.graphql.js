@@ -13,9 +13,16 @@ export type ProductInput = {|
   desc: string,
   price: number,
   isPublished: boolean,
+  useStoreLocation: boolean,
+  location?: ?LocationInput,
   specs: $ReadOnlyArray<SpecificationInput>,
   rentalDurationId?: ?string,
   productConditionId?: ?string,
+|};
+export type LocationInput = {|
+  provinceId: number,
+  cityId: number,
+  districtId: number,
 |};
 export type SpecificationInput = {|
   attributeId: string,

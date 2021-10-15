@@ -14,6 +14,7 @@ export type UpdateCategoryInput = {|
   isPublished: boolean,
   showsProductConditionField?: ?boolean,
   requiresProductCondition?: ?boolean,
+  forceLocationInput?: ?boolean,
   specFields: $ReadOnlyArray<SpecificationFieldInput>,
 |};
 export type SpecificationFieldInput = {|
