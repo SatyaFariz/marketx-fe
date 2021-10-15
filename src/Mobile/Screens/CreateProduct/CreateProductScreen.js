@@ -4,7 +4,7 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import { TextField, InputAdornment, MenuItem, ListItemText, Checkbox } from '@material-ui/core'
+import { TextField, InputAdornment, MenuItem, ListItemText, Checkbox, Switch } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import Validator from '../../../helpers/validator'
@@ -71,6 +71,7 @@ const Component = props => {
   const [desc, setDesc] = useState('')
   const [productConditionId, setProductConditionId] = useState(null)
   const [rentalDurationId, setRentalDurationId] = useState(null)
+  const [syncLocation, setSyncLocation] = useState(category.forceLocationInput !== true)
   const [specs, setSpecs] = useState(category.specFields.reduce((obj, currentVal) => {
     obj[currentVal.attribute.id] = currentVal.isMulti ? [] : ''
     return obj
@@ -844,13 +845,46 @@ const Component = props => {
             }
           })}
 
+          {!category.forceLocationInput &&
+          <div style={{
+            height: 1,
+            backgroundColor: HEADER_BORDER_BOTTOM_COLOR,
+            margin: '10px 0'
+          }}/>
+          }
+
           <h3 style={{ margin: '10px 0'}}>Lokasi</h3>
 
+          {!category.forceLocationInput &&
+          <>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'flex-start'
+            }}>
+              <span style={{ margin: 0, fontWeight: 500 }}>Sinkronisasi lokasi dengan alamat bisnis Anda</span>
+              <Switch
+                checked={syncLocation}
+                onChange={() => setSyncLocation(prev => !prev)}
+              />
+            </div>
+          
+
+            <p style={{ fontSize: 12, color: 'grey' }}>Lokasi iklan ini akan otomatis ter-update jika anda meng-update alamat bisnis Anda.</p>
+          </>
+          }
+
           <Autocomplete
+            disabled={syncLocation}
             options={provinces}
             getOptionLabel={(option) => option.name}
-            value={province}
-            onChange={(_, value) => setProvince(value)}
+            getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
+            value={syncLocation ? me?.store?.address?.province : province}
+            onChange={(_, value) => setProvince(prev => {
+              if(prev.administrativeAreaId === value.administrativeAreaId)
+                return prev
+              return value
+            })}
             renderInput={(params) => 
               <TextField 
                 {...params} 
@@ -869,12 +903,17 @@ const Component = props => {
           />
 
           <Autocomplete
-            disabled={Validator.isEmpty(province)}
+            disabled={Validator.isEmpty(province) || syncLocation}
             loading={loadingCities}
             options={cities}
             getOptionLabel={(option) => option.name}
-            value={city}
-            onChange={(_, value) => setCity(value)}
+            getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
+            value={syncLocation ? me?.store?.address?.city : city}
+            onChange={(_, value) => setCity(prev => {
+              if(prev.administrativeAreaId === value.administrativeAreaId)
+                return prev
+              return value
+            })}
             renderInput={(params) => 
               <TextField 
                 {...params} 
@@ -893,12 +932,17 @@ const Component = props => {
           />
 
           <Autocomplete
-            disabled={Validator.isEmpty(province) || Validator.isEmpty(city)}
+            disabled={Validator.isEmpty(province) || Validator.isEmpty(city) || syncLocation}
             loading={loadingDistricts}
             options={districts}
             getOptionLabel={(option) => option.name}
-            value={district}
-            onChange={(_, value) => setDistrict(value)}
+            getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
+            value={syncLocation ? me?.store?.address?.district : district}
+            onChange={(_, value) => setDistrict(prev => {
+              if(prev.administrativeAreaId === value.administrativeAreaId)
+                return prev
+              return value
+            })}
             renderInput={(params) => 
               <TextField 
                 {...params} 
@@ -946,6 +990,7 @@ export default createFragmentContainer(Component, {
       path,
       requiresProductCondition,
       showsProductConditionField,
+      forceLocationInput,
       listingType,
       ancestors {
         id,
