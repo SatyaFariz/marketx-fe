@@ -22,6 +22,7 @@ const megabytes = 1048576
 const autocompleteFilter = createFilterOptions()
 
 const Component = props => {
+  const { category, me, productConditions, rentalDurations } = props
   const { history, environment, pathname } = useAppContext()
   const [loading, setLoading] = useState(false)
   const [carouselPos, setCarouselPos] = useState(0)
@@ -50,17 +51,19 @@ const Component = props => {
     onDropRejected: () => console.log('Rejected')
   })
 
-  const areasLoader = useRef(new AdministrativeAreaLoader(environment))
+  const citiesFirstLoaded = useRef(true)
+  const districtsFirstLoaded = useRef(true)
+  const citiesLoader = useRef(new AdministrativeAreaLoader(environment))
+  const districtsLoader = useRef(new AdministrativeAreaLoader(environment))
   const { provinces } = props
-  const [province, setProvince] = useState(null)
+  const [province, setProvince] = useState(me?.store?.address?.province)
   const [cities, setCities] = useState([])
-  const [city, setCity] = useState(null)
+  const [city, setCity] = useState(me?.store?.address?.city)
   const [districts, setDistricts] = useState([])
-  const [district, setDistrict] = useState(null)
+  const [district, setDistrict] = useState(me?.store?.address?.district)
   const [loadingCities, setLoadingCities] = useState(false)
   const [loadingDistricts, setLoadingDistricts] = useState(false)
 
-  const { category, me, productConditions, rentalDurations } = props
   const _isMounted = useRef(true)
   const scrollRef = useRef()
   const headerRef = useRef()
@@ -298,11 +301,15 @@ const Component = props => {
 
   useEffect(() => {
     if(province) {
-      setCity(null)
-      setDistrict(null)
+      if(!citiesFirstLoaded.current) {
+        setCity(null)
+        setDistrict(null)
+      } else {
+        citiesFirstLoaded.current = false
+      }
       setLoadingCities(true)
       setCities([])
-      areasLoader.current.load(province.administrativeAreaId, data => {
+      citiesLoader.current.load(province.administrativeAreaId, data => {
         setCities(data)
         setLoadingCities(false)
       })
@@ -314,10 +321,14 @@ const Component = props => {
 
   useEffect(() => {
     if(city) {
-      setDistrict(null)
+      if(!districtsFirstLoaded.current) {
+        setDistrict(null)
+      } else {
+        districtsFirstLoaded.current = false
+      }
       setLoadingDistricts(true)
       setDistricts([])
-      areasLoader.current.load(city.administrativeAreaId, data => {
+      districtsLoader.current.load(city.administrativeAreaId, data => {
         setDistricts(data)
         setLoadingDistricts(false)
       })
@@ -972,7 +983,21 @@ export default createFragmentContainer(Component, {
     fragment CreateProductScreen_me on User {
       id,
       store {
-        id
+        id,
+        address {
+          province {
+            administrativeAreaId,
+            name
+          },
+          city {
+            administrativeAreaId,
+            name
+          },
+          district {
+            administrativeAreaId,
+            name
+          }
+        }
       }
     }
   `,

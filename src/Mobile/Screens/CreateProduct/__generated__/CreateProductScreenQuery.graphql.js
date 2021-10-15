@@ -102,6 +102,20 @@ fragment CreateProductScreen_me on User {
   id
   store {
     id
+    address {
+      province {
+        administrativeAreaId
+        name
+      }
+      city {
+        administrativeAreaId
+        name
+      }
+      district {
+        administrativeAreaId
+        name
+      }
+    }
   }
 }
 
@@ -156,7 +170,17 @@ v4 = [
   (v2/*: any*/),
   (v3/*: any*/)
 ],
-v5 = {
+v5 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "administrativeAreaId",
+    "storageKey": null
+  },
+  (v3/*: any*/)
+],
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -429,7 +453,48 @@ return {
             "name": "store",
             "plural": false,
             "selections": [
-              (v2/*: any*/)
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Address",
+                "kind": "LinkedField",
+                "name": "address",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "AdministrativeArea",
+                    "kind": "LinkedField",
+                    "name": "province",
+                    "plural": false,
+                    "selections": (v5/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "AdministrativeArea",
+                    "kind": "LinkedField",
+                    "name": "city",
+                    "plural": false,
+                    "selections": (v5/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "AdministrativeArea",
+                    "kind": "LinkedField",
+                    "name": "district",
+                    "plural": false,
+                    "selections": (v5/*: any*/),
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
             ],
             "storageKey": null
           }
@@ -445,7 +510,7 @@ return {
         "plural": true,
         "selections": [
           (v2/*: any*/),
-          (v5/*: any*/)
+          (v6/*: any*/)
         ],
         "storageKey": null
       },
@@ -458,7 +523,7 @@ return {
         "plural": true,
         "selections": [
           (v2/*: any*/),
-          (v5/*: any*/),
+          (v6/*: any*/),
           (v3/*: any*/),
           {
             "alias": null,
@@ -477,27 +542,18 @@ return {
         "kind": "LinkedField",
         "name": "administrativeAreas",
         "plural": true,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "administrativeAreaId",
-            "storageKey": null
-          },
-          (v3/*: any*/)
-        ],
+        "selections": (v5/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "57378ae762bf9150fd9f1262a13fcf5b",
+    "cacheID": "1a5a42da1c080e46f68e870b2b58fa2e",
     "id": null,
     "metadata": {},
     "name": "CreateProductScreenQuery",
     "operationKind": "query",
-    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n  productConditions {\n    ...CreateProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...CreateProductScreen_rentalDurations\n    id\n  }\n  administrativeAreas {\n    ...CreateProductScreen_provinces\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  requiresProductCondition\n  showsProductConditionField\n  listingType\n  ancestors {\n    id\n    name\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n    isMulti\n    prefix\n    suffix\n    numberOfLines\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n  }\n}\n\nfragment CreateProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment CreateProductScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment CreateProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n"
+    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n  productConditions {\n    ...CreateProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...CreateProductScreen_rentalDurations\n    id\n  }\n  administrativeAreas {\n    ...CreateProductScreen_provinces\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  requiresProductCondition\n  showsProductConditionField\n  listingType\n  ancestors {\n    id\n    name\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n    isMulti\n    prefix\n    suffix\n    numberOfLines\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n    address {\n      province {\n        administrativeAreaId\n        name\n      }\n      city {\n        administrativeAreaId\n        name\n      }\n      district {\n        administrativeAreaId\n        name\n      }\n    }\n  }\n}\n\nfragment CreateProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment CreateProductScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment CreateProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n"
   }
 };
 })();
