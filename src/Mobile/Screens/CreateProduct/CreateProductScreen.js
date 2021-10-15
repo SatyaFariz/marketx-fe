@@ -881,7 +881,7 @@ const Component = props => {
             getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
             value={syncLocation ? me?.store?.address?.province : province}
             onChange={(_, value) => setProvince(prev => {
-              if(prev.administrativeAreaId === value.administrativeAreaId)
+              if(prev?.administrativeAreaId === value?.administrativeAreaId)
                 return prev
               return value
             })}
@@ -910,7 +910,7 @@ const Component = props => {
             getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
             value={syncLocation ? me?.store?.address?.city : city}
             onChange={(_, value) => setCity(prev => {
-              if(prev.administrativeAreaId === value.administrativeAreaId)
+              if(prev?.administrativeAreaId === value?.administrativeAreaId)
                 return prev
               return value
             })}
@@ -939,7 +939,7 @@ const Component = props => {
             getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
             value={syncLocation ? me?.store?.address?.district : district}
             onChange={(_, value) => setDistrict(prev => {
-              if(prev.administrativeAreaId === value.administrativeAreaId)
+              if(prev?.administrativeAreaId === value?.administrativeAreaId)
                 return prev
               return value
             })}

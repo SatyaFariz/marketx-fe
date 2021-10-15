@@ -384,7 +384,11 @@ const Component = props => {
             getOptionLabel={(option) => option.name}
             getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
             value={province}
-            onChange={(_, value) => setProvince(value)}
+            onChange={(_, value) => setProvince(prev => {
+              if(prev?.administrativeAreaId === value?.administrativeAreaId)
+                return prev
+              return value
+            })}
             renderInput={(params) => 
               <TextField 
                 {...params} 
@@ -409,7 +413,11 @@ const Component = props => {
             getOptionLabel={(option) => option.name}
             getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
             value={city}
-            onChange={(_, value) => setCity(value)}
+            onChange={(_, value) => setCity(prev => {
+              if(prev?.administrativeAreaId === value?.administrativeAreaId)
+                return prev
+              return value
+            })}
             renderInput={(params) => 
               <TextField 
                 {...params} 
@@ -434,7 +442,11 @@ const Component = props => {
             getOptionLabel={(option) => option.name}
             getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
             value={district}
-            onChange={(_, value) => setDistrict(value)}
+            onChange={(_, value) => setDistrict(prev => {
+              if(prev?.administrativeAreaId === value?.administrativeAreaId)
+                return prev
+              return value
+            })}
             renderInput={(params) => 
               <TextField 
                 {...params} 
