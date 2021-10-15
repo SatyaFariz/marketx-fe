@@ -14,7 +14,7 @@ export type ProductInput = {|
   desc: string,
   price: number,
   isPublished: boolean,
-  useStoreLocation: boolean,
+  syncLocationWithStoreAddress: boolean,
   location?: ?LocationInput,
   specs: $ReadOnlyArray<SpecificationInput>,
   rentalDurationId?: ?string,
