@@ -11,6 +11,7 @@ import type { ConcreteRequest } from 'relay-runtime';
 type CreateProductScreen_category$ref = any;
 type CreateProductScreen_me$ref = any;
 type CreateProductScreen_productConditions$ref = any;
+type CreateProductScreen_provinces$ref = any;
 type CreateProductScreen_rentalDurations$ref = any;
 export type CreateProductScreenQueryVariables = {|
   categoryId: string
@@ -29,6 +30,9 @@ export type CreateProductScreenQueryResponse = {|
   |}>,
   +rentalDurations: ?$ReadOnlyArray<?{|
     +$fragmentRefs: CreateProductScreen_rentalDurations$ref
+  |}>,
+  +administrativeAreas: ?$ReadOnlyArray<?{|
+    +$fragmentRefs: CreateProductScreen_provinces$ref
   |}>,
 |};
 export type CreateProductScreenQuery = {|
@@ -57,6 +61,9 @@ query CreateProductScreenQuery(
   rentalDurations {
     ...CreateProductScreen_rentalDurations
     id
+  }
+  administrativeAreas {
+    ...CreateProductScreen_provinces
   }
 }
 
@@ -101,6 +108,11 @@ fragment CreateProductScreen_me on User {
 fragment CreateProductScreen_productConditions on ProductCondition {
   id
   display
+}
+
+fragment CreateProductScreen_provinces on AdministrativeArea {
+  administrativeAreaId
+  name
 }
 
 fragment CreateProductScreen_rentalDurations on Unit {
@@ -220,6 +232,22 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "CreateProductScreen_rentalDurations"
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "AdministrativeArea",
+        "kind": "LinkedField",
+        "name": "administrativeAreas",
+        "plural": true,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CreateProductScreen_provinces"
           }
         ],
         "storageKey": null
@@ -441,20 +469,39 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "AdministrativeArea",
+        "kind": "LinkedField",
+        "name": "administrativeAreas",
+        "plural": true,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "administrativeAreaId",
+            "storageKey": null
+          },
+          (v3/*: any*/)
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "c229ee164eaf73e7a7170e05c5700dae",
+    "cacheID": "57378ae762bf9150fd9f1262a13fcf5b",
     "id": null,
     "metadata": {},
     "name": "CreateProductScreenQuery",
     "operationKind": "query",
-    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n  productConditions {\n    ...CreateProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...CreateProductScreen_rentalDurations\n    id\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  requiresProductCondition\n  showsProductConditionField\n  listingType\n  ancestors {\n    id\n    name\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n    isMulti\n    prefix\n    suffix\n    numberOfLines\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n  }\n}\n\nfragment CreateProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment CreateProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n"
+    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n  productConditions {\n    ...CreateProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...CreateProductScreen_rentalDurations\n    id\n  }\n  administrativeAreas {\n    ...CreateProductScreen_provinces\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  requiresProductCondition\n  showsProductConditionField\n  listingType\n  ancestors {\n    id\n    name\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n    isMulti\n    prefix\n    suffix\n    numberOfLines\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n  }\n}\n\nfragment CreateProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment CreateProductScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment CreateProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '8df1e86c63d6c934a9239d3bc464d7a9';
+(node/*: any*/).hash = '66d87c0ce0976bbc0d800fbc065a6162';
 
 module.exports = node;

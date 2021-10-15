@@ -16,11 +16,13 @@ import BackButton from '../../Components/BackButton'
 import Button from '../../Components/Button'
 import NumberFormat from 'react-number-format'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader'
 
 const megabytes = 1048576
 const autocompleteFilter = createFilterOptions()
 
 const Component = props => {
+  const { history, environment, pathname } = useAppContext()
   const [loading, setLoading] = useState(false)
   const [carouselPos, setCarouselPos] = useState(0)
   const [files, setFiles] = useState([])
@@ -47,11 +49,21 @@ const Component = props => {
     },
     onDropRejected: () => console.log('Rejected')
   })
+
+  const areasLoader = useRef(new AdministrativeAreaLoader(environment))
+  const { provinces } = props
+  const [province, setProvince] = useState(null)
+  const [cities, setCities] = useState([])
+  const [city, setCity] = useState(null)
+  const [districts, setDistricts] = useState([])
+  const [district, setDistrict] = useState(null)
+  const [loadingCities, setLoadingCities] = useState(false)
+  const [loadingDistricts, setLoadingDistricts] = useState(false)
+
   const { category, me, productConditions, rentalDurations } = props
   const _isMounted = useRef(true)
   const scrollRef = useRef()
   const headerRef = useRef()
-  const { history, environment, pathname } = useAppContext()
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
   const [desc, setDesc] = useState('')
@@ -283,6 +295,36 @@ const Component = props => {
 
     return () => _isMounted.current = false
   }, [])
+
+  useEffect(() => {
+    if(province) {
+      setCity(null)
+      setDistrict(null)
+      setLoadingCities(true)
+      setCities([])
+      areasLoader.current.load(province.administrativeAreaId, data => {
+        setCities(data)
+        setLoadingCities(false)
+      })
+    } else {
+      setCity(null)
+      setDistrict(null)
+    }
+  }, [province])
+
+  useEffect(() => {
+    if(city) {
+      setDistrict(null)
+      setLoadingDistricts(true)
+      setDistricts([])
+      areasLoader.current.load(city.administrativeAreaId, data => {
+        setDistricts(data)
+        setLoadingDistricts(false)
+      })
+    } else {
+      setDistrict(null)
+    }
+  }, [city])
 
   useEffect(() => {
     if(!me) {
@@ -799,6 +841,78 @@ const Component = props => {
             }
           })}
 
+          <h3 style={{ margin: '10px 0'}}>Lokasi</h3>
+
+          <Autocomplete
+            options={provinces}
+            getOptionLabel={(option) => option.name}
+            value={province}
+            onChange={(_, value) => setProvince(value)}
+            renderInput={(params) => 
+              <TextField 
+                {...params} 
+                label="Provinsi"
+                fullWidth
+                disabled={loading} 
+                variant="outlined"
+                style={{
+                  marginTop: 10,
+                  marginBottom: 10
+                }}
+                error={validation.province?.isInvalid}
+                helperText={validation.province?.message}
+              />
+            }
+          />
+
+          <Autocomplete
+            disabled={Validator.isEmpty(province)}
+            loading={loadingCities}
+            options={cities}
+            getOptionLabel={(option) => option.name}
+            value={city}
+            onChange={(_, value) => setCity(value)}
+            renderInput={(params) => 
+              <TextField 
+                {...params} 
+                label="Kota/Kabupaten"
+                fullWidth
+                disabled={loading} 
+                variant="outlined"
+                style={{
+                  marginTop: 10,
+                  marginBottom: 10
+                }}
+                error={validation.city?.isInvalid}
+                helperText={validation.city?.message}
+              />
+            }
+          />
+
+          <Autocomplete
+            disabled={Validator.isEmpty(province) || Validator.isEmpty(city)}
+            loading={loadingDistricts}
+            options={districts}
+            getOptionLabel={(option) => option.name}
+            value={district}
+            onChange={(_, value) => setDistrict(value)}
+            renderInput={(params) => 
+              <TextField 
+                {...params} 
+                label="Kecamatan"
+                fullWidth
+                disabled={loading} 
+                variant="outlined"
+                style={{
+                  marginTop: 10,
+                  marginBottom: 10
+                }}
+                error={validation.district?.isInvalid}
+                helperText={validation.district?.message}
+              />
+            }
+          />
+
           <Button
             label="Publikasi"
             thick
@@ -816,6 +930,12 @@ const Component = props => {
 }
 
 export default createFragmentContainer(Component, {
+  provinces: graphql`
+    fragment CreateProductScreen_provinces on AdministrativeArea @relay(plural: true) {
+      administrativeAreaId,
+      name
+    }
+  `,
   category: graphql`
     fragment CreateProductScreen_category on Category {
       id,
