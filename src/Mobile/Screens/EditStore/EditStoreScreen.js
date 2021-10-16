@@ -424,7 +424,7 @@ const Component = props => {
                 {...params} 
                 label="Kota/Kabupaten"
                 fullWidth
-                disabled={loading} 
+                disabled={Validator.isEmpty(province) || loading} 
                 variant="outlined"
                 style={{
                   marginTop: 10,
@@ -453,7 +453,7 @@ const Component = props => {
                 {...params} 
                 label="Kecamatan"
                 fullWidth
-                disabled={loading} 
+                disabled={Validator.isEmpty(province) || Validator.isEmpty(city) || loading} 
                 variant="outlined"
                 style={{
                   marginTop: 10,
