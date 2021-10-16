@@ -934,6 +934,7 @@ export default createFragmentContainer(Component, {
       desc,
       isPublished,
       isDeleted,
+      syncLocationWithStoreAddress,
       images {
         id,
         url
@@ -983,7 +984,24 @@ export default createFragmentContainer(Component, {
   `,
   me: graphql`
     fragment EditProductScreen_me on User {
-      id
+      id,
+      store {
+        id,
+        address {
+          province {
+            administrativeAreaId,
+            name
+          },
+          city {
+            administrativeAreaId,
+            name
+          },
+          district {
+            administrativeAreaId,
+            name
+          }
+        }
+      }
     }
   `,
   productConditions: graphql`
@@ -998,6 +1016,12 @@ export default createFragmentContainer(Component, {
       display,
       name,
       value
+    }
+  `,
+  provinces: graphql`
+    fragment EditProductScreen_provinces on AdministrativeArea @relay(plural: true) {
+      administrativeAreaId,
+      name
     }
   `
 })

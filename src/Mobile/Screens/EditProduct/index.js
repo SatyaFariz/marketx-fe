@@ -18,6 +18,9 @@ const chunk = {
       },
       me {
         ...EditProductScreen_me
+      },
+      administrativeAreas {
+        ...EditProductScreen_provinces
       }
     }
   `,
@@ -33,6 +36,7 @@ const chunk = {
             product={data.product}
             productConditions={data.productConditions}
             rentalDurations={data.rentalDurations}
+            provinces={data.administrativeAreas}
           />
         </FixedAddressBar>
         

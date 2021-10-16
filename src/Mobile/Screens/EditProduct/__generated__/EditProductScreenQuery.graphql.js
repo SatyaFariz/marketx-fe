@@ -11,6 +11,7 @@ import type { ConcreteRequest } from 'relay-runtime';
 type EditProductScreen_me$ref = any;
 type EditProductScreen_product$ref = any;
 type EditProductScreen_productConditions$ref = any;
+type EditProductScreen_provinces$ref = any;
 type EditProductScreen_rentalDurations$ref = any;
 export type EditProductScreenQueryVariables = {|
   id: string
@@ -29,6 +30,9 @@ export type EditProductScreenQueryResponse = {|
   +me: ?{|
     +$fragmentRefs: EditProductScreen_me$ref
   |},
+  +administrativeAreas: ?$ReadOnlyArray<?{|
+    +$fragmentRefs: EditProductScreen_provinces$ref
+  |}>,
 |};
 export type EditProductScreenQuery = {|
   variables: EditProductScreenQueryVariables,
@@ -57,10 +61,30 @@ query EditProductScreenQuery(
     ...EditProductScreen_me
     id
   }
+  administrativeAreas {
+    ...EditProductScreen_provinces
+  }
 }
 
 fragment EditProductScreen_me on User {
   id
+  store {
+    id
+    address {
+      province {
+        administrativeAreaId
+        name
+      }
+      city {
+        administrativeAreaId
+        name
+      }
+      district {
+        administrativeAreaId
+        name
+      }
+    }
+  }
 }
 
 fragment EditProductScreen_product on Product {
@@ -70,6 +94,7 @@ fragment EditProductScreen_product on Product {
   desc
   isPublished
   isDeleted
+  syncLocationWithStoreAddress
   images {
     id
     url
@@ -120,6 +145,11 @@ fragment EditProductScreen_product on Product {
 fragment EditProductScreen_productConditions on ProductCondition {
   id
   display
+}
+
+fragment EditProductScreen_provinces on AdministrativeArea {
+  administrativeAreaId
+  name
 }
 
 fragment EditProductScreen_rentalDurations on Unit {
@@ -175,7 +205,17 @@ v6 = {
   "kind": "ScalarField",
   "name": "display",
   "storageKey": null
-};
+},
+v7 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "administrativeAreaId",
+    "storageKey": null
+  },
+  (v3/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -247,6 +287,22 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "AdministrativeArea",
+        "kind": "LinkedField",
+        "name": "administrativeAreas",
+        "plural": true,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "EditProductScreen_provinces"
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -294,6 +350,13 @@ return {
             "args": null,
             "kind": "ScalarField",
             "name": "isDeleted",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "syncLocationWithStoreAddress",
             "storageKey": null
           },
           {
@@ -542,22 +605,87 @@ return {
         "kind": "LinkedField",
         "name": "me",
         "plural": false,
-        "selections": (v4/*: any*/),
+        "selections": [
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Store",
+            "kind": "LinkedField",
+            "name": "store",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Address",
+                "kind": "LinkedField",
+                "name": "address",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "AdministrativeArea",
+                    "kind": "LinkedField",
+                    "name": "province",
+                    "plural": false,
+                    "selections": (v7/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "AdministrativeArea",
+                    "kind": "LinkedField",
+                    "name": "city",
+                    "plural": false,
+                    "selections": (v7/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "AdministrativeArea",
+                    "kind": "LinkedField",
+                    "name": "district",
+                    "plural": false,
+                    "selections": (v7/*: any*/),
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "AdministrativeArea",
+        "kind": "LinkedField",
+        "name": "administrativeAreas",
+        "plural": true,
+        "selections": (v7/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "ae379b1717edc8fbb6bd45ed56146ad7",
+    "cacheID": "fca60ab1cda91c4df20b65939e4356f9",
     "id": null,
     "metadata": {},
     "name": "EditProductScreenQuery",
     "operationKind": "query",
-    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n  productConditions {\n    ...EditProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...EditProductScreen_rentalDurations\n    id\n  }\n  me {\n    ...EditProductScreen_me\n    id\n  }\n}\n\nfragment EditProductScreen_me on User {\n  id\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  isPublished\n  isDeleted\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  condition {\n    id\n  }\n  rentalDuration {\n    id\n  }\n  merchant {\n    id\n  }\n  category {\n    id\n    name\n    requiresProductCondition\n    showsProductConditionField\n    listingType\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isAutocomplete\n      isRequired\n      type\n      max\n      min\n      options\n      isEnum\n      isMulti\n      prefix\n      suffix\n      numberOfLines\n    }\n  }\n}\n\nfragment EditProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment EditProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n"
+    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n  productConditions {\n    ...EditProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...EditProductScreen_rentalDurations\n    id\n  }\n  me {\n    ...EditProductScreen_me\n    id\n  }\n  administrativeAreas {\n    ...EditProductScreen_provinces\n  }\n}\n\nfragment EditProductScreen_me on User {\n  id\n  store {\n    id\n    address {\n      province {\n        administrativeAreaId\n        name\n      }\n      city {\n        administrativeAreaId\n        name\n      }\n      district {\n        administrativeAreaId\n        name\n      }\n    }\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  isPublished\n  isDeleted\n  syncLocationWithStoreAddress\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  condition {\n    id\n  }\n  rentalDuration {\n    id\n  }\n  merchant {\n    id\n  }\n  category {\n    id\n    name\n    requiresProductCondition\n    showsProductConditionField\n    listingType\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isAutocomplete\n      isRequired\n      type\n      max\n      min\n      options\n      isEnum\n      isMulti\n      prefix\n      suffix\n      numberOfLines\n    }\n  }\n}\n\nfragment EditProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment EditProductScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment EditProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'dad36fa12375c9b6663139f55756ebe3';
+(node/*: any*/).hash = '7ed7810d3c5eda3bc350a3af3d9bddac';
 
 module.exports = node;
