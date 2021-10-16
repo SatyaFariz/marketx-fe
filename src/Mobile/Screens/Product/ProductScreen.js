@@ -351,6 +351,15 @@ const Component = props => {
               marginTop: 15
             }}>{product.name}</span>
 
+            <span style={{
+              color: 'rgb(83, 100, 113)',
+              fontSize: 12,
+              marginTop: 2,
+              display: 'block'
+            }}>
+              {productLocation}
+            </span>
+
             <div style={{
               borderTop: `1px solid ${DIVIDER_COLOR}`,
               borderBottom: `1px solid ${DIVIDER_COLOR}`,
