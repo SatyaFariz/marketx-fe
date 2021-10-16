@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Fri Oct 15 2021 22:16:34 GMT+0700 (Western Indonesia Time)
+# timestamp: Sat Oct 16 2021 12:50:21 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -92,6 +92,12 @@ type Image {
   bytes: Float
   format: String
   display: Int
+}
+
+type Location {
+  province: AdministrativeArea
+  city: AdministrativeArea
+  district: AdministrativeArea
 }
 
 input LocationInput {
@@ -196,7 +202,7 @@ type Product {
   mainImage: Image
   images: [Image]
   specs: [Specification]
-  location: [AdministrativeArea]
+  location: Location
 }
 
 type ProductCondition {

@@ -4,30 +4,43 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import { TextField, InputAdornment, MenuItem, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress, Checkbox } from '@material-ui/core'
+import { TextField, InputAdornment, MenuItem, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress, Checkbox, Switch } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import Validator from '../../../helpers/validator'
 import UpdateProduct from '../../../mutations/UpdateProduct'
 import DeleteProduct from '../../../mutations/DeleteProduct'
 import BackButton from '../../Components/BackButton'
-import cleanNonNumericChars from '../../../helpers/cleanNonNumericChars'
 import { IoEllipsisVertical, IoCloseOutline } from 'react-icons/io5'
 import Sheet from 'react-modal-sheet'
 import Link from '../../Components/Link'
 import Button from '../../Components/Button'
 import NumberFormat from 'react-number-format'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader'
 
 const autocompleteFilter = createFilterOptions()
 
 const Component = props => {
-  const { me, product, productConditions, rentalDurations } = props
+  const { me, product, productConditions, rentalDurations, provinces } = props
+  const { history, environment } = useAppContext()
+
+  const citiesFirstLoaded = useRef(true)
+  const districtsFirstLoaded = useRef(true)
+  const citiesLoader = useRef(new AdministrativeAreaLoader(environment))
+  const districtsLoader = useRef(new AdministrativeAreaLoader(environment))
+  const [province, setProvince] = useState(product.location.province)
+  const [cities, setCities] = useState([])
+  const [city, setCity] = useState(product.location.city)
+  const [districts, setDistricts] = useState([])
+  const [district, setDistrict] = useState(product.location.district)
+  const [loadingCities, setLoadingCities] = useState(false)
+  const [loadingDistricts, setLoadingDistricts] = useState(false)
+
   const merchantId = product.merchant.id
   const _isMounted = useRef(true)
   const scrollRef = useRef()
   const headerRef = useRef()
-  const { history, environment } = useAppContext()
   const [name, setName] = useState(product.name)
   const [price, setPrice] = useState(product.price.toString())
   const [desc, setDesc] = useState(product.desc)
@@ -50,6 +63,7 @@ const Component = props => {
   }, {}))
   const [productConditionId, setProductConditionId] = useState(product.condition?.id)
   const [rentalDurationId, setRentalDurationId] = useState(product.rentalDuration?.id)
+  const [syncLocation, setSyncLocation] = useState(product.syncLocationWithStoreAddress || false)
   const [carouselPos, setCarouselPos] = useState(0)
   const [validation, setValidation] = useState({ isValid: false })
   const [loading, setLoading] = useState(false)
@@ -167,6 +181,30 @@ const Component = props => {
           validWhen: false,
           message: 'This field is required.'
         },
+      ] : []),
+      ...(!syncLocation ? [
+        {
+          field: 'province',
+          method: Validator.isEmpty,
+          validWhen: false,
+          message: 'This field is required.'
+        },
+      ] : []),
+      ...(!syncLocation ? [
+        {
+          field: 'city',
+          method: Validator.isEmpty,
+          validWhen: false,
+          message: 'This field is required.'
+        },
+      ] : []),
+      ...(!syncLocation ? [
+        {
+          field: 'district',
+          method: Validator.isEmpty,
+          validWhen: false,
+          message: 'This field is required.'
+        },
       ] : [])
     ])
 
@@ -176,7 +214,10 @@ const Component = props => {
       price,
       desc,
       ...(product.category[product.category.length - 1].requiresProductCondition ? { productConditionId } : {}),
-      ...(product.category[product.category.length - 1].listingType === 'rental_product' ? { rentalDurationId } : {})
+      ...(product.category[product.category.length - 1].listingType === 'rental_product' ? { rentalDurationId } : {}),
+      ...(!syncLocation ? { province } : {}),
+      ...(!syncLocation ? { city } : {}),
+      ...(!syncLocation ? { district } : {})
     })
 
     setValidation(validation)
@@ -203,7 +244,13 @@ const Component = props => {
         isPublished,
         productConditionId,
         rentalDurationId,
-        specs: productSpecs
+        syncLocationWithStoreAddress: syncLocation,
+        specs: productSpecs,
+        location: syncLocation ? null : {
+          provinceId: province.administrativeAreaId,
+          cityId: city.administrativeAreaId,
+          districtId: district.administrativeAreaId
+        }
       }
 
       setLoading(true)
@@ -294,6 +341,44 @@ const Component = props => {
 
     return () => _isMounted.current = false
   }, [])
+
+  useEffect(() => {
+    if(province) {
+      if(!citiesFirstLoaded.current) {
+        setCity(null)
+        setDistrict(null)
+      } else {
+        citiesFirstLoaded.current = false
+      }
+      setLoadingCities(true)
+      setCities([])
+      citiesLoader.current.load(province.administrativeAreaId, data => {
+        setCities(data)
+        setLoadingCities(false)
+      })
+    } else {
+      setCity(null)
+      setDistrict(null)
+    }
+  }, [province])
+
+  useEffect(() => {
+    if(city) {
+      if(!districtsFirstLoaded.current) {
+        setDistrict(null)
+      } else {
+        districtsFirstLoaded.current = false
+      }
+      setLoadingDistricts(true)
+      setDistricts([])
+      districtsLoader.current.load(city.administrativeAreaId, data => {
+        setDistricts(data)
+        setLoadingDistricts(false)
+      })
+    } else {
+      setDistrict(null)
+    }
+  }, [city])
 
   useEffect(() => {
     if(merchantId !== me.id) {
@@ -827,6 +912,121 @@ const Component = props => {
               }
             })}
 
+            {!product.category[product.category.length - 1].forceLocationInput &&
+            <div style={{
+              height: 1,
+              backgroundColor: HEADER_BORDER_BOTTOM_COLOR,
+              margin: '10px 0'
+            }}/>
+            }
+
+            <h3 style={{ margin: '10px 0'}}>Lokasi</h3>
+
+            {!product.category[product.category.length - 1].forceLocationInput &&
+            <>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'flex-start'
+              }}>
+                <span style={{ margin: 0, fontWeight: 500 }}>Sinkronisasi lokasi dengan alamat bisnis Anda</span>
+                <Switch
+                  checked={syncLocation}
+                  onChange={() => setSyncLocation(prev => !prev)}
+                />
+              </div>
+            
+
+              <p style={{ fontSize: 12, color: 'grey' }}>Lokasi iklan ini akan otomatis ter-update jika anda meng-update alamat bisnis Anda.</p>
+            </>
+            }
+
+            <Autocomplete
+              disabled={syncLocation}
+              options={provinces}
+              getOptionLabel={(option) => option.name}
+              getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
+              value={syncLocation ? me?.store?.address?.province : province}
+              onChange={(_, value) => setProvince(prev => {
+                if(prev?.administrativeAreaId === value?.administrativeAreaId)
+                  return prev
+                return value
+              })}
+              renderInput={(params) => 
+                <TextField 
+                  {...params} 
+                  label="Provinsi"
+                  fullWidth
+                  disabled={loading} 
+                  variant="outlined"
+                  style={{
+                    marginTop: 10,
+                    marginBottom: 10
+                  }}
+                  error={validation.province?.isInvalid}
+                  helperText={validation.province?.message}
+                />
+              }
+            />
+
+            <Autocomplete
+              disabled={Validator.isEmpty(province) || syncLocation}
+              loading={loadingCities}
+              options={cities}
+              getOptionLabel={(option) => option.name}
+              getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
+              value={syncLocation ? me?.store?.address?.city : city}
+              onChange={(_, value) => setCity(prev => {
+                if(prev?.administrativeAreaId === value?.administrativeAreaId)
+                  return prev
+                return value
+              })}
+              renderInput={(params) => 
+                <TextField 
+                  {...params} 
+                  label="Kota/Kabupaten"
+                  fullWidth
+                  disabled={loading} 
+                  variant="outlined"
+                  style={{
+                    marginTop: 10,
+                    marginBottom: 10
+                  }}
+                  error={validation.city?.isInvalid}
+                  helperText={validation.city?.message}
+                />
+              }
+            />
+
+            <Autocomplete
+              disabled={Validator.isEmpty(province) || Validator.isEmpty(city) || syncLocation}
+              loading={loadingDistricts}
+              options={districts}
+              getOptionLabel={(option) => option.name}
+              getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
+              value={syncLocation ? me?.store?.address?.district : district}
+              onChange={(_, value) => setDistrict(prev => {
+                if(prev?.administrativeAreaId === value?.administrativeAreaId)
+                  return prev
+                return value
+              })}
+              renderInput={(params) => 
+                <TextField 
+                  {...params} 
+                  label="Kecamatan"
+                  fullWidth
+                  disabled={loading} 
+                  variant="outlined"
+                  style={{
+                    marginTop: 10,
+                    marginBottom: 10
+                  }}
+                  error={validation.district?.isInvalid}
+                  helperText={validation.district?.message}
+                />
+              }
+            />
+
             <Button
               thick
               label={!product.isPublished ? 'Publikasi' : 'Simpan'}
@@ -955,11 +1155,26 @@ export default createFragmentContainer(Component, {
       merchant {
         id
       },
+      location {
+        province {
+          administrativeAreaId,
+          name
+        },
+        city {
+          administrativeAreaId,
+          name
+        },
+        district {
+          administrativeAreaId,
+          name
+        }
+      }
       category {
         id,
         name,
         requiresProductCondition,
         showsProductConditionField,
+        forceLocationInput,
         listingType,
         specFields {
           id,
@@ -979,7 +1194,7 @@ export default createFragmentContainer(Component, {
           suffix,
           numberOfLines
         }
-      },
+      }
     }
   `,
   me: graphql`

@@ -115,11 +115,26 @@ fragment EditProductScreen_product on Product {
   merchant {
     id
   }
+  location {
+    province {
+      administrativeAreaId
+      name
+    }
+    city {
+      administrativeAreaId
+      name
+    }
+    district {
+      administrativeAreaId
+      name
+    }
+  }
   category {
     id
     name
     requiresProductCondition
     showsProductConditionField
+    forceLocationInput
     listingType
     specFields {
       id
@@ -199,14 +214,7 @@ v5 = {
   "name": "value",
   "storageKey": null
 },
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "display",
-  "storageKey": null
-},
-v7 = [
+v6 = [
   {
     "alias": null,
     "args": null,
@@ -215,7 +223,46 @@ v7 = [
     "storageKey": null
   },
   (v3/*: any*/)
-];
+],
+v7 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "AdministrativeArea",
+    "kind": "LinkedField",
+    "name": "province",
+    "plural": false,
+    "selections": (v6/*: any*/),
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "AdministrativeArea",
+    "kind": "LinkedField",
+    "name": "city",
+    "plural": false,
+    "selections": (v6/*: any*/),
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "AdministrativeArea",
+    "kind": "LinkedField",
+    "name": "district",
+    "plural": false,
+    "selections": (v6/*: any*/),
+    "storageKey": null
+  }
+],
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "display",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -434,6 +481,16 @@ return {
           {
             "alias": null,
             "args": null,
+            "concreteType": "Location",
+            "kind": "LinkedField",
+            "name": "location",
+            "plural": false,
+            "selections": (v7/*: any*/),
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "Category",
             "kind": "LinkedField",
             "name": "category",
@@ -453,6 +510,13 @@ return {
                 "args": null,
                 "kind": "ScalarField",
                 "name": "showsProductConditionField",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "forceLocationInput",
                 "storageKey": null
               },
               {
@@ -579,7 +643,7 @@ return {
         "plural": true,
         "selections": [
           (v2/*: any*/),
-          (v6/*: any*/)
+          (v8/*: any*/)
         ],
         "storageKey": null
       },
@@ -592,7 +656,7 @@ return {
         "plural": true,
         "selections": [
           (v2/*: any*/),
-          (v6/*: any*/),
+          (v8/*: any*/),
           (v3/*: any*/),
           (v5/*: any*/)
         ],
@@ -623,38 +687,7 @@ return {
                 "kind": "LinkedField",
                 "name": "address",
                 "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "AdministrativeArea",
-                    "kind": "LinkedField",
-                    "name": "province",
-                    "plural": false,
-                    "selections": (v7/*: any*/),
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "AdministrativeArea",
-                    "kind": "LinkedField",
-                    "name": "city",
-                    "plural": false,
-                    "selections": (v7/*: any*/),
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "AdministrativeArea",
-                    "kind": "LinkedField",
-                    "name": "district",
-                    "plural": false,
-                    "selections": (v7/*: any*/),
-                    "storageKey": null
-                  }
-                ],
+                "selections": (v7/*: any*/),
                 "storageKey": null
               }
             ],
@@ -670,18 +703,18 @@ return {
         "kind": "LinkedField",
         "name": "administrativeAreas",
         "plural": true,
-        "selections": (v7/*: any*/),
+        "selections": (v6/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "fca60ab1cda91c4df20b65939e4356f9",
+    "cacheID": "3f8b742d90adafbd6c71fce90980ecec",
     "id": null,
     "metadata": {},
     "name": "EditProductScreenQuery",
     "operationKind": "query",
-    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n  productConditions {\n    ...EditProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...EditProductScreen_rentalDurations\n    id\n  }\n  me {\n    ...EditProductScreen_me\n    id\n  }\n  administrativeAreas {\n    ...EditProductScreen_provinces\n  }\n}\n\nfragment EditProductScreen_me on User {\n  id\n  store {\n    id\n    address {\n      province {\n        administrativeAreaId\n        name\n      }\n      city {\n        administrativeAreaId\n        name\n      }\n      district {\n        administrativeAreaId\n        name\n      }\n    }\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  isPublished\n  isDeleted\n  syncLocationWithStoreAddress\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  condition {\n    id\n  }\n  rentalDuration {\n    id\n  }\n  merchant {\n    id\n  }\n  category {\n    id\n    name\n    requiresProductCondition\n    showsProductConditionField\n    listingType\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isAutocomplete\n      isRequired\n      type\n      max\n      min\n      options\n      isEnum\n      isMulti\n      prefix\n      suffix\n      numberOfLines\n    }\n  }\n}\n\nfragment EditProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment EditProductScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment EditProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n"
+    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n  productConditions {\n    ...EditProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...EditProductScreen_rentalDurations\n    id\n  }\n  me {\n    ...EditProductScreen_me\n    id\n  }\n  administrativeAreas {\n    ...EditProductScreen_provinces\n  }\n}\n\nfragment EditProductScreen_me on User {\n  id\n  store {\n    id\n    address {\n      province {\n        administrativeAreaId\n        name\n      }\n      city {\n        administrativeAreaId\n        name\n      }\n      district {\n        administrativeAreaId\n        name\n      }\n    }\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  isPublished\n  isDeleted\n  syncLocationWithStoreAddress\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  condition {\n    id\n  }\n  rentalDuration {\n    id\n  }\n  merchant {\n    id\n  }\n  location {\n    province {\n      administrativeAreaId\n      name\n    }\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n  category {\n    id\n    name\n    requiresProductCondition\n    showsProductConditionField\n    forceLocationInput\n    listingType\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isAutocomplete\n      isRequired\n      type\n      max\n      min\n      options\n      isEnum\n      isMulti\n      prefix\n      suffix\n      numberOfLines\n    }\n  }\n}\n\nfragment EditProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment EditProductScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment EditProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n"
   }
 };
 })();

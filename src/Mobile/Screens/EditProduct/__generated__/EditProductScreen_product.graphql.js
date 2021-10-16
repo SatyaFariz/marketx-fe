@@ -39,11 +39,26 @@ export type EditProductScreen_product = {|
   +merchant: ?{|
     +id: ?string
   |},
+  +location: ?{|
+    +province: ?{|
+      +administrativeAreaId: ?number,
+      +name: ?string,
+    |},
+    +city: ?{|
+      +administrativeAreaId: ?number,
+      +name: ?string,
+    |},
+    +district: ?{|
+      +administrativeAreaId: ?number,
+      +name: ?string,
+    |},
+  |},
   +category: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
     +requiresProductCondition: ?boolean,
     +showsProductConditionField: ?boolean,
+    +forceLocationInput: ?boolean,
     +listingType: ?string,
     +specFields: ?$ReadOnlyArray<?{|
       +id: ?string,
@@ -92,6 +107,16 @@ v1 = {
 },
 v2 = [
   (v0/*: any*/)
+],
+v3 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "administrativeAreaId",
+    "storageKey": null
+  },
+  (v1/*: any*/)
 ];
 return {
   "argumentDefinitions": [],
@@ -217,6 +242,47 @@ return {
     {
       "alias": null,
       "args": null,
+      "concreteType": "Location",
+      "kind": "LinkedField",
+      "name": "location",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AdministrativeArea",
+          "kind": "LinkedField",
+          "name": "province",
+          "plural": false,
+          "selections": (v3/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AdministrativeArea",
+          "kind": "LinkedField",
+          "name": "city",
+          "plural": false,
+          "selections": (v3/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AdministrativeArea",
+          "kind": "LinkedField",
+          "name": "district",
+          "plural": false,
+          "selections": (v3/*: any*/),
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "Category",
       "kind": "LinkedField",
       "name": "category",
@@ -236,6 +302,13 @@ return {
           "args": null,
           "kind": "ScalarField",
           "name": "showsProductConditionField",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "forceLocationInput",
           "storageKey": null
         },
         {
@@ -356,6 +429,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'b6432d425d80912778c6bdc5690b53c6';
+(node/*: any*/).hash = '2f980d7791a3f6f46d63b5801217daff';
 
 module.exports = node;
