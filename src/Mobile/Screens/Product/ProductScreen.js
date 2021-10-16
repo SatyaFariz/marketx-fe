@@ -31,6 +31,7 @@ const Component = props => {
   const [selectSuspensionReason, setSelectSuspensionReason] = useState(false)
   const [suspendingOrUnsuspending, setSuspendingOrUnsuspending] = useState(false)
   const [suspensionReasonId, setSuspensionReasonId] = useState(null)
+  const productLocation = `${product.location.district.name}, ${product.location.city.name}, ${product.location.province.name}`
 
   const handleSwipe = (obj) => {
     setCarouselPos(obj.activeIndex)
@@ -209,7 +210,7 @@ const Component = props => {
                 marginTop: 2,
                 display: 'block'
               }}>
-                {product.store.address.district.name}, {product.store.address.city.name}
+                {truncate(productLocation, 35)}
               </span>
             </div>
           </div>
@@ -520,7 +521,7 @@ const Component = props => {
                       marginTop: 2,
                       display: 'block'
                     }}>
-                      {product.store.address.district.name}, {product.store.address.city.name}
+                      {product.store.address.district.name}, {product.store.address.city.name}, {product.store.address.province.name}
                     </span>
                   </div>
                 </div>
@@ -806,6 +807,9 @@ export default createFragmentContainer(Component, {
           url
         },
         address {
+          province {
+            name
+          },
           city {
             name
           },

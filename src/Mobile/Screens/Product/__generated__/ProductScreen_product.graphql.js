@@ -74,6 +74,9 @@ export type ProductScreen_product = {|
       +url: ?string,
     |},
     +address: ?{|
+      +province: ?{|
+        +name: ?string
+      |},
       +city: ?{|
         +name: ?string
       |},
@@ -391,6 +394,16 @@ return {
               "args": null,
               "concreteType": "AdministrativeArea",
               "kind": "LinkedField",
+              "name": "province",
+              "plural": false,
+              "selections": (v5/*: any*/),
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "AdministrativeArea",
+              "kind": "LinkedField",
               "name": "city",
               "plural": false,
               "selections": (v5/*: any*/),
@@ -418,6 +431,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'bbc5981d80b2008dd655a618ac0da2ff';
+(node/*: any*/).hash = '9c5d5a988abe42e608acad1d17189f69';
 
 module.exports = node;
