@@ -954,7 +954,7 @@ const Component = props => {
             }
 
             <Autocomplete
-              disabled={syncLocation}
+              disabled={syncLocation || loading}
               options={provinces}
               getOptionLabel={(option) => option.name}
               getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
@@ -969,7 +969,7 @@ const Component = props => {
                   {...params} 
                   label="Provinsi"
                   fullWidth
-                  disabled={loading} 
+                  disabled={syncLocation || loading} 
                   variant="outlined"
                   style={{
                     marginTop: 10,
@@ -982,7 +982,7 @@ const Component = props => {
             />
 
             <Autocomplete
-              disabled={Validator.isEmpty(province) || syncLocation}
+              disabled={Validator.isEmpty(province) || syncLocation || loading}
               loading={loadingCities}
               options={cities}
               getOptionLabel={(option) => option.name}
@@ -998,7 +998,7 @@ const Component = props => {
                   {...params} 
                   label="Kota/Kabupaten"
                   fullWidth
-                  disabled={loading} 
+                  disabled={Validator.isEmpty(province) || syncLocation || loading} 
                   variant="outlined"
                   style={{
                     marginTop: 10,
@@ -1011,7 +1011,7 @@ const Component = props => {
             />
 
             <Autocomplete
-              disabled={Validator.isEmpty(province) || Validator.isEmpty(city) || syncLocation}
+              disabled={Validator.isEmpty(province) || Validator.isEmpty(city) || syncLocation || loading}
               loading={loadingDistricts}
               options={districts}
               getOptionLabel={(option) => option.name}
@@ -1027,7 +1027,7 @@ const Component = props => {
                   {...params} 
                   label="Kecamatan"
                   fullWidth
-                  disabled={loading} 
+                  disabled={Validator.isEmpty(province) || Validator.isEmpty(city) || syncLocation || loading} 
                   variant="outlined"
                   style={{
                     marginTop: 10,
