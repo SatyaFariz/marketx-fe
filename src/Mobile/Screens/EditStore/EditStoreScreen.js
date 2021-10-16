@@ -380,6 +380,7 @@ const Component = props => {
           <h3 style={{ margin: '10px 0'}}>Alamat</h3>
 
           <Autocomplete
+            disabled={loading}
             options={provinces}
             getOptionLabel={(option) => option.name}
             getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
@@ -407,7 +408,7 @@ const Component = props => {
           />
 
           <Autocomplete
-            disabled={Validator.isEmpty(province)}
+            disabled={Validator.isEmpty(province) || loading}
             loading={loadingCities}
             options={cities}
             getOptionLabel={(option) => option.name}
@@ -436,7 +437,7 @@ const Component = props => {
           />
 
           <Autocomplete
-            disabled={Validator.isEmpty(province) || Validator.isEmpty(city)}
+            disabled={Validator.isEmpty(province) || Validator.isEmpty(city) || loading}
             loading={loadingDistricts}
             options={districts}
             getOptionLabel={(option) => option.name}
