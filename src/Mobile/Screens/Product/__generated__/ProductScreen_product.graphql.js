@@ -34,6 +34,20 @@ export type ProductScreen_product = {|
   +rentalDuration: ?{|
     +display: ?string
   |},
+  +location: ?{|
+    +province: ?{|
+      +administrativeAreaId: ?number,
+      +name: ?string,
+    |},
+    +city: ?{|
+      +administrativeAreaId: ?number,
+      +name: ?string,
+    |},
+    +district: ?{|
+      +administrativeAreaId: ?number,
+      +name: ?string,
+    |},
+  |},
   +specs: ?$ReadOnlyArray<?{|
     +id: ?string,
     +attribute: ?{|
@@ -114,6 +128,16 @@ v3 = [
   }
 ],
 v4 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "administrativeAreaId",
+    "storageKey": null
+  },
+  (v1/*: any*/)
+],
+v5 = [
   (v1/*: any*/)
 ];
 return {
@@ -207,6 +231,47 @@ return {
       "name": "rentalDuration",
       "plural": false,
       "selections": (v2/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Location",
+      "kind": "LinkedField",
+      "name": "location",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AdministrativeArea",
+          "kind": "LinkedField",
+          "name": "province",
+          "plural": false,
+          "selections": (v4/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AdministrativeArea",
+          "kind": "LinkedField",
+          "name": "city",
+          "plural": false,
+          "selections": (v4/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AdministrativeArea",
+          "kind": "LinkedField",
+          "name": "district",
+          "plural": false,
+          "selections": (v4/*: any*/),
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
@@ -328,7 +393,7 @@ return {
               "kind": "LinkedField",
               "name": "city",
               "plural": false,
-              "selections": (v4/*: any*/),
+              "selections": (v5/*: any*/),
               "storageKey": null
             },
             {
@@ -338,7 +403,7 @@ return {
               "kind": "LinkedField",
               "name": "district",
               "plural": false,
-              "selections": (v4/*: any*/),
+              "selections": (v5/*: any*/),
               "storageKey": null
             }
           ],
@@ -353,6 +418,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '80b022dbfe9206f16a560f3d115c9cab';
+(node/*: any*/).hash = 'bbc5981d80b2008dd655a618ac0da2ff';
 
 module.exports = node;

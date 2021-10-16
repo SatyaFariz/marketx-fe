@@ -1168,7 +1168,7 @@ export default createFragmentContainer(Component, {
           administrativeAreaId,
           name
         }
-      }
+      },
       category {
         id,
         name,

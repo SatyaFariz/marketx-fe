@@ -766,6 +766,20 @@ export default createFragmentContainer(Component, {
       rentalDuration {
         display
       },
+      location {
+        province {
+          administrativeAreaId,
+          name
+        },
+        city {
+          administrativeAreaId,
+          name
+        },
+        district {
+          administrativeAreaId,
+          name
+        }
+      },
       specs {
         id,
         attribute {
