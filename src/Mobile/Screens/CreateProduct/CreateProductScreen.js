@@ -198,6 +198,30 @@ const Component = props => {
           validWhen: false,
           message: 'This field is required.'
         },
+      ] : []),
+      ...(!syncLocation ? [
+        {
+          field: 'province',
+          method: Validator.isEmpty,
+          validWhen: false,
+          message: 'This field is required.'
+        },
+      ] : []),
+      ...(!syncLocation ? [
+        {
+          field: 'city',
+          method: Validator.isEmpty,
+          validWhen: false,
+          message: 'This field is required.'
+        },
+      ] : []),
+      ...(!syncLocation ? [
+        {
+          field: 'district',
+          method: Validator.isEmpty,
+          validWhen: false,
+          message: 'This field is required.'
+        },
       ] : [])
     ])
 
@@ -207,7 +231,10 @@ const Component = props => {
       price,
       desc,
       ...(category.requiresProductCondition ? { productConditionId } : {}),
-      ...(category.listingType === 'rental_product' ? { rentalDurationId } : {})
+      ...(category.listingType === 'rental_product' ? { rentalDurationId } : {}),
+      ...(!syncLocation ? { province } : {}),
+      ...(!syncLocation ? { city } : {}),
+      ...(!syncLocation ? { district } : {})
     })
 
     setValidation(validation)
