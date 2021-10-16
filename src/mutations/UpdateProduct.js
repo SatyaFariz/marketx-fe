@@ -14,6 +14,7 @@ const mutation = graphql`
         desc,
         price,
         isPublished,
+        syncLocationWithStoreAddress,
         images {
           id,
           url
@@ -28,6 +29,20 @@ const mutation = graphql`
         rentalDuration {
           id,
           display
+        },
+        location {
+          province {
+            administrativeAreaId,
+            name
+          },
+          city {
+            administrativeAreaId,
+            name
+          },
+          district {
+            administrativeAreaId,
+            name
+          }
         },
         specs {
           id,

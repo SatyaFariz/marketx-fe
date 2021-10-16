@@ -47,6 +47,7 @@ export type UpdateProductMutationResponse = {|
       +desc: ?string,
       +price: ?number,
       +isPublished: ?boolean,
+      +syncLocationWithStoreAddress: ?boolean,
       +images: ?$ReadOnlyArray<?{|
         +id: ?string,
         +url: ?string,
@@ -61,6 +62,20 @@ export type UpdateProductMutationResponse = {|
       +rentalDuration: ?{|
         +id: ?string,
         +display: ?string,
+      |},
+      +location: ?{|
+        +province: ?{|
+          +administrativeAreaId: ?number,
+          +name: ?string,
+        |},
+        +city: ?{|
+          +administrativeAreaId: ?number,
+          +name: ?string,
+        |},
+        +district: ?{|
+          +administrativeAreaId: ?number,
+          +name: ?string,
+        |},
       |},
       +specs: ?$ReadOnlyArray<?{|
         +id: ?string,
@@ -113,6 +128,7 @@ mutation UpdateProductMutation(
       desc
       price
       isPublished
+      syncLocationWithStoreAddress
       images {
         id
         url
@@ -127,6 +143,20 @@ mutation UpdateProductMutation(
       rentalDuration {
         id
         display
+      }
+      location {
+        province {
+          administrativeAreaId
+          name
+        }
+        city {
+          administrativeAreaId
+          name
+        }
+        district {
+          administrativeAreaId
+          name
+        }
       }
       specs {
         id
@@ -196,6 +226,16 @@ v3 = [
   }
 ],
 v4 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "administrativeAreaId",
+    "storageKey": null
+  },
+  (v2/*: any*/)
+],
+v5 = [
   {
     "alias": null,
     "args": [
@@ -274,6 +314,13 @@ v4 = [
           {
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
+            "name": "syncLocationWithStoreAddress",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "Image",
             "kind": "LinkedField",
             "name": "images",
@@ -320,6 +367,47 @@ v4 = [
                 "args": null,
                 "kind": "ScalarField",
                 "name": "display",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Location",
+            "kind": "LinkedField",
+            "name": "location",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "AdministrativeArea",
+                "kind": "LinkedField",
+                "name": "province",
+                "plural": false,
+                "selections": (v4/*: any*/),
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "AdministrativeArea",
+                "kind": "LinkedField",
+                "name": "city",
+                "plural": false,
+                "selections": (v4/*: any*/),
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "AdministrativeArea",
+                "kind": "LinkedField",
+                "name": "district",
+                "plural": false,
+                "selections": (v4/*: any*/),
                 "storageKey": null
               }
             ],
@@ -423,7 +511,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "UpdateProductMutation",
-    "selections": (v4/*: any*/),
+    "selections": (v5/*: any*/),
     "type": "Mutation",
     "abstractKey": null
   },
@@ -432,19 +520,19 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "UpdateProductMutation",
-    "selections": (v4/*: any*/)
+    "selections": (v5/*: any*/)
   },
   "params": {
-    "cacheID": "240fb2bf040a07b190ed5427ba8897ef",
+    "cacheID": "e692b214cc489eea21c762f3714fa382",
     "id": null,
     "metadata": {},
     "name": "UpdateProductMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateProductMutation(\n  $id: String!\n  $input: ProductInput!\n) {\n  updateProduct(id: $id, input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      name\n      desc\n      price\n      isPublished\n      images {\n        id\n        url\n      }\n      category {\n        id\n        name\n      }\n      condition {\n        id\n      }\n      rentalDuration {\n        id\n        display\n      }\n      specs {\n        id\n        attribute {\n          id\n          name\n          icon {\n            id\n            url\n          }\n        }\n        value\n      }\n      merchant {\n        id\n        name\n        profilePicture {\n          id\n          url\n        }\n      }\n      store {\n        id\n        name\n        whatsappUrl\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateProductMutation(\n  $id: String!\n  $input: ProductInput!\n) {\n  updateProduct(id: $id, input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      name\n      desc\n      price\n      isPublished\n      syncLocationWithStoreAddress\n      images {\n        id\n        url\n      }\n      category {\n        id\n        name\n      }\n      condition {\n        id\n      }\n      rentalDuration {\n        id\n        display\n      }\n      location {\n        province {\n          administrativeAreaId\n          name\n        }\n        city {\n          administrativeAreaId\n          name\n        }\n        district {\n          administrativeAreaId\n          name\n        }\n      }\n      specs {\n        id\n        attribute {\n          id\n          name\n          icon {\n            id\n            url\n          }\n        }\n        value\n      }\n      merchant {\n        id\n        name\n        profilePicture {\n          id\n          url\n        }\n      }\n      store {\n        id\n        name\n        whatsappUrl\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'dc8289437a56f3e763ef3debc0bb3ad9';
+(node/*: any*/).hash = 'f8a669ff1ed235221eb77e1f15c1aa30';
 
 module.exports = node;

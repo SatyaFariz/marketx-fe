@@ -292,6 +292,18 @@ const Component = props => {
   }
 
   const isClean = () => {
+    if(product.syncLocationWithStoreAddress !== syncLocation) {
+      return false
+    } else if(!syncLocation) {
+      if(
+        product.location.province.administrativeAreaId !== province.administrativeAreaId ||
+        product.location.city.administrativeAreaId !== city.administrativeAreaId ||
+        product.location.district.administrativeAreaId !== district.administrativeAreaId
+      ) {
+        return false
+      }
+    }
+
     for(let i = 0; i < product.specs.length; i++) {
       const spec = product.specs[i]
       const attributeId = spec.attribute.id
