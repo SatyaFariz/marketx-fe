@@ -288,7 +288,13 @@ const Component = props => {
           isPublished: true,
           productConditionId,
           rentalDurationId,
-          specs: productSpecs
+          syncLocationWithStoreAddress: syncLocation,
+          specs: productSpecs,
+          location: syncLocation ? null : {
+            provinceId: province.administrativeAreaId,
+            cityId: city.administrativeAreaId,
+            districtId: district.administrativeAreaId
+          }
         }
       }
 
