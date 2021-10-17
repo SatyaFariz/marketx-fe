@@ -650,7 +650,7 @@ const Component = props => {
 
           {(category.showsProductConditionField || 
             category.specFields.length > 0) &&
-          <h3 style={{ margin: '10px 0'}}>Rincian</h3>
+          <h3 style={{ margin: '10px 0'}}>Detail</h3>
           }
 
           {category.showsProductConditionField &&
