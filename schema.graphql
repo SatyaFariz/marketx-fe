@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sat Oct 16 2021 12:50:21 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Oct 17 2021 15:04:13 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -203,6 +203,8 @@ type Product {
   images: [Image]
   specs: [Specification]
   location: Location
+  createdAt: String
+  renewedAt: String
 }
 
 type ProductCondition {

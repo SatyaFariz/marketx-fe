@@ -18,6 +18,7 @@ import Button from '../../Components/Button'
 import { IoMdCreate } from 'react-icons/io'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import truncate from 'truncate'
+import formatDate from '../../../helpers/formatDate'
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -354,11 +355,31 @@ const Component = props => {
             <span style={{
               color: 'rgb(83, 100, 113)',
               fontSize: 12,
-              marginTop: 2,
+              marginTop: 5,
               display: 'block'
             }}>
               {productLocation}
             </span>
+
+            <span style={{
+              color: 'rgb(83, 100, 113)',
+              fontSize: 12,
+              marginTop: 5,
+              display: 'block'
+            }}>
+              {`Diposting: ${formatDate(product.createdAt)}`}
+            </span>
+
+            {product.renewedAt &&
+            <span style={{
+              color: 'rgb(83, 100, 113)',
+              fontSize: 12,
+              marginTop: 5,
+              display: 'block'
+            }}>
+              {`Diperbarui: ${formatDate(product.renewedAt)}`}
+            </span>
+            }
 
             <div style={{
               borderTop: `1px solid ${DIVIDER_COLOR}`,
@@ -758,6 +779,8 @@ export default createFragmentContainer(Component, {
       isPublished,
       isFeatured,
       isSuspended,
+      createdAt,
+      renewedAt,
       condition {
         display
       },
