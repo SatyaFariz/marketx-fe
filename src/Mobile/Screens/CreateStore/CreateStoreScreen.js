@@ -194,7 +194,7 @@ const Component = props => {
             fontSize: 20,
             fontWeight: 500,
             textAlign: 'center',
-          }}>Buat Toko</h1>
+          }}>Bisnis Anda</h1>
         </div>
       </div>
 
@@ -207,7 +207,7 @@ const Component = props => {
       }}>
         <TextField
           variant="outlined"
-          label="Nama Toko"
+          label="Nama Bisnis"
           fullWidth
           disabled={loading}
           style={{
@@ -255,6 +255,7 @@ const Component = props => {
         <h3 style={{ margin: '10px 0'}}>Alamat</h3>
 
         <Autocomplete
+          disabled={loading}
           options={provinces}
           getOptionLabel={(option) => option.name}
           value={province}
@@ -277,7 +278,7 @@ const Component = props => {
         />
 
         <Autocomplete
-          disabled={Validator.isEmpty(province)}
+          disabled={Validator.isEmpty(province) || loading}
           loading={loadingCities}
           options={cities}
           getOptionLabel={(option) => option.name}
@@ -288,7 +289,7 @@ const Component = props => {
               {...params} 
               label="Kota/Kabupaten"
               fullWidth
-              disabled={loading} 
+              disabled={Validator.isEmpty(province) || loading} 
               variant="outlined"
               style={{
                 marginTop: 10,
@@ -301,7 +302,7 @@ const Component = props => {
         />
 
         <Autocomplete
-          disabled={Validator.isEmpty(province) || Validator.isEmpty(city)}
+          disabled={Validator.isEmpty(province) || Validator.isEmpty(city) || loading}
           loading={loadingDistricts}
           options={districts}
           getOptionLabel={(option) => option.name}
@@ -312,7 +313,7 @@ const Component = props => {
               {...params} 
               label="Kecamatan"
               fullWidth
-              disabled={loading} 
+              disabled={Validator.isEmpty(province) || Validator.isEmpty(city) || loading} 
               variant="outlined"
               style={{
                 marginTop: 10,
