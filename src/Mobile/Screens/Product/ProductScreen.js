@@ -375,11 +375,9 @@ const Component = props => {
               padding: '16px 0px',
             }}>
               <span style={{
-                color: 'rgb(118, 118, 118)',
-                fontSize: 16,
-                fontWeight: 500,
-                textTransform: 'uppercase'
-              }}>Specifications</span>
+                fontSize: 20,
+                fontWeight: 600
+              }}>Detail</span>
               
               <div style={{ marginTop: 16 }}>
                 {product.condition &&
@@ -459,12 +457,10 @@ const Component = props => {
             paddingTop: 16
           }}>
             <span style={{
-              color: 'rgb(118, 118, 118)',
-              fontSize: 16,
-              fontWeight: 500,
-              textTransform: 'uppercase',
+              fontSize: 20,
+              fontWeight: 600,
               margin: '0 15px'
-            }}>Merchant Information</span>
+            }}>Diposting Oleh</span>
 
             <div style={{ marginTop: 16 }}>
               <ButtonBase href={`/store/${product.store.id}`} component={Link} style={{
