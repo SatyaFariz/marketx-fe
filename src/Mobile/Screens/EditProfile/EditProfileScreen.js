@@ -221,7 +221,7 @@ const Component = props => {
             fontSize: 20,
             fontWeight: 500,
             textAlign: 'center',
-          }}>Profile</h1>
+          }}>Profil</h1>
         </div>
       </div>
       <div style={{
@@ -263,7 +263,7 @@ const Component = props => {
         }}>
           <TextField
             variant="outlined"
-            label="Name"
+            label="Nama Lengkap"
             fullWidth
             disabled={sendingOtpCode || loading}
             style={{

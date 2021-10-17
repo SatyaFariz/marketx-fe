@@ -150,7 +150,7 @@ const Component = props => {
         <h1 style={{
           marginTop: 30,
           marginBottom: 10
-        }}>Log in to {App.name}</h1>
+        }}>Masuk ke {App.name}</h1>
 
         {useEmail ?
         <>
@@ -170,7 +170,7 @@ const Component = props => {
 
           <TextField
             variant="outlined"
-            label="Password"
+            label="Kata Sandi"
             fullWidth
             disabled={loading}
             style={{
@@ -190,7 +190,7 @@ const Component = props => {
               href={'/forgot-password'} 
               style={{ color: Color.link }}
             >
-              <span style={{ fontSize: 12 }}>Lupa password</span>
+              <span style={{ fontSize: 12 }}>Lupa kata sandi</span>
             </Link>
           </div>
 
@@ -254,7 +254,7 @@ const Component = props => {
             href={queryParams?.redirect ? `/register?redirect=${queryParams.redirect}` : '/register'} 
             style={{ color: Color.link }}
           >
-            <span>Create a new account</span>
+            <span>Daftar akun baru</span>
           </Link>
         </div>
         

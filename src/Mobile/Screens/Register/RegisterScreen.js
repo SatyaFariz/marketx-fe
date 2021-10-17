@@ -299,7 +299,7 @@ const Component = props => {
         <h1 style={{
           marginTop: 30,
           marginBottom: 10
-        }}>Create a new account</h1>
+        }}>Daftar akun baru</h1>
 
         {useEmail ?
         <>
@@ -348,7 +348,7 @@ const Component = props => {
 
           <TextField
             variant="outlined"
-            label="Password"
+            label="Kata Sandi"
             fullWidth
             style={{
               marginTop: 10,
@@ -364,7 +364,7 @@ const Component = props => {
 
           <TextField
             variant="outlined"
-            label="Konfirmasi Password"
+            label="Konfirmasi Kata Sandi"
             fullWidth
             style={{
               marginTop: 10,

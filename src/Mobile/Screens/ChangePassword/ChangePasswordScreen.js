@@ -119,11 +119,11 @@ const Component = props => {
         <h1 style={{
           marginTop: 30,
           marginBottom: 10
-        }}>Change Password</h1>
+        }}>Ubah Kata Sandi</h1>
 
         <TextField
           variant="outlined"
-          label="Password Anda"
+          label="Kata Sandi Anda"
           fullWidth
           disabled={loading}
           style={{
@@ -139,7 +139,7 @@ const Component = props => {
 
         <TextField
           variant="outlined"
-          label="Password Baru"
+          label="Kata Sandi Baru"
           fullWidth
           disabled={loading}
           style={{
@@ -155,7 +155,7 @@ const Component = props => {
 
         <TextField
           variant="outlined"
-          label="Konfirmasi Password Baru"
+          label="Konfirmasi Kata Sandi Baru"
           fullWidth
           disabled={loading}
           style={{
