@@ -18,6 +18,7 @@ import SendVerificationCode from '../../../mutations/SendVerificationCode'
 import RegisterWithEmail from '../../../mutations/RegisterWithEmail'
 
 const useEmail = true
+const emailAlreadyRegisteredErrorMessage = 'Email ini sudah terdaftar di sistem kami.'
 
 const Component = props => {
   const { me } = props
@@ -83,7 +84,7 @@ const Component = props => {
         field: 'email',
         method: () => emailExistance?.exists === true,
         validWhen: false,
-        message: 'This email is already registered.'
+        message: emailAlreadyRegisteredErrorMessage
       },
       {
         field: 'password',
@@ -230,7 +231,23 @@ const Component = props => {
   }
 
   const sendEmailVerificationCode = () => {
-    if(!sendingEmailVerificationCode) {
+    if(emailExistance.exists && emailExistance.email === email) {
+      setValidation(prev => {
+        const copy = { ...prev }
+        copy.email = {
+          isInvalid: true,
+          message: emailAlreadyRegisteredErrorMessage
+        }
+        return copy
+      })
+
+      alert(emailAlreadyRegisteredErrorMessage)
+    } else if(!sendingEmailVerificationCode) {
+      setValidation(prev => {
+        const copy = { ...prev }
+        delete copy.email
+        return copy
+      })
       setSendingEmailVerificationCode(true)
       SendVerificationCode(environment, { id: email }, (payload, error) => {
         if(error) {
