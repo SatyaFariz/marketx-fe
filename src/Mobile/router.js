@@ -3,11 +3,11 @@ import UniversalRouter from 'universal-router';
 import screens from './Screens'
 
 const routes = [
-  // {
-  //   path: '',
-  //   children: () => import(/* webpackChunkName: 'admin' */ './Screens'),
-  // },
-  ...screens
+  {
+    path: '/admin',
+    children: () => import(/* webpackChunkName: 'admin' */ './Screens/ADMIN'),
+  },
+  ...screens,
 ];
 
 function resolveRoute(ctx) {
