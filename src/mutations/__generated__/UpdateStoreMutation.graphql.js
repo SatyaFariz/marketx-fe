@@ -20,6 +20,7 @@ export type UpdateStoreMutationVariables = {|
   id: string,
   name: string,
   whatsappNumber: string,
+  whatsappVerificationCode?: ?string,
   address: AddressInput,
 |};
 export type UpdateStoreMutationResponse = {|
@@ -31,7 +32,7 @@ export type UpdateStoreMutationResponse = {|
     +store: ?{|
       +id: ?string,
       +name: ?string,
-      +whatsappNumber: ?string,
+      +whatsappNumber: ?$ReadOnlyArray<?string>,
       +address: ?{|
         +fullAddress: ?string,
         +province: ?{|
@@ -62,9 +63,10 @@ mutation UpdateStoreMutation(
   $id: String!
   $name: String!
   $whatsappNumber: String!
+  $whatsappVerificationCode: String
   $address: AddressInput!
 ) {
-  updateStore(id: $id, name: $name, whatsappNumber: $whatsappNumber, address: $address) {
+  updateStore(id: $id, name: $name, whatsappNumber: $whatsappNumber, whatsappVerificationCode: $whatsappVerificationCode, address: $address) {
     actionInfo {
       hasError
       message
@@ -115,13 +117,18 @@ v3 = {
   "name": "whatsappNumber"
 },
 v4 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "whatsappVerificationCode"
+},
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v5 = [
+v6 = [
   {
     "alias": null,
     "args": null,
@@ -129,9 +136,9 @@ v5 = [
     "name": "administrativeAreaId",
     "storageKey": null
   },
-  (v4/*: any*/)
+  (v5/*: any*/)
 ],
-v6 = [
+v7 = [
   {
     "alias": null,
     "args": [
@@ -154,6 +161,11 @@ v6 = [
         "kind": "Variable",
         "name": "whatsappNumber",
         "variableName": "whatsappNumber"
+      },
+      {
+        "kind": "Variable",
+        "name": "whatsappVerificationCode",
+        "variableName": "whatsappVerificationCode"
       }
     ],
     "concreteType": "ActionOnStorePayload",
@@ -201,7 +213,7 @@ v6 = [
             "name": "id",
             "storageKey": null
           },
-          (v4/*: any*/),
+          (v5/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -231,7 +243,7 @@ v6 = [
                 "kind": "LinkedField",
                 "name": "province",
                 "plural": false,
-                "selections": (v5/*: any*/),
+                "selections": (v6/*: any*/),
                 "storageKey": null
               },
               {
@@ -241,7 +253,7 @@ v6 = [
                 "kind": "LinkedField",
                 "name": "city",
                 "plural": false,
-                "selections": (v5/*: any*/),
+                "selections": (v6/*: any*/),
                 "storageKey": null
               },
               {
@@ -251,7 +263,7 @@ v6 = [
                 "kind": "LinkedField",
                 "name": "district",
                 "plural": false,
-                "selections": (v5/*: any*/),
+                "selections": (v6/*: any*/),
                 "storageKey": null
               }
             ],
@@ -270,12 +282,13 @@ return {
       (v0/*: any*/),
       (v1/*: any*/),
       (v2/*: any*/),
-      (v3/*: any*/)
+      (v3/*: any*/),
+      (v4/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
     "name": "UpdateStoreMutation",
-    "selections": (v6/*: any*/),
+    "selections": (v7/*: any*/),
     "type": "Mutation",
     "abstractKey": null
   },
@@ -285,23 +298,24 @@ return {
       (v1/*: any*/),
       (v2/*: any*/),
       (v3/*: any*/),
+      (v4/*: any*/),
       (v0/*: any*/)
     ],
     "kind": "Operation",
     "name": "UpdateStoreMutation",
-    "selections": (v6/*: any*/)
+    "selections": (v7/*: any*/)
   },
   "params": {
-    "cacheID": "cfb11309d8654af8e95e62d969c5a8bf",
+    "cacheID": "17b9bfb44de2962e7b6afe8905e81e5e",
     "id": null,
     "metadata": {},
     "name": "UpdateStoreMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateStoreMutation(\n  $id: String!\n  $name: String!\n  $whatsappNumber: String!\n  $address: AddressInput!\n) {\n  updateStore(id: $id, name: $name, whatsappNumber: $whatsappNumber, address: $address) {\n    actionInfo {\n      hasError\n      message\n    }\n    store {\n      id\n      name\n      whatsappNumber\n      address {\n        fullAddress\n        province {\n          administrativeAreaId\n          name\n        }\n        city {\n          administrativeAreaId\n          name\n        }\n        district {\n          administrativeAreaId\n          name\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateStoreMutation(\n  $id: String!\n  $name: String!\n  $whatsappNumber: String!\n  $whatsappVerificationCode: String\n  $address: AddressInput!\n) {\n  updateStore(id: $id, name: $name, whatsappNumber: $whatsappNumber, whatsappVerificationCode: $whatsappVerificationCode, address: $address) {\n    actionInfo {\n      hasError\n      message\n    }\n    store {\n      id\n      name\n      whatsappNumber\n      address {\n        fullAddress\n        province {\n          administrativeAreaId\n          name\n        }\n        city {\n          administrativeAreaId\n          name\n        }\n        district {\n          administrativeAreaId\n          name\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e1390e1cc091f6bf0f171b5c31db97cc';
+(node/*: any*/).hash = '312345bddf10d5850f44eceeeba78c5d';
 
 module.exports = node;

@@ -15,7 +15,7 @@ declare export opaque type StoreScreen_store$fragmentType: StoreScreen_store$ref
 export type StoreScreen_store = {|
   +id: ?string,
   +name: ?string,
-  +whatsappNumber: ?string,
+  +whatsappNumber: ?$ReadOnlyArray<?string>,
   +isVerified: ?boolean,
   +merchantId: ?string,
   +profilePicture: ?{|

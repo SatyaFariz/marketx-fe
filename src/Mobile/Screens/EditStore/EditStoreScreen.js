@@ -14,8 +14,13 @@ import BackButton from '../../Components/BackButton'
 import { Autocomplete } from '@material-ui/lab'
 import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader'
 import Button from '../../Components/Button'
+import NumberFormat from 'react-number-format'
+import SendVerificationCode from '../../../mutations/SendVerificationCode'
 
 const megabytes = 1048576
+const whatsappNumberNotRegisteredErrorMessage = 'Nomor ini tidak terdaftar di WhatsApp.'
+const verificationCodeFieldHelperText = 'Diisi jika nomor WhatsApp berubah.'
+const PHONE_MIN_CHAR_LEN = 10
 
 const Component = props => {
   const citiesFirstLoaded = useRef(true)
@@ -27,7 +32,8 @@ const Component = props => {
   const citiesLoader = useRef(new AdministrativeAreaLoader(environment))
   const districtsLoader = useRef(new AdministrativeAreaLoader(environment))
   const [name, setName] = useState(store?.name)
-  const [whatsappNumber, setWhatsappNumber] = useState(store?.whatsappNumber)
+  const [whatsappNumber, setWhatsappNumber] = useState(store?.whatsappNumber && store?.whatsappNumber[0])
+  const [whatsappNumberStatus, setWhatsappNumberStatus] = useState({})
   const [banner, setBanner] = useState(null)
   const [profilePicture, setProfilePicture] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -40,6 +46,10 @@ const Component = props => {
   const [loadingCities, setLoadingCities] = useState(false)
   const [loadingDistricts, setLoadingDistricts] = useState(false)
   const [validation, setValidation] = useState({ isValid: false })
+  const [verificationCode, setVerificationCode] = useState('')
+  const [sendingVerificationCode, setSendingVerificationCode] = useState(false)
+
+  const isSameNumber = store?.whatsappNumber?.includes(whatsappNumber)
 
   const { getRootProps: getRootProps1, getInputProps: getInputProps1 } = useDropzone({
     // Disable click and keydown behavior
@@ -77,11 +87,62 @@ const Component = props => {
     onDropRejected: () => console.log('Rejected')
   })
 
-  const _setWhatsappNumber = (e) => {
-    const allowedChars = '1234567890'
-    const { value } = e.target
-    if(value.length && !allowedChars.includes(value[value.length - 1])) return
-    setWhatsappNumber(value)
+  const sendVerificationCode = () => {
+    if(!sendingVerificationCode) {
+      if(whatsappNumberStatus.number?.includes(whatsappNumber) && whatsappNumberStatus?.isNotRegistered) {
+        setValidation(prev => {
+          const copy = { ...prev }
+          copy.whatsappNumber = {
+            isInvalid: true,
+            message: whatsappNumberNotRegisteredErrorMessage
+          }
+          return copy
+        })
+      } else {
+        setValidation(prev => {
+          const copy = { ...prev }
+          delete copy.whatsappNumber 
+          return copy
+        })
+
+        const variables = { 
+          id: whatsappNumber, 
+          action: 'verify_whatsapp_number' 
+        }
+        SendVerificationCode(environment, variables, (payload, error) => {
+          if(error) {
+            console.log(error)
+          } else if(payload) {
+            const {
+              actionInfo: { message }, 
+              emailOrNumber,
+              isNumberNotRegisteredOnWhatsapp 
+            } = payload
+
+            setWhatsappNumberStatus({
+              number: emailOrNumber,
+              isNotRegistered: isNumberNotRegisteredOnWhatsapp
+            })
+            if(isNumberNotRegisteredOnWhatsapp) {
+              setValidation(prev => {
+                const copy = { ...prev }
+                copy.whatsappNumber = {
+                  isInvalid: true,
+                  message: whatsappNumberNotRegisteredErrorMessage
+                }
+                return copy
+              })
+            }
+            
+            alert(message)
+          }
+
+          _isMounted.current && setSendingVerificationCode(false)
+        })
+
+        setSendingVerificationCode(true)
+      }
+    }
   }
 
   const isValid = () => {
@@ -100,9 +161,25 @@ const Component = props => {
       },
       {
         field: 'whatsappNumber',
-        method: (number) => number.length > 10,
+        method: (number) => number.length > PHONE_MIN_CHAR_LEN,
         validWhen: true,
-        message: 'This field must be more than 10 characters long.'
+        message: `Minimal ${PHONE_MIN_CHAR_LEN} karakter.`
+      },
+      {
+        field: 'whatsappNumber',
+        method: Validator.isValidPhoneNumber,
+        validWhen: true,
+        message: 'Nomor ini tidak valid.'
+      },
+      {
+        field: 'whatsappNumber',
+        method: (number) => {
+          if(isSameNumber) return false
+          
+          return whatsappNumberStatus.number?.includes(number) && whatsappNumberStatus?.isNotRegistered
+        },
+        validWhen: false,
+        message: whatsappNumberNotRegisteredErrorMessage
       },
       {
         field: 'province',
@@ -128,9 +205,23 @@ const Component = props => {
         validWhen: false,
         message: 'This field is required.'
       },
+      ...(isSameNumber ? [] : [{
+        field: 'verificationCode',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'This field is required.'
+      }])
     ])
 
-    const validation = validator.validate({ name, whatsappNumber, province, city, district, fullAddress })
+    const validation = validator.validate({ 
+      name, 
+      whatsappNumber, 
+      province, 
+      city, 
+      district, 
+      fullAddress,
+      ...(isSameNumber ? {} : { verificationCode })
+    })
     setValidation(validation)
     return validation.isValid
   }
@@ -140,7 +231,7 @@ const Component = props => {
       banner === null &&
       profilePicture === null &&
       store?.name?.trim() === name.trim() &&
-      store?.whatsappNumber?.trim() === whatsappNumber.trim() &&
+      isSameNumber &&
       store?.address?.province?.administrativeAreaId === province?.administrativeAreaId &&
       store?.address?.city?.administrativeAreaId === city?.administrativeAreaId &&
       store?.address?.district?.administrativeAreaId === district?.administrativeAreaId &&
@@ -158,6 +249,7 @@ const Component = props => {
         id: store.id, 
         name, 
         whatsappNumber,
+        whatsappVerificationCode: verificationCode,
         address: {
           provinceId: province.administrativeAreaId,
           cityId: city.administrativeAreaId,
@@ -185,6 +277,16 @@ const Component = props => {
   useEffect(() => {
     return () => _isMounted.current = false
   }, [])
+
+  useEffect(() => {
+    if(isSameNumber) {
+      setValidation(prev => {
+        const copy = { ...prev }
+        delete copy.whatsappNumber 
+        return copy
+      })
+    }
+  }, [isSameNumber])
 
   useEffect(() => {
     if(province) {
@@ -272,7 +374,7 @@ const Component = props => {
             fontSize: 20,
             fontWeight: 500,
             textAlign: 'center',
-          }}>Edit Store</h1>
+          }}>Edit Bisnis</h1>
         </div>
       </div>
 
@@ -333,7 +435,7 @@ const Component = props => {
           
           <TextField
             variant="outlined"
-            label="Store Name"
+            label="Nama Bisnis"
             value={name}
             onChange={e => setName(e.target.value.trimLeft())}
             fullWidth
@@ -346,13 +448,14 @@ const Component = props => {
             helperText={validation?.name?.message}
           />
 
-          <TextField
+          <NumberFormat
+            customInput={TextField}
             variant="outlined"
-            label="WhatsApp Number"
-            value={whatsappNumber}
-            onChange={_setWhatsappNumber}
+            label="Nomor WhatsApp"
             fullWidth
             disabled={loading}
+            onChange={(e) => setWhatsappNumber(e.target.value)}
+            value={whatsappNumber}
             style={{
               marginTop: 10,
               marginBottom: 10
@@ -361,9 +464,10 @@ const Component = props => {
               endAdornment: (
                 <InputAdornment position="start">
                   <Button
-                    label="Cek"
-                    disabled={whatsappNumber.length < 10}
-                    onClick={() => window.open(`https://wa.me/${whatsappNumber}`)}
+                    label="Kirim Kode"
+                    loading={sendingVerificationCode}
+                    disabled={whatsappNumber.length < PHONE_MIN_CHAR_LEN || !Validator.isValidPhoneNumber(whatsappNumber) || isSameNumber}
+                    onClick={sendVerificationCode}
                   />
                 </InputAdornment>
               )
@@ -371,10 +475,39 @@ const Component = props => {
             inputProps={{
               pattern: "[0-9]*",
               type: "text",
-              inputMode: "numeric"
+              inputMode: "numeric",
+              maxLength: 15
             }}
             error={validation?.whatsappNumber?.isInvalid}
             helperText={validation?.whatsappNumber?.message}
+            allowNegative={false}
+            decimalSeparator={null}
+            allowLeadingZeros
+          />
+
+          <NumberFormat
+            customInput={TextField}
+            variant="outlined"
+            label="Kode Verifikasi"
+            fullWidth
+            disabled={loading || isSameNumber}
+            value={isSameNumber ? '' : verificationCode}
+            onValueChange={({ value }) => setVerificationCode(value)}
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            inputProps={{
+              pattern: "[0-9]*",
+              type: "text",
+              inputMode: "numeric",
+              maxLength: 6
+            }}
+            error={isSameNumber ? false : validation?.verificationCode?.isInvalid}
+            helperText={isSameNumber ? verificationCodeFieldHelperText : (validation?.verificationCode?.message || verificationCodeFieldHelperText)}
+            allowNegative={false}
+            decimalSeparator={null}
+            allowLeadingZeros
           />
 
           <h3 style={{ margin: '10px 0'}}>Alamat</h3>

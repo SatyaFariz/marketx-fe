@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Oct 17 2021 15:04:13 GMT+0700 (Western Indonesia Time)
+# timestamp: Wed Oct 27 2021 20:23:49 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -125,9 +125,9 @@ type Mutation {
   register(name: String!, loginId: String!, password: String!): ActionOnUserPayload
   logout: ActionInfo
   updateProfile(otpCode: String, input: UpdateProfileInput!): ActionOnUserPayload
-  createStore(name: String!, whatsappNumber: String!, address: AddressInput!): ActionOnStorePayload
+  createStore(name: String!, whatsappNumber: String!, whatsappVerificationCode: String!, address: AddressInput!): ActionOnStorePayload
   updateStoreAddress(id: String!, address: AddressInput!): ActionOnStorePayload
-  updateStore(id: String!, name: String!, whatsappNumber: String!, address: AddressInput!): ActionOnStorePayload
+  updateStore(id: String!, name: String!, whatsappNumber: String!, whatsappVerificationCode: String, address: AddressInput!): ActionOnStorePayload
   addSpecFieldToCategory(categoryId: String!, attributeId: String!, type: String!, isRequired: Boolean): String
   updateProduct(id: String!, input: ProductInput!): ActionOnProductPayload
   deleteProduct(id: String!): ActionOnProductPayload
@@ -270,6 +270,9 @@ type Query {
 
 type SendVerificationCodePayload {
   actionInfo: ActionInfo
+  emailOrNumber: [String]
+  isNumberNotRegisteredOnWhatsapp: Boolean
+  isEmailOrNumberRegistered: Boolean
   cooldownExpiry: String
   expiry: String
 }
@@ -325,7 +328,7 @@ input SpecificationInput {
 type Store {
   id: ID
   name: String
-  whatsappNumber: String
+  whatsappNumber: [String]
   whatsappUrl: String
   merchantId: String
   address: Address
@@ -380,4 +383,5 @@ enum UserActionEnum {
   login
   register
   edit_profile
+  verify_whatsapp_number
 }

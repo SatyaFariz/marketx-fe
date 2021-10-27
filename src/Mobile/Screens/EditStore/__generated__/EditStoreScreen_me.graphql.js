@@ -16,7 +16,7 @@ export type EditStoreScreen_me = {|
   +store: ?{|
     +id: ?string,
     +name: ?string,
-    +whatsappNumber: ?string,
+    +whatsappNumber: ?$ReadOnlyArray<?string>,
     +profilePicture: ?{|
       +id: ?string,
       +url: ?string,

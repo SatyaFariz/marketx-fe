@@ -8,6 +8,8 @@ const mutation = graphql`
         hasError,
         message
       },
+      emailOrNumber,
+      isNumberNotRegisteredOnWhatsapp,
       expiry,
       cooldownExpiry
     }

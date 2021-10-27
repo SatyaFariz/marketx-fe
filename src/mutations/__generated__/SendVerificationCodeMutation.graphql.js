@@ -8,7 +8,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type UserActionEnum = "edit_profile" | "login" | "register" | "%future added value";
+export type UserActionEnum = "edit_profile" | "login" | "register" | "verify_whatsapp_number" | "%future added value";
 export type SendVerificationCodeMutationVariables = {|
   id: string,
   action?: ?UserActionEnum,
@@ -19,6 +19,8 @@ export type SendVerificationCodeMutationResponse = {|
       +hasError: ?boolean,
       +message: ?string,
     |},
+    +emailOrNumber: ?$ReadOnlyArray<?string>,
+    +isNumberNotRegisteredOnWhatsapp: ?boolean,
     +expiry: ?string,
     +cooldownExpiry: ?string,
   |}
@@ -40,6 +42,8 @@ mutation SendVerificationCodeMutation(
       hasError
       message
     }
+    emailOrNumber
+    isNumberNotRegisteredOnWhatsapp
     expiry
     cooldownExpiry
   }
@@ -106,6 +110,20 @@ v2 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
+        "name": "emailOrNumber",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "isNumberNotRegisteredOnWhatsapp",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "expiry",
         "storageKey": null
       },
@@ -144,16 +162,16 @@ return {
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "49e7db5771c0d1cd05872a27f69686c2",
+    "cacheID": "12a8e7e62f9b3f09405a3f18d7e97abc",
     "id": null,
     "metadata": {},
     "name": "SendVerificationCodeMutation",
     "operationKind": "mutation",
-    "text": "mutation SendVerificationCodeMutation(\n  $id: String!\n  $action: UserActionEnum\n) {\n  sendVerificationCode(id: $id, action: $action) {\n    actionInfo {\n      hasError\n      message\n    }\n    expiry\n    cooldownExpiry\n  }\n}\n"
+    "text": "mutation SendVerificationCodeMutation(\n  $id: String!\n  $action: UserActionEnum\n) {\n  sendVerificationCode(id: $id, action: $action) {\n    actionInfo {\n      hasError\n      message\n    }\n    emailOrNumber\n    isNumberNotRegisteredOnWhatsapp\n    expiry\n    cooldownExpiry\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'afda759e038fb074c51b556c82568c0d';
+(node/*: any*/).hash = '69c7f79e419acd21b985bab9bff08e78';
 
 module.exports = node;

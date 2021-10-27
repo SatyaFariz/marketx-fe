@@ -10,6 +10,11 @@ import { createFragmentContainer } from 'react-relay'
 import { Autocomplete } from '@material-ui/lab'
 import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader'
 import Button from '../../Components/Button'
+import NumberFormat from 'react-number-format'
+import SendVerificationCode from '../../../mutations/SendVerificationCode'
+
+const whatsappNumberNotRegisteredErrorMessage = 'Nomor ini tidak terdaftar di WhatsApp.'
+const PHONE_MIN_CHAR_LEN = 10
 
 const Component = props => {
   const { provinces, me } = props
@@ -18,6 +23,8 @@ const Component = props => {
   const areasLoader = useRef(new AdministrativeAreaLoader(environment))
   const [storeName, setStoreName] = useState('')
   const [whatsappNumber, setWhatsappNumber] = useState('')
+  const [whatsappNumberStatus, setWhatsappNumberStatus] = useState(null)
+  const [verificationCode, setVerificationCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [province, setProvince] = useState(null)
   const [city, setCity] = useState(null)
@@ -28,16 +35,64 @@ const Component = props => {
   const [loadingCities, setLoadingCities] = useState(false)
   const [loadingDistricts, setLoadingDistricts] = useState(false)
   const [validation, setValidation] = useState({ isValid: false })
+  const [sendingVerificationCode, setSendingVerificationCode] = useState(false)
 
-  const _setStoreName = (e) => {
-    setStoreName(e.target.value.trimLeft())
-  }
+  const sendVerificationCode = () => {
+    if(!sendingVerificationCode) {
+      if(whatsappNumberStatus.number?.includes(whatsappNumber) && whatsappNumberStatus?.isNotRegistered) {
+        setValidation(prev => {
+          const copy = { ...prev }
+          copy.whatsappNumber = {
+            isInvalid: true,
+            message: whatsappNumberNotRegisteredErrorMessage
+          }
+          return copy
+        })
+      } else {
+        setValidation(prev => {
+          const copy = { ...prev }
+          delete copy.whatsappNumber 
+          return copy
+        })
 
-  const _setWhatsappNumber = (e) => {
-    const allowedChars = '1234567890'
-    const { value } = e.target
-    if(value.length && !allowedChars.includes(value[value.length - 1])) return
-    setWhatsappNumber(value)
+        const variables = { 
+          id: whatsappNumber, 
+          action: 'verify_whatsapp_number' 
+        }
+        SendVerificationCode(environment, variables, (payload, error) => {
+          if(error) {
+            console.log(error)
+          } else if(payload) {
+            const {
+              actionInfo: { message }, 
+              emailOrNumber,
+              isNumberNotRegisteredOnWhatsapp 
+            } = payload
+
+            setWhatsappNumberStatus({
+              number: emailOrNumber,
+              isNotRegistered: isNumberNotRegisteredOnWhatsapp
+            })
+            if(isNumberNotRegisteredOnWhatsapp) {
+              setValidation(prev => {
+                const copy = { ...prev }
+                copy.whatsappNumber = {
+                  isInvalid: true,
+                  message: whatsappNumberNotRegisteredErrorMessage
+                }
+                return copy
+              })
+            }
+            
+            alert(message)
+          }
+
+          _isMounted.current && setSendingVerificationCode(false)
+        })
+
+        setSendingVerificationCode(true)
+      }
+    }
   }
 
   const isValid = () => {
@@ -56,9 +111,31 @@ const Component = props => {
       },
       {
         field: 'whatsappNumber',
-        method: (number) => number.length > 10,
+        method: (number) => number.length > PHONE_MIN_CHAR_LEN,
         validWhen: true,
-        message: 'This field must be more than 10 characters long.'
+        message: `Minimal ${PHONE_MIN_CHAR_LEN} karakter.`
+      },
+      {
+        field: 'whatsappNumber',
+        method: Validator.isValidPhoneNumber,
+        validWhen: true,
+        message: 'Nomor ini tidak valid.'
+      },
+      {
+        field: 'whatsappNumber',
+        method: (number) => {
+          if(whatsappNumberStatus === null) return false
+          
+          return whatsappNumberStatus.number?.includes(number) && whatsappNumberStatus?.isNotRegistered
+        },
+        validWhen: false,
+        message: whatsappNumberNotRegisteredErrorMessage
+      },
+      {
+        field: 'verificationCode',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'Tidak boleh kosong.'
       },
       {
         field: 'province',
@@ -86,7 +163,15 @@ const Component = props => {
       },
     ])
 
-    const validation = validator.validate({ storeName, whatsappNumber, province, city, district, fullAddress })
+    const validation = validator.validate({ 
+      storeName, 
+      whatsappNumber, 
+      verificationCode,
+      province, 
+      city, 
+      district, 
+      fullAddress 
+    })
     setValidation(validation)
     return validation.isValid
   }
@@ -96,6 +181,7 @@ const Component = props => {
       const variables = {
         name: storeName,
         whatsappNumber,
+        whatsappVerificationCode: verificationCode,
         address: {
           provinceId: province.administrativeAreaId,
           cityId: city.administrativeAreaId,
@@ -214,31 +300,32 @@ const Component = props => {
             marginTop: 10,
             marginBottom: 10
           }}
-          onChange={_setStoreName}
+          onChange={e => setStoreName(e.target.value.trimLeft())}
           value={storeName}
           error={validation?.storeName?.isInvalid}
           helperText={validation?.storeName?.message}
         />
-
-        <TextField
+        
+        <NumberFormat
+          customInput={TextField}
           variant="outlined"
           label="Nomor WhatsApp"
           fullWidth
           disabled={loading}
+          onChange={(e) => setWhatsappNumber(e.target.value)}
+          value={whatsappNumber}
           style={{
             marginTop: 10,
             marginBottom: 10
           }}
-          onChange={_setWhatsappNumber}
-          value={whatsappNumber}
-          placeholder="Ex: 6282322343005"
           InputProps={{
             endAdornment: (
               <InputAdornment position="start">
                 <Button
-                  label="Cek"
-                  disabled={whatsappNumber.length < 10}
-                  onClick={() => window.open(`https://wa.me/${whatsappNumber}`)}
+                  label="Kirim Kode"
+                  loading={sendingVerificationCode}
+                  disabled={whatsappNumber.length < PHONE_MIN_CHAR_LEN || !Validator.isValidPhoneNumber(whatsappNumber)}
+                  onClick={sendVerificationCode}
                 />
               </InputAdornment>
             )
@@ -246,10 +333,39 @@ const Component = props => {
           inputProps={{
             pattern: "[0-9]*",
             type: "text",
-            inputMode: "numeric"
+            inputMode: "numeric",
+            maxLength: 15
           }}
           error={validation?.whatsappNumber?.isInvalid}
           helperText={validation?.whatsappNumber?.message}
+          allowNegative={false}
+          decimalSeparator={null}
+          allowLeadingZeros
+        />
+
+        <NumberFormat
+          customInput={TextField}
+          variant="outlined"
+          label="Kode Verifikasi"
+          fullWidth
+          disabled={loading}
+          value={verificationCode}
+          onValueChange={({ value }) => setVerificationCode(value)}
+          style={{
+            marginTop: 10,
+            marginBottom: 10
+          }}
+          inputProps={{
+            pattern: "[0-9]*",
+            type: "text",
+            inputMode: "numeric",
+            maxLength: 6
+          }}
+          error={validation?.verificationCode?.isInvalid}
+          helperText={validation?.verificationCode?.message}
+          allowNegative={false}
+          decimalSeparator={null}
+          allowLeadingZeros
         />
 
         <h3 style={{ margin: '10px 0'}}>Alamat</h3>

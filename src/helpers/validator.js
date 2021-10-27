@@ -15,6 +15,13 @@ class Validator {
     }
   }
 
+  static isValidPhoneNumber(number) {
+    if (!/^628[0-9]{7,15}$/.test(number) && !/^08[0-9]{7,15}$/.test(number)) {
+      return false
+    }
+    return true
+  }
+
   static isStrongPassword(pwd) {
     const regexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,30}$/
     return regexp.test(pwd)

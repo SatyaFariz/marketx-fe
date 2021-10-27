@@ -278,7 +278,7 @@ const Component = props => {
               color: 'rgb(83, 100, 113)',
               fontSize: 14,
               display: 'block'
-            }}>{store.whatsappNumber}</span>
+            }}>{store.whatsappNumber[0]}</span>
             }
 
             <span style={{

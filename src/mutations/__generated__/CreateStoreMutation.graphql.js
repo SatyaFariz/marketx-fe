@@ -19,6 +19,7 @@ export type AddressInput = {|
 export type CreateStoreMutationVariables = {|
   name: string,
   whatsappNumber: string,
+  whatsappVerificationCode: string,
   address: AddressInput,
 |};
 export type CreateStoreMutationResponse = {|
@@ -43,9 +44,10 @@ export type CreateStoreMutation = {|
 mutation CreateStoreMutation(
   $name: String!
   $whatsappNumber: String!
+  $whatsappVerificationCode: String!
   $address: AddressInput!
 ) {
-  createStore(name: $name, whatsappNumber: $whatsappNumber, address: $address) {
+  createStore(name: $name, whatsappNumber: $whatsappNumber, whatsappVerificationCode: $whatsappVerificationCode, address: $address) {
     actionInfo {
       hasError
       message
@@ -73,7 +75,12 @@ v2 = {
   "kind": "LocalArgument",
   "name": "whatsappNumber"
 },
-v3 = [
+v3 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "whatsappVerificationCode"
+},
+v4 = [
   {
     "alias": null,
     "args": [
@@ -91,6 +98,11 @@ v3 = [
         "kind": "Variable",
         "name": "whatsappNumber",
         "variableName": "whatsappNumber"
+      },
+      {
+        "kind": "Variable",
+        "name": "whatsappVerificationCode",
+        "variableName": "whatsappVerificationCode"
       }
     ],
     "concreteType": "ActionOnStorePayload",
@@ -150,12 +162,13 @@ return {
     "argumentDefinitions": [
       (v0/*: any*/),
       (v1/*: any*/),
-      (v2/*: any*/)
+      (v2/*: any*/),
+      (v3/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
     "name": "CreateStoreMutation",
-    "selections": (v3/*: any*/),
+    "selections": (v4/*: any*/),
     "type": "Mutation",
     "abstractKey": null
   },
@@ -164,23 +177,24 @@ return {
     "argumentDefinitions": [
       (v1/*: any*/),
       (v2/*: any*/),
+      (v3/*: any*/),
       (v0/*: any*/)
     ],
     "kind": "Operation",
     "name": "CreateStoreMutation",
-    "selections": (v3/*: any*/)
+    "selections": (v4/*: any*/)
   },
   "params": {
-    "cacheID": "228b14da34aaf775b053ff2ea558054b",
+    "cacheID": "b016b5b40056716e566fe4cc61561aa0",
     "id": null,
     "metadata": {},
     "name": "CreateStoreMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateStoreMutation(\n  $name: String!\n  $whatsappNumber: String!\n  $address: AddressInput!\n) {\n  createStore(name: $name, whatsappNumber: $whatsappNumber, address: $address) {\n    actionInfo {\n      hasError\n      message\n    }\n    store {\n      id\n    }\n  }\n}\n"
+    "text": "mutation CreateStoreMutation(\n  $name: String!\n  $whatsappNumber: String!\n  $whatsappVerificationCode: String!\n  $address: AddressInput!\n) {\n  createStore(name: $name, whatsappNumber: $whatsappNumber, whatsappVerificationCode: $whatsappVerificationCode, address: $address) {\n    actionInfo {\n      hasError\n      message\n    }\n    store {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '1bafb9f442a9b63a68b74b451aceffc9';
+(node/*: any*/).hash = '95a1e2d55b52a97378bd15072cdc5b27';
 
 module.exports = node;
