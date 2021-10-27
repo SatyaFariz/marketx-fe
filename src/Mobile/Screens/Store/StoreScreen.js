@@ -357,7 +357,7 @@ const Component = props => {
         right: 15,
         bottom: 15
       }}
-      onClick={() => history.push(/*'/new/product'*/ `/store/${store.id}?selectCategory=1`)}
+      onClick={() => history.push(/*'/new/item'*/ `/store/${store.id}?selectCategory=1`)}
       >
         <Add />
       </Fab>

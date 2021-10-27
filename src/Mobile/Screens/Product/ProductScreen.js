@@ -40,7 +40,7 @@ const Component = props => {
 
   const onActionButtonClick = () => {
     if(me?.id === product.store.merchantId) {
-      history.push(`/edit/product/${product.id}`)
+      history.push(`/edit/item/${product.id}`)
     } else {
       if(me) {
         window.open(product.store.whatsappUrl)

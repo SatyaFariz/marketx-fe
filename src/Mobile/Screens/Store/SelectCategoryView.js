@@ -59,7 +59,7 @@ const Component = props => {
               <ListItem
                 component={Link}
                 button
-                href={`/new/product/${category.id}`}
+                href={`/new/item/${category.id}`}
                 key={category.id}
               >
                 <ListItemText primary={name} />

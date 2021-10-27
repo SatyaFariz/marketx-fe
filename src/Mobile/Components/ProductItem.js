@@ -9,7 +9,7 @@ import Color from '../Constants/Color'
 const Component = props => {
   const { product, showsListingType = true } = props
   return (
-    <ButtonBase href={`/product/${product.id}`} component={Link} style={{
+    <ButtonBase href={`/item/${product.id}`} component={Link} style={{
       display: 'flex'
     }}>
       <div style={{
