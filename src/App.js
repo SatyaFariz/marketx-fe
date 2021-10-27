@@ -48,14 +48,13 @@ class App extends Component {
   componentDidMount() {
     import("./mobile.css")
     import('swiper/swiper.min.css')
-    // import('./Mobile/createRelay').then(createRelay => {
-    //   this.setState({ createRelay, relay: createRelay() })
-    // })
+    
     const { history } = this.props;
     this.unlisten = history.listen(this.renderLocation);
     this.renderLocation(history.location);
     // disable context menu
-    document.oncontextmenu = () => false
+    if(this.props.isMobile)
+      document.oncontextmenu = () => false
   }
 
   componentWillUnmount() {
@@ -121,7 +120,8 @@ class App extends Component {
           pathname: this.state.pathname,
           history: this.props.history,
           environment: relay,
-          resetEnvironment: this.resetEnvironment
+          resetEnvironment: this.resetEnvironment,
+          isMobile: this.props.isMobile
         }}
       >
         <MuiThemeProvider theme={theme}>

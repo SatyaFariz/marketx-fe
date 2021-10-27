@@ -69,6 +69,7 @@ routes.forEach(route => {
         history={createHistory()} 
         createRelay={createRelay}
         initialComponent={page.component}
+        isMobile={true}
       />
     )
     

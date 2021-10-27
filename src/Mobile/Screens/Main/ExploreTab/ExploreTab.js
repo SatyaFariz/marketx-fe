@@ -439,7 +439,7 @@ const Component = props => {
           <span style={{
             color: 'white',
             fontWeight: 'bold'
-          }}>JUAL</span>
+          }}>Iklan</span>
         </div>
         
       </ButtonBase>
