@@ -19,6 +19,7 @@ import { IoMdCreate } from 'react-icons/io'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import truncate from 'truncate'
 import formatDate from '../../../helpers/formatDate'
+import App from '../../../app.json'
 
 const Component = props => {
   const _isMounted = useRef(true)
@@ -43,7 +44,9 @@ const Component = props => {
       history.push(`/edit/item/${product.id}`)
     } else {
       if(me) {
-        window.open(product.store.whatsappUrl)
+        const doubleNewLine = '%0a%0a'
+        const url = `${product.store.whatsappUrl}?text=Halo, saya melihat iklan anda di ${App.name}${doubleNewLine}https://${window.location.host}/item/${product.id}`
+        window.open(url)
       } else {
         history.push(`/login?redirect=${pathname}`)
       }
