@@ -6,9 +6,21 @@ import useAppContext from '../../hooks/useAppContext'
 import AboutUsPage from './Desktop/AboutUsPage'
 
 const Component = props => {
-  const { isMobile } = useAppContext()
+  const { isMobile, history } = useAppContext()
   const { posts, me } = props
   const post = posts[0]
+
+  const handleContentClick = (e) => {
+    if(e.target?.parentElement?.nodeName === 'A') {
+      const { host, href } = e.target.parentElement
+      if(host === window.location.host) {
+        const reg = /.+?\:\/\/.+?(\/.+?)?(?:#|\?|)?$/
+        const pathname = reg.exec(href)[1] || '/'
+        e.preventDefault()
+        history.push(pathname)
+      }
+    }
+  }
 
   if(!isMobile) {
     return (
@@ -49,10 +61,14 @@ const Component = props => {
         </div>
       </div>
 
-      <div style={{
-        padding: '20px 15px'
-      }}>
+      <div 
+        onClick={handleContentClick}
+        style={{
+          padding: '20px 15px'
+        }}
+      >
         <div
+          
           dangerouslySetInnerHTML={{ __html: post.content }} 
         >
         </div>
