@@ -11,6 +11,7 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type CreatePostMutationVariables = {|
   title: string,
   content: string,
+  isPublished: boolean,
   type: string,
 |};
 export type CreatePostMutationResponse = {|
@@ -27,9 +28,10 @@ export type CreatePostMutation = {|
 mutation CreatePostMutation(
   $title: String!
   $content: String!
+  $isPublished: Boolean!
   $type: String!
 ) {
-  createPost(title: $title, content: $content, type: $type)
+  createPost(title: $title, content: $content, isPublished: $isPublished, type: $type)
 }
 */
 
@@ -42,14 +44,19 @@ var v0 = {
 v1 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "title"
+  "name": "isPublished"
 },
 v2 = {
   "defaultValue": null,
   "kind": "LocalArgument",
+  "name": "title"
+},
+v3 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
   "name": "type"
 },
-v3 = [
+v4 = [
   {
     "alias": null,
     "args": [
@@ -57,6 +64,11 @@ v3 = [
         "kind": "Variable",
         "name": "content",
         "variableName": "content"
+      },
+      {
+        "kind": "Variable",
+        "name": "isPublished",
+        "variableName": "isPublished"
       },
       {
         "kind": "Variable",
@@ -79,37 +91,39 @@ return {
     "argumentDefinitions": [
       (v0/*: any*/),
       (v1/*: any*/),
-      (v2/*: any*/)
+      (v2/*: any*/),
+      (v3/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
     "name": "CreatePostMutation",
-    "selections": (v3/*: any*/),
+    "selections": (v4/*: any*/),
     "type": "Mutation",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
     "argumentDefinitions": [
-      (v1/*: any*/),
+      (v2/*: any*/),
       (v0/*: any*/),
-      (v2/*: any*/)
+      (v1/*: any*/),
+      (v3/*: any*/)
     ],
     "kind": "Operation",
     "name": "CreatePostMutation",
-    "selections": (v3/*: any*/)
+    "selections": (v4/*: any*/)
   },
   "params": {
-    "cacheID": "987ad3c3285b3db72a54334e1b046128",
+    "cacheID": "20e7ac67265ef4f7687e00b6f634a7bf",
     "id": null,
     "metadata": {},
     "name": "CreatePostMutation",
     "operationKind": "mutation",
-    "text": "mutation CreatePostMutation(\n  $title: String!\n  $content: String!\n  $type: String!\n) {\n  createPost(title: $title, content: $content, type: $type)\n}\n"
+    "text": "mutation CreatePostMutation(\n  $title: String!\n  $content: String!\n  $isPublished: Boolean!\n  $type: String!\n) {\n  createPost(title: $title, content: $content, isPublished: $isPublished, type: $type)\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '226f158ed05717f835d50eaa07cd090e';
+(node/*: any*/).hash = 'f85dc71637136df29a30347e304e5a8a';
 
 module.exports = node;

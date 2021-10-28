@@ -10,23 +10,26 @@ import CreatePost from '../../../../mutations/CreatePost'
 const Component = props => {
   const isMounted = useRef(true)
   const [loading, setLoading] = useState(false)
+  const [created, setCreated] = useState(false)
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const onChange = state => setEditorState(state)
   const { posts, me, relay: { environment }} = props
   const post = posts[0]
 
   const save = () => {
-    if(!loading) {
+    if(!loading && !created) {
       const variables = {
         title: 'Kebijakan Privasi', 
         type: 'privacy_policy', 
+        isPublished: true,
         content: draftToHtml(convertToRaw(editorState.getCurrentContent()))
       }
       CreatePost(environment, variables, (payload, error) => {
         if(error) {
           console.log(error)
         } else if(payload) {
-          alert(payload)
+          isMounted.current && setCreated(true)
+          alert('created')
         }
 
         isMounted.current && setLoading(false)
@@ -70,6 +73,7 @@ const Component = props => {
       </div>
       :
       <div>
+        {post.content}
       </div>
       }
     </div>

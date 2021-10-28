@@ -2,8 +2,8 @@ import { commitMutation } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 
 const mutation = graphql`
-  mutation CreatePostMutation($title: String!, $content: String!, $type: String!) {
-    createPost(title: $title, content: $content, type: $type)
+  mutation CreatePostMutation($title: String!, $content: String!, $isPublished: Boolean!, $type: String!) {
+    createPost(title: $title, content: $content, isPublished: $isPublished, type: $type)
   }
 `
 
