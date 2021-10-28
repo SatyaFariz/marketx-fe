@@ -64,9 +64,9 @@ const Component = props => {
         // from clicking "JUAL" button in home screen
         const { store } = user
         if(store) {
-          history.replace(`/store/${store.id}?selectCategory=1`)
+          history.replace(`/ad.account/${store.id}?selectCategory=1`)
         } else {
-          history.replace('/new/store')
+          history.replace('/new/ad.account')
         }
       } else {
         history.replace(queryParams.redirect)

@@ -173,7 +173,7 @@ const Component = props => {
   const redirectAfterLogin = () => {
     if(queryParams?.redirect) {
       if(queryParams.redirect === '/sell') {
-        history.replace('/new/store')
+        history.replace('/new/ad.account')
       } else {
         history.replace(queryParams.redirect)
       }

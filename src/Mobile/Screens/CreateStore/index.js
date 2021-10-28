@@ -2,7 +2,7 @@ import graphql from 'babel-plugin-relay/macro'
 import FixedAddressBar from '../../Components/FixedAddressBar'
 
 const chunk = {
-  path: '/new/store',
+  path: '/new/ad.account',
   components: () => [import('./CreateStoreScreen')],
   query: graphql`
     query CreateStoreQuery {

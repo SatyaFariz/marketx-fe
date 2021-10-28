@@ -24,9 +24,9 @@ const Component = props => {
   const getSellButtonUrl = () => {
     if(me) {
       if(me.store)
-        return `/store/${me.store.id}?selectCategory=1`
+        return `/ad.account/${me.store.id}?selectCategory=1`
       
-      return '/new/store'
+      return '/new/ad.account'
     }
     return '/login?redirect=/sell'
   }
@@ -222,7 +222,7 @@ const Component = props => {
                     </div>
                   </ButtonBase>
 
-                  <ButtonBase href={me.store ? `/store/${me.store.id}` : '/new/store'} component={Link} style={{
+                  <ButtonBase href={me.store ? `/ad.account/${me.store.id}` : '/new/ad.account'} component={Link} style={{
                     display: 'flex'
                   }}>
                     <div style={{

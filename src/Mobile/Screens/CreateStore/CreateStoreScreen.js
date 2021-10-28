@@ -202,7 +202,7 @@ const Component = props => {
           alert(message)
           if(!hasError) {
             const { id } = payload.store
-            history.replace(`/store/${id}`)
+            history.replace(`/ad.account/${id}`)
           }
         }
 
@@ -247,9 +247,9 @@ const Component = props => {
 
   useEffect(() => {
     if(!me) {
-      history.replace(`/login?redirect=/new/store`)
+      history.replace(`/login?redirect=/new/ad.account`)
     } else if(me.store) {
-      history.replace(`/store/${me.store.id}`)
+      history.replace(`/ad.account/${me.store.id}`)
     }
   }, [me, history])
 

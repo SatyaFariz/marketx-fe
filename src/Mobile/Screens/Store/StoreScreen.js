@@ -253,7 +253,7 @@ const Component = props => {
                 label="Edit"
                 icon={<IoMdCreate/>}
                 component={Link}
-                href="/edit/store"
+                href="/edit/ad.account"
               >
                 Edit
               </Button>
@@ -357,7 +357,7 @@ const Component = props => {
         right: 15,
         bottom: 15
       }}
-      onClick={() => history.push(/*'/new/item'*/ `/store/${store.id}?selectCategory=1`)}
+      onClick={() => history.push(/*'/new/item'*/ `/ad.account/${store.id}?selectCategory=1`)}
       >
         <Add />
       </Fab>

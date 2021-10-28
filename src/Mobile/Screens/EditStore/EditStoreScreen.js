@@ -627,7 +627,7 @@ const Component = props => {
             <span style={{ padding: '0 4px' }}>·</span>
             <span 
               style={{ color: Color.link }}
-              onClick={() => history.push(`/edit/store/${store.id}?editAddress=1`)}
+              onClick={() => history.push(`/edit/ad.account/${store.id}?editAddress=1`)}
             >Edit</span>
           </div> */}
           

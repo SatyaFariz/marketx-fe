@@ -484,7 +484,7 @@ const Component = props => {
             }}>Diposting Oleh</span>
 
             <div style={{ marginTop: 16 }}>
-              <ButtonBase href={`/store/${product.store.id}`} component={Link} style={{
+              <ButtonBase href={`/ad.account/${product.store.id}`} component={Link} style={{
                 display: 'flex'
               }}>
                 <div style={{
