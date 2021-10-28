@@ -8,21 +8,20 @@
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
-type AboutUsPage_posts$ref = any;
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type AboutUsScreen_posts$ref: FragmentReference;
-declare export opaque type AboutUsScreen_posts$fragmentType: AboutUsScreen_posts$ref;
-export type AboutUsScreen_posts = $ReadOnlyArray<{|
+declare export opaque type AboutUsPage_posts$ref: FragmentReference;
+declare export opaque type AboutUsPage_posts$fragmentType: AboutUsPage_posts$ref;
+export type AboutUsPage_posts = $ReadOnlyArray<{|
   +id: ?string,
   +title: ?string,
   +content: ?string,
-  +$fragmentRefs: AboutUsPage_posts$ref,
-  +$refType: AboutUsScreen_posts$ref,
+  +updatedAt: ?string,
+  +$refType: AboutUsPage_posts$ref,
 |}>;
-export type AboutUsScreen_posts$data = AboutUsScreen_posts;
-export type AboutUsScreen_posts$key = $ReadOnlyArray<{
-  +$data?: AboutUsScreen_posts$data,
-  +$fragmentRefs: AboutUsScreen_posts$ref,
+export type AboutUsPage_posts$data = AboutUsPage_posts;
+export type AboutUsPage_posts$key = $ReadOnlyArray<{
+  +$data?: AboutUsPage_posts$data,
+  +$fragmentRefs: AboutUsPage_posts$ref,
   ...
 }>;
 */
@@ -34,7 +33,7 @@ const node/*: ReaderFragment*/ = {
   "metadata": {
     "plural": true
   },
-  "name": "AboutUsScreen_posts",
+  "name": "AboutUsPage_posts",
   "selections": [
     {
       "alias": null,
@@ -58,15 +57,17 @@ const node/*: ReaderFragment*/ = {
       "storageKey": null
     },
     {
+      "alias": null,
       "args": null,
-      "kind": "FragmentSpread",
-      "name": "AboutUsPage_posts"
+      "kind": "ScalarField",
+      "name": "updatedAt",
+      "storageKey": null
     }
   ],
   "type": "Post",
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = '547b5acfcc4b54eaa2a6f13ef065ce38';
+(node/*: any*/).hash = '9770e5ac96d48d6cf3d43273f2655f85';
 
 module.exports = node;

@@ -8,13 +8,18 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type AboutUsScreen_me$ref = any;
 type AboutUsScreen_posts$ref = any;
 export type AboutUsScreenQueryVariables = {||};
 export type AboutUsScreenQueryResponse = {|
   +posts: ?$ReadOnlyArray<?{|
     +id: ?string,
     +$fragmentRefs: AboutUsScreen_posts$ref,
-  |}>
+  |}>,
+  +me: ?{|
+    +id: ?string,
+    +$fragmentRefs: AboutUsScreen_me$ref,
+  |},
 |};
 export type AboutUsScreenQuery = {|
   variables: AboutUsScreenQueryVariables,
@@ -29,12 +34,34 @@ query AboutUsScreenQuery {
     id
     ...AboutUsScreen_posts
   }
+  me {
+    id
+    ...AboutUsScreen_me
+  }
+}
+
+fragment AboutUsPage_me on User {
+  id
+  isAdmin
+}
+
+fragment AboutUsPage_posts on Post {
+  id
+  title
+  content
+  updatedAt
+}
+
+fragment AboutUsScreen_me on User {
+  id
+  ...AboutUsPage_me
 }
 
 fragment AboutUsScreen_posts on Post {
   id
   title
   content
+  ...AboutUsPage_posts
 }
 */
 
@@ -81,6 +108,23 @@ return {
           }
         ],
         "storageKey": "posts(limit:1,type:\"about_us\")"
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "AboutUsScreen_me"
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -114,23 +158,49 @@ return {
             "kind": "ScalarField",
             "name": "content",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "updatedAt",
+            "storageKey": null
           }
         ],
         "storageKey": "posts(limit:1,type:\"about_us\")"
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isAdmin",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "512986321d2207dc91bc34820c630d6a",
+    "cacheID": "9af7d7664bf2b27c9f84982c7372fd47",
     "id": null,
     "metadata": {},
     "name": "AboutUsScreenQuery",
     "operationKind": "query",
-    "text": "query AboutUsScreenQuery {\n  posts(type: about_us, limit: 1) {\n    id\n    ...AboutUsScreen_posts\n  }\n}\n\nfragment AboutUsScreen_posts on Post {\n  id\n  title\n  content\n}\n"
+    "text": "query AboutUsScreenQuery {\n  posts(type: about_us, limit: 1) {\n    id\n    ...AboutUsScreen_posts\n  }\n  me {\n    id\n    ...AboutUsScreen_me\n  }\n}\n\nfragment AboutUsPage_me on User {\n  id\n  isAdmin\n}\n\nfragment AboutUsPage_posts on Post {\n  id\n  title\n  content\n  updatedAt\n}\n\nfragment AboutUsScreen_me on User {\n  id\n  ...AboutUsPage_me\n}\n\nfragment AboutUsScreen_posts on Post {\n  id\n  title\n  content\n  ...AboutUsPage_posts\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e28be5897945f8ae4bbd171b3d894275';
+(node/*: any*/).hash = 'f60792b0a51ae3952ff5ce9b70246911';
 
 module.exports = node;

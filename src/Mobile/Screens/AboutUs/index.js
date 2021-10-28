@@ -9,6 +9,10 @@ const chunk = {
       posts(type: about_us, limit: 1) {
         id,
         ...AboutUsScreen_posts
+      },
+      me {
+        id,
+        ...AboutUsScreen_me
       }
     }
   `,
@@ -21,6 +25,7 @@ const chunk = {
         <FixedAddressBar>
           <AboutUsScreen
             posts={data?.posts}
+            me={data?.me}
           />
         </FixedAddressBar>
         

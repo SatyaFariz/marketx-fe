@@ -2,10 +2,19 @@ import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import BackButton from '../../Components/BackButton'
+import useAppContext from '../../hooks/useAppContext'
+import AboutUsPage from './Desktop/AboutUsPage'
 
 const Component = props => {
-  const { posts } = props
+  const { isMobile } = useAppContext()
+  const { posts, me } = props
   const post = posts[0]
+
+  if(!isMobile) {
+    return (
+      <AboutUsPage me={me} posts={posts}/>
+    )
+  }
 
   return (
     <div>
@@ -58,7 +67,14 @@ export default createFragmentContainer(Component, {
     fragment AboutUsScreen_posts on Post @relay(plural: true) {
       id,
       title,
-      content
+      content,
+      ...AboutUsPage_posts
+    }
+  `,
+  me: graphql`
+    fragment AboutUsScreen_me on User {
+      id,
+      ...AboutUsPage_me
     }
   `
 })
