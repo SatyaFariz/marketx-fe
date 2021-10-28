@@ -3,10 +3,19 @@ import { createFragmentContainer } from 'react-relay'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import BackButton from '../../Components/BackButton'
 import moment from 'moment'
+import useAppContext from '../../hooks/useAppContext'
+import TermsOfServicePage from './Desktop/TermsOfServicePage'
 
 const Component = props => {
-  const { posts } = props
+  const { isMobile } = useAppContext()
+  const { posts, me } = props
   const post = posts[0]
+
+  if(!isMobile) {
+    return (
+      <TermsOfServicePage posts={posts} me={me}/>
+    )
+  }
 
   return (
     <div>
@@ -65,7 +74,14 @@ export default createFragmentContainer(Component, {
       id,
       title,
       content,
-      updatedAt
+      updatedAt,
+      ...TermsOfServicePage_posts
+    }
+  `,
+  me: graphql`
+    fragment TermsOfServiceScreen_me on User {
+      id,
+      ...TermsOfServicePage_me
     }
   `
 })

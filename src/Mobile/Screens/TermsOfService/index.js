@@ -9,6 +9,10 @@ const chunk = {
       posts(type: terms_of_service, limit: 1) {
         id,
         ...TermsOfServiceScreen_posts
+      },
+      me {
+        id,
+        ...TermsOfServiceScreen_me
       }
     }
   `,
@@ -21,6 +25,7 @@ const chunk = {
         <FixedAddressBar>
           <TermsOfServiceScreen
             posts={data?.posts}
+            me={data?.me}
           />
         </FixedAddressBar>
         

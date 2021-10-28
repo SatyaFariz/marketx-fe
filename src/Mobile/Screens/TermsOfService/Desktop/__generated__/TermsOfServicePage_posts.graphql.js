@@ -8,22 +8,20 @@
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
-type TermsOfServicePage_posts$ref = any;
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type TermsOfServiceScreen_posts$ref: FragmentReference;
-declare export opaque type TermsOfServiceScreen_posts$fragmentType: TermsOfServiceScreen_posts$ref;
-export type TermsOfServiceScreen_posts = $ReadOnlyArray<{|
+declare export opaque type TermsOfServicePage_posts$ref: FragmentReference;
+declare export opaque type TermsOfServicePage_posts$fragmentType: TermsOfServicePage_posts$ref;
+export type TermsOfServicePage_posts = $ReadOnlyArray<{|
   +id: ?string,
   +title: ?string,
   +content: ?string,
   +updatedAt: ?string,
-  +$fragmentRefs: TermsOfServicePage_posts$ref,
-  +$refType: TermsOfServiceScreen_posts$ref,
+  +$refType: TermsOfServicePage_posts$ref,
 |}>;
-export type TermsOfServiceScreen_posts$data = TermsOfServiceScreen_posts;
-export type TermsOfServiceScreen_posts$key = $ReadOnlyArray<{
-  +$data?: TermsOfServiceScreen_posts$data,
-  +$fragmentRefs: TermsOfServiceScreen_posts$ref,
+export type TermsOfServicePage_posts$data = TermsOfServicePage_posts;
+export type TermsOfServicePage_posts$key = $ReadOnlyArray<{
+  +$data?: TermsOfServicePage_posts$data,
+  +$fragmentRefs: TermsOfServicePage_posts$ref,
   ...
 }>;
 */
@@ -35,7 +33,7 @@ const node/*: ReaderFragment*/ = {
   "metadata": {
     "plural": true
   },
-  "name": "TermsOfServiceScreen_posts",
+  "name": "TermsOfServicePage_posts",
   "selections": [
     {
       "alias": null,
@@ -64,17 +62,12 @@ const node/*: ReaderFragment*/ = {
       "kind": "ScalarField",
       "name": "updatedAt",
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "TermsOfServicePage_posts"
     }
   ],
   "type": "Post",
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = '1f45019bc892b368f91a1a699535db7b';
+(node/*: any*/).hash = '7cb07db5caee65bd6091ad9d7be5a107';
 
 module.exports = node;
