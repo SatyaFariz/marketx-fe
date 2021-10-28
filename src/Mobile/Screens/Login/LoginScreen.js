@@ -1,5 +1,5 @@
 import { LOGO_URL } from '../../Constants'
-import { TextField } from '@material-ui/core'
+import { TextField, ButtonBase } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import SendOtpCode from '../../../mutations/SendOtpCode'
@@ -186,12 +186,13 @@ const Component = props => {
             display: 'flex',
             justifyContent: 'flex-end'
           }}>
-            <Link 
+            <ButtonBase 
+              component={Link}
               href={'/forgot-password'} 
               style={{ color: Color.link }}
             >
               <span style={{ fontSize: 12 }}>Lupa kata sandi</span>
-            </Link>
+            </ButtonBase>
           </div>
 
           <Button
@@ -250,12 +251,13 @@ const Component = props => {
           flexDirection: 'row',
           marginTop: 20
         }}>
-          <Link 
+          <ButtonBase
+            component={Link}
             href={queryParams?.redirect ? `/register?redirect=${queryParams.redirect}` : '/register'} 
             style={{ color: Color.link }}
           >
             <span>Daftar akun baru</span>
-          </Link>
+          </ButtonBase>
         </div>
         
       </div>

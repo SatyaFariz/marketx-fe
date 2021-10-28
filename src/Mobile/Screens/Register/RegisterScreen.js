@@ -1,5 +1,6 @@
 import { LOGO_URL } from '../../Constants'
-import { TextField, InputAdornment } from '@material-ui/core'
+import Color from '../../Constants/Color'
+import { TextField, InputAdornment, ButtonBase } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import SendOtpCode from '../../../mutations/SendOtpCode'
@@ -16,6 +17,8 @@ import Button from '../../Components/Button'
 import { isEmail } from 'validator'
 import SendVerificationCode from '../../../mutations/SendVerificationCode'
 import RegisterWithEmail from '../../../mutations/RegisterWithEmail'
+import Link from '../../Components/Link'
+import App from '../../../app.json'
 
 const useEmail = true
 const emailAlreadyRegisteredErrorMessage = 'Email ini sudah terdaftar di sistem kami.'
@@ -297,7 +300,12 @@ const Component = props => {
   if(me) return null
 
   return (
-    <div>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      height: '100%'
+    }}>
       <div style={{
         paddingTop: 20,
         paddingBottom: 20,
@@ -479,6 +487,36 @@ const Component = props => {
         </>
         }
         
+      </div>
+
+      <div style={{
+        paddingLeft: 40,
+        paddingRight: 40,
+        paddingTop: 20,
+        lineHeight: '20px',
+        textAlign: 'center'
+      }}>
+        <p style={{
+          fontSize: 'small'
+        }}>
+          {'Saya setuju dengan '}
+          <ButtonBase 
+            style={{ color: Color.primary }} 
+            component={Link} 
+            href='/terms-of-service'
+          >
+            Ketentuan Layanan
+          </ButtonBase> 
+          {' dan '}
+          <ButtonBase 
+            style={{ color: Color.primary }} 
+            component={Link} 
+            href='/privacy-policy'
+          >
+            Kebijakan Privasi
+          </ButtonBase> 
+          {` ${App.name}`}
+        </p>
       </div>
 
       {showOTPView &&
