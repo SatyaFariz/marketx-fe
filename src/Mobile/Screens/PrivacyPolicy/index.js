@@ -9,6 +9,10 @@ const chunk = {
       posts(type: privacy_policy, limit: 1) {
         id,
         ...PrivacyPolicyScreen_posts
+      },
+      me {
+        id,
+        ...PrivacyPolicyScreen_me
       }
     }
   `,
@@ -21,6 +25,7 @@ const chunk = {
         <FixedAddressBar>
           <PrivacyPolicyScreen
             posts={data?.posts}
+            me={data?.me}
           />
         </FixedAddressBar>
         

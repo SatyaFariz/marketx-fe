@@ -8,13 +8,18 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type PrivacyPolicyScreen_me$ref = any;
 type PrivacyPolicyScreen_posts$ref = any;
 export type PrivacyPolicyScreenQueryVariables = {||};
 export type PrivacyPolicyScreenQueryResponse = {|
   +posts: ?$ReadOnlyArray<?{|
     +id: ?string,
     +$fragmentRefs: PrivacyPolicyScreen_posts$ref,
-  |}>
+  |}>,
+  +me: ?{|
+    +id: ?string,
+    +$fragmentRefs: PrivacyPolicyScreen_me$ref,
+  |},
 |};
 export type PrivacyPolicyScreenQuery = {|
   variables: PrivacyPolicyScreenQueryVariables,
@@ -29,6 +34,27 @@ query PrivacyPolicyScreenQuery {
     id
     ...PrivacyPolicyScreen_posts
   }
+  me {
+    id
+    ...PrivacyPolicyScreen_me
+  }
+}
+
+fragment PrivacyPolicyPage_me on User {
+  id
+  isAdmin
+}
+
+fragment PrivacyPolicyPage_posts on Post {
+  id
+  title
+  content
+  updatedAt
+}
+
+fragment PrivacyPolicyScreen_me on User {
+  id
+  ...PrivacyPolicyPage_me
 }
 
 fragment PrivacyPolicyScreen_posts on Post {
@@ -36,6 +62,7 @@ fragment PrivacyPolicyScreen_posts on Post {
   title
   content
   updatedAt
+  ...PrivacyPolicyPage_posts
 }
 */
 
@@ -82,6 +109,23 @@ return {
           }
         ],
         "storageKey": "posts(limit:1,type:\"privacy_policy\")"
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "PrivacyPolicyScreen_me"
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -125,20 +169,39 @@ return {
           }
         ],
         "storageKey": "posts(limit:1,type:\"privacy_policy\")"
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isAdmin",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "32d6d688a662640ffc9c9ec99f699031",
+    "cacheID": "47070ccad43e51c9a357d853c1c6b225",
     "id": null,
     "metadata": {},
     "name": "PrivacyPolicyScreenQuery",
     "operationKind": "query",
-    "text": "query PrivacyPolicyScreenQuery {\n  posts(type: privacy_policy, limit: 1) {\n    id\n    ...PrivacyPolicyScreen_posts\n  }\n}\n\nfragment PrivacyPolicyScreen_posts on Post {\n  id\n  title\n  content\n  updatedAt\n}\n"
+    "text": "query PrivacyPolicyScreenQuery {\n  posts(type: privacy_policy, limit: 1) {\n    id\n    ...PrivacyPolicyScreen_posts\n  }\n  me {\n    id\n    ...PrivacyPolicyScreen_me\n  }\n}\n\nfragment PrivacyPolicyPage_me on User {\n  id\n  isAdmin\n}\n\nfragment PrivacyPolicyPage_posts on Post {\n  id\n  title\n  content\n  updatedAt\n}\n\nfragment PrivacyPolicyScreen_me on User {\n  id\n  ...PrivacyPolicyPage_me\n}\n\nfragment PrivacyPolicyScreen_posts on Post {\n  id\n  title\n  content\n  updatedAt\n  ...PrivacyPolicyPage_posts\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '4d597c2ddf7dba9ddf2ad01b0a4a9489';
+(node/*: any*/).hash = '7bf1a3bcde9f49be2c28659bc7f8f94d';
 
 module.exports = node;
