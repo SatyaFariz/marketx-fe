@@ -375,7 +375,8 @@ const Component = props => {
         <div style={{
           display: 'flex',
           flexDirection: 'row',
-          alignItems: 'flex-start',
+          ustifyContent: 'space-between',
+          alignItems: 'center',
           marginTop: 10,
           paddingBottom: 10
         }}>

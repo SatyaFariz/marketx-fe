@@ -893,9 +893,10 @@ const Component = props => {
             <div style={{
               display: 'flex',
               flexDirection: 'row',
-              alignItems: 'flex-start'
+              justifyContent: 'space-between',
+              alignItems: 'center'
             }}>
-              <span style={{ margin: 0, fontWeight: 500 }}>Sinkronisasi lokasi dengan alamat bisnis Anda</span>
+              <span style={{ margin: 0, fontWeight: 500 }}>Sinkronisasi lokasi dengan alamat Anda</span>
               <Switch
                 checked={syncLocation}
                 onChange={() => setSyncLocation(prev => !prev)}
@@ -903,7 +904,7 @@ const Component = props => {
             </div>
           
 
-            <p style={{ fontSize: 12, color: 'grey' }}>Lokasi iklan ini akan otomatis ter-update jika anda meng-update alamat bisnis Anda.</p>
+            <p style={{ fontSize: 12, color: 'grey', margin: 0, marginBottom: 10, marginTop: 5 }}>Lokasi iklan ini akan otomatis ter-update jika anda meng-update alamat di Akun Iklan Anda.</p>
           </>
           }
 
