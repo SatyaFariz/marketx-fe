@@ -111,7 +111,7 @@ const Component = props => {
               fontSize: 20,
               fontWeight: 500,
               textAlign: 'center',
-            }}>Store</h1>
+            }}>{store.merchantId === me?.id ? 'Iklan Anda' : 'Iklan'}</h1>
           </div>
         </div>
 

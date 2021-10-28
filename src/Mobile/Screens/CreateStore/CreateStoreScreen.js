@@ -1,5 +1,5 @@
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
-import { TextField, InputAdornment } from '@material-ui/core'
+import { TextField, InputAdornment, Switch } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import CreateStore from '../../../mutations/CreateStore'
@@ -16,6 +16,8 @@ import SendVerificationCode from '../../../mutations/SendVerificationCode'
 const whatsappNumberNotRegisteredErrorMessage = 'Nomor ini tidak terdaftar di WhatsApp.'
 const PHONE_MIN_CHAR_LEN = 10
 
+const nameFieldHelperText = 'Nama ini adalah nama yang akan muncul di halaman iklan anda.'
+
 const Component = props => {
   const { provinces, me } = props
   const _isMounted = useRef(true)
@@ -25,6 +27,7 @@ const Component = props => {
   const [whatsappNumber, setWhatsappNumber] = useState('')
   const [whatsappNumberStatus, setWhatsappNumberStatus] = useState(null)
   const [verificationCode, setVerificationCode] = useState('')
+  const [isForBusiness, setIsForBusiness] = useState(false)
   const [loading, setLoading] = useState(false)
   const [province, setProvince] = useState(null)
   const [city, setCity] = useState(null)
@@ -182,6 +185,7 @@ const Component = props => {
         name: storeName,
         whatsappNumber,
         whatsappVerificationCode: verificationCode,
+        isForBusiness,
         address: {
           provinceId: province.administrativeAreaId,
           cityId: city.administrativeAreaId,
@@ -280,7 +284,7 @@ const Component = props => {
             fontSize: 20,
             fontWeight: 500,
             textAlign: 'center',
-          }}>Bisnis Anda</h1>
+          }}>Akun Iklan</h1>
         </div>
       </div>
 
@@ -293,7 +297,7 @@ const Component = props => {
       }}>
         <TextField
           variant="outlined"
-          label="Nama Bisnis"
+          label="Nama Akun"
           fullWidth
           disabled={loading}
           style={{
@@ -303,7 +307,7 @@ const Component = props => {
           onChange={e => setStoreName(e.target.value.trimLeft())}
           value={storeName}
           error={validation?.storeName?.isInvalid}
-          helperText={validation?.storeName?.message}
+          helperText={validation?.storeName?.message || nameFieldHelperText}
         />
         
         <NumberFormat
@@ -367,6 +371,26 @@ const Component = props => {
           decimalSeparator={null}
           allowLeadingZeros
         />
+
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          marginTop: 10,
+          paddingBottom: 10
+        }}>
+          <span style={{ margin: 0, fontWeight: 500 }}>Apakah Anda memasang iklan untuk bisnis Anda?</span>
+          <Switch
+            checked={isForBusiness}
+            onChange={() => setIsForBusiness(prev => !prev)}
+          />
+        </div>
+
+        <div style={{
+          height: 1,
+          backgroundColor: HEADER_BORDER_BOTTOM_COLOR,
+          margin: '10px 0'
+        }}/>
 
         <h3 style={{ margin: '10px 0'}}>Alamat</h3>
 

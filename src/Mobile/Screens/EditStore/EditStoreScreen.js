@@ -20,6 +20,7 @@ import SendVerificationCode from '../../../mutations/SendVerificationCode'
 const megabytes = 1048576
 const whatsappNumberNotRegisteredErrorMessage = 'Nomor ini tidak terdaftar di WhatsApp.'
 const verificationCodeFieldHelperText = 'Diisi jika nomor WhatsApp berubah.'
+const nameFieldHelperText = 'Nama ini adalah nama yang akan muncul di halaman iklan anda.'
 const PHONE_MIN_CHAR_LEN = 10
 
 const Component = props => {
@@ -374,7 +375,7 @@ const Component = props => {
             fontSize: 20,
             fontWeight: 500,
             textAlign: 'center',
-          }}>Edit Bisnis</h1>
+          }}>Edit Akun Iklan</h1>
         </div>
       </div>
 
@@ -435,7 +436,7 @@ const Component = props => {
           
           <TextField
             variant="outlined"
-            label="Nama Bisnis"
+            label="Nama Akun"
             value={name}
             onChange={e => setName(e.target.value.trimLeft())}
             fullWidth
@@ -445,7 +446,7 @@ const Component = props => {
               marginBottom: 10
             }}
             error={validation?.name?.isInvalid}
-            helperText={validation?.name?.message}
+            helperText={validation?.name?.message || nameFieldHelperText}
           />
 
           <NumberFormat
