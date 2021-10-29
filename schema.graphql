@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Fri Oct 29 2021 02:22:05 GMT+0700 (Western Indonesia Time)
+# timestamp: Sat Oct 30 2021 06:28:06 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -9,6 +9,11 @@ type ActionInfo {
 type ActionOnCategoryPayload {
   actionInfo: ActionInfo
   category: Category
+}
+
+type ActionOnPostPayload {
+  actionInfo: ActionInfo
+  post: Post
 }
 
 type ActionOnProductPayload {
@@ -150,6 +155,7 @@ type Mutation {
   createAttributes(names: [String!]!): CreateAttributesPayload
   createSpecificationFields(categoryId: String!, fields: [SpecificationFieldInput!]!): ActionOnCategoryPayload
   renewProduct(id: String!): ActionInfo
+  publishPost(id: String!, content: String!): ActionOnPostPayload
 }
 
 """Information about pagination in a connection."""
