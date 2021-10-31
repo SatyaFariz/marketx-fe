@@ -2,23 +2,21 @@ import { commitMutation } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 
 const mutation = graphql`
-  mutation PublishPostMutation($id: String!, $title: String, $content: String!) {
-    publishPost(id: $id, title: $title, content: $content) {
+  mutation DeletePostMutation($id: String!) {
+    deletePost(id: $id) {
       actionInfo {
         hasError,
         message
       },
       post {
         id,
-        title,
-        content,
         isDeleted
       }
     }
   }
 `
 
-const PublishPost = (environment, variables, callback) => {
+const DeletePost = (environment, variables, callback) => {
   commitMutation(
     environment,
     {
@@ -29,7 +27,7 @@ const PublishPost = (environment, variables, callback) => {
           if(err)
             callback(null, err)
           else {
-            const payload = res.publishPost
+            const payload = res.deletePost
             callback(payload, null)
           }
         }
@@ -39,4 +37,4 @@ const PublishPost = (environment, variables, callback) => {
   )
 }
 
-export default PublishPost
+export default DeletePost

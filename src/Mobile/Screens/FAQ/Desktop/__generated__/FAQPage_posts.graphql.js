@@ -15,6 +15,7 @@ export type FAQPage_posts = $ReadOnlyArray<{|
   +id: ?string,
   +title: ?string,
   +content: ?string,
+  +isDeleted: ?boolean,
   +$refType: FAQPage_posts$ref,
 |}>;
 export type FAQPage_posts$data = FAQPage_posts;
@@ -54,12 +55,19 @@ const node/*: ReaderFragment*/ = {
       "kind": "ScalarField",
       "name": "content",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "isDeleted",
+      "storageKey": null
     }
   ],
   "type": "Post",
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = '91cf10036a9fc23cb8502a9310fa3c00';
+(node/*: any*/).hash = 'd152f62a3e9ba3c5e51b29994ca3ce99';
 
 module.exports = node;

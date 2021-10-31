@@ -8,47 +8,39 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type PublishPostMutationVariables = {|
-  id: string,
-  title?: ?string,
-  content: string,
+export type DeletePostMutationVariables = {|
+  id: string
 |};
-export type PublishPostMutationResponse = {|
-  +publishPost: ?{|
+export type DeletePostMutationResponse = {|
+  +deletePost: ?{|
     +actionInfo: ?{|
       +hasError: ?boolean,
       +message: ?string,
     |},
     +post: ?{|
       +id: ?string,
-      +title: ?string,
-      +content: ?string,
       +isDeleted: ?boolean,
     |},
   |}
 |};
-export type PublishPostMutation = {|
-  variables: PublishPostMutationVariables,
-  response: PublishPostMutationResponse,
+export type DeletePostMutation = {|
+  variables: DeletePostMutationVariables,
+  response: DeletePostMutationResponse,
 |};
 */
 
 
 /*
-mutation PublishPostMutation(
+mutation DeletePostMutation(
   $id: String!
-  $title: String
-  $content: String!
 ) {
-  publishPost(id: $id, title: $title, content: $content) {
+  deletePost(id: $id) {
     actionInfo {
       hasError
       message
     }
     post {
       id
-      title
-      content
       isDeleted
     }
   }
@@ -56,44 +48,26 @@ mutation PublishPostMutation(
 */
 
 const node/*: ConcreteRequest*/ = (function(){
-var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "content"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "id"
-},
-v2 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "title"
-},
-v3 = [
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "id"
+  }
+],
+v1 = [
   {
     "alias": null,
     "args": [
       {
         "kind": "Variable",
-        "name": "content",
-        "variableName": "content"
-      },
-      {
-        "kind": "Variable",
         "name": "id",
         "variableName": "id"
-      },
-      {
-        "kind": "Variable",
-        "name": "title",
-        "variableName": "title"
       }
     ],
     "concreteType": "ActionOnPostPayload",
     "kind": "LinkedField",
-    "name": "publishPost",
+    "name": "deletePost",
     "plural": false,
     "selections": [
       {
@@ -140,20 +114,6 @@ v3 = [
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "title",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "content",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
             "name": "isDeleted",
             "storageKey": null
           }
@@ -166,40 +126,32 @@ v3 = [
 ];
 return {
   "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/),
-      (v2/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "PublishPostMutation",
-    "selections": (v3/*: any*/),
+    "name": "DeletePostMutation",
+    "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v1/*: any*/),
-      (v2/*: any*/),
-      (v0/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "PublishPostMutation",
-    "selections": (v3/*: any*/)
+    "name": "DeletePostMutation",
+    "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "7ef95c1af409567011fbb29f0238d1cd",
+    "cacheID": "ff6fc573b785c5de792ce960683932e4",
     "id": null,
     "metadata": {},
-    "name": "PublishPostMutation",
+    "name": "DeletePostMutation",
     "operationKind": "mutation",
-    "text": "mutation PublishPostMutation(\n  $id: String!\n  $title: String\n  $content: String!\n) {\n  publishPost(id: $id, title: $title, content: $content) {\n    actionInfo {\n      hasError\n      message\n    }\n    post {\n      id\n      title\n      content\n      isDeleted\n    }\n  }\n}\n"
+    "text": "mutation DeletePostMutation(\n  $id: String!\n) {\n  deletePost(id: $id) {\n    actionInfo {\n      hasError\n      message\n    }\n    post {\n      id\n      isDeleted\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5961511011ffa3819732a665aa1ac681';
+(node/*: any*/).hash = 'b356abf881f9d554f0417e5cc8819d28';
 
 module.exports = node;

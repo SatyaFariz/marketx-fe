@@ -55,6 +55,7 @@ fragment FAQPage_posts on Post {
   id
   title
   content
+  isDeleted
 }
 
 fragment FAQScreen_me on User {
@@ -164,6 +165,13 @@ return {
             "kind": "ScalarField",
             "name": "content",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isDeleted",
+            "storageKey": null
           }
         ],
         "storageKey": "posts(limit:100,type:\"faq\")"
@@ -190,12 +198,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6b283149610683cc6043904d8d44e8dc",
+    "cacheID": "18b39d893af19b65fe9cf2620804f65c",
     "id": null,
     "metadata": {},
     "name": "FAQScreenQuery",
     "operationKind": "query",
-    "text": "query FAQScreenQuery {\n  posts(type: faq, limit: 100) {\n    id\n    ...FAQScreen_posts\n  }\n  me {\n    id\n    ...FAQScreen_me\n  }\n}\n\nfragment FAQDetailPage_me on User {\n  id\n  isAdmin\n}\n\nfragment FAQPage_me on User {\n  id\n  isAdmin\n  ...FAQDetailPage_me\n}\n\nfragment FAQPage_posts on Post {\n  id\n  title\n  content\n}\n\nfragment FAQScreen_me on User {\n  id\n  isAdmin\n  ...FAQPage_me\n}\n\nfragment FAQScreen_posts on Post {\n  id\n  title\n  content\n  ...FAQPage_posts\n}\n"
+    "text": "query FAQScreenQuery {\n  posts(type: faq, limit: 100) {\n    id\n    ...FAQScreen_posts\n  }\n  me {\n    id\n    ...FAQScreen_me\n  }\n}\n\nfragment FAQDetailPage_me on User {\n  id\n  isAdmin\n}\n\nfragment FAQPage_me on User {\n  id\n  isAdmin\n  ...FAQDetailPage_me\n}\n\nfragment FAQPage_posts on Post {\n  id\n  title\n  content\n  isDeleted\n}\n\nfragment FAQScreen_me on User {\n  id\n  isAdmin\n  ...FAQPage_me\n}\n\nfragment FAQScreen_posts on Post {\n  id\n  title\n  content\n  ...FAQPage_posts\n}\n"
   }
 };
 })();

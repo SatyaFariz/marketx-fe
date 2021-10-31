@@ -24,6 +24,7 @@ const Component = props => {
         <List
         >
           {posts.map((post, i) => {
+            if(post.isDeleted) return null
             return (
               <ListItem
                 component={Link}
@@ -53,7 +54,8 @@ export default createFragmentContainer(Component, {
     fragment FAQPage_posts on Post @relay(plural: true) {
       id,
       title,
-      content
+      content,
+      isDeleted
     }
   `,
   me: graphql`
