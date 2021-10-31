@@ -4,17 +4,22 @@ import { useRef, useEffect, useState } from 'react'
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertToRaw } from 'draft-js'
+import { stateFromHTML } from 'draft-js-import-html'
 import draftToHtml from 'draftjs-to-html'
 import CreatePost from '../../../../mutations/CreatePost'
+import PublishPost from '../../../../mutations/PublishPost'
+import useAppContext from '../../../hooks/useAppContext'
 
 const Component = props => {
-  const isMounted = useRef(true)
-  const [loading, setLoading] = useState(false)
-  const [created, setCreated] = useState(false)
-  const [editorState, setEditorState] = useState(EditorState.createEmpty())
-  const onChange = state => setEditorState(state)
+  const { history, queryParams } = useAppContext()
   const { posts, me, relay: { environment }} = props
   const post = posts[0]
+  const isMounted = useRef(true)
+  const isEditing = queryParams.edit === '1' && me?.isAdmin
+  const [loading, setLoading] = useState(false)
+  const [created, setCreated] = useState(false)
+  const [editorState, setEditorState] = useState(post ? EditorState.createWithContent(stateFromHTML(post.content)) : EditorState.createEmpty())
+  const onChange = state => setEditorState(state)
 
   const save = () => {
     if(!loading && !created) {
@@ -30,6 +35,26 @@ const Component = props => {
         } else if(payload) {
           isMounted.current && setCreated(true)
           alert('created')
+        }
+
+        isMounted.current && setLoading(false)
+      })
+
+      setLoading(true)
+    }
+  }
+
+  const saveEdit = () => {
+    if(!loading) {
+      const variables = {
+        id: post.id,
+        content: draftToHtml(convertToRaw(editorState.getCurrentContent()))
+      }
+      PublishPost(environment, variables, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          history.replace('/terms-of-service')
         }
 
         isMounted.current && setLoading(false)
@@ -73,7 +98,34 @@ const Component = props => {
       </div>
       :
       <div>
-        {post.content}
+        {isEditing ?
+        <div>
+          <div style={{
+            padding: 20
+          }}>
+
+            <div>
+              <Editor
+                editorState={editorState}
+                wrapperClassName="demo-wrapper"
+                editorClassName="demo-editor"
+                onEditorStateChange={onChange}
+              />
+            </div>
+
+            <button onClick={saveEdit}>Save</button>
+          </div>
+        </div>
+        :
+        <div>
+          <div>
+          {post.content}
+          </div>
+          <button onClick={() => history.replace('/terms-of-service?edit=1')}>
+            Edit
+          </button>
+        </div>
+        }
       </div>
       }
     </div>

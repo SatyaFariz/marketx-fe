@@ -18,7 +18,7 @@ const Component = props => {
   const isEditing = queryParams.edit === '1' && me?.isAdmin
   const [loading, setLoading] = useState(false)
   const [created, setCreated] = useState(false)
-  const [editorState, setEditorState] = useState(post? EditorState.createWithContent(stateFromHTML(post.content)) : EditorState.createEmpty())
+  const [editorState, setEditorState] = useState(post ? EditorState.createWithContent(stateFromHTML(post.content)) : EditorState.createEmpty())
   const onChange = state => setEditorState(state)
   
 

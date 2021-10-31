@@ -3,7 +3,7 @@ import { createFragmentContainer } from 'react-relay'
 import { useRef, useEffect, useState } from 'react'
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { EditorState, convertToRaw, ContentState } from 'draft-js'
+import { EditorState, convertToRaw } from 'draft-js'
 import { stateFromHTML } from 'draft-js-import-html'
 import draftToHtml from 'draftjs-to-html'
 import CreatePost from '../../../../mutations/CreatePost'
@@ -18,7 +18,7 @@ const Component = props => {
   const post = posts[0]
   const [loading, setLoading] = useState(false)
   const [created, setCreated] = useState(false)
-  const [editorState, setEditorState] = useState(post? EditorState.createWithContent(stateFromHTML(post.content)) : EditorState.createEmpty())
+  const [editorState, setEditorState] = useState(post ? EditorState.createWithContent(stateFromHTML(post.content)) : EditorState.createEmpty())
   const onChange = state => setEditorState(state)
 
   const save = () => {
