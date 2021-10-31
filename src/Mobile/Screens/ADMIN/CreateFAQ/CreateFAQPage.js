@@ -5,11 +5,10 @@ import draftToHtml from 'draftjs-to-html'
 import { useState } from 'react'
 import { TextField } from '@material-ui/core'
 import CreatePost from '../../../../mutations/CreatePost'
-import createRelay from '../../../createRelay'
-
-const environment = createRelay()
+import useAppContext from '../../../hooks/useAppContext'
 
 const Component = props => {
+  const { environment, history } = useAppContext()
   const [title, setTitle] = useState('')
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const [loading, setLoading] = useState(false)
@@ -28,7 +27,11 @@ const Component = props => {
         if(error) {
           console.log(error)
         } else if(payload) {
-          alert(payload)
+          const { hasError, message } = payload.actionInfo
+          alert(message)
+          if(!hasError) {
+            history.push('/faq')
+          }
         }
       })
       setLoading(true)
@@ -42,13 +45,6 @@ const Component = props => {
         label="Title"
         value={title}
         onChange={e => setTitle(e.target.value)}
-        style={{ marginBottom: 20 }}
-      />
-
-      <TextField
-        label="Type"
-        value={type}
-        onChange={e => setType(e.target.value)}
         style={{ marginBottom: 20 }}
       />
 

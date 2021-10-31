@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sat Oct 30 2021 06:28:06 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Oct 31 2021 15:41:52 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -150,7 +150,7 @@ type Mutation {
   updateProductCat(id: String!, path: String!): String
   createCategory(name: String!, listingType: String, requiresProductCondition: Boolean!, showsProductConditionField: Boolean!, iconUrl: String!): String
   createSubcategory(parentId: String!, name: String!, iconUrl: String!): String
-  createPost(title: String!, content: String!, isPublished: Boolean!, type: String!): String
+  createPost(title: String!, content: String!, isPublished: Boolean!, type: String!): ActionOnPostPayload
   updateCategory(input: UpdateCategoryInput!): ActionOnCategoryPayload
   createAttributes(names: [String!]!): CreateAttributesPayload
   createSpecificationFields(categoryId: String!, fields: [SpecificationFieldInput!]!): ActionOnCategoryPayload

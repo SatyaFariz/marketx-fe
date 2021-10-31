@@ -15,7 +15,17 @@ export type CreatePostMutationVariables = {|
   type: string,
 |};
 export type CreatePostMutationResponse = {|
-  +createPost: ?string
+  +createPost: ?{|
+    +actionInfo: ?{|
+      +hasError: ?boolean,
+      +message: ?string,
+    |},
+    +post: ?{|
+      +id: ?string,
+      +type: ?string,
+      +content: ?string,
+    |},
+  |}
 |};
 export type CreatePostMutation = {|
   variables: CreatePostMutationVariables,
@@ -31,7 +41,17 @@ mutation CreatePostMutation(
   $isPublished: Boolean!
   $type: String!
 ) {
-  createPost(title: $title, content: $content, isPublished: $isPublished, type: $type)
+  createPost(title: $title, content: $content, isPublished: $isPublished, type: $type) {
+    actionInfo {
+      hasError
+      message
+    }
+    post {
+      id
+      type
+      content
+    }
+  }
 }
 */
 
@@ -81,8 +101,69 @@ v4 = [
         "variableName": "type"
       }
     ],
-    "kind": "ScalarField",
+    "concreteType": "ActionOnPostPayload",
+    "kind": "LinkedField",
     "name": "createPost",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "ActionInfo",
+        "kind": "LinkedField",
+        "name": "actionInfo",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "hasError",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "message",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Post",
+        "kind": "LinkedField",
+        "name": "post",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "id",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "type",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "content",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "storageKey": null
   }
 ];
@@ -114,16 +195,16 @@ return {
     "selections": (v4/*: any*/)
   },
   "params": {
-    "cacheID": "20e7ac67265ef4f7687e00b6f634a7bf",
+    "cacheID": "976b48e3ca46280d2f5636c89d0b3601",
     "id": null,
     "metadata": {},
     "name": "CreatePostMutation",
     "operationKind": "mutation",
-    "text": "mutation CreatePostMutation(\n  $title: String!\n  $content: String!\n  $isPublished: Boolean!\n  $type: String!\n) {\n  createPost(title: $title, content: $content, isPublished: $isPublished, type: $type)\n}\n"
+    "text": "mutation CreatePostMutation(\n  $title: String!\n  $content: String!\n  $isPublished: Boolean!\n  $type: String!\n) {\n  createPost(title: $title, content: $content, isPublished: $isPublished, type: $type) {\n    actionInfo {\n      hasError\n      message\n    }\n    post {\n      id\n      type\n      content\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'f85dc71637136df29a30347e304e5a8a';
+(node/*: any*/).hash = '58dfb33d2828d23910781a935f08b5e9';
 
 module.exports = node;
