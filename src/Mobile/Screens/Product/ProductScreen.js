@@ -9,7 +9,7 @@ import Link from '../../Components/Link'
 import { ButtonBase, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress, TextField, MenuItem } from '@material-ui/core'
 import BackButton from '../../Components/BackButton'
 import VerifiedIcon from '../../Components/VerifiedIcon'
-import { IoCloseOutline, IoCloseSharp, IoLogoWhatsapp, IoEllipsisVertical, IoStorefront } from 'react-icons/io5'
+import { IoCloseOutline, IoCloseSharp, IoLogoWhatsapp, IoEllipsisVertical, IoPersonOutline } from 'react-icons/io5'
 import Sheet from 'react-modal-sheet'
 import UpdateProductFeaturedStatus from '../../../mutations/UpdateProductFeaturedStatus'
 import SuspendProduct from '../../../mutations/SuspendProduct'
@@ -508,7 +508,7 @@ const Component = props => {
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
-                    <IoStorefront size={24}/>
+                    <IoPersonOutline size={24}/>
                   </div>
                   :  
                   <div style={{

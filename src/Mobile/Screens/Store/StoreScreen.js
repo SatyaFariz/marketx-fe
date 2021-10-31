@@ -12,7 +12,7 @@ import ProductItem from '../../Components/ProductItem'
 import { CircularProgress } from '@material-ui/core'
 import BackButton from '../../Components/BackButton'
 import VerifiedIcon from '../../Components/VerifiedIcon'
-import { IoStorefront } from 'react-icons/io5'
+import { IoPersonOutline } from 'react-icons/io5'
 import { IoMdCreate } from 'react-icons/io'
 import Button from '../../Components/Button'
 import Link from '../../Components/Link'
@@ -164,7 +164,7 @@ const Component = props => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-              <IoStorefront size={24}/>
+              <IoPersonOutline size={24}/>
             </div>
             }
             <div>
