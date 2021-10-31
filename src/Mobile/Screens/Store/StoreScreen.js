@@ -244,7 +244,7 @@ const Component = props => {
                 backgroundImage: store?.profilePicture ? `url("${store?.profilePicture.url}")` : undefined
               }}>
                 {!store.profilePicture &&
-                <span style={{ color: 'white', fontSize: 24 }}>{store.name[0].toUpperCase()}</span>
+                <IoPersonOutline size={44} color='white'/>
                 }
               </div>
 
