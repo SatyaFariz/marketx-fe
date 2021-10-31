@@ -1,0 +1,88 @@
+import graphql from 'babel-plugin-relay/macro'
+import { createFragmentContainer } from 'react-relay'
+import Button from '../../../Components/Button'
+import useAppContext from '../../../hooks/useAppContext'
+import { EditorState, convertToRaw } from 'draft-js'
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import PublishPost from '../../../../mutations/PublishPost'
+import { stateFromHTML } from 'draft-js-import-html'
+import draftToHtml from 'draftjs-to-html'
+import { useRef, useEffect, useState } from 'react'
+
+const Component = props => {
+  const isMounted = useRef(true)
+  const { queryParams, history } = useAppContext()
+  const { post, me, relay: { environment }} = props
+  const isEditing = queryParams.edit === '1' && me?.isAdmin
+  const [loading, setLoading] = useState(false)
+  const [editorState, setEditorState] = useState(post ? EditorState.createWithContent(stateFromHTML(post.content)) : EditorState.createEmpty())
+  const onChange = state => setEditorState(state)
+
+  const saveEdit = () => {
+    if(!loading) {
+      const variables = {
+        id: post.id,
+        content: draftToHtml(convertToRaw(editorState.getCurrentContent()))
+      }
+      PublishPost(environment, variables, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          history.goBack()
+        }
+
+        isMounted.current && setLoading(false)
+      })
+
+      setLoading(true)
+    }
+  }
+
+  useEffect(() => {
+    return () => isMounted.current = false
+  }, [])
+
+  if(isEditing) {
+    return (
+      <div>
+        <div style={{
+          padding: 20
+        }}>
+
+          <div>
+            <Editor
+              editorState={editorState}
+              wrapperClassName="demo-wrapper"
+              editorClassName="demo-editor"
+              onEditorStateChange={onChange}
+            />
+          </div>
+
+          <button onClick={saveEdit}>Save</button>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <div>
+        {post.content}
+      </div>
+      <Button
+        label="Edit"
+        onClick={() => history.push(`/faq?question=${queryParams.question}&edit=1`)}
+      />
+    </div>
+  )
+}
+
+export default createFragmentContainer(Component, {
+  me: graphql`
+    fragment FAQDetailPage_me on User {
+      id,
+      isAdmin
+    }
+  `
+})

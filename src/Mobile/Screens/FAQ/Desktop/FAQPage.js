@@ -3,9 +3,21 @@ import { createFragmentContainer } from 'react-relay'
 import { List, ListItem, ListItemText } from '@material-ui/core'
 import Button from '../../../Components/Button'
 import Link from '../../../Components/Link'
+import useAppContext from '../../../hooks/useAppContext'
+import FAQDetailPage from './FAQDetailPage'
 
 const Component = props => {
-  const { posts } = props
+  const { queryParams } = useAppContext()
+  const { posts, me } = props
+
+  const question = queryParams.question ? parseInt(queryParams.question, 10) : null
+
+  if(typeof question === 'number') {
+    return (
+      <FAQDetailPage post={posts[question]} me={me}/>
+    )
+  }
+  
   return (
     <div>
       <div>
@@ -47,7 +59,8 @@ export default createFragmentContainer(Component, {
   me: graphql`
     fragment FAQPage_me on User {
       id,
-      isAdmin
+      isAdmin,
+      ...FAQDetailPage_me
     }
   `
 })

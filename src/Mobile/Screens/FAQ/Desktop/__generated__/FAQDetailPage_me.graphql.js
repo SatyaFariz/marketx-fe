@@ -8,20 +8,18 @@
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
-type FAQDetailPage_me$ref = any;
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type FAQPage_me$ref: FragmentReference;
-declare export opaque type FAQPage_me$fragmentType: FAQPage_me$ref;
-export type FAQPage_me = {|
+declare export opaque type FAQDetailPage_me$ref: FragmentReference;
+declare export opaque type FAQDetailPage_me$fragmentType: FAQDetailPage_me$ref;
+export type FAQDetailPage_me = {|
   +id: ?string,
   +isAdmin: ?boolean,
-  +$fragmentRefs: FAQDetailPage_me$ref,
-  +$refType: FAQPage_me$ref,
+  +$refType: FAQDetailPage_me$ref,
 |};
-export type FAQPage_me$data = FAQPage_me;
-export type FAQPage_me$key = {
-  +$data?: FAQPage_me$data,
-  +$fragmentRefs: FAQPage_me$ref,
+export type FAQDetailPage_me$data = FAQDetailPage_me;
+export type FAQDetailPage_me$key = {
+  +$data?: FAQDetailPage_me$data,
+  +$fragmentRefs: FAQDetailPage_me$ref,
   ...
 };
 */
@@ -31,7 +29,7 @@ const node/*: ReaderFragment*/ = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "FAQPage_me",
+  "name": "FAQDetailPage_me",
   "selections": [
     {
       "alias": null,
@@ -46,17 +44,12 @@ const node/*: ReaderFragment*/ = {
       "kind": "ScalarField",
       "name": "isAdmin",
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "FAQDetailPage_me"
     }
   ],
   "type": "User",
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = 'fdc99b91371dc7fd896ae9c32d5a94ff';
+(node/*: any*/).hash = '5c1b493fb1c046e8e28a7b0add633cec';
 
 module.exports = node;
