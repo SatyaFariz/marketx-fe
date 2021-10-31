@@ -5,12 +5,19 @@ import BackButton from '../../Components/BackButton'
 import { List, ListItem, ListItemText } from '@material-ui/core'
 import Link from '../../Components/Link'
 import useAppContext from '../../hooks/useAppContext'
+import FAQPage from './Desktop/FAQPage'
 
 const Component = props => {
-  const { posts } = props
-  const { queryParams } = useAppContext()
+  const { posts, me } = props
+  const { queryParams, isMobile } = useAppContext()
 
   const i = queryParams.question ? parseInt(queryParams.question) : null
+
+  if(!isMobile) {
+    return (
+      <FAQPage posts={posts} me={me}/>
+    )
+  }
 
   return (
     <div>
@@ -83,7 +90,15 @@ export default createFragmentContainer(Component, {
     fragment FAQScreen_posts on Post @relay(plural: true) {
       id,
       title,
-      content
+      content,
+      ...FAQPage_posts
+    }
+  `,
+  me: graphql`
+    fragment FAQScreen_me on User {
+      id,
+      isAdmin,
+      ...FAQPage_me
     }
   `
 })

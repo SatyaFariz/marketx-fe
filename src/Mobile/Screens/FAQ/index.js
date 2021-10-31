@@ -9,6 +9,10 @@ const chunk = {
       posts(type: faq, limit: 100) {
         id,
         ...FAQScreen_posts
+      },
+      me {
+        id,
+        ...FAQScreen_me
       }
     }
   `,
@@ -21,6 +25,7 @@ const chunk = {
         <FixedAddressBar>
           <FAQScreen
             posts={data?.posts}
+            me={data?.me}
           />
         </FixedAddressBar>
         
