@@ -1,4 +1,4 @@
-import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR, USER_FULLNAME_MAX_LENGTH } from '../../Constants'
 import { TextField } from '@material-ui/core'
 import useAppContext from '../../hooks/useAppContext'
 import OTPView from '../../Components/OTPView'
@@ -273,7 +273,7 @@ const Component = props => {
             fullWidth
             disabled={sendingOtpCode || loading}
             inputProps={{
-              maxLength: 50
+              maxLength: USER_FULLNAME_MAX_LENGTH
             }}
             style={{
               marginTop: 10,

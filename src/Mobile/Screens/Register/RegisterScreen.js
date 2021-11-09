@@ -1,4 +1,4 @@
-import { LOGO_URL, PASSWORD_MAX_LENGTH } from '../../Constants'
+import { LOGO_URL, PASSWORD_MAX_LENGTH, USER_FULLNAME_MAX_LENGTH } from '../../Constants'
 import Color from '../../Constants/Color'
 import { TextField, InputAdornment, ButtonBase } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
@@ -339,7 +339,7 @@ const Component = props => {
             label="Nama Lengkap"
             fullWidth
             inputProps={{
-              maxLength: 50
+              maxLength: USER_FULLNAME_MAX_LENGTH
             }}
             style={{
               marginTop: 10,
