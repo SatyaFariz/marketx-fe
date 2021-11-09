@@ -4,3 +4,6 @@ export const DIVIDER_COLOR = 'rgb(239, 243, 244)'
 export const LOGO_URL = 'https://res.cloudinary.com/tuanrumah/image/upload/v1627058439/rental_app/twitter-logo.jpg'
 export const PASSWORD_MAX_LENGTH = 30
 export const USER_FULLNAME_MAX_LENGTH = 50
+export const AD_ACCOUNT_NAME_MAX_LENGTH = 50
+export const ADDRESS_MAX_LENGTH = 300
+export const MOBILE_NUMBER_MAX_LENGTH = 15

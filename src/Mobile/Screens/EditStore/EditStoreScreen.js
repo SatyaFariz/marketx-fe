@@ -1,5 +1,5 @@
 // import EditAddressView from '../../Components/EditAddressView'
-import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, ADDRESS_MAX_LENGTH, AD_ACCOUNT_NAME_MAX_LENGTH, MOBILE_NUMBER_MAX_LENGTH } from '../../Constants'
 import { TextField, InputAdornment } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
@@ -153,6 +153,12 @@ const Component = props => {
         method: Validator.isEmpty,
         validWhen: false,
         message: 'This field is required.'
+      },
+      {
+        field: 'name',
+        method: v => v.trim().length > 1,
+        validWhen: true,
+        message: 'Min 2 chars.'
       },
       {
         field: 'whatsappNumber',
@@ -441,6 +447,9 @@ const Component = props => {
             onChange={e => setName(e.target.value.trimLeft())}
             fullWidth
             disabled={loading}
+            inputProps={{
+              maxLength: AD_ACCOUNT_NAME_MAX_LENGTH
+            }}
             style={{
               marginTop: 10,
               marginBottom: 10
@@ -477,7 +486,7 @@ const Component = props => {
               pattern: "[0-9]*",
               type: "text",
               inputMode: "numeric",
-              maxLength: 15
+              maxLength: MOBILE_NUMBER_MAX_LENGTH
             }}
             error={validation?.whatsappNumber?.isInvalid}
             helperText={validation?.whatsappNumber?.message}
@@ -604,6 +613,9 @@ const Component = props => {
             label="Alamat Lengkap"
             fullWidth
             disabled={loading}
+            inputProps={{
+              maxLength: ADDRESS_MAX_LENGTH
+            }}
             style={{
               marginTop: 10,
               marginBottom: 10
