@@ -19,7 +19,7 @@ const chunk = {
     return {
       title: 'Rental App',
       component: (
-        <FixedAddressBar me={data?.me}>
+        <FixedAddressBar me={data?.me} desktopComingSoon={false}>
           <LoginScreen
             me={data?.me}
           />

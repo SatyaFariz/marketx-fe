@@ -1,7 +1,19 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
+import ComingSoonPage from '../Screens/ComingSoonPage'
+import useAppContext from '../hooks/useAppContext'
 
-const Component = ({ children }) => {
+const Component = ({ children, me, desktopComingSoon }) => {
+  const { isMobile, isProduction } = useAppContext()
+
+  const comingSoon = desktopComingSoon === false ? false : true
+
+  if(!isMobile && isProduction && !me?.isAdmin && comingSoon) {
+    return (
+      <ComingSoonPage/>
+    )
+  }
+
   return (
     <div style={{
       height: '100%',

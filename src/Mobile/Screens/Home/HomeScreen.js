@@ -15,12 +15,11 @@ import { IoPeople, IoShieldCheckmark, IoHelpCircle, IoDocumentText, IoPersonOutl
 import { FcDocument } from 'react-icons/fc'
 import App from '../../../app.json'
 import useAppContext from '../../hooks/useAppContext'
-import ComingSoonPage from '../ComingSoonPage'
 
 const thisYear = new Date().getFullYear()
 
 const Component = props => {
-  const { isMobile, isProduction } = useAppContext()
+  const { isMobile } = useAppContext()
   const [showDrawer, setShowDrawer] = useState(false)
   const { categories, featuredProducts, me } = props
 
@@ -32,12 +31,6 @@ const Component = props => {
       return '/new/ad.account'
     }
     return '/login?redirect=/sell'
-  }
-
-  if(!isMobile && isProduction) {
-    return (
-      <ComingSoonPage/>
-    )
   }
   
   return (
