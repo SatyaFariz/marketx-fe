@@ -1,4 +1,4 @@
-import Main from './Main'
+import Home from './Home'
 import Login from './Login'
 import Search from './Search'
 import Category from './Category'
@@ -23,7 +23,7 @@ import CategoryDetail from './CategoryDetail'
 import AttributesList from './AttributesList'
 
 const screens = [
-  Main,
+  Home,
   Login,
   Product,
   Search,
