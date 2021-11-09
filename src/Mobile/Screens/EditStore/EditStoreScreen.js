@@ -1,5 +1,5 @@
 // import EditAddressView from '../../Components/EditAddressView'
-import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, ADDRESS_MAX_LENGTH, AD_ACCOUNT_NAME_MAX_LENGTH, MOBILE_NUMBER_MAX_LENGTH } from '../../Constants'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, ADDRESS_MAX_LENGTH, AD_ACCOUNT_NAME_MAX_LENGTH, MOBILE_NUMBER_MAX_LENGTH, WHATSAPP_VERIFICATION_CODE_MAX_LENGTH } from '../../Constants'
 import { TextField, InputAdornment } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
@@ -511,7 +511,7 @@ const Component = props => {
               pattern: "[0-9]*",
               type: "text",
               inputMode: "numeric",
-              maxLength: 6
+              maxLength: WHATSAPP_VERIFICATION_CODE_MAX_LENGTH
             }}
             error={isSameNumber ? false : validation?.verificationCode?.isInvalid}
             helperText={isSameNumber ? verificationCodeFieldHelperText : (validation?.verificationCode?.message || verificationCodeFieldHelperText)}
