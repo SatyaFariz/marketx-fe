@@ -1,6 +1,6 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
-import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, PRODUCT_TITLE_MAX_LENGTH, PRODUCT_PRICE_MAX_LENGTH, PRODUCT_DESC_MAX_LENGTH, PRODUCT_SPEC_VALUE_MAX_LENGTH, PRODUCT_NUMERIC_SPEC_VALUE_MAX_LENGTH } from '../../Constants'
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
@@ -565,6 +565,9 @@ const Component = props => {
             disabled={loading}
             value={name}
             onChange={e => setName(e.target.value.trimLeft())}
+            inputProps={{
+              maxLength: PRODUCT_TITLE_MAX_LENGTH
+            }}
             style={{
               marginTop: 10,
               marginBottom: 10
@@ -591,7 +594,8 @@ const Component = props => {
             inputProps={{
               pattern: "[0-9]*",
               type: "text",
-              inputMode: "numeric"
+              inputMode: "numeric",
+              maxLength: PRODUCT_PRICE_MAX_LENGTH
             }}
             error={validation?.price?.isInvalid}
             helperText={validation?.price?.message}
@@ -640,6 +644,9 @@ const Component = props => {
             multiline
             rows="8"
             fullWidth
+            inputProps={{
+              maxLength: PRODUCT_DESC_MAX_LENGTH
+            }}
             style={{
               marginTop: 10,
               marginBottom: 10
@@ -736,7 +743,7 @@ const Component = props => {
                     value={specs[field.attribute.id]?.trim() === '' ? null : specs[field.attribute.id]}
                     onChange={(_, value) => _setSpecs(field)({ target: { value }})}
                     filterOptions={field.isEnum ? undefined : (options, params) => {
-                      const inputValue = params.inputValue.trim()
+                      const inputValue = params.inputValue.trim().substr(0, PRODUCT_SPEC_VALUE_MAX_LENGTH)
                       const filtered = autocompleteFilter(options, { ...params, inputValue })
               
                       // Create a new value
@@ -822,7 +829,8 @@ const Component = props => {
                     inputProps={{
                       pattern: "[0-9]*",
                       type: "text",
-                      inputMode: "numeric"
+                      inputMode: "numeric",
+                      maxLength: PRODUCT_NUMERIC_SPEC_VALUE_MAX_LENGTH
                     }}
                     error={validation[field.attribute.id]?.isInvalid}
                     helperText={validation[field.attribute.id]?.message}
@@ -861,6 +869,9 @@ const Component = props => {
                   }}
                   error={validation[field.attribute.id]?.isInvalid}
                   helperText={validation[field.attribute.id]?.message}
+                  inputProps={{
+                    maxLength: field.numberOfLines > 1 ? (PRODUCT_SPEC_VALUE_MAX_LENGTH * field.numberOfLines) : PRODUCT_SPEC_VALUE_MAX_LENGTH
+                  }}
                   InputProps={{
                     startAdornment: field.prefix?.trim()?.length > 0 ? (
                       <InputAdornment>
