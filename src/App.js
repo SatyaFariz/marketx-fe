@@ -121,7 +121,8 @@ class App extends Component {
           history: this.props.history,
           environment: relay,
           resetEnvironment: this.resetEnvironment,
-          isMobile: this.props.isMobile
+          isMobile: this.props.isMobile,
+          isProduction: process.env.REACT_APP_ENV === 'development'
         }}
       >
         <MuiThemeProvider theme={theme}>

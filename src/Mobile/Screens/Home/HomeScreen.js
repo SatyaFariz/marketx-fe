@@ -14,10 +14,13 @@ import { RiLockPasswordFill } from 'react-icons/ri'
 import { IoPeople, IoShieldCheckmark, IoHelpCircle, IoDocumentText, IoPersonOutline } from 'react-icons/io5'
 import { FcDocument } from 'react-icons/fc'
 import App from '../../../app.json'
+import useAppContext from '../../hooks/useAppContext'
+import ComingSoonPage from '../ComingSoonPage'
 
 const thisYear = new Date().getFullYear()
 
 const Component = props => {
+  const { isMobile, isProduction } = useAppContext()
   const [showDrawer, setShowDrawer] = useState(false)
   const { categories, featuredProducts, me } = props
 
@@ -29,6 +32,12 @@ const Component = props => {
       return '/new/ad.account'
     }
     return '/login?redirect=/sell'
+  }
+
+  if(!isMobile && isProduction) {
+    return (
+      <ComingSoonPage/>
+    )
   }
   
   return (
