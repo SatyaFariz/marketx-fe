@@ -1,4 +1,4 @@
-import { LOGO_URL } from '../../Constants'
+import { LOGO_URL, PASSWORD_MAX_LENGTH } from '../../Constants'
 import Color from '../../Constants/Color'
 import { TextField, InputAdornment, ButtonBase } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
@@ -21,7 +21,6 @@ import Link from '../../Components/Link'
 import App from '../../../app.json'
 
 const useEmail = true
-const passwordMaxLength = 30
 const emailAlreadyRegisteredErrorMessage = 'Email ini sudah terdaftar di sistem kami.'
 
 const Component = props => {
@@ -386,7 +385,7 @@ const Component = props => {
             label="Kata Sandi"
             fullWidth
             inputProps={{
-              maxLength: passwordMaxLength
+              maxLength: PASSWORD_MAX_LENGTH
             }}
             style={{
               marginTop: 10,
@@ -405,7 +404,7 @@ const Component = props => {
             label="Konfirmasi Kata Sandi"
             fullWidth
             inputProps={{
-              maxLength: passwordMaxLength
+              maxLength: PASSWORD_MAX_LENGTH
             }}
             style={{
               marginTop: 10,
