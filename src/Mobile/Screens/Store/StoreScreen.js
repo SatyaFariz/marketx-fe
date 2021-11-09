@@ -47,7 +47,7 @@ const Component = props => {
   const scrollRef = useBottomScrollListener(onEndReached, { offset: 100 })
 
   useEffect(() => {
-    if(pathname.split('/')[1] === 'store') {
+    if(pathname.split('/')[1] === 'ad.account') {
       setShowCategory(selectCategory === '1')
     }
   }, [selectCategory, pathname])
