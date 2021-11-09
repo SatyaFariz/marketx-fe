@@ -12,7 +12,8 @@ const chunk = {
       },
       me {
         id,
-        ...PrivacyPolicyScreen_me
+        ...PrivacyPolicyScreen_me,
+        ...FixedAddressBar_me
       }
     }
   `,
@@ -22,7 +23,7 @@ const chunk = {
     return {
       title: 'Rental App',
       component: (
-        <FixedAddressBar>
+        <FixedAddressBar me={data?.me}>
           <PrivacyPolicyScreen
             posts={data?.posts}
             me={data?.me}

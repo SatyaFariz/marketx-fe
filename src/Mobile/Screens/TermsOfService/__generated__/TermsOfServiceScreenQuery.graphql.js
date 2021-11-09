@@ -8,6 +8,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type FixedAddressBar_me$ref = any;
 type TermsOfServiceScreen_me$ref = any;
 type TermsOfServiceScreen_posts$ref = any;
 export type TermsOfServiceScreenQueryVariables = {||};
@@ -18,7 +19,7 @@ export type TermsOfServiceScreenQueryResponse = {|
   |}>,
   +me: ?{|
     +id: ?string,
-    +$fragmentRefs: TermsOfServiceScreen_me$ref,
+    +$fragmentRefs: TermsOfServiceScreen_me$ref & FixedAddressBar_me$ref,
   |},
 |};
 export type TermsOfServiceScreenQuery = {|
@@ -37,7 +38,13 @@ query TermsOfServiceScreenQuery {
   me {
     id
     ...TermsOfServiceScreen_me
+    ...FixedAddressBar_me
   }
+}
+
+fragment FixedAddressBar_me on User {
+  id
+  isAdmin
 }
 
 fragment TermsOfServicePage_me on User {
@@ -123,6 +130,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "TermsOfServiceScreen_me"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "FixedAddressBar_me"
           }
         ],
         "storageKey": null
@@ -192,16 +204,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "be42156dd40e0a20582cf9bdbbfa52c2",
+    "cacheID": "ebb07227053664efdfe266c354e75137",
     "id": null,
     "metadata": {},
     "name": "TermsOfServiceScreenQuery",
     "operationKind": "query",
-    "text": "query TermsOfServiceScreenQuery {\n  posts(type: terms_of_service, limit: 1) {\n    id\n    ...TermsOfServiceScreen_posts\n  }\n  me {\n    id\n    ...TermsOfServiceScreen_me\n  }\n}\n\nfragment TermsOfServicePage_me on User {\n  id\n  isAdmin\n}\n\nfragment TermsOfServicePage_posts on Post {\n  id\n  title\n  content\n  updatedAt\n}\n\nfragment TermsOfServiceScreen_me on User {\n  id\n  ...TermsOfServicePage_me\n}\n\nfragment TermsOfServiceScreen_posts on Post {\n  id\n  title\n  content\n  updatedAt\n  ...TermsOfServicePage_posts\n}\n"
+    "text": "query TermsOfServiceScreenQuery {\n  posts(type: terms_of_service, limit: 1) {\n    id\n    ...TermsOfServiceScreen_posts\n  }\n  me {\n    id\n    ...TermsOfServiceScreen_me\n    ...FixedAddressBar_me\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment TermsOfServicePage_me on User {\n  id\n  isAdmin\n}\n\nfragment TermsOfServicePage_posts on Post {\n  id\n  title\n  content\n  updatedAt\n}\n\nfragment TermsOfServiceScreen_me on User {\n  id\n  ...TermsOfServicePage_me\n}\n\nfragment TermsOfServiceScreen_posts on Post {\n  id\n  title\n  content\n  updatedAt\n  ...TermsOfServicePage_posts\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'fecd468188f28af62c8990c7b595bbbb';
+(node/*: any*/).hash = '01d0020e9a5287a696228eea8b5f6f44';
 
 module.exports = node;

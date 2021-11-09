@@ -10,11 +10,12 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type EditStoreScreen_me$ref = any;
 type EditStoreScreen_provinces$ref = any;
+type FixedAddressBar_me$ref = any;
 export type EditStoreSearchScreenQueryVariables = {||};
 export type EditStoreSearchScreenQueryResponse = {|
   +me: ?{|
     +id: ?string,
-    +$fragmentRefs: EditStoreScreen_me$ref,
+    +$fragmentRefs: EditStoreScreen_me$ref & FixedAddressBar_me$ref,
   |},
   +administrativeAreas: ?$ReadOnlyArray<?{|
     +$fragmentRefs: EditStoreScreen_provinces$ref
@@ -32,6 +33,7 @@ query EditStoreSearchScreenQuery {
   me {
     id
     ...EditStoreScreen_me
+    ...FixedAddressBar_me
   }
   administrativeAreas {
     ...EditStoreScreen_provinces
@@ -73,6 +75,11 @@ fragment EditStoreScreen_me on User {
 fragment EditStoreScreen_provinces on AdministrativeArea {
   administrativeAreaId
   name
+}
+
+fragment FixedAddressBar_me on User {
+  id
+  isAdmin
 }
 */
 
@@ -131,6 +138,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "EditStoreScreen_me"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "FixedAddressBar_me"
           }
         ],
         "storageKey": null
@@ -257,6 +269,13 @@ return {
               }
             ],
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isAdmin",
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -274,16 +293,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "eb935c2910dd31174a34b02d5db51e00",
+    "cacheID": "466ae1171bb8f15f1f2cc0487d4a1ee6",
     "id": null,
     "metadata": {},
     "name": "EditStoreSearchScreenQuery",
     "operationKind": "query",
-    "text": "query EditStoreSearchScreenQuery {\n  me {\n    id\n    ...EditStoreScreen_me\n  }\n  administrativeAreas {\n    ...EditStoreScreen_provinces\n  }\n}\n\nfragment EditStoreScreen_me on User {\n  id\n  store {\n    id\n    name\n    whatsappNumber\n    profilePicture {\n      id\n      url\n    }\n    banner {\n      id\n      url\n    }\n    address {\n      fullAddress\n      province {\n        administrativeAreaId\n        name\n      }\n      city {\n        administrativeAreaId\n        name\n      }\n      district {\n        administrativeAreaId\n        name\n      }\n    }\n  }\n}\n\nfragment EditStoreScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n"
+    "text": "query EditStoreSearchScreenQuery {\n  me {\n    id\n    ...EditStoreScreen_me\n    ...FixedAddressBar_me\n  }\n  administrativeAreas {\n    ...EditStoreScreen_provinces\n  }\n}\n\nfragment EditStoreScreen_me on User {\n  id\n  store {\n    id\n    name\n    whatsappNumber\n    profilePicture {\n      id\n      url\n    }\n    banner {\n      id\n      url\n    }\n    address {\n      fullAddress\n      province {\n        administrativeAreaId\n        name\n      }\n      city {\n        administrativeAreaId\n        name\n      }\n      district {\n        administrativeAreaId\n        name\n      }\n    }\n  }\n}\n\nfragment EditStoreScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0d9332c74d79df1fd31a10e6ea8b67f9';
+(node/*: any*/).hash = 'ec6eb4037765e29cf4bb5a9d475aead4';
 
 module.exports = node;

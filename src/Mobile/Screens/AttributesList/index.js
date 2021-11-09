@@ -8,7 +8,8 @@ const chunk = {
     query AttributesListScreenQuery {
       me {
         id,
-        isAdmin
+        isAdmin,
+        ...FixedAddressBar_me
       },
       attributes {
         id,
@@ -22,7 +23,7 @@ const chunk = {
     return {
       title: 'Rental App',
       component: (
-        <FixedAddressBar>
+        <FixedAddressBar me={data?.me}>
           {data.me?.isAdmin &&
           <AttributesListScreen
             me={data.me}

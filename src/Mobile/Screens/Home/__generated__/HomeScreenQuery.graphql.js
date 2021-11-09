@@ -8,6 +8,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type FixedAddressBar_me$ref = any;
 type HomeScreen_categories$ref = any;
 type HomeScreen_featuredProducts$ref = any;
 type HomeScreen_me$ref = any;
@@ -15,7 +16,7 @@ export type HomeScreenQueryVariables = {||};
 export type HomeScreenQueryResponse = {|
   +me: ?{|
     +id: ?string,
-    +$fragmentRefs: HomeScreen_me$ref,
+    +$fragmentRefs: HomeScreen_me$ref & FixedAddressBar_me$ref,
   |},
   +categories: ?$ReadOnlyArray<?{|
     +id: ?string,
@@ -38,6 +39,7 @@ query HomeScreenQuery {
   me {
     id
     ...HomeScreen_me
+    ...FixedAddressBar_me
   }
   categories {
     id
@@ -84,6 +86,11 @@ fragment CategoryItem_me on User {
 fragment FeaturedProductsList_featuredProducts on Product {
   id
   ...ProductItem_product
+}
+
+fragment FixedAddressBar_me on User {
+  id
+  isAdmin
 }
 
 fragment HomeScreen_categories on Category {
@@ -208,6 +215,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "HomeScreen_me"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "FixedAddressBar_me"
           }
         ],
         "storageKey": null
@@ -392,16 +404,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e29d1d83acb13d99f86af44fed7bc8b6",
+    "cacheID": "d1dbc9db209c279efb382a61a6582c4a",
     "id": null,
     "metadata": {},
     "name": "HomeScreenQuery",
     "operationKind": "query",
-    "text": "query HomeScreenQuery {\n  me {\n    id\n    ...HomeScreen_me\n  }\n  categories {\n    id\n    ...HomeScreen_categories\n  }\n  featuredProducts {\n    id\n    ...HomeScreen_featuredProducts\n  }\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  level\n  isPublished\n  listingType\n  icon {\n    url\n    id\n  }\n  children {\n    id\n    name\n    isPublished\n    level\n    icon {\n      url\n      id\n    }\n  }\n}\n\nfragment Categories_me on User {\n  id\n  ...CategoryItem_me\n}\n\nfragment CategoryItem_me on User {\n  id\n  isAdmin\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  ...ProductItem_product\n}\n\nfragment HomeScreen_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment HomeScreen_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment HomeScreen_me on User {\n  id\n  name\n  isAdmin\n  ...Categories_me\n  profilePicture {\n    id\n    url\n  }\n  store {\n    id\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n"
+    "text": "query HomeScreenQuery {\n  me {\n    id\n    ...HomeScreen_me\n    ...FixedAddressBar_me\n  }\n  categories {\n    id\n    ...HomeScreen_categories\n  }\n  featuredProducts {\n    id\n    ...HomeScreen_featuredProducts\n  }\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  level\n  isPublished\n  listingType\n  icon {\n    url\n    id\n  }\n  children {\n    id\n    name\n    isPublished\n    level\n    icon {\n      url\n      id\n    }\n  }\n}\n\nfragment Categories_me on User {\n  id\n  ...CategoryItem_me\n}\n\nfragment CategoryItem_me on User {\n  id\n  isAdmin\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  ...ProductItem_product\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment HomeScreen_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment HomeScreen_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment HomeScreen_me on User {\n  id\n  name\n  isAdmin\n  ...Categories_me\n  profilePicture {\n    id\n    url\n  }\n  store {\n    id\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '3b74c30f88a9958e67dadcc0000e5bab';
+(node/*: any*/).hash = '6558700308b4c0b62082ae3cda7b7eef';
 
 module.exports = node;

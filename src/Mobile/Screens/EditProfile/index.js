@@ -8,7 +8,8 @@ const chunk = {
     query EditProfileQuery {
       me {
         id,
-        ...EditProfileScreen_me
+        ...EditProfileScreen_me,
+        ...FixedAddressBar_me
       }
     }
   `,
@@ -18,7 +19,7 @@ const chunk = {
     return {
       title: 'Rental App',
       component: (
-        <FixedAddressBar>
+        <FixedAddressBar me={data?.me}>
           <EditProfileScreen
             me={data.me}
           />

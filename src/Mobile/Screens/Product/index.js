@@ -12,7 +12,8 @@ const chunk = {
       },
       me {
         id,
-        ...ProductScreen_me
+        ...ProductScreen_me,
+        ...FixedAddressBar_me
       },
       suspensionReasons {
         ...ProductScreen_suspensionReasons
@@ -25,7 +26,7 @@ const chunk = {
     return {
       title: 'Rental App',
       component: (
-        <FixedAddressBar>
+        <FixedAddressBar me={data?.me}>
           <ProductScreen
             product={data.product}
             me={data.me}

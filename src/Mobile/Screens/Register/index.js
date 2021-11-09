@@ -8,7 +8,8 @@ const chunk = {
     query RegisterQuery {
       me {
         id,
-        ...RegisterScreen_me
+        ...RegisterScreen_me,
+        ...FixedAddressBar_me
       }
     }
   `,
@@ -18,7 +19,7 @@ const chunk = {
     return {
       title: 'Rental App',
       component: (
-        <FixedAddressBar>
+        <FixedAddressBar me={data?.me}>
           <RegisterScreen
             me={data?.me}
           />

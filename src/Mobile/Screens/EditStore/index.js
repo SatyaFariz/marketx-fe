@@ -8,7 +8,8 @@ const chunk = {
     query EditStoreSearchScreenQuery {
       me {
         id,
-        ...EditStoreScreen_me
+        ...EditStoreScreen_me,
+        ...FixedAddressBar_me
       },
       administrativeAreas {
         ...EditStoreScreen_provinces
@@ -21,7 +22,7 @@ const chunk = {
     return {
       title: 'Rental App',
       component: (
-        <FixedAddressBar>
+        <FixedAddressBar me={data?.me}>
           <EditStoreScreen
             provinces={data.administrativeAreas}
             me={data.me}

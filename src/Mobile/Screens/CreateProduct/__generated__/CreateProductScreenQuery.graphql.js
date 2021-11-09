@@ -13,6 +13,7 @@ type CreateProductScreen_me$ref = any;
 type CreateProductScreen_productConditions$ref = any;
 type CreateProductScreen_provinces$ref = any;
 type CreateProductScreen_rentalDurations$ref = any;
+type FixedAddressBar_me$ref = any;
 export type CreateProductScreenQueryVariables = {|
   categoryId: string
 |};
@@ -23,7 +24,7 @@ export type CreateProductScreenQueryResponse = {|
   |},
   +me: ?{|
     +id: ?string,
-    +$fragmentRefs: CreateProductScreen_me$ref,
+    +$fragmentRefs: CreateProductScreen_me$ref & FixedAddressBar_me$ref,
   |},
   +productConditions: ?$ReadOnlyArray<?{|
     +$fragmentRefs: CreateProductScreen_productConditions$ref
@@ -53,6 +54,7 @@ query CreateProductScreenQuery(
   me {
     id
     ...CreateProductScreen_me
+    ...FixedAddressBar_me
   }
   productConditions {
     ...CreateProductScreen_productConditions
@@ -135,6 +137,11 @@ fragment CreateProductScreen_rentalDurations on Unit {
   display
   name
   value
+}
+
+fragment FixedAddressBar_me on User {
+  id
+  isAdmin
 }
 */
 
@@ -225,6 +232,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "CreateProductScreen_me"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "FixedAddressBar_me"
           }
         ],
         "storageKey": null
@@ -505,6 +517,13 @@ return {
               }
             ],
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isAdmin",
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -556,16 +575,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7657f232d13f2e1382dd9ecd13b97232",
+    "cacheID": "c18566df04be22ded9518fcdace89f01",
     "id": null,
     "metadata": {},
     "name": "CreateProductScreenQuery",
     "operationKind": "query",
-    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n  }\n  productConditions {\n    ...CreateProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...CreateProductScreen_rentalDurations\n    id\n  }\n  administrativeAreas {\n    ...CreateProductScreen_provinces\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  requiresProductCondition\n  showsProductConditionField\n  forceLocationInput\n  listingType\n  ancestors {\n    id\n    name\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n    isMulti\n    prefix\n    suffix\n    numberOfLines\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n    address {\n      province {\n        administrativeAreaId\n        name\n      }\n      city {\n        administrativeAreaId\n        name\n      }\n      district {\n        administrativeAreaId\n        name\n      }\n    }\n  }\n}\n\nfragment CreateProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment CreateProductScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment CreateProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n"
+    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n    ...FixedAddressBar_me\n  }\n  productConditions {\n    ...CreateProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...CreateProductScreen_rentalDurations\n    id\n  }\n  administrativeAreas {\n    ...CreateProductScreen_provinces\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  requiresProductCondition\n  showsProductConditionField\n  forceLocationInput\n  listingType\n  ancestors {\n    id\n    name\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n    isMulti\n    prefix\n    suffix\n    numberOfLines\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n    address {\n      province {\n        administrativeAreaId\n        name\n      }\n      city {\n        administrativeAreaId\n        name\n      }\n      district {\n        administrativeAreaId\n        name\n      }\n    }\n  }\n}\n\nfragment CreateProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment CreateProductScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment CreateProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '66d87c0ce0976bbc0d800fbc065a6162';
+(node/*: any*/).hash = 'ad9e27d3a3b9cf7cf970614ba20ffbe1';
 
 module.exports = node;

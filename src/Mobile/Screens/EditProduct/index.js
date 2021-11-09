@@ -17,7 +17,8 @@ const chunk = {
         ...EditProductScreen_rentalDurations
       },
       me {
-        ...EditProductScreen_me
+        ...EditProductScreen_me,
+        ...FixedAddressBar_me
       },
       administrativeAreas {
         ...EditProductScreen_provinces
@@ -30,7 +31,7 @@ const chunk = {
     return {
       title: 'Rental App',
       component: (
-        <FixedAddressBar>
+        <FixedAddressBar me={data?.me}>
           <EditProductScreen
             me={data.me}
             product={data.product}

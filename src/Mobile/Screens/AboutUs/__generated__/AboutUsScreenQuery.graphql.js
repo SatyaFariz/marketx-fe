@@ -10,6 +10,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type AboutUsScreen_me$ref = any;
 type AboutUsScreen_posts$ref = any;
+type FixedAddressBar_me$ref = any;
 export type AboutUsScreenQueryVariables = {||};
 export type AboutUsScreenQueryResponse = {|
   +posts: ?$ReadOnlyArray<?{|
@@ -18,7 +19,7 @@ export type AboutUsScreenQueryResponse = {|
   |}>,
   +me: ?{|
     +id: ?string,
-    +$fragmentRefs: AboutUsScreen_me$ref,
+    +$fragmentRefs: AboutUsScreen_me$ref & FixedAddressBar_me$ref,
   |},
 |};
 export type AboutUsScreenQuery = {|
@@ -37,6 +38,7 @@ query AboutUsScreenQuery {
   me {
     id
     ...AboutUsScreen_me
+    ...FixedAddressBar_me
   }
 }
 
@@ -62,6 +64,11 @@ fragment AboutUsScreen_posts on Post {
   title
   content
   ...AboutUsPage_posts
+}
+
+fragment FixedAddressBar_me on User {
+  id
+  isAdmin
 }
 */
 
@@ -122,6 +129,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "AboutUsScreen_me"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "FixedAddressBar_me"
           }
         ],
         "storageKey": null
@@ -191,16 +203,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9af7d7664bf2b27c9f84982c7372fd47",
+    "cacheID": "b2a3f0892394a7c74a2d10130a3be6c6",
     "id": null,
     "metadata": {},
     "name": "AboutUsScreenQuery",
     "operationKind": "query",
-    "text": "query AboutUsScreenQuery {\n  posts(type: about_us, limit: 1) {\n    id\n    ...AboutUsScreen_posts\n  }\n  me {\n    id\n    ...AboutUsScreen_me\n  }\n}\n\nfragment AboutUsPage_me on User {\n  id\n  isAdmin\n}\n\nfragment AboutUsPage_posts on Post {\n  id\n  title\n  content\n  updatedAt\n}\n\nfragment AboutUsScreen_me on User {\n  id\n  ...AboutUsPage_me\n}\n\nfragment AboutUsScreen_posts on Post {\n  id\n  title\n  content\n  ...AboutUsPage_posts\n}\n"
+    "text": "query AboutUsScreenQuery {\n  posts(type: about_us, limit: 1) {\n    id\n    ...AboutUsScreen_posts\n  }\n  me {\n    id\n    ...AboutUsScreen_me\n    ...FixedAddressBar_me\n  }\n}\n\nfragment AboutUsPage_me on User {\n  id\n  isAdmin\n}\n\nfragment AboutUsPage_posts on Post {\n  id\n  title\n  content\n  updatedAt\n}\n\nfragment AboutUsScreen_me on User {\n  id\n  ...AboutUsPage_me\n}\n\nfragment AboutUsScreen_posts on Post {\n  id\n  title\n  content\n  ...AboutUsPage_posts\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'f60792b0a51ae3952ff5ce9b70246911';
+(node/*: any*/).hash = '22e559a6bf3ae26bc221b747c63aeac6';
 
 module.exports = node;

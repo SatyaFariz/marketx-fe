@@ -8,12 +8,13 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type FixedAddressBar_me$ref = any;
 type ForgotPasswordScreen_me$ref = any;
 export type ForgotPasswordScreenQueryVariables = {||};
 export type ForgotPasswordScreenQueryResponse = {|
   +me: ?{|
     +id: ?string,
-    +$fragmentRefs: ForgotPasswordScreen_me$ref,
+    +$fragmentRefs: ForgotPasswordScreen_me$ref & FixedAddressBar_me$ref,
   |}
 |};
 export type ForgotPasswordScreenQuery = {|
@@ -28,7 +29,13 @@ query ForgotPasswordScreenQuery {
   me {
     id
     ...ForgotPasswordScreen_me
+    ...FixedAddressBar_me
   }
+}
+
+fragment FixedAddressBar_me on User {
+  id
+  isAdmin
 }
 
 fragment ForgotPasswordScreen_me on User {
@@ -64,6 +71,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "ForgotPasswordScreen_me"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "FixedAddressBar_me"
           }
         ],
         "storageKey": null
@@ -86,23 +98,30 @@ return {
         "name": "me",
         "plural": false,
         "selections": [
-          (v0/*: any*/)
+          (v0/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isAdmin",
+            "storageKey": null
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "481b33dbcb2f335286997f7b357225d1",
+    "cacheID": "b251e53bfa8ad33c22fb2a5b4d543cd4",
     "id": null,
     "metadata": {},
     "name": "ForgotPasswordScreenQuery",
     "operationKind": "query",
-    "text": "query ForgotPasswordScreenQuery {\n  me {\n    id\n    ...ForgotPasswordScreen_me\n  }\n}\n\nfragment ForgotPasswordScreen_me on User {\n  id\n}\n"
+    "text": "query ForgotPasswordScreenQuery {\n  me {\n    id\n    ...ForgotPasswordScreen_me\n    ...FixedAddressBar_me\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment ForgotPasswordScreen_me on User {\n  id\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '116985c2ea92d43f06cd694a4160fba4';
+(node/*: any*/).hash = '47df2457f9a54aa90139db664f96e547';
 
 module.exports = node;

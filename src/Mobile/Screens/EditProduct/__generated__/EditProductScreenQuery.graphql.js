@@ -13,6 +13,7 @@ type EditProductScreen_product$ref = any;
 type EditProductScreen_productConditions$ref = any;
 type EditProductScreen_provinces$ref = any;
 type EditProductScreen_rentalDurations$ref = any;
+type FixedAddressBar_me$ref = any;
 export type EditProductScreenQueryVariables = {|
   id: string
 |};
@@ -28,7 +29,7 @@ export type EditProductScreenQueryResponse = {|
     +$fragmentRefs: EditProductScreen_rentalDurations$ref
   |}>,
   +me: ?{|
-    +$fragmentRefs: EditProductScreen_me$ref
+    +$fragmentRefs: EditProductScreen_me$ref & FixedAddressBar_me$ref
   |},
   +administrativeAreas: ?$ReadOnlyArray<?{|
     +$fragmentRefs: EditProductScreen_provinces$ref
@@ -59,6 +60,7 @@ query EditProductScreenQuery(
   }
   me {
     ...EditProductScreen_me
+    ...FixedAddressBar_me
     id
   }
   administrativeAreas {
@@ -172,6 +174,11 @@ fragment EditProductScreen_rentalDurations on Unit {
   display
   name
   value
+}
+
+fragment FixedAddressBar_me on User {
+  id
+  isAdmin
 }
 */
 
@@ -331,6 +338,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "EditProductScreen_me"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "FixedAddressBar_me"
           }
         ],
         "storageKey": null
@@ -692,6 +704,13 @@ return {
               }
             ],
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isAdmin",
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -709,16 +728,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3f8b742d90adafbd6c71fce90980ecec",
+    "cacheID": "c3df98dd7d09d82851d41305bd103f68",
     "id": null,
     "metadata": {},
     "name": "EditProductScreenQuery",
     "operationKind": "query",
-    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n  productConditions {\n    ...EditProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...EditProductScreen_rentalDurations\n    id\n  }\n  me {\n    ...EditProductScreen_me\n    id\n  }\n  administrativeAreas {\n    ...EditProductScreen_provinces\n  }\n}\n\nfragment EditProductScreen_me on User {\n  id\n  store {\n    id\n    address {\n      province {\n        administrativeAreaId\n        name\n      }\n      city {\n        administrativeAreaId\n        name\n      }\n      district {\n        administrativeAreaId\n        name\n      }\n    }\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  isPublished\n  isDeleted\n  syncLocationWithStoreAddress\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  condition {\n    id\n  }\n  rentalDuration {\n    id\n  }\n  merchant {\n    id\n  }\n  location {\n    province {\n      administrativeAreaId\n      name\n    }\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n  category {\n    id\n    name\n    requiresProductCondition\n    showsProductConditionField\n    forceLocationInput\n    listingType\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isAutocomplete\n      isRequired\n      type\n      max\n      min\n      options\n      isEnum\n      isMulti\n      prefix\n      suffix\n      numberOfLines\n    }\n  }\n}\n\nfragment EditProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment EditProductScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment EditProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n"
+    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n  productConditions {\n    ...EditProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...EditProductScreen_rentalDurations\n    id\n  }\n  me {\n    ...EditProductScreen_me\n    ...FixedAddressBar_me\n    id\n  }\n  administrativeAreas {\n    ...EditProductScreen_provinces\n  }\n}\n\nfragment EditProductScreen_me on User {\n  id\n  store {\n    id\n    address {\n      province {\n        administrativeAreaId\n        name\n      }\n      city {\n        administrativeAreaId\n        name\n      }\n      district {\n        administrativeAreaId\n        name\n      }\n    }\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  isPublished\n  isDeleted\n  syncLocationWithStoreAddress\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  condition {\n    id\n  }\n  rentalDuration {\n    id\n  }\n  merchant {\n    id\n  }\n  location {\n    province {\n      administrativeAreaId\n      name\n    }\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n  category {\n    id\n    name\n    requiresProductCondition\n    showsProductConditionField\n    forceLocationInput\n    listingType\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isAutocomplete\n      isRequired\n      type\n      max\n      min\n      options\n      isEnum\n      isMulti\n      prefix\n      suffix\n      numberOfLines\n    }\n  }\n}\n\nfragment EditProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment EditProductScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment EditProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '7ed7810d3c5eda3bc350a3af3d9bddac';
+(node/*: any*/).hash = '98548bc3db658be2bce1791d83ff9a19';
 
 module.exports = node;

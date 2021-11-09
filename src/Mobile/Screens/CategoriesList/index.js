@@ -8,7 +8,8 @@ const chunk = {
     query CategoriesListScreenQuery {
       me {
         id,
-        isAdmin
+        isAdmin,
+        ...FixedAddressBar_me
       },
       categories(hasChild: false) {
         ...CategoriesListScreen_categories
@@ -21,7 +22,7 @@ const chunk = {
     return {
       title: 'Rental App',
       component: (
-        <FixedAddressBar>
+        <FixedAddressBar me={data?.me}>
           {data.me?.isAdmin &&
           <CategoriesListScreen
             me={data.me}

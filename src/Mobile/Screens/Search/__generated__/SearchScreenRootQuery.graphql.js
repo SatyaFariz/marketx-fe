@@ -9,26 +9,24 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type FixedAddressBar_me$ref = any;
-type LoginScreen_me$ref = any;
-export type LoginScreenQueryVariables = {||};
-export type LoginScreenQueryResponse = {|
+export type SearchScreenRootQueryVariables = {||};
+export type SearchScreenRootQueryResponse = {|
   +me: ?{|
     +id: ?string,
-    +$fragmentRefs: LoginScreen_me$ref & FixedAddressBar_me$ref,
+    +$fragmentRefs: FixedAddressBar_me$ref,
   |}
 |};
-export type LoginScreenQuery = {|
-  variables: LoginScreenQueryVariables,
-  response: LoginScreenQueryResponse,
+export type SearchScreenRootQuery = {|
+  variables: SearchScreenRootQueryVariables,
+  response: SearchScreenRootQueryResponse,
 |};
 */
 
 
 /*
-query LoginScreenQuery {
+query SearchScreenRootQuery {
   me {
     id
-    ...LoginScreen_me
     ...FixedAddressBar_me
   }
 }
@@ -36,10 +34,6 @@ query LoginScreenQuery {
 fragment FixedAddressBar_me on User {
   id
   isAdmin
-}
-
-fragment LoginScreen_me on User {
-  id
 }
 */
 
@@ -56,7 +50,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "LoginScreenQuery",
+    "name": "SearchScreenRootQuery",
     "selections": [
       {
         "alias": null,
@@ -67,11 +61,6 @@ return {
         "plural": false,
         "selections": [
           (v0/*: any*/),
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "LoginScreen_me"
-          },
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -88,7 +77,7 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "LoginScreenQuery",
+    "name": "SearchScreenRootQuery",
     "selections": [
       {
         "alias": null,
@@ -112,16 +101,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5a678f99072b69742bb64a352a522fbb",
+    "cacheID": "a01d07bfec727291c67758e3297a017f",
     "id": null,
     "metadata": {},
-    "name": "LoginScreenQuery",
+    "name": "SearchScreenRootQuery",
     "operationKind": "query",
-    "text": "query LoginScreenQuery {\n  me {\n    id\n    ...LoginScreen_me\n    ...FixedAddressBar_me\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment LoginScreen_me on User {\n  id\n}\n"
+    "text": "query SearchScreenRootQuery {\n  me {\n    id\n    ...FixedAddressBar_me\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c938c877ff473e064ca14f694c832344';
+(node/*: any*/).hash = '574f0029e8eef66a69e720d792ebe873';
 
 module.exports = node;

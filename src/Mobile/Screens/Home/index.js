@@ -9,6 +9,7 @@ const chunk = {
       me {
         id,
         ...HomeScreen_me,
+        ...FixedAddressBar_me
       }
       categories {
         id,
@@ -26,7 +27,7 @@ const chunk = {
     return {
       title: 'Rental App',
       component: (
-        <FixedAddressBar>
+        <FixedAddressBar me={data?.me}>
           {data &&
           <HomeScreen
             me={data.me}

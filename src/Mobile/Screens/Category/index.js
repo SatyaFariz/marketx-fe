@@ -9,6 +9,10 @@ const chunk = {
       category(id: $id) {
         id,
         ...CategoryScreen_category
+      },
+      me {
+        id,
+        ...FixedAddressBar_me
       }
     }
   `,
@@ -18,7 +22,7 @@ const chunk = {
     return {
       title: 'Rental App',
       component: (
-        <FixedAddressBar>
+        <FixedAddressBar me={data?.me}>
           <CategoryScreen
             category={data.category}
           />

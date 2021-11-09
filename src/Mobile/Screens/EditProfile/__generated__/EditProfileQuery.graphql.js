@@ -9,11 +9,12 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type EditProfileScreen_me$ref = any;
+type FixedAddressBar_me$ref = any;
 export type EditProfileQueryVariables = {||};
 export type EditProfileQueryResponse = {|
   +me: ?{|
     +id: ?string,
-    +$fragmentRefs: EditProfileScreen_me$ref,
+    +$fragmentRefs: EditProfileScreen_me$ref & FixedAddressBar_me$ref,
   |}
 |};
 export type EditProfileQuery = {|
@@ -28,6 +29,7 @@ query EditProfileQuery {
   me {
     id
     ...EditProfileScreen_me
+    ...FixedAddressBar_me
   }
 }
 
@@ -39,6 +41,11 @@ fragment EditProfileScreen_me on User {
     url
     id
   }
+}
+
+fragment FixedAddressBar_me on User {
+  id
+  isAdmin
 }
 */
 
@@ -70,6 +77,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "EditProfileScreen_me"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "FixedAddressBar_me"
           }
         ],
         "storageKey": null
@@ -125,6 +137,13 @@ return {
               (v0/*: any*/)
             ],
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isAdmin",
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -132,16 +151,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8e134120b139609f1d538b7148d67041",
+    "cacheID": "5687876edc2afe4a1d19800301918530",
     "id": null,
     "metadata": {},
     "name": "EditProfileQuery",
     "operationKind": "query",
-    "text": "query EditProfileQuery {\n  me {\n    id\n    ...EditProfileScreen_me\n  }\n}\n\nfragment EditProfileScreen_me on User {\n  id\n  name\n  email\n  profilePicture {\n    url\n    id\n  }\n}\n"
+    "text": "query EditProfileQuery {\n  me {\n    id\n    ...EditProfileScreen_me\n    ...FixedAddressBar_me\n  }\n}\n\nfragment EditProfileScreen_me on User {\n  id\n  name\n  email\n  profilePicture {\n    url\n    id\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '59b66f7fe2cdb93c1d8819745b4b1bbd';
+(node/*: any*/).hash = '9127043591a78904f413945af20310c5';
 
 module.exports = node;

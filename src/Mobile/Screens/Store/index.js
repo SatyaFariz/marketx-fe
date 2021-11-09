@@ -8,7 +8,8 @@ const chunk = {
     query StoreScreenQuery($id: String!) {
       me {
         id,
-        ...StoreScreen_me
+        ...StoreScreen_me,
+        ...FixedAddressBar_me
       },
       store(id: $id) {
         id,
@@ -26,7 +27,7 @@ const chunk = {
     return {
       title: 'Rental App',
       component: (
-        <FixedAddressBar>
+        <FixedAddressBar me={data?.me}>
           {data &&
           <StoreScreen
             me={data.me}

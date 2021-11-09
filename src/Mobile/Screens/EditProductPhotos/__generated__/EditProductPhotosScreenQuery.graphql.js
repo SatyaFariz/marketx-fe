@@ -10,6 +10,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type EditProductPhotosScreen_me$ref = any;
 type EditProductPhotosScreen_product$ref = any;
+type FixedAddressBar_me$ref = any;
 export type EditProductPhotosScreenQueryVariables = {|
   productId: string
 |};
@@ -20,7 +21,7 @@ export type EditProductPhotosScreenQueryResponse = {|
   |},
   +me: ?{|
     +id: ?string,
-    +$fragmentRefs: EditProductPhotosScreen_me$ref,
+    +$fragmentRefs: EditProductPhotosScreen_me$ref & FixedAddressBar_me$ref,
   |},
 |};
 export type EditProductPhotosScreenQuery = {|
@@ -41,6 +42,7 @@ query EditProductPhotosScreenQuery(
   me {
     id
     ...EditProductPhotosScreen_me
+    ...FixedAddressBar_me
   }
 }
 
@@ -57,6 +59,11 @@ fragment EditProductPhotosScreen_product on Product {
   merchant {
     id
   }
+}
+
+fragment FixedAddressBar_me on User {
+  id
+  isAdmin
 }
 */
 
@@ -81,10 +88,7 @@ v2 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-},
-v3 = [
-  (v2/*: any*/)
-];
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -122,6 +126,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "EditProductPhotosScreen_me"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "FixedAddressBar_me"
           }
         ],
         "storageKey": null
@@ -171,7 +180,9 @@ return {
             "kind": "LinkedField",
             "name": "merchant",
             "plural": false,
-            "selections": (v3/*: any*/),
+            "selections": [
+              (v2/*: any*/)
+            ],
             "storageKey": null
           }
         ],
@@ -184,22 +195,31 @@ return {
         "kind": "LinkedField",
         "name": "me",
         "plural": false,
-        "selections": (v3/*: any*/),
+        "selections": [
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isAdmin",
+            "storageKey": null
+          }
+        ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "3f7afcb3afaee04ba2b279d007da7cfe",
+    "cacheID": "d2db1b6e331457373d3d77a402dd56ed",
     "id": null,
     "metadata": {},
     "name": "EditProductPhotosScreenQuery",
     "operationKind": "query",
-    "text": "query EditProductPhotosScreenQuery(\n  $productId: String!\n) {\n  product(id: $productId) {\n    id\n    ...EditProductPhotosScreen_product\n  }\n  me {\n    id\n    ...EditProductPhotosScreen_me\n  }\n}\n\nfragment EditProductPhotosScreen_me on User {\n  id\n}\n\nfragment EditProductPhotosScreen_product on Product {\n  id\n  images {\n    id\n    url\n  }\n  merchant {\n    id\n  }\n}\n"
+    "text": "query EditProductPhotosScreenQuery(\n  $productId: String!\n) {\n  product(id: $productId) {\n    id\n    ...EditProductPhotosScreen_product\n  }\n  me {\n    id\n    ...EditProductPhotosScreen_me\n    ...FixedAddressBar_me\n  }\n}\n\nfragment EditProductPhotosScreen_me on User {\n  id\n}\n\nfragment EditProductPhotosScreen_product on Product {\n  id\n  images {\n    id\n    url\n  }\n  merchant {\n    id\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '189b67543ed5f6531d4e82d884eae522';
+(node/*: any*/).hash = '24bddaf3cec40f7038c5f2df88dbd0f3';
 
 module.exports = node;

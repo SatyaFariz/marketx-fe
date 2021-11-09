@@ -1,3 +1,5 @@
+import graphql from 'babel-plugin-relay/macro'
+import { createFragmentContainer } from 'react-relay'
 
 const Component = ({ children }) => {
   return (
@@ -20,4 +22,11 @@ const Component = ({ children }) => {
   )
 }
 
-export default Component
+export default createFragmentContainer(Component, {
+  me: graphql`
+    fragment FixedAddressBar_me on User {
+      id,
+      isAdmin
+    }
+  `
+})

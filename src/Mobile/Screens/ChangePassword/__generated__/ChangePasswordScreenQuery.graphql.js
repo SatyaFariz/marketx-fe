@@ -9,11 +9,12 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type ChangePasswordScreen_me$ref = any;
+type FixedAddressBar_me$ref = any;
 export type ChangePasswordScreenQueryVariables = {||};
 export type ChangePasswordScreenQueryResponse = {|
   +me: ?{|
     +id: ?string,
-    +$fragmentRefs: ChangePasswordScreen_me$ref,
+    +$fragmentRefs: ChangePasswordScreen_me$ref & FixedAddressBar_me$ref,
   |}
 |};
 export type ChangePasswordScreenQuery = {|
@@ -28,11 +29,17 @@ query ChangePasswordScreenQuery {
   me {
     id
     ...ChangePasswordScreen_me
+    ...FixedAddressBar_me
   }
 }
 
 fragment ChangePasswordScreen_me on User {
   id
+}
+
+fragment FixedAddressBar_me on User {
+  id
+  isAdmin
 }
 */
 
@@ -64,6 +71,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "ChangePasswordScreen_me"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "FixedAddressBar_me"
           }
         ],
         "storageKey": null
@@ -86,23 +98,30 @@ return {
         "name": "me",
         "plural": false,
         "selections": [
-          (v0/*: any*/)
+          (v0/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isAdmin",
+            "storageKey": null
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "0768b8ef74cc858de7d22a5991945a41",
+    "cacheID": "a0a484e17eafaabdb6ba8a92dfaf7246",
     "id": null,
     "metadata": {},
     "name": "ChangePasswordScreenQuery",
     "operationKind": "query",
-    "text": "query ChangePasswordScreenQuery {\n  me {\n    id\n    ...ChangePasswordScreen_me\n  }\n}\n\nfragment ChangePasswordScreen_me on User {\n  id\n}\n"
+    "text": "query ChangePasswordScreenQuery {\n  me {\n    id\n    ...ChangePasswordScreen_me\n    ...FixedAddressBar_me\n  }\n}\n\nfragment ChangePasswordScreen_me on User {\n  id\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '47b4b714e9bcd5c7e87ddbdea1306c8b';
+(node/*: any*/).hash = '1f95a8ff6281c568a1f3154cee940bd9';
 
 module.exports = node;

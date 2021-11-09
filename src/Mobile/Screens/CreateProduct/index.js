@@ -12,7 +12,8 @@ const chunk = {
       },
       me {
         id,
-        ...CreateProductScreen_me
+        ...CreateProductScreen_me,
+        ...FixedAddressBar_me
       },
       productConditions {
         ...CreateProductScreen_productConditions
@@ -31,7 +32,7 @@ const chunk = {
     return {
       title: 'Rental App',
       component: (
-        <FixedAddressBar>
+        <FixedAddressBar me={data?.me}>
           <CreateProductScreen
             category={data.category}
             me={data.me}

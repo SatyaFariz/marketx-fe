@@ -10,6 +10,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type FAQScreen_me$ref = any;
 type FAQScreen_posts$ref = any;
+type FixedAddressBar_me$ref = any;
 export type FAQScreenQueryVariables = {||};
 export type FAQScreenQueryResponse = {|
   +posts: ?$ReadOnlyArray<?{|
@@ -18,7 +19,7 @@ export type FAQScreenQueryResponse = {|
   |}>,
   +me: ?{|
     +id: ?string,
-    +$fragmentRefs: FAQScreen_me$ref,
+    +$fragmentRefs: FAQScreen_me$ref & FixedAddressBar_me$ref,
   |},
 |};
 export type FAQScreenQuery = {|
@@ -37,6 +38,7 @@ query FAQScreenQuery {
   me {
     id
     ...FAQScreen_me
+    ...FixedAddressBar_me
   }
 }
 
@@ -69,6 +71,11 @@ fragment FAQScreen_posts on Post {
   title
   content
   ...FAQPage_posts
+}
+
+fragment FixedAddressBar_me on User {
+  id
+  isAdmin
 }
 */
 
@@ -129,6 +136,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "FAQScreen_me"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "FixedAddressBar_me"
           }
         ],
         "storageKey": null
@@ -198,16 +210,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "18b39d893af19b65fe9cf2620804f65c",
+    "cacheID": "88030230055ae45269bd2a7a37835786",
     "id": null,
     "metadata": {},
     "name": "FAQScreenQuery",
     "operationKind": "query",
-    "text": "query FAQScreenQuery {\n  posts(type: faq, limit: 100) {\n    id\n    ...FAQScreen_posts\n  }\n  me {\n    id\n    ...FAQScreen_me\n  }\n}\n\nfragment FAQDetailPage_me on User {\n  id\n  isAdmin\n}\n\nfragment FAQPage_me on User {\n  id\n  isAdmin\n  ...FAQDetailPage_me\n}\n\nfragment FAQPage_posts on Post {\n  id\n  title\n  content\n  isDeleted\n}\n\nfragment FAQScreen_me on User {\n  id\n  isAdmin\n  ...FAQPage_me\n}\n\nfragment FAQScreen_posts on Post {\n  id\n  title\n  content\n  ...FAQPage_posts\n}\n"
+    "text": "query FAQScreenQuery {\n  posts(type: faq, limit: 100) {\n    id\n    ...FAQScreen_posts\n  }\n  me {\n    id\n    ...FAQScreen_me\n    ...FixedAddressBar_me\n  }\n}\n\nfragment FAQDetailPage_me on User {\n  id\n  isAdmin\n}\n\nfragment FAQPage_me on User {\n  id\n  isAdmin\n  ...FAQDetailPage_me\n}\n\nfragment FAQPage_posts on Post {\n  id\n  title\n  content\n  isDeleted\n}\n\nfragment FAQScreen_me on User {\n  id\n  isAdmin\n  ...FAQPage_me\n}\n\nfragment FAQScreen_posts on Post {\n  id\n  title\n  content\n  ...FAQPage_posts\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '360436e7fe7bc871e172c956a04bfa36';
+(node/*: any*/).hash = 'a1facdc6d0b2fb040659c92dc162edca';
 
 module.exports = node;

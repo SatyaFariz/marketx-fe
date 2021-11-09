@@ -10,6 +10,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type CategoryDetailScreen_attributes$ref = any;
 type CategoryDetailScreen_category$ref = any;
+type FixedAddressBar_me$ref = any;
 export type CategoryDetailScreenQueryVariables = {|
   id: string
 |};
@@ -17,6 +18,7 @@ export type CategoryDetailScreenQueryResponse = {|
   +me: ?{|
     +id: ?string,
     +isAdmin: ?boolean,
+    +$fragmentRefs: FixedAddressBar_me$ref,
   |},
   +category: ?{|
     +$fragmentRefs: CategoryDetailScreen_category$ref
@@ -40,6 +42,7 @@ query CategoryDetailScreenQuery(
   me {
     id
     isAdmin
+    ...FixedAddressBar_me
   }
   category(id: $id) {
     ...CategoryDetailScreen_category
@@ -101,6 +104,11 @@ fragment CreateSpecificationFieldsModal_attributes on Attribute {
 fragment CreateSpecificationFieldsModal_category on Category {
   id
 }
+
+fragment FixedAddressBar_me on User {
+  id
+  isAdmin
+}
 */
 
 const node/*: ConcreteRequest*/ = (function(){
@@ -121,20 +129,8 @@ v1 = {
 v2 = {
   "alias": null,
   "args": null,
-  "concreteType": "User",
-  "kind": "LinkedField",
-  "name": "me",
-  "plural": false,
-  "selections": [
-    (v1/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "isAdmin",
-      "storageKey": null
-    }
-  ],
+  "kind": "ScalarField",
+  "name": "isAdmin",
   "storageKey": null
 },
 v3 = [
@@ -162,7 +158,24 @@ return {
     "metadata": null,
     "name": "CategoryDetailScreenQuery",
     "selections": [
-      (v2/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/),
+          (v2/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "FixedAddressBar_me"
+          }
+        ],
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": (v3/*: any*/),
@@ -206,7 +219,19 @@ return {
     "kind": "Operation",
     "name": "CategoryDetailScreenQuery",
     "selections": [
-      (v2/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/),
+          (v2/*: any*/)
+        ],
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": (v3/*: any*/),
@@ -396,16 +421,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b8144cc46eee9e8a571845a01efaff36",
+    "cacheID": "467ab5c925ad38bb54608ed28b290496",
     "id": null,
     "metadata": {},
     "name": "CategoryDetailScreenQuery",
     "operationKind": "query",
-    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n  attributes {\n    id\n    ...CategoryDetailScreen_attributes\n  }\n}\n\nfragment CategoryDetailScreen_attributes on Attribute {\n  id\n  ...CreateSpecificationFieldsModal_attributes\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  forceLocationInput\n  listingType\n  ...CreateSpecificationFieldsModal_category\n  ancestors {\n    id\n    name\n  }\n  icon {\n    url\n    id\n  }\n  specFields {\n    type\n    isRequired\n    isEnum\n    isMulti\n    suffix\n    prefix\n    isAutocomplete\n    options\n    max\n    min\n    numberOfLines\n    attribute {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment CreateSpecificationFieldsModal_attributes on Attribute {\n  id\n  name\n}\n\nfragment CreateSpecificationFieldsModal_category on Category {\n  id\n}\n"
+    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n    ...FixedAddressBar_me\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n  attributes {\n    id\n    ...CategoryDetailScreen_attributes\n  }\n}\n\nfragment CategoryDetailScreen_attributes on Attribute {\n  id\n  ...CreateSpecificationFieldsModal_attributes\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  forceLocationInput\n  listingType\n  ...CreateSpecificationFieldsModal_category\n  ancestors {\n    id\n    name\n  }\n  icon {\n    url\n    id\n  }\n  specFields {\n    type\n    isRequired\n    isEnum\n    isMulti\n    suffix\n    prefix\n    isAutocomplete\n    options\n    max\n    min\n    numberOfLines\n    attribute {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment CreateSpecificationFieldsModal_attributes on Attribute {\n  id\n  name\n}\n\nfragment CreateSpecificationFieldsModal_category on Category {\n  id\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '6f34f6d59255537059a5cbbf270e8558';
+(node/*: any*/).hash = '76587ad496e8e8d0c5389ff2a46b5bd6';
 
 module.exports = node;

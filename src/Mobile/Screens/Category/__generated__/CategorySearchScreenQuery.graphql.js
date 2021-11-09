@@ -9,6 +9,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type CategoryScreen_category$ref = any;
+type FixedAddressBar_me$ref = any;
 export type CategorySearchScreenQueryVariables = {|
   id: string
 |};
@@ -16,7 +17,11 @@ export type CategorySearchScreenQueryResponse = {|
   +category: ?{|
     +id: ?string,
     +$fragmentRefs: CategoryScreen_category$ref,
-  |}
+  |},
+  +me: ?{|
+    +id: ?string,
+    +$fragmentRefs: FixedAddressBar_me$ref,
+  |},
 |};
 export type CategorySearchScreenQuery = {|
   variables: CategorySearchScreenQueryVariables,
@@ -33,6 +38,10 @@ query CategorySearchScreenQuery(
     id
     ...CategoryScreen_category
   }
+  me {
+    id
+    ...FixedAddressBar_me
+  }
 }
 
 fragment CategoryScreen_category on Category {
@@ -43,6 +52,11 @@ fragment CategoryScreen_category on Category {
     id
     name
   }
+}
+
+fragment FixedAddressBar_me on User {
+  id
+  isAdmin
 }
 */
 
@@ -98,6 +112,23 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "FixedAddressBar_me"
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -141,20 +172,39 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isAdmin",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "8599c3d4798bf8db4b5f8e97b1c6659c",
+    "cacheID": "e8aa7eb1098ba5842e1ed5feaff96883",
     "id": null,
     "metadata": {},
     "name": "CategorySearchScreenQuery",
     "operationKind": "query",
-    "text": "query CategorySearchScreenQuery(\n  $id: String!\n) {\n  category(id: $id) {\n    id\n    ...CategoryScreen_category\n  }\n}\n\nfragment CategoryScreen_category on Category {\n  id\n  name\n  level\n  ancestors {\n    id\n    name\n  }\n}\n"
+    "text": "query CategorySearchScreenQuery(\n  $id: String!\n) {\n  category(id: $id) {\n    id\n    ...CategoryScreen_category\n  }\n  me {\n    id\n    ...FixedAddressBar_me\n  }\n}\n\nfragment CategoryScreen_category on Category {\n  id\n  name\n  level\n  ancestors {\n    id\n    name\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '2731c383189db97e1e3c97f795328860';
+(node/*: any*/).hash = '3c15954ca81f3e74df4bb3fae79fcf0d';
 
 module.exports = node;

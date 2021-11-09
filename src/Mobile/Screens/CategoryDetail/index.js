@@ -8,7 +8,8 @@ const chunk = {
     query CategoryDetailScreenQuery($id: String!) {
       me {
         id,
-        isAdmin
+        isAdmin,
+        ...FixedAddressBar_me
       },
       category(id: $id) {
         ...CategoryDetailScreen_category
@@ -25,7 +26,7 @@ const chunk = {
     return {
       title: 'Rental App',
       component: (
-        <FixedAddressBar>
+        <FixedAddressBar me={data?.me}>
           {data.me?.isAdmin &&
           <CategoryDetailScreen
             me={data.me}

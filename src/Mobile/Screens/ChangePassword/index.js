@@ -8,7 +8,8 @@ const chunk = {
     query ChangePasswordScreenQuery {
       me {
         id,
-        ...ChangePasswordScreen_me
+        ...ChangePasswordScreen_me,
+        ...FixedAddressBar_me
       }
     }
   `,
@@ -18,7 +19,7 @@ const chunk = {
     return {
       title: 'Rental App',
       component: (
-        <FixedAddressBar>
+        <FixedAddressBar me={data?.me}>
           <ChangePasswordScreen
             me={data?.me}
           />

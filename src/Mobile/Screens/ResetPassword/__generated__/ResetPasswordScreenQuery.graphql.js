@@ -8,12 +8,13 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type FixedAddressBar_me$ref = any;
 type ResetPasswordScreen_me$ref = any;
 export type ResetPasswordScreenQueryVariables = {||};
 export type ResetPasswordScreenQueryResponse = {|
   +me: ?{|
     +id: ?string,
-    +$fragmentRefs: ResetPasswordScreen_me$ref,
+    +$fragmentRefs: ResetPasswordScreen_me$ref & FixedAddressBar_me$ref,
   |}
 |};
 export type ResetPasswordScreenQuery = {|
@@ -28,7 +29,13 @@ query ResetPasswordScreenQuery {
   me {
     id
     ...ResetPasswordScreen_me
+    ...FixedAddressBar_me
   }
+}
+
+fragment FixedAddressBar_me on User {
+  id
+  isAdmin
 }
 
 fragment ResetPasswordScreen_me on User {
@@ -64,6 +71,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "ResetPasswordScreen_me"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "FixedAddressBar_me"
           }
         ],
         "storageKey": null
@@ -86,23 +98,30 @@ return {
         "name": "me",
         "plural": false,
         "selections": [
-          (v0/*: any*/)
+          (v0/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isAdmin",
+            "storageKey": null
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "0dfe3cf1a3827935ca440c21a299fe41",
+    "cacheID": "c5cbf9fe61b508f87cf2366cb2564919",
     "id": null,
     "metadata": {},
     "name": "ResetPasswordScreenQuery",
     "operationKind": "query",
-    "text": "query ResetPasswordScreenQuery {\n  me {\n    id\n    ...ResetPasswordScreen_me\n  }\n}\n\nfragment ResetPasswordScreen_me on User {\n  id\n}\n"
+    "text": "query ResetPasswordScreenQuery {\n  me {\n    id\n    ...ResetPasswordScreen_me\n    ...FixedAddressBar_me\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment ResetPasswordScreen_me on User {\n  id\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'b273b28c0b14211080d447eb48b1f476';
+(node/*: any*/).hash = 'e390e90e0dbb76d62ca55a30473249c2';
 
 module.exports = node;
