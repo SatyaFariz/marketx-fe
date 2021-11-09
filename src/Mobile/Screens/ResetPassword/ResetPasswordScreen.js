@@ -1,4 +1,4 @@
-import { LOGO_URL } from '../../Constants'
+import { LOGO_URL, PASSWORD_MAX_LENGTH } from '../../Constants'
 import { TextField, ButtonBase } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
@@ -130,6 +130,9 @@ const Component = props => {
           label="Password Baru"
           fullWidth
           disabled={loading}
+          inputProps={{
+            maxLength: PASSWORD_MAX_LENGTH
+          }}
           style={{
             marginTop: 10,
             marginBottom: 10
@@ -146,6 +149,9 @@ const Component = props => {
           label="Konfirmasi Password Baru"
           fullWidth
           disabled={loading}
+          inputProps={{
+            maxLength: PASSWORD_MAX_LENGTH
+          }}
           style={{
             marginTop: 10,
             marginBottom: 10
