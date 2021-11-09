@@ -21,6 +21,7 @@ import Link from '../../Components/Link'
 import App from '../../../app.json'
 
 const useEmail = true
+const passwordMaxLength = 30
 const emailAlreadyRegisteredErrorMessage = 'Email ini sudah terdaftar di sistem kami.'
 
 const Component = props => {
@@ -338,6 +339,9 @@ const Component = props => {
             variant="outlined"
             label="Nama Lengkap"
             fullWidth
+            inputProps={{
+              maxLength: 50
+            }}
             style={{
               marginTop: 10,
               marginBottom: 10
@@ -381,6 +385,9 @@ const Component = props => {
             variant="outlined"
             label="Kata Sandi"
             fullWidth
+            inputProps={{
+              maxLength: passwordMaxLength
+            }}
             style={{
               marginTop: 10,
               marginBottom: 10
@@ -397,6 +404,9 @@ const Component = props => {
             variant="outlined"
             label="Konfirmasi Kata Sandi"
             fullWidth
+            inputProps={{
+              maxLength: passwordMaxLength
+            }}
             style={{
               marginTop: 10,
               marginBottom: 10
@@ -425,7 +435,8 @@ const Component = props => {
             inputProps={{
               pattern: "[0-9]*",
               type: "text",
-              inputMode: "numeric"
+              inputMode: "numeric",
+              maxLength: 10
             }}
           />
 
