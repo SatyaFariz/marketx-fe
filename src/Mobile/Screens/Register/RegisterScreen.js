@@ -312,14 +312,20 @@ const Component = props => {
         paddingLeft: 30,
         paddingRight: 30
       }}>
-        <img
-          alt="twitter"
-          src={LOGO_URL}
-          style={{
-            height: 38,
-            width: 38
-          }}
-        />
+        <ButtonBase
+          component={Link}
+          href='/'
+          disableRipple
+        >
+          <img
+            alt="twitter"
+            src={LOGO_URL}
+            style={{
+              height: 38,
+              width: 38
+            }}
+          />
+        </ButtonBase>
 
         <h1 style={{
           marginTop: 30,

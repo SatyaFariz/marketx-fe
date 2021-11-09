@@ -1,10 +1,11 @@
 import { LOGO_URL } from '../../Constants'
-import { TextField } from '@material-ui/core'
+import { TextField, ButtonBase } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import Button from '../../Components/Button'
+import Link from '../../Components/Link'
 import ResetPassword from '../../../mutations/ResetPassword'
 import Validator from '../../../helpers/validator'
 
@@ -103,14 +104,20 @@ const Component = props => {
         paddingLeft: 30,
         paddingRight: 30
       }}>
-        <img
-          alt="twitter"
-          src={LOGO_URL}
-          style={{
-            height: 38,
-            width: 38
-          }}
-        />
+        <ButtonBase
+          component={Link}
+          href='/'
+          disableRipple
+        >
+          <img
+            alt="twitter"
+            src={LOGO_URL}
+            style={{
+              height: 38,
+              width: 38
+            }}
+          />
+        </ButtonBase>
 
         <h1 style={{
           marginTop: 30,
