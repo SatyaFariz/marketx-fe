@@ -19,7 +19,6 @@ import useAppContext from '../../hooks/useAppContext'
 const thisYear = new Date().getFullYear()
 
 const Component = props => {
-  const { isMobile } = useAppContext()
   const [showDrawer, setShowDrawer] = useState(false)
   const { categories, featuredProducts, me } = props
 

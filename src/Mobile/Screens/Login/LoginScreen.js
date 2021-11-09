@@ -131,7 +131,12 @@ const Component = props => {
   if(me) return null
 
   return (
-    <div>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      height: '100%'
+    }}>
       <div style={{
         paddingTop: 20,
         paddingBottom: 20,
@@ -266,6 +271,36 @@ const Component = props => {
           </ButtonBase>
         </div>
         
+      </div>
+
+      <div style={{
+        paddingLeft: 40,
+        paddingRight: 40,
+        paddingTop: 20,
+        lineHeight: '20px',
+        textAlign: 'center'
+      }}>
+        <p style={{
+          fontSize: 'small'
+        }}>
+          {'Saya setuju dengan '}
+          <ButtonBase 
+            style={{ color: Color.primary }} 
+            component={Link} 
+            href='/terms-of-service'
+          >
+            Ketentuan Layanan
+          </ButtonBase> 
+          {' dan '}
+          <ButtonBase 
+            style={{ color: Color.primary }} 
+            component={Link} 
+            href='/privacy-policy'
+          >
+            Kebijakan Privasi
+          </ButtonBase> 
+          {` ${App.name}`}
+        </p>
       </div>
 
       {showOTPView &&
