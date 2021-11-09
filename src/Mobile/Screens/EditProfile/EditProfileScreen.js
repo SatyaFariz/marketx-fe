@@ -124,6 +124,12 @@ const Component = props => {
         validWhen: false,
         message: 'Fill in your name.'
       },
+      {
+        field: 'name',
+        method: v => v.trim().length > 1,
+        validWhen: true,
+        message: 'Min 2 chars.'
+      },
     ])
 
     const validation = validator.validate({ name })
@@ -266,6 +272,9 @@ const Component = props => {
             label="Nama Lengkap"
             fullWidth
             disabled={sendingOtpCode || loading}
+            inputProps={{
+              maxLength: 50
+            }}
             style={{
               marginTop: 10,
               marginBottom: 10

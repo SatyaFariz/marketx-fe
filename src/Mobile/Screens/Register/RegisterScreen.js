@@ -68,7 +68,7 @@ const Component = props => {
       },
       {
         field: 'name',
-        method: v => v.length > 1,
+        method: v => v.trim().length > 1,
         validWhen: true,
         message: 'Min 2 chars.'
       },
