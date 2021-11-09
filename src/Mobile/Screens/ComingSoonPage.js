@@ -31,7 +31,8 @@ const Component = () => {
         alignItems: 'center',
         justifyContent: 'center',
         width: 600,
-        textAlign: 'center'
+        textAlign: 'center',
+        zIndex: 999999
       }}>
         <h1 style={{
           margin: 0,
