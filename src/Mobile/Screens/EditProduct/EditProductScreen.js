@@ -722,6 +722,9 @@ const Component = props => {
             }
 
             {product.category[product.category.length - 1].specFields.map((field) => {
+              const MAX_LENGTH = field.maxLength || PRODUCT_SPEC_VALUE_MAX_LENGTH
+              const NUMERIC_MAX_LENGTH = field.maxLength || PRODUCT_NUMERIC_SPEC_VALUE_MAX_LENGTH
+
               if(field.type === 'year') {
                 const startYear = 1901
                 let year = new Date().getFullYear()
@@ -773,7 +776,7 @@ const Component = props => {
                       value={specs[field.attribute.id]}
                       onChange={(_, value) => _setSpecs(field)({ target: { value }})}
                       filterOptions={field.isEnum ? undefined : (options, params) => {
-                        const inputValue = params.inputValue.trim().substr(0, PRODUCT_SPEC_VALUE_MAX_LENGTH)
+                        const inputValue = params.inputValue.trim().substr(0, MAX_LENGTH)
                         const filtered = autocompleteFilter(options, { ...params, inputValue })
                 
                         // Create a new value
@@ -870,7 +873,7 @@ const Component = props => {
                         pattern: "[0-9]*",
                         type: "text",
                         inputMode: "numeric",
-                        maxLength: PRODUCT_NUMERIC_SPEC_VALUE_MAX_LENGTH
+                        maxLength: NUMERIC_MAX_LENGTH
                       }}
                       error={validation[field.attribute.id]?.isInvalid}
                       helperText={validation[field.attribute.id]?.message}
@@ -911,7 +914,7 @@ const Component = props => {
                     error={validation[field.attribute.id]?.isInvalid}
                     helperText={validation[field.attribute.id]?.message}
                     inputProps={{
-                      maxLength: field.numberOfLines > 1 ? (PRODUCT_SPEC_VALUE_MAX_LENGTH * field.numberOfLines) : PRODUCT_SPEC_VALUE_MAX_LENGTH
+                      maxLength: field.numberOfLines > 1 ? (field.maxLength || (PRODUCT_SPEC_VALUE_MAX_LENGTH * field.numberOfLines)) : MAX_LENGTH
                     }}
                     InputProps={{
                       startAdornment: field.prefix?.trim()?.length > 0 ? (

@@ -501,7 +501,7 @@ const Component = props => {
                                       }
                                     </div>
                                     
-                                    {field.type === 'int' &&
+                                    {['int', 'float'].indexOf(field.type) > -1 &&
                                     <>
                                       <NumberFormat
                                         customInput={TextField}
@@ -570,49 +570,49 @@ const Component = props => {
                                     }
 
                                     {field.type === 'string' &&
-                                    <>
-                                      <NumberFormat
-                                        customInput={TextField}
-                                        variant="outlined"
-                                        label="Number of Lines"
-                                        value={field.numberOfLines}
-                                        onValueChange={({ value }) => setFields(i, 'numberOfLines', value.trimLeft())}
-                                        fullWidth
-                                        disabled={loading}
-                                        style={{
-                                          marginTop: 10,
-                                          marginBottom: 10
-                                        }}
-                                        inputProps={{
-                                          pattern: "[0-9]*",
-                                          type: "text",
-                                          inputMode: "numeric"
-                                        }}
-                                        allowNegative={false}
-                                        decimalSeparator={null}
-                                      />
+                                    <NumberFormat
+                                      customInput={TextField}
+                                      variant="outlined"
+                                      label="Number of Lines"
+                                      value={field.numberOfLines}
+                                      onValueChange={({ value }) => setFields(i, 'numberOfLines', value.trimLeft())}
+                                      fullWidth
+                                      disabled={loading}
+                                      style={{
+                                        marginTop: 10,
+                                        marginBottom: 10
+                                      }}
+                                      inputProps={{
+                                        pattern: "[0-9]*",
+                                        type: "text",
+                                        inputMode: "numeric"
+                                      }}
+                                      allowNegative={false}
+                                      decimalSeparator={null}
+                                    />
+                                    }
 
-                                      <NumberFormat
-                                        customInput={TextField}
-                                        variant="outlined"
-                                        label="Max Length"
-                                        value={field.maxLength}
-                                        onValueChange={({ value }) => setFields(i, 'maxLength', value.trimLeft())}
-                                        fullWidth
-                                        disabled={loading}
-                                        style={{
-                                          marginTop: 10,
-                                          marginBottom: 10
-                                        }}
-                                        inputProps={{
-                                          pattern: "[0-9]*",
-                                          type: "text",
-                                          inputMode: "numeric"
-                                        }}
-                                        allowNegative={false}
-                                        decimalSeparator={null}
-                                      />
-                                    </>
+                                    {['int', 'float', 'string'].indexOf(field.type) > -1 &&
+                                    <NumberFormat
+                                      customInput={TextField}
+                                      variant="outlined"
+                                      label="Max Length"
+                                      value={field.maxLength}
+                                      onValueChange={({ value }) => setFields(i, 'maxLength', value.trimLeft())}
+                                      fullWidth
+                                      disabled={loading}
+                                      style={{
+                                        marginTop: 10,
+                                        marginBottom: 10
+                                      }}
+                                      inputProps={{
+                                        pattern: "[0-9]*",
+                                        type: "text",
+                                        inputMode: "numeric"
+                                      }}
+                                      allowNegative={false}
+                                      decimalSeparator={null}
+                                    />
                                     }
 
                                     <div style={{

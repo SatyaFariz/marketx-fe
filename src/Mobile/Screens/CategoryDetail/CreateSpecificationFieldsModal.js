@@ -426,54 +426,55 @@ const Component = props => {
                     }
 
                     {item.type === 'string' &&
-                    <>
-                      <NumberFormat
-                        customInput={TextField}
-                        variant="outlined"
-                        label="Number of Lines"
-                        value={item.numberOfLines}
-                        onValueChange={({ value }) => setFieldValue(i, 'numberOfLines', value.trimLeft())}
-                        fullWidth
-                        disabled={loading}
-                        style={{
-                          marginTop: 10,
-                          marginBottom: 10
-                        }}
-                        inputProps={{
-                          pattern: "[0-9]*",
-                          type: "text",
-                          inputMode: "numeric"
-                        }}
-                        // error={validation?.price?.isInvalid}
-                        // helperText={validation?.price?.message}
-                        allowNegative={false}
-                        decimalSeparator={null}
-                        // thousandSeparator="."
-                      />
-                      <NumberFormat
-                        customInput={TextField}
-                        variant="outlined"
-                        label="Max Length"
-                        value={item.maxLength}
-                        onValueChange={({ value }) => setFieldValue(i, 'maxLength', value.trimLeft())}
-                        fullWidth
-                        disabled={loading}
-                        style={{
-                          marginTop: 10,
-                          marginBottom: 10
-                        }}
-                        inputProps={{
-                          pattern: "[0-9]*",
-                          type: "text",
-                          inputMode: "numeric"
-                        }}
-                        // error={validation?.price?.isInvalid}
-                        // helperText={validation?.price?.message}
-                        allowNegative={false}
-                        decimalSeparator={null}
-                        // thousandSeparator="."
-                      />
-                    </>
+                    <NumberFormat
+                      customInput={TextField}
+                      variant="outlined"
+                      label="Number of Lines"
+                      value={item.numberOfLines}
+                      onValueChange={({ value }) => setFieldValue(i, 'numberOfLines', value.trimLeft())}
+                      fullWidth
+                      disabled={loading}
+                      style={{
+                        marginTop: 10,
+                        marginBottom: 10
+                      }}
+                      inputProps={{
+                        pattern: "[0-9]*",
+                        type: "text",
+                        inputMode: "numeric"
+                      }}
+                      // error={validation?.price?.isInvalid}
+                      // helperText={validation?.price?.message}
+                      allowNegative={false}
+                      decimalSeparator={null}
+                      // thousandSeparator="."
+                    />
+                    }
+
+                    {['int', 'float', 'string'].indexOf(item.type) > -1 &&
+                    <NumberFormat
+                      customInput={TextField}
+                      variant="outlined"
+                      label="Max Length"
+                      value={item.maxLength}
+                      onValueChange={({ value }) => setFieldValue(i, 'maxLength', value.trimLeft())}
+                      fullWidth
+                      disabled={loading}
+                      style={{
+                        marginTop: 10,
+                        marginBottom: 10
+                      }}
+                      inputProps={{
+                        pattern: "[0-9]*",
+                        type: "text",
+                        inputMode: "numeric"
+                      }}
+                      // error={validation?.price?.isInvalid}
+                      // helperText={validation?.price?.message}
+                      allowNegative={false}
+                      decimalSeparator={null}
+                      // thousandSeparator="."
+                    />
                     }
 
                     <div style={{
