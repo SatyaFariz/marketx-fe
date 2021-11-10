@@ -1057,7 +1057,8 @@ export default createFragmentContainer(Component, {
         isMulti,
         prefix,
         suffix,
-        numberOfLines
+        numberOfLines,
+        maxLength
       }
     }
   `,

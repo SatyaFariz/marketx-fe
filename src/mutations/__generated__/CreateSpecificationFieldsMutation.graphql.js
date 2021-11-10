@@ -19,6 +19,7 @@ export type SpecificationFieldInput = {|
   max?: ?number,
   min?: ?number,
   numberOfLines?: ?number,
+  maxLength?: ?number,
   prefix?: ?string,
   suffix?: ?string,
 |};
@@ -38,10 +39,15 @@ export type CreateSpecificationFieldsMutationResponse = {|
         +type: ?string,
         +isRequired: ?boolean,
         +isEnum: ?boolean,
+        +isMulti: ?boolean,
+        +suffix: ?string,
+        +prefix: ?string,
         +isAutocomplete: ?boolean,
         +options: ?$ReadOnlyArray<?string>,
         +max: ?number,
         +min: ?number,
+        +numberOfLines: ?number,
+        +maxLength: ?number,
         +attribute: ?{|
           +id: ?string,
           +name: ?string,
@@ -73,10 +79,15 @@ mutation CreateSpecificationFieldsMutation(
         type
         isRequired
         isEnum
+        isMulti
+        suffix
+        prefix
         isAutocomplete
         options
         max
         min
+        numberOfLines
+        maxLength
         attribute {
           id
           name
@@ -170,31 +181,66 @@ v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isAutocomplete",
+  "name": "isMulti",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "options",
+  "name": "suffix",
   "storageKey": null
 },
 v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "max",
+  "name": "prefix",
   "storageKey": null
 },
 v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "min",
+  "name": "isAutocomplete",
   "storageKey": null
 },
 v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "options",
+  "storageKey": null
+},
+v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "max",
+  "storageKey": null
+},
+v13 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "min",
+  "storageKey": null
+},
+v14 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "numberOfLines",
+  "storageKey": null
+},
+v15 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "maxLength",
+  "storageKey": null
+},
+v16 = {
   "alias": null,
   "args": null,
   "concreteType": "Attribute",
@@ -253,7 +299,12 @@ return {
                   (v8/*: any*/),
                   (v9/*: any*/),
                   (v10/*: any*/),
-                  (v11/*: any*/)
+                  (v11/*: any*/),
+                  (v12/*: any*/),
+                  (v13/*: any*/),
+                  (v14/*: any*/),
+                  (v15/*: any*/),
+                  (v16/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -307,6 +358,11 @@ return {
                   (v9/*: any*/),
                   (v10/*: any*/),
                   (v11/*: any*/),
+                  (v12/*: any*/),
+                  (v13/*: any*/),
+                  (v14/*: any*/),
+                  (v15/*: any*/),
+                  (v16/*: any*/),
                   (v3/*: any*/)
                 ],
                 "storageKey": null
@@ -320,16 +376,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "bf8ce6db9e0c418d49cd63ab210bdc01",
+    "cacheID": "b791b8ff5d5be5d7fd441ce4fc530629",
     "id": null,
     "metadata": {},
     "name": "CreateSpecificationFieldsMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateSpecificationFieldsMutation(\n  $categoryId: String!\n  $fields: [SpecificationFieldInput!]!\n) {\n  createSpecificationFields(categoryId: $categoryId, fields: $fields) {\n    actionInfo {\n      hasError\n      message\n    }\n    category {\n      id\n      specFields {\n        type\n        isRequired\n        isEnum\n        isAutocomplete\n        options\n        max\n        min\n        attribute {\n          id\n          name\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "mutation CreateSpecificationFieldsMutation(\n  $categoryId: String!\n  $fields: [SpecificationFieldInput!]!\n) {\n  createSpecificationFields(categoryId: $categoryId, fields: $fields) {\n    actionInfo {\n      hasError\n      message\n    }\n    category {\n      id\n      specFields {\n        type\n        isRequired\n        isEnum\n        isMulti\n        suffix\n        prefix\n        isAutocomplete\n        options\n        max\n        min\n        numberOfLines\n        maxLength\n        attribute {\n          id\n          name\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'fa49201e570fea0a31c6ea088fa3279f';
+(node/*: any*/).hash = '637cfb616f0fb6d078ec012cf26a42ae';
 
 module.exports = node;

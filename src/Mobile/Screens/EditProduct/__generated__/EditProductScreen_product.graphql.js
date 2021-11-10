@@ -77,6 +77,7 @@ export type EditProductScreen_product = {|
       +prefix: ?string,
       +suffix: ?string,
       +numberOfLines: ?number,
+      +maxLength: ?number,
     |}>,
   |}>,
   +$refType: EditProductScreen_product$ref,
@@ -416,6 +417,13 @@ return {
               "kind": "ScalarField",
               "name": "numberOfLines",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "maxLength",
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -429,6 +437,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '2f980d7791a3f6f46d63b5801217daff';
+(node/*: any*/).hash = '4e6f60e351c502af2be998c6cef2390d';
 
 module.exports = node;

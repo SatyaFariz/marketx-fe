@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Oct 31 2021 17:10:34 GMT+0700 (Western Indonesia Time)
+# timestamp: Wed Nov 10 2021 15:22:38 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -303,6 +303,7 @@ type SpecificationField {
   max: Int
   min: Int
   numberOfLines: Int
+  maxLength: Int
   options: [String]
   isEnum: Boolean
   isMulti: Boolean
@@ -322,6 +323,7 @@ input SpecificationFieldInput {
   max: Float
   min: Float
   numberOfLines: Int
+  maxLength: Int
   prefix: String
   suffix: String
 }

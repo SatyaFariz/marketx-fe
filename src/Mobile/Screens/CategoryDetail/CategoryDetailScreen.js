@@ -79,6 +79,7 @@ const Component = props => {
     min: field.min?.toString() || '',
     max: field.max?.toString() || '',
     numberOfLines: field.numberOfLines?.toString() || '',
+    maxLength: field.maxLength?.toString() || '',
     prefix: field.prefix,
     suffix: field.suffix,
     key: i,
@@ -157,7 +158,8 @@ const Component = props => {
               suffix: field.suffix,
               max: field.max.trim().length > 0 ? parseFloat(field.max, 10) : null,
               min: field.min.trim().length > 0 ? parseFloat(field.min, 10) : null,
-              numberOfLines: field.numberOfLines.trim().length > 0 ? parseInt(field.numberOfLines, 10) : null
+              numberOfLines: field.numberOfLines.trim().length > 0 ? parseInt(field.numberOfLines, 10) : null,
+              maxLength: field.maxLength.trim().length > 0 ? parseInt(field.maxLength, 10) : null
             })
           }
           return fields
@@ -568,26 +570,49 @@ const Component = props => {
                                     }
 
                                     {field.type === 'string' &&
-                                    <NumberFormat
-                                      customInput={TextField}
-                                      variant="outlined"
-                                      label="Number of Lines"
-                                      value={field.numberOfLines}
-                                      onValueChange={({ value }) => setFields(i, 'numberOfLines', value.trimLeft())}
-                                      fullWidth
-                                      disabled={loading}
-                                      style={{
-                                        marginTop: 10,
-                                        marginBottom: 10
-                                      }}
-                                      inputProps={{
-                                        pattern: "[0-9]*",
-                                        type: "text",
-                                        inputMode: "numeric"
-                                      }}
-                                      allowNegative={false}
-                                      decimalSeparator={null}
-                                    />
+                                    <>
+                                      <NumberFormat
+                                        customInput={TextField}
+                                        variant="outlined"
+                                        label="Number of Lines"
+                                        value={field.numberOfLines}
+                                        onValueChange={({ value }) => setFields(i, 'numberOfLines', value.trimLeft())}
+                                        fullWidth
+                                        disabled={loading}
+                                        style={{
+                                          marginTop: 10,
+                                          marginBottom: 10
+                                        }}
+                                        inputProps={{
+                                          pattern: "[0-9]*",
+                                          type: "text",
+                                          inputMode: "numeric"
+                                        }}
+                                        allowNegative={false}
+                                        decimalSeparator={null}
+                                      />
+
+                                      <NumberFormat
+                                        customInput={TextField}
+                                        variant="outlined"
+                                        label="Max Length"
+                                        value={field.maxLength}
+                                        onValueChange={({ value }) => setFields(i, 'maxLength', value.trimLeft())}
+                                        fullWidth
+                                        disabled={loading}
+                                        style={{
+                                          marginTop: 10,
+                                          marginBottom: 10
+                                        }}
+                                        inputProps={{
+                                          pattern: "[0-9]*",
+                                          type: "text",
+                                          inputMode: "numeric"
+                                        }}
+                                        allowNegative={false}
+                                        decimalSeparator={null}
+                                      />
+                                    </>
                                     }
 
                                     <div style={{
@@ -710,6 +735,7 @@ export default createFragmentContainer(Component, {
         max,
         min,
         numberOfLines,
+        maxLength,
         attribute {
           id,
           name

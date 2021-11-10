@@ -26,10 +26,15 @@ const mutation = graphql`
           type,
           isRequired,
           isEnum,
+          isMulti,
+          suffix,
+          prefix,
           isAutocomplete,
           options,
           max,
           min,
+          numberOfLines,
+          maxLength,
           attribute {
             id,
             name

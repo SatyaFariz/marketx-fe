@@ -39,6 +39,7 @@ export type CategoryDetailScreen_category = {|
     +max: ?number,
     +min: ?number,
     +numberOfLines: ?number,
+    +maxLength: ?number,
     +attribute: ?{|
       +id: ?string,
       +name: ?string,
@@ -234,6 +235,13 @@ return {
         {
           "alias": null,
           "args": null,
+          "kind": "ScalarField",
+          "name": "maxLength",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "Attribute",
           "kind": "LinkedField",
           "name": "attribute",
@@ -255,6 +263,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '8d94cfc31d658a75ab4b8ce1327e7d06';
+(node/*: any*/).hash = '0201566b87e463773497a439bf3968d4';
 
 module.exports = node;

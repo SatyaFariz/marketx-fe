@@ -28,6 +28,7 @@ export type SpecificationFieldInput = {|
   max?: ?number,
   min?: ?number,
   numberOfLines?: ?number,
+  maxLength?: ?number,
   prefix?: ?string,
   suffix?: ?string,
 |};
@@ -58,10 +59,15 @@ export type UpdateCategoryMutationResponse = {|
         +type: ?string,
         +isRequired: ?boolean,
         +isEnum: ?boolean,
+        +isMulti: ?boolean,
+        +suffix: ?string,
+        +prefix: ?string,
         +isAutocomplete: ?boolean,
         +options: ?$ReadOnlyArray<?string>,
         +max: ?number,
         +min: ?number,
+        +numberOfLines: ?number,
+        +maxLength: ?number,
         +attribute: ?{|
           +id: ?string,
           +name: ?string,
@@ -105,10 +111,15 @@ mutation UpdateCategoryMutation(
         type
         isRequired
         isEnum
+        isMulti
+        suffix
+        prefix
         isAutocomplete
         options
         max
         min
+        numberOfLines
+        maxLength
         attribute {
           id
           name
@@ -248,31 +259,66 @@ v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isAutocomplete",
+  "name": "isMulti",
   "storageKey": null
 },
 v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "options",
+  "name": "suffix",
   "storageKey": null
 },
 v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "max",
+  "name": "prefix",
   "storageKey": null
 },
 v18 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "min",
+  "name": "isAutocomplete",
   "storageKey": null
 },
 v19 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "options",
+  "storageKey": null
+},
+v20 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "max",
+  "storageKey": null
+},
+v21 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "min",
+  "storageKey": null
+},
+v22 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "numberOfLines",
+  "storageKey": null
+},
+v23 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "maxLength",
+  "storageKey": null
+},
+v24 = {
   "alias": null,
   "args": null,
   "concreteType": "Attribute",
@@ -340,7 +386,12 @@ return {
                   (v16/*: any*/),
                   (v17/*: any*/),
                   (v18/*: any*/),
-                  (v19/*: any*/)
+                  (v19/*: any*/),
+                  (v20/*: any*/),
+                  (v21/*: any*/),
+                  (v22/*: any*/),
+                  (v23/*: any*/),
+                  (v24/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -413,6 +464,11 @@ return {
                   (v17/*: any*/),
                   (v18/*: any*/),
                   (v19/*: any*/),
+                  (v20/*: any*/),
+                  (v21/*: any*/),
+                  (v22/*: any*/),
+                  (v23/*: any*/),
+                  (v24/*: any*/),
                   (v3/*: any*/)
                 ],
                 "storageKey": null
@@ -426,16 +482,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3aad42f8927d5eb93dfc4c3b12b11c96",
+    "cacheID": "a22974cc21f7875b7c0c520705dc485b",
     "id": null,
     "metadata": {},
     "name": "UpdateCategoryMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateCategoryMutation(\n  $input: UpdateCategoryInput!\n) {\n  updateCategory(input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    category {\n      id\n      name\n      isPublished\n      showsProductConditionField\n      requiresProductCondition\n      listingType\n      ancestors {\n        id\n        name\n      }\n      icon {\n        url\n        id\n      }\n      specFields {\n        type\n        isRequired\n        isEnum\n        isAutocomplete\n        options\n        max\n        min\n        attribute {\n          id\n          name\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateCategoryMutation(\n  $input: UpdateCategoryInput!\n) {\n  updateCategory(input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    category {\n      id\n      name\n      isPublished\n      showsProductConditionField\n      requiresProductCondition\n      listingType\n      ancestors {\n        id\n        name\n      }\n      icon {\n        url\n        id\n      }\n      specFields {\n        type\n        isRequired\n        isEnum\n        isMulti\n        suffix\n        prefix\n        isAutocomplete\n        options\n        max\n        min\n        numberOfLines\n        maxLength\n        attribute {\n          id\n          name\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'f60a2ee90d3461a5bd2f70c238a3d56b';
+(node/*: any*/).hash = 'b932edf8d6c2e7b456f9776b74d7ceba';
 
 module.exports = node;
