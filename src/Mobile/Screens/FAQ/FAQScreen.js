@@ -8,10 +8,22 @@ import useAppContext from '../../hooks/useAppContext'
 import FAQPage from './Desktop/FAQPage'
 
 const Component = props => {
-  const { posts, me } = props
+  const { posts, me, history } = props
   const { queryParams, isMobile } = useAppContext()
 
   const i = queryParams.question ? parseInt(queryParams.question) : null
+
+  const handleContentClick = (e) => {
+    if(e.target?.parentElement?.nodeName === 'A') {
+      const { host, href } = e.target.parentElement
+      if(host === window.location.host) {
+        const reg = /.+?\:\/\/.+?(\/.+?)?(?:#|\?|)?$/
+        const pathname = reg.exec(href)[1] || '/'
+        e.preventDefault()
+        history.push(pathname)
+      }
+    }
+  }
 
   if(!isMobile) {
     return (
@@ -52,9 +64,12 @@ const Component = props => {
         </div>
       </div>
       {typeof i === 'number' ?
-      <div style={{
-        padding: '20px 15px'
-      }}>
+      <div 
+        onClick={handleContentClick}
+        style={{
+          padding: '20px 15px'
+        }}
+      >
         <h4 style={{ margin: 0, marginBottom: 20 }}>{posts[i].title}</h4>
         <div
           dangerouslySetInnerHTML={{ __html: posts[i].content }} 
