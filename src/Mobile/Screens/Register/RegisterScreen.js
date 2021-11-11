@@ -64,25 +64,25 @@ const Component = props => {
         field: 'name',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'Fill in your name.'
+        message: 'Isi nama lengkap Anda.'
       },
       {
         field: 'name',
         method: v => v.trim().length > 1,
         validWhen: true,
-        message: 'Min 2 chars.'
+        message: 'Nama lengkap minimal 2 karakter.'
       },
       {
         field: 'email',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'Fill in your email.'
+        message: 'Isi email Anda.'
       },
       {
         field: 'email',
         method: v => isEmail(v),
         validWhen: true,
-        message: 'Enter a valid email.'
+        message: 'Email tidak valid.'
       },
       {
         field: 'email',
@@ -94,37 +94,43 @@ const Component = props => {
         field: 'password',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'Fill in your password.'
+        message: 'Isi kata sandi Anda.'
       },
       {
         field: 'password',
         method: Validator.isStrongPassword,
         validWhen: true,
-        message: 'Password must contain at least 1 lower case, 1 upper case, 1 number, min 6 characters and max 30 characters.'
+        message: 'Kata sandi minimal 6 karakter dan harus terdiri dari minimal 1 huruh kecil, 1 huruf besar, 1 angka.'
       },
       {
         field: 'repassword',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'Fill in your password confirmation.'
+        message: 'Ulangi kata sandi Anda.'
       },
       {
         field: 'repassword',
         method: () => Validator.isEmpty(password),
         validWhen: false,
-        message: 'Fill in your password first.'
+        message: 'Isi kata sandi Anda terlebih dahulu.'
+      },
+      {
+        field: 'repassword',
+        method: Validator.isStrongPassword,
+        validWhen: true,
+        message: 'Kata sandi minimal 6 karakter dan harus terdiri dari minimal 1 huruh kecil, 1 huruf besar, 1 angka.'
       },
       {
         field: 'repassword',
         method: v => v === password,
         validWhen: true,
-        message: 'Must match your password.'
+        message: 'Kata sandi tidak sama.'
       },
       {
         field: 'emailVerificationCode',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'Fill in with the code sent to your email.'
+        message: 'Isi dengan kode verifikasi yang kami kirim ke email Anda.'
       },
     ] : [
       {
