@@ -26,13 +26,13 @@ const Component = props => {
         field: 'currentPassword',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'Isi dengan kata sandi Anda saat ini.'
+        message: 'Isi kata sandi Anda saat ini.'
       },
       {
         field: 'password',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'Isi dengan kata sandi baru Anda.'
+        message: 'Isi kata sandi baru Anda.'
       },
       {
         field: 'password',

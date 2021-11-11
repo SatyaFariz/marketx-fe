@@ -152,25 +152,25 @@ const Component = props => {
         field: 'name',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'This field is required.'
+        message: 'Isi nama akun Anda.'
       },
       {
         field: 'name',
         method: v => v.trim().length > 1,
         validWhen: true,
-        message: 'Min 2 chars.'
+        message: 'Nama akun minimal 2 karakter.'
       },
       {
         field: 'whatsappNumber',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'This field is required.'
+        message: 'Isi nomor WhatsApp Anda.'
       },
       {
         field: 'whatsappNumber',
         method: (number) => number.length > PHONE_MIN_CHAR_LEN,
         validWhen: true,
-        message: `Minimal ${PHONE_MIN_CHAR_LEN} karakter.`
+        message: `Nomor WhatsApp minimal ${PHONE_MIN_CHAR_LEN} karakter.`
       },
       {
         field: 'whatsappNumber',
@@ -192,31 +192,31 @@ const Component = props => {
         field: 'province',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'This field is required.'
+        message: 'Provinsi harus diisi.'
       },
       {
         field: 'city',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'This field is required.'
+        message: 'Kota/Kabupaten harus diisi.'
       },
       {
         field: 'district',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'This field is required.'
+        message: 'Kecamatan harus diisi.'
       },
       {
         field: 'fullAddress',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'This field is required.'
+        message: 'Alamat lengkap harus diisi.'
       },
       ...(isSameNumber ? [] : [{
         field: 'verificationCode',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'This field is required.'
+        message: 'Isi dengan kode verifikasi yang kami kirim ke nomor WhatsApp Anda.'
       }])
     ])
 
