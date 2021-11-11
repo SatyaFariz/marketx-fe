@@ -1,4 +1,3 @@
-import { LOGO_URL } from '../../Constants'
 import { TextField, ButtonBase } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
@@ -13,6 +12,7 @@ import { createFragmentContainer } from 'react-relay'
 import Button from '../../Components/Button'
 import App from '../../../app.json'
 import { isEmail } from 'validator'
+import Logo from '../../../assets/marketx_logo.jpg'
 
 const useEmail = true
 
@@ -150,10 +150,9 @@ const Component = props => {
         >
           <img
             alt="twitter"
-            src={LOGO_URL}
+            src={Logo}
             style={{
-              height: 38,
-              width: 38
+              height: 25
             }}
           />
         </ButtonBase>

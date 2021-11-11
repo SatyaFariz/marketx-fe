@@ -1,4 +1,4 @@
-import { LOGO_URL, PASSWORD_MAX_LENGTH } from '../../Constants'
+import { PASSWORD_MAX_LENGTH } from '../../Constants'
 import { TextField, ButtonBase } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
@@ -8,6 +8,7 @@ import Button from '../../Components/Button'
 import Link from '../../Components/Link'
 import ChangePassword from '../../../mutations/ChangePassword'
 import Validator from '../../../helpers/validator'
+import Logo from '../../../assets/marketx_logo.jpg'
 
 const Component = props => {
   const { me } = props
@@ -115,10 +116,9 @@ const Component = props => {
         >
           <img
             alt="twitter"
-            src={LOGO_URL}
+            src={Logo}
             style={{
-              height: 38,
-              width: 38
+              height: 25
             }}
           />
         </ButtonBase>

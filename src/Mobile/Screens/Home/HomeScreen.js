@@ -14,7 +14,7 @@ import { RiLockPasswordFill } from 'react-icons/ri'
 import { IoPeople, IoShieldCheckmark, IoHelpCircle, IoDocumentText, IoPersonOutline } from 'react-icons/io5'
 import { FcDocument } from 'react-icons/fc'
 import App from '../../../app.json'
-import useAppContext from '../../hooks/useAppContext'
+import Logo from '../../../assets/marketx_logo.jpg'
 
 const thisYear = new Date().getFullYear()
 
@@ -66,10 +66,11 @@ const Component = props => {
                 paddingLeft: 15
               }}>
                 <img
-                  src="https://res.cloudinary.com/tuanrumah/image/upload/v1628197566/amazon_logo_500500.png"
+                  src={Logo}
                   alt="app_logo"
                   style={{
-                    height: 40,
+                    height: 25,
+                    marginLeft: 5
                   }}
                 />
               </div>
@@ -367,10 +368,11 @@ const Component = props => {
                 <IoMenuOutline color="black"/>
               </IconButton>
               <img
-                src="https://res.cloudinary.com/tuanrumah/image/upload/v1628197566/amazon_logo_500500.png"
+                src={Logo}
                 alt="app_logo"
                 style={{
-                  height: 40,
+                  height: 22,
+                  marginLeft: 10
                 }}
               />
             </div>
