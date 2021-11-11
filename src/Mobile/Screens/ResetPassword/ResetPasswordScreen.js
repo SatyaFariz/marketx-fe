@@ -25,31 +25,37 @@ const Component = props => {
         field: 'password',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'Fill in your password.'
+        message: 'Isi kata sandi baru Anda.'
       },
       {
         field: 'password',
         method: Validator.isStrongPassword,
         validWhen: true,
-        message: 'Password must contain at least 1 lower case, 1 upper case, 1 number, min 6 characters and max 30 characters.'
+        message: 'Kata sandi minimal 6 karakter dan harus terdiri dari minimal 1 huruh kecil, 1 huruf besar, 1 angka.'
       },
       {
         field: 'repassword',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'Fill in your password confirmation.'
+        message: 'Ulangi kata sandi baru Anda.'
       },
       {
         field: 'repassword',
         method: () => Validator.isEmpty(password),
         validWhen: false,
-        message: 'Fill in your password first.'
+        message: 'Isi kata sandi baru Anda terlebih dahulu.'
+      },
+      {
+        field: 'repassword',
+        method: Validator.isStrongPassword,
+        validWhen: true,
+        message: 'Kata sandi minimal 6 karakter dan harus terdiri dari minimal 1 huruh kecil, 1 huruf besar, 1 angka.'
       },
       {
         field: 'repassword',
         method: v => v === password,
         validWhen: true,
-        message: 'Must match your password.'
+        message: 'Kata sandi tidak sama.'
       },
     ])
     const validation = validator.validate({
@@ -122,12 +128,12 @@ const Component = props => {
         <h1 style={{
           marginTop: 30,
           marginBottom: 10
-        }}>Reset Password</h1>
+        }}>Atur ulang kata sandi</h1>
 
         
         <TextField
           variant="outlined"
-          label="Password Baru"
+          label="Kata Sandi Baru"
           fullWidth
           disabled={loading}
           inputProps={{
@@ -146,7 +152,7 @@ const Component = props => {
 
         <TextField
           variant="outlined"
-          label="Konfirmasi Password Baru"
+          label="Konfirmasi Kata Sandi Baru"
           fullWidth
           disabled={loading}
           inputProps={{
@@ -164,7 +170,7 @@ const Component = props => {
         />
 
         <Button
-          label="Reset"
+          label="Simpan"
           thick
           style={{
             marginTop: 10,

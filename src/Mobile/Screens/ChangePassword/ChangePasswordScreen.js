@@ -54,6 +54,12 @@ const Component = props => {
       },
       {
         field: 'repassword',
+        method: Validator.isStrongPassword,
+        validWhen: true,
+        message: 'Kata sandi minimal 6 karakter dan harus terdiri dari minimal 1 huruh kecil, 1 huruf besar, 1 angka.'
+      },
+      {
+        field: 'repassword',
         method: v => v === password,
         validWhen: true,
         message: 'Kata sandi tidak sama.'
