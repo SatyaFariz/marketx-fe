@@ -52,9 +52,13 @@ const Component = props => {
       }}>
         <List
         >
-          {categories.map(category => {
-            const names = [...category.ancestors, category].map(item => item.name)
-            const name = names.join(' > ')
+          {categories.map((category, i) => {
+            const ancestors = category.ancestors?.length > 0 ? category.ancestors : [{
+              id: `cat_${i}`,
+              name: 'Jual'
+            }]
+            const names = [...ancestors, category].map(item => item.name)
+            const name = names.join(' / ')
             return (
               <ListItem
                 component={Link}
