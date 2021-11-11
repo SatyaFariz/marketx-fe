@@ -1,4 +1,3 @@
-import { LOGO_URL } from '../../Constants'
 import { TextField } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
@@ -7,6 +6,7 @@ import { createFragmentContainer } from 'react-relay'
 import Button from '../../Components/Button'
 import { isEmail } from 'validator'
 import RequestPasswordResetLink from '../../../mutations/RequestPasswordResetLink'
+import Logo from '../../../assets/marketx_logo.jpg'
 
 const Component = props => {
   const { me } = props
@@ -56,17 +56,16 @@ const Component = props => {
       }}>
         <img
           alt="twitter"
-          src={LOGO_URL}
+          src={Logo}
           style={{
-            height: 38,
-            width: 38
+            height: 25
           }}
         />
 
         <h1 style={{
           marginTop: 30,
           marginBottom: 10
-        }}>Forgot Password</h1>
+        }}>Lupa kata sandi</h1>
 
         
         <TextField
