@@ -301,7 +301,7 @@ const Component = props => {
                 display: 'block',
                 textAlign: 'center'
               }}>
-                {store.merchantId === me?.id ? "You still don't have products. Add one!" : "This store doesn't have products yet."}
+                {store.merchantId === me?.id ? "Anda belum menambahkan iklan." : "Akun ini belum menambahkan iklan."}
               </span>
             </div>
             :
