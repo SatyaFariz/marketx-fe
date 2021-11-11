@@ -539,7 +539,7 @@ const Component = props => {
                       flexDirection: 'row',
                       alignItems: 'center'
                     }}>
-                      <span style={{ fontSize: 16, fontWeight: 500 }}>{product.store.name}</span>
+                      <span style={{ fontSize: 16, fontWeight: 500 }}>{product.store.name}{isMyProduct ? ' (Anda)' : ''}</span>
                       {product.store.isVerified &&
                       <VerifiedIcon/>
                       }
