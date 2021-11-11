@@ -122,13 +122,13 @@ const Component = props => {
         field: 'name',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'Fill in your name.'
+        message: 'Isi nama lengkap Anda.'
       },
       {
         field: 'name',
         method: v => v.trim().length > 1,
         validWhen: true,
-        message: 'Min 2 chars.'
+        message: 'Nama lengkap minimal 2 karakter.'
       },
     ])
 
