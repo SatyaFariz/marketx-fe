@@ -20,7 +20,7 @@ import SendVerificationCode from '../../../mutations/SendVerificationCode'
 const megabytes = 1048576
 const whatsappNumberNotRegisteredErrorMessage = 'Nomor ini tidak terdaftar di WhatsApp.'
 const verificationCodeFieldHelperText = 'Diisi jika nomor WhatsApp berubah.'
-const nameFieldHelperText = 'Nama ini adalah nama yang akan muncul di halaman iklan anda.'
+const nameFieldHelperText = 'Nama ini adalah nama yang akan muncul di halaman iklan Anda.'
 const PHONE_MIN_CHAR_LEN = 10
 
 const Component = props => {
