@@ -117,7 +117,7 @@ const Component = props => {
           disableRipple
         >
           <img
-            alt="twitter"
+            alt="marketx-logo"
             src={Logo}
             style={{
               height: 25
