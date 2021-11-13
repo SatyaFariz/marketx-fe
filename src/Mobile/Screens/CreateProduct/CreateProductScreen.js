@@ -135,7 +135,7 @@ const Component = props => {
             return value <= currentVal.max
           },
           validWhen: true,
-          message: `${currentVal.attribute.name} maksimal ${currentVal.max}`
+          message: `${currentVal.attribute.name} maksimal ${currentVal.max}.`
         })
       }
 
@@ -151,7 +151,7 @@ const Component = props => {
             return value >= currentVal.min
           },
           validWhen: true,
-          message: `${currentVal.attribute.name} minimal ${currentVal.min}`
+          message: `${currentVal.attribute.name} minimal ${currentVal.min}.`
         })
       }
       

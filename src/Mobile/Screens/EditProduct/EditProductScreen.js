@@ -101,7 +101,7 @@ const Component = props => {
           field: currentVal.attribute.id,
           method: Validator.isEmpty,
           validWhen: false,
-          message: 'This field is required.'
+          message: `${currentVal.attribute.name} harus diisi.`
         })
       }
 
@@ -117,7 +117,7 @@ const Component = props => {
             return value <= currentVal.max
           },
           validWhen: true,
-          message: `Maks: ${currentVal.max}`
+          message: `${currentVal.attribute.name} maksimal ${currentVal.max}.`
         })
       }
 
@@ -133,7 +133,7 @@ const Component = props => {
             return value >= currentVal.min
           },
           validWhen: true,
-          message: `Min: ${currentVal.min}`
+          message: `${currentVal.attribute.name} minimal ${currentVal.min}.`
         })
       }
       
@@ -146,32 +146,32 @@ const Component = props => {
         field: 'name',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'This field is required.'
+        message: 'Isi judul iklan Anda.'
       },
       {
         field: 'price',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'This field is required.'
+        message: 'Isi harga yang Anda tawarkan.'
       },
       {
         field: 'price',
         method: (price) => parseFloat(price, 10) > 0,
         validWhen: true,
-        message: 'Price must be above 0.'
+        message: 'Harga harus lebih dari Rp 0.'
       },
       {
         field: 'desc',
         method: Validator.isEmpty,
         validWhen: false,
-        message: 'This field is required.'
+        message: 'Isi deskripsi iklan Anda secara mendetail dan lengkap.'
       },
       ...(product.category[product.category.length - 1].requiresProductCondition ? [
         {
           field: 'productConditionId',
           method: Validator.isEmpty,
           validWhen: false,
-          message: 'This field is required.'
+          message: 'Isi kondisi produk yang Anda tawarkan.'
         },
       ] : []),
       ...(product.category[product.category.length - 1].listingType === 'rental_product' ? [
@@ -179,7 +179,7 @@ const Component = props => {
           field: 'rentalDurationId',
           method: Validator.isEmpty,
           validWhen: false,
-          message: 'This field is required.'
+          message: 'Isi durasi sewa produk yang Anda tawarkan.'
         },
       ] : []),
       ...(!syncLocation ? [
@@ -187,7 +187,7 @@ const Component = props => {
           field: 'province',
           method: Validator.isEmpty,
           validWhen: false,
-          message: 'This field is required.'
+          message: 'Provinsi harus diisi.'
         },
       ] : []),
       ...(!syncLocation ? [
@@ -195,7 +195,7 @@ const Component = props => {
           field: 'city',
           method: Validator.isEmpty,
           validWhen: false,
-          message: 'This field is required.'
+          message: 'Kota/Kabupaten harus diisi.'
         },
       ] : []),
       ...(!syncLocation ? [
@@ -203,7 +203,7 @@ const Component = props => {
           field: 'district',
           method: Validator.isEmpty,
           validWhen: false,
-          message: 'This field is required.'
+          message: 'Kecamatan harus diisi.'
         },
       ] : [])
     ])
@@ -271,7 +271,7 @@ const Component = props => {
   }
 
   const deleteProduct = () => {
-    const yes = window.confirm('Do you want to delete this product?')
+    const yes = window.confirm('Anda yakin ingin menghapus iklan ini?')
     if(yes) {
       setDeleting(true)
       DeleteProduct(environment, { id: product.id }, (payload, error) => {
