@@ -169,7 +169,7 @@ const Component = props => {
             fontSize: 20,
             fontWeight: 500,
             textAlign: 'center',
-          }}>Photos</h1>
+          }}>Foto</h1>
         </div>
       </div>
 
