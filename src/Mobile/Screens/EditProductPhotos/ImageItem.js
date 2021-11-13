@@ -100,12 +100,12 @@ const Component = props => {
         <MenuItem onClick={() => {
           props.updateMainImage()
           handleClose()
-        }}>Set as main photo</MenuItem>
+        }}>Atur sbg foto utama</MenuItem>
         }
         <MenuItem onClick={() => {
           props.setSelectedIds(prev => [...prev, props.image.id])
           handleClose()
-        }}>Select</MenuItem>
+        }}>Pilih</MenuItem>
       </Menu>
     </div>
   )
