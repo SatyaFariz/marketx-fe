@@ -925,8 +925,7 @@ const Component = props => {
               margin: 0, 
               marginBottom: 10, 
               marginTop: 5,
-              lineHeight: '16px',
-              verticalAlign: 'middle'
+              lineHeight: '16px'
             }}>
               Lokasi iklan ini akan otomatis ter-update jika anda meng-update alamat di&nbsp;
               <ButtonBase

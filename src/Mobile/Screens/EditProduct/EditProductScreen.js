@@ -4,7 +4,7 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, PRODUCT_TITLE_MAX_LENGTH, PR
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import { TextField, InputAdornment, MenuItem, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress, Checkbox, Switch } from '@material-ui/core'
+import { TextField, InputAdornment, MenuItem, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress, Checkbox, Switch, ButtonBase } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import Validator from '../../../helpers/validator'
@@ -959,7 +959,26 @@ const Component = props => {
               </div>
             
 
-              <p style={{ fontSize: 12, color: 'grey', marginBottom: 10, marginTop: 5 }}>Lokasi iklan ini akan otomatis ter-update jika anda meng-update alamat di Akun Iklan Anda.</p>
+              <p style={{ 
+                fontSize: 12, 
+                color: 'grey', 
+                margin: 0,
+                marginBottom: 10, 
+                marginTop: 5,
+                lineHeight: '16px'
+              }}>
+                Lokasi iklan ini akan otomatis ter-update jika anda meng-update alamat di&nbsp;
+                <ButtonBase
+                  onClick={() => window.open('/edit/ad.account')}
+                  style={{
+                    fontSize: 'inherit',
+                    color: Color.primary,
+                    verticalAlign: 'baseline'
+                  }}
+                >
+                  Akun Iklan
+                </ButtonBase>&nbsp;Anda.
+              </p>
             </>
             }
 
