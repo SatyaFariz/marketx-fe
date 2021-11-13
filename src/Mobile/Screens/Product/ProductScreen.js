@@ -577,7 +577,7 @@ const Component = props => {
             {product.rentalDuration &&
             <span style={{
               display: 'block'
-            }}>Price per {product.rentalDuration.display}</span>
+            }}>Harga per {product.rentalDuration.display}</span>
             }
             <span style={{
               fontSize: 16,
