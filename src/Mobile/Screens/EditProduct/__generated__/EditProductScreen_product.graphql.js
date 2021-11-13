@@ -18,6 +18,7 @@ export type EditProductScreen_product = {|
   +desc: ?string,
   +isPublished: ?boolean,
   +isDeleted: ?boolean,
+  +isSuspended: ?boolean,
   +syncLocationWithStoreAddress: ?boolean,
   +images: ?$ReadOnlyArray<?{|
     +id: ?string,
@@ -153,6 +154,13 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "isDeleted",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "isSuspended",
       "storageKey": null
     },
     {
@@ -437,6 +445,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '4e6f60e351c502af2be998c6cef2390d';
+(node/*: any*/).hash = '3bfa21151ae8a1762acba3229a75176b';
 
 module.exports = node;

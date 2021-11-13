@@ -393,13 +393,13 @@ const Component = props => {
   }, [city])
 
   useEffect(() => {
-    if(merchantId !== me.id) {
+    if(merchantId !== me?.id) {
       history.replace('/')
     }
   }, [me, merchantId, history])
 
 
-  if(merchantId !== me.id) return null
+  if(merchantId !== me?.id) return null
 
   return (
     <div>
@@ -1135,6 +1135,7 @@ const Component = props => {
       </div>
       
       {product.isDeleted &&
+      !me?.isAdmin &&
       <div style={{
         position: 'absolute',
         left: 0,
@@ -1159,7 +1160,7 @@ const Component = props => {
             <IoCloseOutline size={30} color="white"/>
           </IconButton>
         </div>
-        <h6 style={{ color: 'white', fontSize: 24 }}>This product has been deleted</h6>
+        <h6 style={{ color: 'white', fontSize: 24 }}>Iklan ini telah dihapus</h6>
       </div>
       }
     </div>
@@ -1175,6 +1176,7 @@ export default createFragmentContainer(Component, {
       desc,
       isPublished,
       isDeleted,
+      isSuspended,
       syncLocationWithStoreAddress,
       images {
         id,

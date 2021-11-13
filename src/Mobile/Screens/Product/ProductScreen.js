@@ -626,7 +626,7 @@ const Component = props => {
             <IoCloseOutline size={30} color="white"/>
           </IconButton>
         </div>
-        <h6 style={{ color: 'white', fontSize: 24 }}>Produk ini telah dihapus</h6>
+        <h6 style={{ color: 'white', fontSize: 24 }}>Iklan ini telah dihapus</h6>
       </div>
       }
 
