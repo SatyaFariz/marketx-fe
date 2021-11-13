@@ -59,7 +59,7 @@ const Component = props => {
                   color: 'white',
                   textAlign: 'center'
                 }}>
-                  {product.isSuspended ? 'Produk ini dinonaktifkan' : 'Produk ini belum dipublikasi'}
+                  {product.isSuspended ? 'Iklan ini dinonaktifkan' : 'Iklan ini belum dipublikasi'}
                 </span>
               </div>
             </div>
