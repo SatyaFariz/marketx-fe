@@ -4,7 +4,7 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, PRODUCT_TITLE_MAX_LENGTH, PR
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
-import { TextField, InputAdornment, MenuItem, ListItemText, Checkbox, Switch } from '@material-ui/core'
+import { TextField, InputAdornment, MenuItem, ListItemText, Checkbox, Switch, ButtonBase } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import Validator from '../../../helpers/validator'
@@ -12,6 +12,7 @@ import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
 import CreateProduct from '../../../mutations/CreateProduct'
 import BackButton from '../../Components/BackButton'
+import Link from '../../Components/Link'
 import Button from '../../Components/Button'
 import NumberFormat from 'react-number-format'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -918,7 +919,27 @@ const Component = props => {
             </div>
           
 
-            <p style={{ fontSize: 12, color: 'grey', margin: 0, marginBottom: 10, marginTop: 5 }}>Lokasi iklan ini akan otomatis ter-update jika anda meng-update alamat di Akun Iklan Anda.</p>
+            <div style={{ 
+              fontSize: 12, 
+              color: 'grey', 
+              margin: 0, 
+              marginBottom: 10, 
+              marginTop: 5,
+              lineHeight: '16px',
+              verticalAlign: 'middle'
+            }}>
+              Lokasi iklan ini akan otomatis ter-update jika anda meng-update alamat di&nbsp;
+              <ButtonBase
+                onClick={() => window.open('/edit/ad.account')}
+                style={{
+                  fontSize: 'inherit',
+                  color: Color.primary,
+                  verticalAlign: 'baseline'
+                }}
+              >
+                Akun Iklan
+              </ButtonBase>&nbsp;Anda.
+            </div>
           </>
           }
 
