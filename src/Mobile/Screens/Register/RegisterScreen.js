@@ -523,7 +523,10 @@ const Component = props => {
         }}>
           {'Saya setuju dengan '}
           <ButtonBase 
-            style={{ color: Color.primary }} 
+            style={{ 
+              color: Color.primary,
+              verticalAlign: 'baseline'
+            }} 
             component={Link} 
             href='/terms-of-service'
           >
@@ -531,7 +534,10 @@ const Component = props => {
           </ButtonBase> 
           {' dan '}
           <ButtonBase 
-            style={{ color: Color.primary }} 
+            style={{ 
+              color: Color.primary,
+              verticalAlign: 'baseline'
+            }} 
             component={Link} 
             href='/privacy-policy'
           >
