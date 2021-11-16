@@ -81,8 +81,10 @@ const Component = props => {
     max: field.max?.toString() || '',
     numberOfLines: field.numberOfLines?.toString() || '',
     maxLength: field.maxLength?.toString() || '',
-    prefix: field.prefix,
-    suffix: field.suffix,
+    prefix: field.prefix || '',
+    suffix: field.suffix || '',
+    emptyErrorMessage: field.emptyErrorMessage || '',
+    helperText: field.helperText || '',
     key: i,
     expanded: false,
     deleted: false
@@ -158,6 +160,8 @@ const Component = props => {
               isMulti: field.isMulti,
               prefix: field.prefix,
               suffix: field.suffix,
+              emptyErrorMessage: field.emptyErrorMessage,
+              helperText: field.helperText,
               max: field.max.trim().length > 0 ? parseFloat(field.max, 10) : null,
               min: field.min.trim().length > 0 ? parseFloat(field.min, 10) : null,
               numberOfLines: field.numberOfLines.trim().length > 0 ? parseInt(field.numberOfLines, 10) : null,
@@ -657,6 +661,34 @@ const Component = props => {
                                     />
                                     }
 
+                                    <TextField
+                                      variant="outlined"
+                                      label="Empty Error Message"
+                                      fullWidth
+                                      disabled={loading}
+                                      style={{
+                                        marginTop: 10,
+                                        marginBottom: 10
+                                      }}
+                                      multiline
+                                      onChange={e => setFields(i, 'emptyErrorMessage', e.target.value.trimLeft())}
+                                      value={field.emptyErrorMessage}
+                                    />
+
+                                    <TextField
+                                      variant="outlined"
+                                      label="Helper Text"
+                                      fullWidth
+                                      disabled={loading}
+                                      style={{
+                                        marginTop: 10,
+                                        marginBottom: 10
+                                      }}
+                                      multiline
+                                      onChange={e => setFields(i, 'helperText', e.target.value.trimLeft())}
+                                      value={field.helperText}
+                                    />
+
                                     <div style={{
                                       display: 'flex',
                                       flexDirection: 'row',
@@ -779,6 +811,8 @@ export default createFragmentContainer(Component, {
         min,
         numberOfLines,
         maxLength,
+        emptyErrorMessage,
+        helperText,
         attribute {
           id,
           name
