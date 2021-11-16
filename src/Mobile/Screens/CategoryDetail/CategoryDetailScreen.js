@@ -62,7 +62,7 @@ const Component = props => {
   const { queryParams } = useAppContext()
   const [file, setFile] = useState(null)
   const [name, setName] = useState(category.name)
-  const [rentalDurationIds, setRentalDurationIds] = useState([])
+  const [rentalDurationIds, setRentalDurationIds] = useState(category.rentalDurationIds || [])
   const [showsProductConditionField, setShowsProductConditionField] = useState(category.showsProductConditionField || false)
   const [requiresProductCondition, setRequiresProductCondition] = useState(category.requiresProductCondition || false)
   const [forceLocationInput, setForceLocationInput] = useState(category.forceLocationInput || false)
@@ -141,6 +141,7 @@ const Component = props => {
         requiresProductCondition,
         forceLocationInput,
         isPublished,
+        rentalDurationIds,
         specFields: specFields.reduce((fields, field) => {
           if(!field.deleted) {
             fields.push({
@@ -755,6 +756,7 @@ export default createFragmentContainer(Component, {
       showsProductConditionField,
       requiresProductCondition,
       forceLocationInput,
+      rentalDurationIds,
       listingType,
       ...CreateSpecificationFieldsModal_category,
       ancestors {

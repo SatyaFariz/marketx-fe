@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Wed Nov 10 2021 15:22:38 GMT+0700 (Western Indonesia Time)
+# timestamp: Tue Nov 16 2021 23:30:54 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -76,6 +76,7 @@ type Category {
   ancestors: [Category]
   children: [Category]
   specFields: [SpecificationField]
+  rentalDurationIds: [String]
 }
 
 type CreateAttributesPayload {
@@ -310,6 +311,8 @@ type SpecificationField {
   isAutocomplete: Boolean
   prefix: String
   suffix: String
+  emptyErrorMessage: String
+  helperText: String
 }
 
 input SpecificationFieldInput {
@@ -326,6 +329,8 @@ input SpecificationFieldInput {
   maxLength: Int
   prefix: String
   suffix: String
+  emptyErrorMessage: String
+  helperText: String
 }
 
 input SpecificationInput {
@@ -372,6 +377,7 @@ input UpdateCategoryInput {
   showsProductConditionField: Boolean
   requiresProductCondition: Boolean
   forceLocationInput: Boolean
+  rentalDurationIds: [String]
   specFields: [SpecificationFieldInput!]!
 }
 

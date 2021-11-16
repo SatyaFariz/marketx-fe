@@ -15,6 +15,7 @@ export type UpdateCategoryInput = {|
   showsProductConditionField?: ?boolean,
   requiresProductCondition?: ?boolean,
   forceLocationInput?: ?boolean,
+  rentalDurationIds?: ?$ReadOnlyArray<?string>,
   specFields: $ReadOnlyArray<SpecificationFieldInput>,
 |};
 export type SpecificationFieldInput = {|
@@ -31,6 +32,8 @@ export type SpecificationFieldInput = {|
   maxLength?: ?number,
   prefix?: ?string,
   suffix?: ?string,
+  emptyErrorMessage?: ?string,
+  helperText?: ?string,
 |};
 export type UpdateCategoryMutationVariables = {|
   input: UpdateCategoryInput

@@ -22,6 +22,8 @@ export type SpecificationFieldInput = {|
   maxLength?: ?number,
   prefix?: ?string,
   suffix?: ?string,
+  emptyErrorMessage?: ?string,
+  helperText?: ?string,
 |};
 export type CreateSpecificationFieldsMutationVariables = {|
   categoryId: string,

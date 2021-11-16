@@ -19,6 +19,7 @@ export type CategoryDetailScreen_category = {|
   +showsProductConditionField: ?boolean,
   +requiresProductCondition: ?boolean,
   +forceLocationInput: ?boolean,
+  +rentalDurationIds: ?$ReadOnlyArray<?string>,
   +listingType: ?string,
   +ancestors: ?$ReadOnlyArray<?{|
     +id: ?string,
@@ -110,6 +111,13 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "forceLocationInput",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "rentalDurationIds",
       "storageKey": null
     },
     {
@@ -263,6 +271,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0201566b87e463773497a439bf3968d4';
+(node/*: any*/).hash = 'efe05d3b5dd3814c92e18212535b456d';
 
 module.exports = node;
