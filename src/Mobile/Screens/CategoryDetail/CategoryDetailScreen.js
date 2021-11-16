@@ -6,7 +6,7 @@ import BackButton from '../../Components/BackButton'
 import { FcStackOfPhotos } from 'react-icons/fc'
 import { useState, useEffect, useRef } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { TextField, ButtonBase, Switch, Accordion as MuiAccordion, AccordionSummary as MuiAccordionSummary, AccordionDetails } from '@material-ui/core'
+import { TextField, ButtonBase, Switch, Accordion as MuiAccordion, AccordionSummary as MuiAccordionSummary, AccordionDetails, MenuItem } from '@material-ui/core'
 import Button from '../../Components/Button'
 import Validator from '../../../helpers/validator'
 import UpdateCategory from '../../../mutations/UpdateCategory'
@@ -58,10 +58,11 @@ const Accordion = withStyles({
 const Component = props => {
   const isMounted = useRef(true)
   const { environment } = props.relay
-  const { category, attributes } = props
+  const { category, attributes, rentalDurations } = props
   const { queryParams } = useAppContext()
   const [file, setFile] = useState(null)
   const [name, setName] = useState(category.name)
+  const [rentalDurationIds, setRentalDurationIds] = useState([])
   const [showsProductConditionField, setShowsProductConditionField] = useState(category.showsProductConditionField || false)
   const [requiresProductCondition, setRequiresProductCondition] = useState(category.requiresProductCondition || false)
   const [forceLocationInput, setForceLocationInput] = useState(category.forceLocationInput || false)
@@ -345,6 +346,46 @@ const Component = props => {
             error={validation?.name?.isInvalid}
             helperText={validation?.name?.message}
           />
+
+          {category.listingType === 'rental_product' &&
+          <TextField
+            variant="outlined"
+            select
+            label="Rental Durations"
+            fullWidth
+            disabled={loading}
+            value={rentalDurationIds || ''}
+            onChange={(e) => setRentalDurationIds(e.target.value)}
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            error={validation.rentalDurationId?.isInvalid}
+            helperText={validation.rentalDurationId?.message}
+            SelectProps={{
+              multiple: true,
+              multiline: true,
+              renderValue: (selected) => {
+                return selected.map(id => {
+                  const duration = rentalDurations.find(item => item.id === id)
+                  return `${duration.value} ${duration.name}`
+                }).join(', ')
+              },
+              MenuProps: {
+                disableAutoFocusItem: true,
+                style: {
+                  maxHeight: 500
+                }
+              }
+            }}
+          >
+            {rentalDurations.map((option, i) => (
+              <MenuItem key={i} value={option.id}>
+                {option.value} {option.name}
+              </MenuItem>
+            ))}
+          </TextField>
+          }
           
           {!['rental_product', 'service'].includes(category.listingType) &&
           <>
