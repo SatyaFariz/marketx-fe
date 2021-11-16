@@ -638,7 +638,7 @@ const Component = props => {
             <TextField
               variant="outlined"
               select
-              label="Durasi sewa"
+              label="Per durasi sewa"
               fullWidth
               disabled={loading}
               value={rentalDurationId || ''}
