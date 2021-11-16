@@ -628,7 +628,7 @@ const Component = props => {
               }
             }}
           >
-            {rentalDurations.map((option, i) => (
+            {(category.rentalDurationIds?.length > 0 ? rentalDurations.filter(item => category.rentalDurationIds.includes(item.id)) : rentalDurations).map((option, i) => (
               <MenuItem key={i} value={option.id}>
                 {option.value} {option.name}
               </MenuItem>
@@ -1059,6 +1059,7 @@ export default createFragmentContainer(Component, {
       requiresProductCondition,
       showsProductConditionField,
       forceLocationInput,
+      rentalDurationIds,
       listingType,
       ancestors {
         id,

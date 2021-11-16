@@ -24,7 +24,7 @@ const autocompleteFilter = createFilterOptions()
 const Component = props => {
   const { me, product, productConditions, rentalDurations, provinces } = props
   const { history, environment } = useAppContext()
-
+  const category = product.category[product.category.length - 1]
   const citiesFirstLoaded = useRef(true)
   const districtsFirstLoaded = useRef(true)
   const citiesLoader = useRef(new AdministrativeAreaLoader(environment))
@@ -44,7 +44,7 @@ const Component = props => {
   const [name, setName] = useState(product.name)
   const [price, setPrice] = useState(product.price.toString())
   const [desc, setDesc] = useState(product.desc)
-  const [specs, setSpecs] = useState(product.category[product.category.length - 1].specFields.reduce((obj, currentVal) => {
+  const [specs, setSpecs] = useState(category.specFields.reduce((obj, currentVal) => {
     const value = product.specs.find(item => item.attribute.id === currentVal.attribute.id)?.value
     if(currentVal.isMulti) {
       obj[currentVal.attribute.id] = value ? JSON.parse(value) : []
@@ -54,7 +54,7 @@ const Component = props => {
     
     return obj
   }, {}))
-  const [specFields] = useState(product.category[product.category.length - 1].specFields.reduce((obj, currentVal) => {
+  const [specFields] = useState(category.specFields.reduce((obj, currentVal) => {
     obj[currentVal.attribute.id] = {
       prefix: currentVal.prefix,
       suffix: currentVal.suffix
@@ -95,7 +95,7 @@ const Component = props => {
   }
 
   const isValid = () => {
-    const specsRules = product.category[product.category.length - 1].specFields.reduce((rules, currentVal) => {
+    const specsRules = category.specFields.reduce((rules, currentVal) => {
       if(currentVal.isRequired) {
         rules.push({
           field: currentVal.attribute.id,
@@ -166,7 +166,7 @@ const Component = props => {
         validWhen: false,
         message: 'Isi deskripsi iklan Anda secara mendetail dan lengkap.'
       },
-      ...(product.category[product.category.length - 1].requiresProductCondition ? [
+      ...(category.requiresProductCondition ? [
         {
           field: 'productConditionId',
           method: Validator.isEmpty,
@@ -174,7 +174,7 @@ const Component = props => {
           message: 'Isi kondisi produk yang Anda tawarkan.'
         },
       ] : []),
-      ...(product.category[product.category.length - 1].listingType === 'rental_product' ? [
+      ...(category.listingType === 'rental_product' ? [
         {
           field: 'rentalDurationId',
           method: Validator.isEmpty,
@@ -213,8 +213,8 @@ const Component = props => {
       name,
       price,
       desc,
-      ...(product.category[product.category.length - 1].requiresProductCondition ? { productConditionId } : {}),
-      ...(product.category[product.category.length - 1].listingType === 'rental_product' ? { rentalDurationId } : {}),
+      ...(category.requiresProductCondition ? { productConditionId } : {}),
+      ...(category.listingType === 'rental_product' ? { rentalDurationId } : {}),
       ...(!syncLocation ? { province } : {}),
       ...(!syncLocation ? { city } : {}),
       ...(!syncLocation ? { district } : {})
@@ -634,7 +634,7 @@ const Component = props => {
               thousandSeparator="."
             />
 
-            {product.category[product.category.length - 1].listingType === 'rental_product' &&
+            {category.listingType === 'rental_product' &&
             <TextField
               variant="outlined"
               select
@@ -657,7 +657,7 @@ const Component = props => {
                 }
               }}
             >
-              {rentalDurations.map((option, i) => (
+              {(category.rentalDurationIds?.length > 0 ? rentalDurations.filter(item => category.rentalDurationIds.includes(item.id)) : rentalDurations).map((option, i) => (
                 <MenuItem key={i} value={option.id}>
                   {option.value} {option.name}
                 </MenuItem>
@@ -685,12 +685,12 @@ const Component = props => {
               helperText={validation?.desc?.message}
             />
 
-            {(product.category[product.category.length - 1].showsProductConditionField || 
-              product.category[product.category.length - 1].specFields.length > 0) &&
+            {(category.showsProductConditionField || 
+              category.specFields.length > 0) &&
             <h3 style={{ margin: '10px 0'}}>Detail</h3>
             }
 
-            {product.category[product.category.length - 1].showsProductConditionField &&
+            {category.showsProductConditionField &&
             <TextField
               variant="outlined"
               select
@@ -721,7 +721,7 @@ const Component = props => {
             </TextField>
             }
 
-            {product.category[product.category.length - 1].specFields.map((field) => {
+            {category.specFields.map((field) => {
               const MAX_LENGTH = field.maxLength || PRODUCT_SPEC_VALUE_MAX_LENGTH
               const NUMERIC_MAX_LENGTH = field.maxLength || PRODUCT_NUMERIC_SPEC_VALUE_MAX_LENGTH
 
@@ -933,7 +933,7 @@ const Component = props => {
               }
             })}
 
-            {!product.category[product.category.length - 1].forceLocationInput &&
+            {!category.forceLocationInput &&
             <div style={{
               height: 1,
               backgroundColor: HEADER_BORDER_BOTTOM_COLOR,
@@ -943,7 +943,7 @@ const Component = props => {
 
             <h3 style={{ margin: '10px 0'}}>Lokasi</h3>
 
-            {!product.category[product.category.length - 1].forceLocationInput &&
+            {!category.forceLocationInput &&
             <>
               <div style={{
                 display: 'flex',
@@ -1218,6 +1218,7 @@ export default createFragmentContainer(Component, {
         requiresProductCondition,
         showsProductConditionField,
         forceLocationInput,
+        rentalDurationIds,
         listingType,
         specFields {
           id,

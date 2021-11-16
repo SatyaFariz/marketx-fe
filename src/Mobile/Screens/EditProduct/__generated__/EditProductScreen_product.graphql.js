@@ -60,6 +60,7 @@ export type EditProductScreen_product = {|
     +requiresProductCondition: ?boolean,
     +showsProductConditionField: ?boolean,
     +forceLocationInput: ?boolean,
+    +rentalDurationIds: ?$ReadOnlyArray<?string>,
     +listingType: ?string,
     +specFields: ?$ReadOnlyArray<?{|
       +id: ?string,
@@ -324,6 +325,13 @@ return {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
+          "name": "rentalDurationIds",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
           "name": "listingType",
           "storageKey": null
         },
@@ -445,6 +453,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '3bfa21151ae8a1762acba3229a75176b';
+(node/*: any*/).hash = '2f11e59bf628f5f47dfd5d7b75309778';
 
 module.exports = node;
