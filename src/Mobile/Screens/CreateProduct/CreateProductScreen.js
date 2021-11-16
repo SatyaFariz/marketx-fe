@@ -1082,7 +1082,9 @@ export default createFragmentContainer(Component, {
         prefix,
         suffix,
         numberOfLines,
-        maxLength
+        maxLength,
+        emptyErrorMessage,
+        helperText
       }
     }
   `,

@@ -80,6 +80,8 @@ export type EditProductScreen_product = {|
       +suffix: ?string,
       +numberOfLines: ?number,
       +maxLength: ?number,
+      +emptyErrorMessage: ?string,
+      +helperText: ?string,
     |}>,
   |}>,
   +$refType: EditProductScreen_product$ref,
@@ -440,6 +442,20 @@ return {
               "kind": "ScalarField",
               "name": "maxLength",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "emptyErrorMessage",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "helperText",
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -453,6 +469,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '2f11e59bf628f5f47dfd5d7b75309778';
+(node/*: any*/).hash = '0f047dcf6d9ce68c0fd1563da92f0c17';
 
 module.exports = node;
