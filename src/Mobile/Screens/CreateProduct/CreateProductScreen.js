@@ -119,7 +119,7 @@ const Component = props => {
           field: currentVal.attribute.id,
           method: Validator.isEmpty,
           validWhen: false,
-          message: `${currentVal.attribute.name} harus diisi.`
+          message: currentVal.emptyErrorMessage?.trim()?.length > 0 ? currentVal.emptyErrorMessage : `${currentVal.attribute.name} harus diisi.`
         })
       }
 
@@ -720,7 +720,7 @@ const Component = props => {
                     marginBottom: 10
                   }}
                   error={validation[field.attribute.id]?.isInvalid}
-                  helperText={validation[field.attribute.id]?.message}
+                  helperText={validation[field.attribute.id]?.message || (field.helperText?.trim()?.length > 0 && field.helperText)}
                   SelectProps={{
                     MenuProps: {
                       style: {
@@ -769,7 +769,7 @@ const Component = props => {
                           marginBottom: 10
                         }}
                         error={validation[field.attribute.id]?.isInvalid}
-                        helperText={validation[field.attribute.id]?.message}
+                        helperText={validation[field.attribute.id]?.message || (field.helperText?.trim()?.length > 0 && field.helperText)}
                       />
                     }
                   />
@@ -790,7 +790,7 @@ const Component = props => {
                     marginBottom: 10
                   }}
                   error={validation[field.attribute.id]?.isInvalid}
-                  helperText={validation[field.attribute.id]?.message}
+                  helperText={validation[field.attribute.id]?.message || (field.helperText?.trim()?.length > 0 && field.helperText)}
                   SelectProps={{
                     multiple: field.isMulti,
                     renderValue: (selected) => selected.join(', '),
@@ -837,7 +837,7 @@ const Component = props => {
                       maxLength: NUMERIC_MAX_LENGTH
                     }}
                     error={validation[field.attribute.id]?.isInvalid}
-                    helperText={validation[field.attribute.id]?.message}
+                    helperText={validation[field.attribute.id]?.message || (field.helperText?.trim()?.length > 0 && field.helperText)}
                     allowNegative={field.min < 0}
                     decimalSeparator={field.type === 'float' ? '.' : null}
                     decimalScale={2}
@@ -872,7 +872,7 @@ const Component = props => {
                     marginBottom: 10
                   }}
                   error={validation[field.attribute.id]?.isInvalid}
-                  helperText={validation[field.attribute.id]?.message}
+                  helperText={validation[field.attribute.id]?.message || (field.helperText?.trim()?.length > 0 && field.helperText)}
                   inputProps={{
                     maxLength: field.numberOfLines > 1 ? (field.maxLength || (PRODUCT_SPEC_VALUE_MAX_LENGTH * field.numberOfLines)) : MAX_LENGTH
                   }}
