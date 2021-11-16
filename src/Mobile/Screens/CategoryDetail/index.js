@@ -17,6 +17,9 @@ const chunk = {
       attributes {
         id,
         ...CategoryDetailScreen_attributes
+      },
+      rentalDurations {
+        ...CategoryDetailScreen_rentalDurations
       }
     }
   `,
@@ -32,6 +35,7 @@ const chunk = {
             me={data.me}
             category={data.category}
             attributes={data.attributes}
+            rentalDurations={data.rentalDurations}
           />
           }
         </FixedAddressBar>

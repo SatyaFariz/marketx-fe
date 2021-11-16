@@ -748,5 +748,13 @@ export default createFragmentContainer(Component, {
       id,
       ...CreateSpecificationFieldsModal_attributes
     }
+  `,
+  rentalDurations: graphql`
+    fragment CategoryDetailScreen_rentalDurations on Unit @relay(plural: true) {
+      id,
+      display,
+      name,
+      value
+    }
   `
 })
