@@ -314,7 +314,7 @@ const Component = props => {
                 )
               })}
             </Swiper>
-            {product.images.length > 1 &&
+            {/*product.images.length > 1 &&
             <div style={{
               position: 'absolute',
               width: '100%',
@@ -338,6 +338,24 @@ const Component = props => {
                 )
               })}
             </div>
+            */}
+
+            {product.images.length > 1 &&
+              <div style={{
+                position: 'absolute',
+                right: 10,
+                bottom: 10,
+                borderRadius: 7,
+                backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                padding: '5px 10px'
+              }}>
+                <span style={{
+                  color: 'white',
+                  fontSize: 'small'
+                }}>
+                  {carouselPos + 1}/{product.images.length}
+                </span>
+              </div>
             }
           </>
           :
