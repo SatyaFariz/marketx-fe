@@ -119,11 +119,14 @@ fragment HomeScreen_me on User {
 
 fragment ProductItem_product on Product {
   id
+  merchantId
   name
   price
   listingType
   isPublished
   isSuspended
+  views
+  leads
   mainImage {
     id
     url
@@ -352,6 +355,13 @@ return {
         "plural": true,
         "selections": [
           (v0/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "merchantId",
+            "storageKey": null
+          },
           (v1/*: any*/),
           {
             "alias": null,
@@ -367,6 +377,20 @@ return {
             "args": null,
             "kind": "ScalarField",
             "name": "isSuspended",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "views",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "leads",
             "storageKey": null
           },
           {
@@ -404,12 +428,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d1dbc9db209c279efb382a61a6582c4a",
+    "cacheID": "6586f5d38d0bed85c1bad9e03cafeb7c",
     "id": null,
     "metadata": {},
     "name": "HomeScreenQuery",
     "operationKind": "query",
-    "text": "query HomeScreenQuery {\n  me {\n    id\n    ...HomeScreen_me\n    ...FixedAddressBar_me\n  }\n  categories {\n    id\n    ...HomeScreen_categories\n  }\n  featuredProducts {\n    id\n    ...HomeScreen_featuredProducts\n  }\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  level\n  isPublished\n  listingType\n  icon {\n    url\n    id\n  }\n  children {\n    id\n    name\n    isPublished\n    level\n    icon {\n      url\n      id\n    }\n  }\n}\n\nfragment Categories_me on User {\n  id\n  ...CategoryItem_me\n}\n\nfragment CategoryItem_me on User {\n  id\n  isAdmin\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  ...ProductItem_product\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment HomeScreen_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment HomeScreen_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment HomeScreen_me on User {\n  id\n  name\n  isAdmin\n  ...Categories_me\n  profilePicture {\n    id\n    url\n  }\n  store {\n    id\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n"
+    "text": "query HomeScreenQuery {\n  me {\n    id\n    ...HomeScreen_me\n    ...FixedAddressBar_me\n  }\n  categories {\n    id\n    ...HomeScreen_categories\n  }\n  featuredProducts {\n    id\n    ...HomeScreen_featuredProducts\n  }\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  level\n  isPublished\n  listingType\n  icon {\n    url\n    id\n  }\n  children {\n    id\n    name\n    isPublished\n    level\n    icon {\n      url\n      id\n    }\n  }\n}\n\nfragment Categories_me on User {\n  id\n  ...CategoryItem_me\n}\n\nfragment CategoryItem_me on User {\n  id\n  isAdmin\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  ...ProductItem_product\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment HomeScreen_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment HomeScreen_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment HomeScreen_me on User {\n  id\n  name\n  isAdmin\n  ...Categories_me\n  profilePicture {\n    id\n    url\n  }\n  store {\n    id\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n"
   }
 };
 })();

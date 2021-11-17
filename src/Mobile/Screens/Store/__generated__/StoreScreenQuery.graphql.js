@@ -71,13 +71,20 @@ fragment FixedAddressBar_me on User {
   isAdmin
 }
 
+fragment ProductItem_me on User {
+  id
+}
+
 fragment ProductItem_product on Product {
   id
+  merchantId
   name
   price
   listingType
   isPublished
   isSuspended
+  views
+  leads
   mainImage {
     id
     url
@@ -105,6 +112,7 @@ fragment StoreScreen_categories on Category {
 
 fragment StoreScreen_me on User {
   id
+  ...ProductItem_me
 }
 
 fragment StoreScreen_products_9b7sY on Query {
@@ -192,7 +200,14 @@ v5 = {
   "name": "name",
   "storageKey": null
 },
-v6 = [
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "merchantId",
+  "storageKey": null
+},
+v7 = [
   (v1/*: any*/),
   {
     "alias": null,
@@ -202,10 +217,10 @@ v6 = [
     "storageKey": null
   }
 ],
-v7 = [
+v8 = [
   (v5/*: any*/)
 ],
-v8 = [
+v9 = [
   {
     "kind": "Literal",
     "name": "first",
@@ -340,13 +355,7 @@ return {
             "name": "isVerified",
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "merchantId",
-            "storageKey": null
-          },
+          (v6/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -354,7 +363,7 @@ return {
             "kind": "LinkedField",
             "name": "profilePicture",
             "plural": false,
-            "selections": (v6/*: any*/),
+            "selections": (v7/*: any*/),
             "storageKey": null
           },
           {
@@ -364,7 +373,7 @@ return {
             "kind": "LinkedField",
             "name": "banner",
             "plural": false,
-            "selections": (v6/*: any*/),
+            "selections": (v7/*: any*/),
             "storageKey": null
           },
           {
@@ -389,7 +398,7 @@ return {
                 "kind": "LinkedField",
                 "name": "city",
                 "plural": false,
-                "selections": (v7/*: any*/),
+                "selections": (v8/*: any*/),
                 "storageKey": null
               },
               {
@@ -399,7 +408,7 @@ return {
                 "kind": "LinkedField",
                 "name": "district",
                 "plural": false,
-                "selections": (v7/*: any*/),
+                "selections": (v8/*: any*/),
                 "storageKey": null
               },
               {
@@ -457,7 +466,7 @@ return {
       },
       {
         "alias": null,
-        "args": (v8/*: any*/),
+        "args": (v9/*: any*/),
         "concreteType": "ProductConnection",
         "kind": "LinkedField",
         "name": "search",
@@ -487,6 +496,7 @@ return {
                 "plural": false,
                 "selections": [
                   (v1/*: any*/),
+                  (v6/*: any*/),
                   (v5/*: any*/),
                   {
                     "alias": null,
@@ -519,11 +529,25 @@ return {
                   {
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "views",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "leads",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
                     "concreteType": "Image",
                     "kind": "LinkedField",
                     "name": "mainImage",
                     "plural": false,
-                    "selections": (v6/*: any*/),
+                    "selections": (v7/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -588,7 +612,7 @@ return {
       },
       {
         "alias": null,
-        "args": (v8/*: any*/),
+        "args": (v9/*: any*/),
         "filters": [],
         "handle": "connection",
         "key": "StoreScreen_search",
@@ -598,12 +622,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a1771d29eb1b374597643b2d4006ae2c",
+    "cacheID": "d0a00b84d5c75cfb9b8e4302ec387e86",
     "id": null,
     "metadata": {},
     "name": "StoreScreenQuery",
     "operationKind": "query",
-    "text": "query StoreScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    ...StoreScreen_me\n    ...FixedAddressBar_me\n  }\n  store(id: $id) {\n    id\n    ...StoreScreen_store\n  }\n  categories(hasChild: false) {\n    ...StoreScreen_categories\n    id\n  }\n  ...StoreScreen_products_9b7sY\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment SelectCategoryView_categories on Category {\n  id\n  name\n  path\n  ancestors {\n    id\n    name\n  }\n}\n\nfragment StoreScreen_categories on Category {\n  id\n  ...SelectCategoryView_categories\n}\n\nfragment StoreScreen_me on User {\n  id\n}\n\nfragment StoreScreen_products_9b7sY on Query {\n  search(first: 10, q: \"\", storeId: $id) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  isVerified\n  merchantId\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n    city {\n      name\n    }\n    district {\n      name\n    }\n  }\n  ...EditAddressView_store\n}\n"
+    "text": "query StoreScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    ...StoreScreen_me\n    ...FixedAddressBar_me\n  }\n  store(id: $id) {\n    id\n    ...StoreScreen_store\n  }\n  categories(hasChild: false) {\n    ...StoreScreen_categories\n    id\n  }\n  ...StoreScreen_products_9b7sY\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductItem_me on User {\n  id\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment SelectCategoryView_categories on Category {\n  id\n  name\n  path\n  ancestors {\n    id\n    name\n  }\n}\n\nfragment StoreScreen_categories on Category {\n  id\n  ...SelectCategoryView_categories\n}\n\nfragment StoreScreen_me on User {\n  id\n  ...ProductItem_me\n}\n\nfragment StoreScreen_products_9b7sY on Query {\n  search(first: 10, q: \"\", storeId: $id) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  isVerified\n  merchantId\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n    city {\n      name\n    }\n    district {\n      name\n    }\n  }\n  ...EditAddressView_store\n}\n"
   }
 };
 })();

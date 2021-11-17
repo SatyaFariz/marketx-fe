@@ -315,7 +315,12 @@ const Component = props => {
               }}>
                 {edges.map((edge, i) => {
                   return (
-                    <ProductItem key={edge.node.id} product={edge.node}/>
+                    <ProductItem 
+                      key={edge.node.id} 
+                      product={edge.node}
+                      me={me}
+                      showsViewsAndLeads
+                    />
                   )
                 })}
               </div>
@@ -369,7 +374,8 @@ const Component = props => {
 export default createPaginationContainer(Component, {
   me: graphql`
     fragment StoreScreen_me on User {
-      id
+      id,
+      ...ProductItem_me
     }
   `,
   store: graphql`

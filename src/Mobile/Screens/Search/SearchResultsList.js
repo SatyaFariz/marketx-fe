@@ -61,6 +61,7 @@ const Component = props => {
                 key={edge.node.id}
                 product={edge.node}
                 showsListingType={showsListingType}
+                me={null}
               />
             )
           })}

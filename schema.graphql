@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Wed Nov 17 2021 21:41:51 GMT+0700 (Western Indonesia Time)
+# timestamp: Thu Nov 18 2021 00:22:52 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -202,6 +202,7 @@ type Product {
   rentalDuration: Unit
   condition: ProductCondition
   category: [Category]
+  merchantId: String
   merchant: User
   store: Store
   isPublished: Boolean

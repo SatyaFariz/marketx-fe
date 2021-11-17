@@ -7,7 +7,16 @@ import Link from '../Components/Link'
 import Color from '../Constants/Color'
 
 const Component = props => {
-  const { product, showsListingType = true } = props
+  const { product, showsViewsAndLeads, me, showsListingType = true } = props
+  const isMyProduct = me?.id === product.merchantId
+
+  let viewsText = ''
+  if(product.views > 0)
+    viewsText += `${product.views} kali dilihat`
+
+  if(product.leads > 0)
+    viewsText += ` • ${product.leads} prospek`
+
   return (
     <ButtonBase href={`/item/${product.id}`} component={Link} style={{
       display: 'flex'
@@ -80,6 +89,22 @@ const Component = props => {
           fontSize: 16
         }}>{formatCurrency(product.price)}</span>
         }
+
+        {isMyProduct && viewsText.length > 0 && showsViewsAndLeads &&
+        <div style={{
+          display: 'flex',
+          marginTop: 5,
+          alignItems: 'center'
+        }}>
+          <span style={{
+            color: 'rgb(83, 100, 113)',
+            fontSize: 12,
+          }}>
+            {viewsText}
+          </span>
+        </div>
+        }
+        
         {showsListingType && product.listingType === 'rental_product' &&
           <span style={{
             fontSize: 12,
@@ -103,11 +128,14 @@ export default createFragmentContainer(Component, {
   product: graphql`
     fragment ProductItem_product on Product {
       id,
+      merchantId,
       name,
       price,
       listingType,
       isPublished,
       isSuspended,
+      views,
+      leads,
       mainImage {
         id,
         url
@@ -115,6 +143,11 @@ export default createFragmentContainer(Component, {
       rentalDuration {
         display
       }
+    }
+  `,
+  me: graphql`
+    fragment ProductItem_me on User {
+      id
     }
   `
 })

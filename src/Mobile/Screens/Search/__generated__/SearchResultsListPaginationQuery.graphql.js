@@ -37,11 +37,14 @@ query SearchResultsListPaginationQuery(
 
 fragment ProductItem_product on Product {
   id
+  merchantId
   name
   price
   listingType
   isPublished
   isSuspended
+  views
+  leads
   mainImage {
     id
     url
@@ -188,6 +191,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "merchantId",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "name",
                     "storageKey": null
                   },
@@ -217,6 +227,20 @@ return {
                     "args": null,
                     "kind": "ScalarField",
                     "name": "isSuspended",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "views",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "leads",
                     "storageKey": null
                   },
                   {
@@ -310,12 +334,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8ca073ce7a6044b137430fafeb2f6de0",
+    "cacheID": "885b3a62ad97161d788d3028ea827d05",
     "id": null,
     "metadata": {},
     "name": "SearchResultsListPaginationQuery",
     "operationKind": "query",
-    "text": "query SearchResultsListPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n  $categoryId: String\n) {\n  ...SearchResultsList_search_3dEwcg\n}\n\nfragment ProductItem_product on Product {\n  id\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment SearchResultsList_search_3dEwcg on Query {\n  search(first: $first, after: $after, q: $q, categoryId: $categoryId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+    "text": "query SearchResultsListPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n  $categoryId: String\n) {\n  ...SearchResultsList_search_3dEwcg\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment SearchResultsList_search_3dEwcg on Query {\n  search(first: $first, after: $after, q: $q, categoryId: $categoryId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
   }
 };
 })();

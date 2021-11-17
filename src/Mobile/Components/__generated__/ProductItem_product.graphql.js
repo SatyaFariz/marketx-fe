@@ -13,11 +13,14 @@ declare export opaque type ProductItem_product$ref: FragmentReference;
 declare export opaque type ProductItem_product$fragmentType: ProductItem_product$ref;
 export type ProductItem_product = {|
   +id: ?string,
+  +merchantId: ?string,
   +name: ?string,
   +price: ?number,
   +listingType: ?string,
   +isPublished: ?boolean,
   +isSuspended: ?boolean,
+  +views: ?number,
+  +leads: ?number,
   +mainImage: ?{|
     +id: ?string,
     +url: ?string,
@@ -55,6 +58,13 @@ return {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "merchantId",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "name",
       "storageKey": null
     },
@@ -84,6 +94,20 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "isSuspended",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "views",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "leads",
       "storageKey": null
     },
     {
@@ -129,6 +153,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e4c3ce4086a0e2e142fa4ad8cf27a531';
+(node/*: any*/).hash = '3aec0cc9b3710b256719b1362bdfb4ac';
 
 module.exports = node;

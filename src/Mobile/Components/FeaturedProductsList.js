@@ -26,7 +26,7 @@ const Component = props => {
       }}>
         {featuredProducts.map((item, i) => {
           return (
-            <ProductItem product={item} key={item.id}/>
+            <ProductItem product={item} key={item.id} me={null}/>
           )
         })}
       </div>
