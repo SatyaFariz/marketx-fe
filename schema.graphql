@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Tue Nov 16 2021 23:30:54 GMT+0700 (Western Indonesia Time)
+# timestamp: Wed Nov 17 2021 21:41:51 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -158,6 +158,8 @@ type Mutation {
   renewProduct(id: String!): ActionInfo
   publishPost(id: String!, title: String, content: String!): ActionOnPostPayload
   deletePost(id: String!): ActionOnPostPayload
+  incrementViews(productId: String!): ActionOnProductPayload
+  incrementLeads(productId: String!): ActionOnProductPayload
 }
 
 """Information about pagination in a connection."""
@@ -215,6 +217,8 @@ type Product {
   location: Location
   createdAt: String
   renewedAt: String
+  views: Int
+  leads: Int
 }
 
 type ProductCondition {
