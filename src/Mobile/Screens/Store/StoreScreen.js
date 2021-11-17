@@ -179,7 +179,7 @@ const Component = props => {
                 marginTop: 2,
                 display: 'block'
               }}>
-                {store.address.city.name}, {store.address.district.name}
+                {store.address.district.name}, {store.address.city.name}
               </span>
             </div>
           </div>
