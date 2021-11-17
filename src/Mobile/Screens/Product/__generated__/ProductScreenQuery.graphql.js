@@ -75,6 +75,8 @@ fragment ProductScreen_product on Product {
   isSuspended
   createdAt
   renewedAt
+  views
+  leads
   condition {
     display
     id
@@ -353,6 +355,20 @@ return {
           {
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
+            "name": "views",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "leads",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "ProductCondition",
             "kind": "LinkedField",
             "name": "condition",
@@ -626,12 +642,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a9f24679107263b48337437cfde7bc67",
+    "cacheID": "65973a6fdf2cf44ec3c467a5ae9cc5be",
     "id": null,
     "metadata": {},
     "name": "ProductScreenQuery",
     "operationKind": "query",
-    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n  me {\n    id\n    ...ProductScreen_me\n    ...FixedAddressBar_me\n  }\n  suspensionReasons {\n    ...ProductScreen_suspensionReasons\n    id\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductScreen_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  isDeleted\n  isPublished\n  isFeatured\n  isSuspended\n  createdAt\n  renewedAt\n  condition {\n    display\n    id\n  }\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    province {\n      administrativeAreaId\n      name\n    }\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n    isMulti\n    prefix\n    suffix\n  }\n  store {\n    id\n    name\n    whatsappUrl\n    merchantId\n    isVerified\n    profilePicture {\n      id\n      url\n    }\n    address {\n      province {\n        name\n      }\n      city {\n        name\n      }\n      district {\n        name\n      }\n    }\n  }\n}\n\nfragment ProductScreen_suspensionReasons on SuspensionReason {\n  id\n  title\n}\n"
+    "text": "query ProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...ProductScreen_product\n  }\n  me {\n    id\n    ...ProductScreen_me\n    ...FixedAddressBar_me\n  }\n  suspensionReasons {\n    ...ProductScreen_suspensionReasons\n    id\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductScreen_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductScreen_product on Product {\n  id\n  name\n  desc\n  price\n  isDeleted\n  isPublished\n  isFeatured\n  isSuspended\n  createdAt\n  renewedAt\n  views\n  leads\n  condition {\n    display\n    id\n  }\n  images {\n    id\n    url\n  }\n  category {\n    id\n    name\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    province {\n      administrativeAreaId\n      name\n    }\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n  specs {\n    id\n    attribute {\n      id\n      name\n      icon {\n        id\n        url\n      }\n    }\n    value\n    isMulti\n    prefix\n    suffix\n  }\n  store {\n    id\n    name\n    whatsappUrl\n    merchantId\n    isVerified\n    profilePicture {\n      id\n      url\n    }\n    address {\n      province {\n        name\n      }\n      city {\n        name\n      }\n      district {\n        name\n      }\n    }\n  }\n}\n\nfragment ProductScreen_suspensionReasons on SuspensionReason {\n  id\n  title\n}\n"
   }
 };
 })();

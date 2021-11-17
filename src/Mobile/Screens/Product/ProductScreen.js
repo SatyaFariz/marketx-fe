@@ -413,6 +413,45 @@ const Component = props => {
             </span>
             }
 
+            {isMyProduct &&
+            <div style={{
+              display: 'flex',
+              marginTop: 5,
+              alignItems: 'center'
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center'
+              }}>
+                <span style={{
+                  color: 'rgb(83, 100, 113)',
+                  fontSize: 12,
+                }}>
+                  {`${product.views} kali dilihat`}
+                </span>
+              </div>
+
+              <span style={{
+                color: 'rgb(83, 100, 113)',
+                fontSize: 12,
+                marginRight: 5,
+                marginLeft: 5
+              }}>•</span>
+
+              <div style={{
+                display: 'flex',
+                alignItems: 'center'
+              }}>
+                <span style={{
+                  color: 'rgb(83, 100, 113)',
+                  fontSize: 12,
+                }}>
+                  {`${product.leads} prospek`}
+                </span>
+              </div>
+            </div>
+            }
+
             <div style={{
               borderTop: `1px solid ${DIVIDER_COLOR}`,
               borderBottom: `1px solid ${DIVIDER_COLOR}`,
@@ -813,6 +852,8 @@ export default createFragmentContainer(Component, {
       isSuspended,
       createdAt,
       renewedAt,
+      views,
+      leads,
       condition {
         display
       },
