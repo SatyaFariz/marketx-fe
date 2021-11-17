@@ -28,6 +28,16 @@ export type ProductItem_product = {|
   +rentalDuration: ?{|
     +display: ?string
   |},
+  +location: ?{|
+    +city: ?{|
+      +administrativeAreaId: ?number,
+      +name: ?string,
+    |},
+    +district: ?{|
+      +administrativeAreaId: ?number,
+      +name: ?string,
+    |},
+  |},
   +$refType: ProductItem_product$ref,
 |};
 export type ProductItem_product$data = ProductItem_product;
@@ -46,7 +56,24 @@ var v0 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-};
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v2 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "administrativeAreaId",
+    "storageKey": null
+  },
+  (v1/*: any*/)
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -61,13 +88,7 @@ return {
       "name": "merchantId",
       "storageKey": null
     },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "name",
-      "storageKey": null
-    },
+    (v1/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -146,6 +167,37 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Location",
+      "kind": "LinkedField",
+      "name": "location",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AdministrativeArea",
+          "kind": "LinkedField",
+          "name": "city",
+          "plural": false,
+          "selections": (v2/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AdministrativeArea",
+          "kind": "LinkedField",
+          "name": "district",
+          "plural": false,
+          "selections": (v2/*: any*/),
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Product",
@@ -153,6 +205,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '3aec0cc9b3710b256719b1362bdfb4ac';
+(node/*: any*/).hash = '4a92866529166389ef92b0ac2466bd4b';
 
 module.exports = node;

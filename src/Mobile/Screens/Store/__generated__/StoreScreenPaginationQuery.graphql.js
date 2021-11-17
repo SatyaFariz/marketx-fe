@@ -53,6 +53,16 @@ fragment ProductItem_product on Product {
     display
     id
   }
+  location {
+    city {
+      administrativeAreaId
+      name
+    }
+    district {
+      administrativeAreaId
+      name
+    }
+  }
 }
 
 fragment StoreScreen_products_1EGd5v on Query {
@@ -122,7 +132,24 @@ v5 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-};
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v7 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "administrativeAreaId",
+    "storageKey": null
+  },
+  (v6/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -194,13 +221,7 @@ return {
                     "name": "merchantId",
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "name",
-                    "storageKey": null
-                  },
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -284,6 +305,37 @@ return {
                   {
                     "alias": null,
                     "args": null,
+                    "concreteType": "Location",
+                    "kind": "LinkedField",
+                    "name": "location",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "AdministrativeArea",
+                        "kind": "LinkedField",
+                        "name": "city",
+                        "plural": false,
+                        "selections": (v7/*: any*/),
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "AdministrativeArea",
+                        "kind": "LinkedField",
+                        "name": "district",
+                        "plural": false,
+                        "selections": (v7/*: any*/),
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
                     "kind": "ScalarField",
                     "name": "__typename",
                     "storageKey": null
@@ -334,12 +386,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ba788630065ca3c414624b423b67575b",
+    "cacheID": "8c0ad3496d6083b8015eec083d6471b3",
     "id": null,
     "metadata": {},
     "name": "StoreScreenPaginationQuery",
     "operationKind": "query",
-    "text": "query StoreScreenPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n  $storeId: String!\n) {\n  ...StoreScreen_products_1EGd5v\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n\nfragment StoreScreen_products_1EGd5v on Query {\n  search(first: $first, after: $after, q: $q, storeId: $storeId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+    "text": "query StoreScreenPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n  $storeId: String!\n) {\n  ...StoreScreen_products_1EGd5v\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n\nfragment StoreScreen_products_1EGd5v on Query {\n  search(first: $first, after: $after, q: $q, storeId: $storeId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
   }
 };
 })();

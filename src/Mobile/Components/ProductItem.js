@@ -7,8 +7,9 @@ import Link from '../Components/Link'
 import Color from '../Constants/Color'
 
 const Component = props => {
-  const { product, showsViewsAndLeads, me, showsListingType = true } = props
+  const { product, showsViewsAndLeads, me, showsLocation, showsListingType = true } = props
   const isMyProduct = me?.id === product.merchantId
+  const location = `${product.location.district.name}, ${product.location.city.name}`
 
   let viewsText = ''
   if(product.views > 0)
@@ -100,6 +101,17 @@ const Component = props => {
           {viewsText}
         </span>
         }
+
+        {showsLocation &&
+        <span style={{
+          color: 'rgb(83, 100, 113)',
+          fontSize: 12,
+          marginTop: 5,
+          display: 'block'
+        }}>
+          {location}
+        </span>
+        }
         
         {showsListingType && product.listingType === 'rental_product' &&
           <span style={{
@@ -138,6 +150,16 @@ export default createFragmentContainer(Component, {
       },
       rentalDuration {
         display
+      },
+      location {
+        city {
+          administrativeAreaId,
+          name
+        },
+        district {
+          administrativeAreaId,
+          name
+        }
       }
     }
   `,

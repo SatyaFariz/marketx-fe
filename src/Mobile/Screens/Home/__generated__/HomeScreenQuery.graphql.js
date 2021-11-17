@@ -135,6 +135,16 @@ fragment ProductItem_product on Product {
     display
     id
   }
+  location {
+    city {
+      administrativeAreaId
+      name
+    }
+    district {
+      administrativeAreaId
+      name
+    }
+  }
 }
 */
 
@@ -197,7 +207,17 @@ v7 = {
     (v0/*: any*/)
   ],
   "storageKey": null
-};
+},
+v8 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "administrativeAreaId",
+    "storageKey": null
+  },
+  (v1/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": [],
@@ -421,6 +441,37 @@ return {
               (v0/*: any*/)
             ],
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Location",
+            "kind": "LinkedField",
+            "name": "location",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "AdministrativeArea",
+                "kind": "LinkedField",
+                "name": "city",
+                "plural": false,
+                "selections": (v8/*: any*/),
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "AdministrativeArea",
+                "kind": "LinkedField",
+                "name": "district",
+                "plural": false,
+                "selections": (v8/*: any*/),
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -428,12 +479,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6586f5d38d0bed85c1bad9e03cafeb7c",
+    "cacheID": "66828ee4f50690dfabb83a4bc885e9db",
     "id": null,
     "metadata": {},
     "name": "HomeScreenQuery",
     "operationKind": "query",
-    "text": "query HomeScreenQuery {\n  me {\n    id\n    ...HomeScreen_me\n    ...FixedAddressBar_me\n  }\n  categories {\n    id\n    ...HomeScreen_categories\n  }\n  featuredProducts {\n    id\n    ...HomeScreen_featuredProducts\n  }\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  level\n  isPublished\n  listingType\n  icon {\n    url\n    id\n  }\n  children {\n    id\n    name\n    isPublished\n    level\n    icon {\n      url\n      id\n    }\n  }\n}\n\nfragment Categories_me on User {\n  id\n  ...CategoryItem_me\n}\n\nfragment CategoryItem_me on User {\n  id\n  isAdmin\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  ...ProductItem_product\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment HomeScreen_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment HomeScreen_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment HomeScreen_me on User {\n  id\n  name\n  isAdmin\n  ...Categories_me\n  profilePicture {\n    id\n    url\n  }\n  store {\n    id\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n}\n"
+    "text": "query HomeScreenQuery {\n  me {\n    id\n    ...HomeScreen_me\n    ...FixedAddressBar_me\n  }\n  categories {\n    id\n    ...HomeScreen_categories\n  }\n  featuredProducts {\n    id\n    ...HomeScreen_featuredProducts\n  }\n}\n\nfragment Categories_categories on Category {\n  id\n  name\n  level\n  isPublished\n  listingType\n  icon {\n    url\n    id\n  }\n  children {\n    id\n    name\n    isPublished\n    level\n    icon {\n      url\n      id\n    }\n  }\n}\n\nfragment Categories_me on User {\n  id\n  ...CategoryItem_me\n}\n\nfragment CategoryItem_me on User {\n  id\n  isAdmin\n}\n\nfragment FeaturedProductsList_featuredProducts on Product {\n  id\n  ...ProductItem_product\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment HomeScreen_categories on Category {\n  id\n  ...Categories_categories\n}\n\nfragment HomeScreen_featuredProducts on Product {\n  id\n  ...FeaturedProductsList_featuredProducts\n}\n\nfragment HomeScreen_me on User {\n  id\n  name\n  isAdmin\n  ...Categories_me\n  profilePicture {\n    id\n    url\n  }\n  store {\n    id\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n"
   }
 };
 })();
