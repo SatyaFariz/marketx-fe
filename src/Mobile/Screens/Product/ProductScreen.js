@@ -50,7 +50,7 @@ const Component = props => {
   }
 
   const incrementLeads = () => {
-    if(!isMyProduct) {
+    if(!isMyProduct && !me?.isAdmin) {
       IncrementLeads(environment, { productId: product.id }, (payload, error) => {
         if(error) {
           console.log(error)
@@ -60,7 +60,7 @@ const Component = props => {
   }
 
   const incrementViews = () => {
-    if(!isMyProduct) {
+    if(!isMyProduct && !me?.isAdmin) {
       IncrementViews(environment, { productId: product.id }, (payload, error) => {
         if(error) {
           console.log(error)
