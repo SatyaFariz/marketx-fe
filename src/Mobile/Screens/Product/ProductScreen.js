@@ -38,6 +38,13 @@ const Component = props => {
   const productLocation = `${product.location.district.name}, ${product.location.city.name}, ${product.location.province.name}`
   const isMyProduct = me?.id === product.store.merchantId
 
+  let viewsText = ''
+  if(product.views > 0)
+    viewsText += `${product.views} kali dilihat`
+
+  if(product.leads > 0)
+    viewsText += ` • ${product.leads} prospek`
+
   const handleSwipe = (obj) => {
     setCarouselPos(obj.activeIndex)
   }
@@ -413,43 +420,15 @@ const Component = props => {
             </span>
             }
 
-            {isMyProduct &&
-            <div style={{
-              display: 'flex',
-              marginTop: 5,
-              alignItems: 'center'
+            {isMyProduct && viewsText.length > 0 &&
+            <span style={{
+              color: 'rgb(83, 100, 113)',
+              fontSize: 12,
+              display: 'block',
+              marginTop: 5
             }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center'
-              }}>
-                <span style={{
-                  color: 'rgb(83, 100, 113)',
-                  fontSize: 12,
-                }}>
-                  {`${product.views} kali dilihat`}
-                </span>
-              </div>
-
-              <span style={{
-                color: 'rgb(83, 100, 113)',
-                fontSize: 12,
-                marginRight: 5,
-                marginLeft: 5
-              }}>•</span>
-
-              <div style={{
-                display: 'flex',
-                alignItems: 'center'
-              }}>
-                <span style={{
-                  color: 'rgb(83, 100, 113)',
-                  fontSize: 12,
-                }}>
-                  {`${product.leads} prospek`}
-                </span>
-              </div>
-            </div>
+              {viewsText}
+            </span>
             }
 
             <div style={{

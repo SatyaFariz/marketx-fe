@@ -91,18 +91,14 @@ const Component = props => {
         }
 
         {isMyProduct && viewsText.length > 0 && showsViewsAndLeads &&
-        <div style={{
-          display: 'flex',
+        <span style={{
+          color: 'rgb(83, 100, 113)',
+          fontSize: 12,
           marginTop: 5,
-          alignItems: 'center'
+          display: 'block'
         }}>
-          <span style={{
-            color: 'rgb(83, 100, 113)',
-            fontSize: 12,
-          }}>
-            {viewsText}
-          </span>
-        </div>
+          {viewsText}
+        </span>
         }
         
         {showsListingType && product.listingType === 'rental_product' &&
