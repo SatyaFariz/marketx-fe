@@ -36,25 +36,30 @@ const Component = props => {
   const [suspendingOrUnsuspending, setSuspendingOrUnsuspending] = useState(false)
   const [suspensionReasonId, setSuspensionReasonId] = useState(null)
   const productLocation = `${product.location.district.name}, ${product.location.city.name}, ${product.location.province.name}`
+  const isMyProduct = me?.id === product.store.merchantId
 
   const handleSwipe = (obj) => {
     setCarouselPos(obj.activeIndex)
   }
 
   const incrementLeads = () => {
-    IncrementLeads(environment, { productId: product.id }, (payload, error) => {
-      if(error) {
-        console.log(error)
-      }
-    })
+    if(!isMyProduct) {
+      IncrementLeads(environment, { productId: product.id }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        }
+      })
+    }
   }
 
   const incrementViews = () => {
-    IncrementViews(environment, { productId: product.id }, (payload, error) => {
-      if(error) {
-        console.log(error)
-      }
-    })
+    if(!isMyProduct) {
+      IncrementViews(environment, { productId: product.id }, (payload, error) => {
+        if(error) {
+          console.log(error)
+        }
+      })
+    }
   }
 
   const onActionButtonClick = () => {
@@ -129,8 +134,6 @@ const Component = props => {
       })
     }
   }
-
-  const isMyProduct = me?.id === product.store.merchantId
 
   useEffect(() => {
     scrollRef.current.onscroll = () => {
