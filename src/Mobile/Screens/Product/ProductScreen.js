@@ -12,6 +12,8 @@ import VerifiedIcon from '../../Components/VerifiedIcon'
 import { IoCloseOutline, IoCloseSharp, IoLogoWhatsapp, IoEllipsisVertical, IoPersonOutline } from 'react-icons/io5'
 import Sheet from 'react-modal-sheet'
 import UpdateProductFeaturedStatus from '../../../mutations/UpdateProductFeaturedStatus'
+import IncrementViews from '../../../mutations/IncrementViews'
+import IncrementLeads from '../../../mutations/IncrementLeads'
 import SuspendProduct from '../../../mutations/SuspendProduct'
 import UnsuspendProduct from '../../../mutations/UnsuspendProduct'
 import Button from '../../Components/Button'
@@ -22,7 +24,7 @@ import formatDate from '../../../helpers/formatDate'
 import App from '../../../app.json'
 
 const Component = props => {
-  const _isMounted = useRef(true)
+  const _isMounted = useRef(false)
   const scrollRef = useRef()
   const headerRef = useRef()
   const { history, environment, pathname } = useAppContext()
@@ -39,6 +41,22 @@ const Component = props => {
     setCarouselPos(obj.activeIndex)
   }
 
+  const incrementLeads = () => {
+    IncrementLeads(environment, { productId: product.id }, (payload, error) => {
+      if(error) {
+        console.log(error)
+      }
+    })
+  }
+
+  const incrementViews = () => {
+    IncrementViews(environment, { productId: product.id }, (payload, error) => {
+      if(error) {
+        console.log(error)
+      }
+    })
+  }
+
   const onActionButtonClick = () => {
     if(me?.id === product.store.merchantId) {
       history.push(`/edit/item/${product.id}`)
@@ -47,6 +65,7 @@ const Component = props => {
         const doubleNewLine = '%0a%0a'
         const url = `${product.store.whatsappUrl}?text=Halo, saya melihat iklan anda di ${App.name}${doubleNewLine}https://${window.location.host}/item/${product.id}`
         window.open(url)
+        incrementLeads()
       } else {
         history.push(`/login?redirect=${pathname}`)
       }
@@ -127,6 +146,13 @@ const Component = props => {
 
     return () => _isMounted.current = false
   }, [])
+
+  useEffect(() => {
+    if(!_isMounted.current) {
+      _isMounted.current = true
+      incrementViews()
+    }
+  }, [incrementViews])
 
   return (
     <div style={{

@@ -11,12 +11,12 @@ const mutation = graphql`
   }
 `
 
-const IncrementViews = (environment, callback) => {
+const IncrementViews = (environment, variables, callback) => {
   commitMutation(
     environment,
     {
       mutation,
-      variables: {},
+      variables,
       onCompleted: (res, err) => {
         if(typeof callback === 'function') {
           if(err)
