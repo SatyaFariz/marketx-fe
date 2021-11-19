@@ -8,10 +8,8 @@ const chunk = {
     query StoreScreenQuery($id: String!) {
       me {
         id,
-        ...FixedAddressBar_me
-      },
-      userSession {
-        ...StoreScreen_userSession
+        ...FixedAddressBar_me,
+        ...StoreScreen_me
       },
       store(id: $id) {
         id,
@@ -35,7 +33,6 @@ const chunk = {
             me={data.me}
             categories={data.categories}
             store={data.store}
-            userSession={data.userSession}
             products={data}
           />
           }

@@ -8,15 +8,15 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type SearchResultsList_me$ref = any;
 type SearchResultsList_search$ref = any;
-type SearchResultsList_userSession$ref = any;
 export type SearchScreenQueryVariables = {|
   q: string,
   first: number,
 |};
 export type SearchScreenQueryResponse = {|
-  +userSession: ?{|
-    +$fragmentRefs: SearchResultsList_userSession$ref
+  +me: ?{|
+    +$fragmentRefs: SearchResultsList_me$ref
   |},
   +$fragmentRefs: SearchResultsList_search$ref,
 |};
@@ -33,8 +33,9 @@ query SearchScreenQuery(
   $first: Int!
 ) {
   ...SearchResultsList_search_taE68
-  userSession {
-    ...SearchResultsList_userSession
+  me {
+    ...SearchResultsList_me
+    id
   }
 }
 
@@ -68,6 +69,13 @@ fragment ProductItem_product on Product {
   }
 }
 
+fragment SearchResultsList_me on User {
+  id
+  store {
+    id
+  }
+}
+
 fragment SearchResultsList_search_taE68 on Query {
   search(first: $first, q: $q) {
     edges {
@@ -83,11 +91,6 @@ fragment SearchResultsList_search_taE68 on Query {
       endCursor
     }
   }
-}
-
-fragment SearchResultsList_userSession on UserSession {
-  userId
-  storeId
 }
 */
 
@@ -151,15 +154,15 @@ return {
       {
         "alias": null,
         "args": null,
-        "concreteType": "UserSession",
+        "concreteType": "User",
         "kind": "LinkedField",
-        "name": "userSession",
+        "name": "me",
         "plural": false,
         "selections": [
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "SearchResultsList_userSession"
+            "name": "SearchResultsList_me"
           }
         ],
         "storageKey": null
@@ -386,23 +389,22 @@ return {
       {
         "alias": null,
         "args": null,
-        "concreteType": "UserSession",
+        "concreteType": "User",
         "kind": "LinkedField",
-        "name": "userSession",
+        "name": "me",
         "plural": false,
         "selections": [
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
-            "kind": "ScalarField",
-            "name": "userId",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "storeId",
+            "concreteType": "Store",
+            "kind": "LinkedField",
+            "name": "store",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/)
+            ],
             "storageKey": null
           }
         ],
@@ -411,16 +413,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "550a050f9ed5a1479f51030cac3295ac",
+    "cacheID": "8f38d8818e8fa2cbd2858fdd9a9271c0",
     "id": null,
     "metadata": {},
     "name": "SearchScreenQuery",
     "operationKind": "query",
-    "text": "query SearchScreenQuery(\n  $q: String!\n  $first: Int!\n) {\n  ...SearchResultsList_search_taE68\n  userSession {\n    ...SearchResultsList_userSession\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n\nfragment SearchResultsList_search_taE68 on Query {\n  search(first: $first, q: $q) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment SearchResultsList_userSession on UserSession {\n  userId\n  storeId\n}\n"
+    "text": "query SearchScreenQuery(\n  $q: String!\n  $first: Int!\n) {\n  ...SearchResultsList_search_taE68\n  me {\n    ...SearchResultsList_me\n    id\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n\nfragment SearchResultsList_me on User {\n  id\n  store {\n    id\n  }\n}\n\nfragment SearchResultsList_search_taE68 on Query {\n  search(first: $first, q: $q) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a86b8cbe320b820f8ad6c9378b638fe8';
+(node/*: any*/).hash = '54a102a543eff5230513ad9652c21f7a';
 
 module.exports = node;

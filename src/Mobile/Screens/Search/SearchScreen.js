@@ -13,8 +13,8 @@ import BackButton from '../../Components/BackButton'
 const query = graphql`
   query SearchScreenQuery($q: String!, $first: Int!) {
     ...SearchResultsList_search @arguments(q: $q, first: $first),
-    userSession {
-      ...SearchResultsList_userSession
+    me {
+      ...SearchResultsList_me
     }
   }
 `
@@ -98,7 +98,7 @@ const Component = props => {
               return (
                 <SearchResultsList 
                   search={props}
-                  userSession={props.userSession}
+                  me={props.me}
                   q={searchTermDebounced}
                 />
               )

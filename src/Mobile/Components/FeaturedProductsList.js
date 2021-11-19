@@ -29,7 +29,7 @@ const Component = props => {
             <ProductItem 
               product={item} 
               key={item.id}
-              userSession={null}
+              me={null}
               showsLocation
             />
           )

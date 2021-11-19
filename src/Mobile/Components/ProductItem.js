@@ -7,8 +7,8 @@ import Link from '../Components/Link'
 import Color from '../Constants/Color'
 
 const Component = props => {
-  const { product, showsViewsAndLeads, userSession, showsLocation, showsListingType = true } = props
-  const isMyProduct = userSession?.userId === product.merchantId
+  const { product, showsViewsAndLeads, me, showsLocation, showsListingType = true } = props
+  const isMyProduct = me?.id === product.merchantId
   const location = `${product.location.district.name}, ${product.location.city.name}`
 
   let viewsText = ''
@@ -133,9 +133,9 @@ const Component = props => {
 }
 
 export default createFragmentContainer(Component, {
-  userSession: graphql`
-    fragment ProductItem_userSession on UserSession {
-      userId
+  me: graphql`
+    fragment ProductItem_me on User {
+      id
     }
   `,
   product: graphql`

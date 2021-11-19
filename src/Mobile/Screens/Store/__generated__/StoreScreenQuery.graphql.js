@@ -10,19 +10,16 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type FixedAddressBar_me$ref = any;
 type StoreScreen_categories$ref = any;
+type StoreScreen_me$ref = any;
 type StoreScreen_products$ref = any;
 type StoreScreen_store$ref = any;
-type StoreScreen_userSession$ref = any;
 export type StoreScreenQueryVariables = {|
   id: string
 |};
 export type StoreScreenQueryResponse = {|
   +me: ?{|
     +id: ?string,
-    +$fragmentRefs: FixedAddressBar_me$ref,
-  |},
-  +userSession: ?{|
-    +$fragmentRefs: StoreScreen_userSession$ref
+    +$fragmentRefs: FixedAddressBar_me$ref & StoreScreen_me$ref,
   |},
   +store: ?{|
     +id: ?string,
@@ -47,9 +44,7 @@ query StoreScreenQuery(
   me {
     id
     ...FixedAddressBar_me
-  }
-  userSession {
-    ...StoreScreen_userSession
+    ...StoreScreen_me
   }
   store(id: $id) {
     id
@@ -74,6 +69,10 @@ fragment EditAddressView_store on Store {
 fragment FixedAddressBar_me on User {
   id
   isAdmin
+}
+
+fragment ProductItem_me on User {
+  id
 }
 
 fragment ProductItem_product on Product {
@@ -106,10 +105,6 @@ fragment ProductItem_product on Product {
   }
 }
 
-fragment ProductItem_userSession on UserSession {
-  userId
-}
-
 fragment SelectCategoryView_categories on Category {
   id
   name
@@ -123,6 +118,11 @@ fragment SelectCategoryView_categories on Category {
 fragment StoreScreen_categories on Category {
   id
   ...SelectCategoryView_categories
+}
+
+fragment StoreScreen_me on User {
+  id
+  ...ProductItem_me
 }
 
 fragment StoreScreen_products_9b7sY on Query {
@@ -166,11 +166,6 @@ fragment StoreScreen_store on Store {
     }
   }
   ...EditAddressView_store
-}
-
-fragment StoreScreen_userSession on UserSession {
-  userId
-  ...ProductItem_userSession
 }
 */
 
@@ -278,22 +273,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "FixedAddressBar_me"
-          }
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "UserSession",
-        "kind": "LinkedField",
-        "name": "userSession",
-        "plural": false,
-        "selections": [
+          },
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "StoreScreen_userSession"
+            "name": "StoreScreen_me"
           }
         ],
         "storageKey": null
@@ -362,24 +346,6 @@ return {
             "args": null,
             "kind": "ScalarField",
             "name": "isAdmin",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "UserSession",
-        "kind": "LinkedField",
-        "name": "userSession",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "userId",
             "storageKey": null
           }
         ],
@@ -707,16 +673,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ba4bb9e561b9a7a2979efcea2d17687e",
+    "cacheID": "e56c676a8dac0849a926a4d9cbcc41dc",
     "id": null,
     "metadata": {},
     "name": "StoreScreenQuery",
     "operationKind": "query",
-    "text": "query StoreScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    ...FixedAddressBar_me\n  }\n  userSession {\n    ...StoreScreen_userSession\n  }\n  store(id: $id) {\n    id\n    ...StoreScreen_store\n  }\n  categories(hasChild: false) {\n    ...StoreScreen_categories\n    id\n  }\n  ...StoreScreen_products_9b7sY\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n\nfragment ProductItem_userSession on UserSession {\n  userId\n}\n\nfragment SelectCategoryView_categories on Category {\n  id\n  name\n  path\n  ancestors {\n    id\n    name\n  }\n}\n\nfragment StoreScreen_categories on Category {\n  id\n  ...SelectCategoryView_categories\n}\n\nfragment StoreScreen_products_9b7sY on Query {\n  search(first: 10, q: \"\", storeId: $id) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  isVerified\n  merchantId\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n    city {\n      name\n    }\n    district {\n      name\n    }\n  }\n  ...EditAddressView_store\n}\n\nfragment StoreScreen_userSession on UserSession {\n  userId\n  ...ProductItem_userSession\n}\n"
+    "text": "query StoreScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    ...FixedAddressBar_me\n    ...StoreScreen_me\n  }\n  store(id: $id) {\n    id\n    ...StoreScreen_store\n  }\n  categories(hasChild: false) {\n    ...StoreScreen_categories\n    id\n  }\n  ...StoreScreen_products_9b7sY\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductItem_me on User {\n  id\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n\nfragment SelectCategoryView_categories on Category {\n  id\n  name\n  path\n  ancestors {\n    id\n    name\n  }\n}\n\nfragment StoreScreen_categories on Category {\n  id\n  ...SelectCategoryView_categories\n}\n\nfragment StoreScreen_me on User {\n  id\n  ...ProductItem_me\n}\n\nfragment StoreScreen_products_9b7sY on Query {\n  search(first: 10, q: \"\", storeId: $id) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  isVerified\n  merchantId\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n    city {\n      name\n    }\n    district {\n      name\n    }\n  }\n  ...EditAddressView_store\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'bfc3ab5b6b09e290fffed4183f9a7c86';
+(node/*: any*/).hash = 'ffad7a245d36d3e2abaf8cd40ed5426a';
 
 module.exports = node;
