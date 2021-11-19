@@ -66,6 +66,7 @@ fragment ProductItem_product on Product {
 }
 
 fragment SearchResultsList_search_3dEwcg on Query {
+  myStoreId
   search(first: $first, after: $after, q: $q, categoryId: $categoryId) {
     edges {
       cursor
@@ -182,6 +183,13 @@ return {
     "kind": "Operation",
     "name": "SearchResultsListPaginationQuery",
     "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "myStoreId",
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": (v4/*: any*/),
@@ -386,12 +394,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "80f8f9515f93d94120089bb6182f70a8",
+    "cacheID": "ed11a207b723022f813358a7554dc73b",
     "id": null,
     "metadata": {},
     "name": "SearchResultsListPaginationQuery",
     "operationKind": "query",
-    "text": "query SearchResultsListPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n  $categoryId: String\n) {\n  ...SearchResultsList_search_3dEwcg\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n\nfragment SearchResultsList_search_3dEwcg on Query {\n  search(first: $first, after: $after, q: $q, categoryId: $categoryId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+    "text": "query SearchResultsListPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n  $categoryId: String\n) {\n  ...SearchResultsList_search_3dEwcg\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n\nfragment SearchResultsList_search_3dEwcg on Query {\n  myStoreId\n  search(first: $first, after: $after, q: $q, categoryId: $categoryId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
   }
 };
 })();

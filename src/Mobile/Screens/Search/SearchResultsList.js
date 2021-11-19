@@ -10,9 +10,9 @@ import NotFoundIllustration from '../../../assets/results_not_found_illustration
 import EmptyBoxIllustration from '../../../assets/empty_box_illustration.png'
 
 const Component = props => {
-  const { showsListingType, q, screen, me, categoryId } = props
+  const { showsListingType, q, screen, me, categoryId, search } = props
   const [errorLoadingMore, setErrorLoadingMore] = useState(false)
-  const { edges } = props.search.search
+  const { edges } = search.search
   
   const loadMore = () => {
     const { relay } = props
@@ -35,7 +35,7 @@ const Component = props => {
 
   const sellUrl = () => {
     if(me) {
-      if(me.store)
+      if(search.myStoreId)
         return `/new/item/${categoryId}`
       
       return '/new/ad.account'
@@ -161,10 +161,7 @@ const Component = props => {
 export default createPaginationContainer(Component, {
   me: graphql`
     fragment SearchResultsList_me on User {
-      id,
-      store {
-        id
-      }
+      id
     }
   `,
   search: graphql`
@@ -174,6 +171,7 @@ export default createPaginationContainer(Component, {
       q: { type: "String!" },
       categoryId: { type: "String" }
     ) {
+      myStoreId,
       search(
         first: $first,
         after: $after,
