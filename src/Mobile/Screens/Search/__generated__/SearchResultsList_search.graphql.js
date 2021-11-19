@@ -13,6 +13,7 @@ import type { FragmentReference } from "relay-runtime";
 declare export opaque type SearchResultsList_search$ref: FragmentReference;
 declare export opaque type SearchResultsList_search$fragmentType: SearchResultsList_search$ref;
 export type SearchResultsList_search = {|
+  +myId: ?string,
   +myStoreId: ?string,
   +search: ?{|
     +edges: ?$ReadOnlyArray<?{|
@@ -76,6 +77,13 @@ const node/*: ReaderFragment*/ = {
   },
   "name": "SearchResultsList_search",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "myId",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -172,6 +180,6 @@ const node/*: ReaderFragment*/ = {
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = 'daa175281ec29b3eecd0d56794413e12';
+(node/*: any*/).hash = 'e57c01f824c4ad747d1947fc14957f73';
 
 module.exports = node;

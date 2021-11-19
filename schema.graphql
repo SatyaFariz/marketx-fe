@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Fri Nov 19 2021 23:44:10 GMT+0700 (Western Indonesia Time)
+# timestamp: Sat Nov 20 2021 00:00:41 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -268,6 +268,7 @@ type Query {
   mobileNumberExists(mobileNumber: String!): Boolean
   emailExists(email: Email!): Boolean
   me: User
+  myId: String
   myStoreId: String
   attributes: [Attribute]
   categories(hasChild: Boolean): [Category]

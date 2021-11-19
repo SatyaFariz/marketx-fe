@@ -6,6 +6,7 @@ const chunk = {
   components: () => [import('./StoreScreen')],
   query: graphql`
     query StoreScreenQuery($id: String!) {
+      ...StoreScreen_query,
       me {
         id,
         ...StoreScreen_me,
@@ -30,6 +31,7 @@ const chunk = {
         <FixedAddressBar me={data?.me}>
           {data &&
           <StoreScreen
+            query={data}
             me={data.me}
             categories={data.categories}
             store={data.store}

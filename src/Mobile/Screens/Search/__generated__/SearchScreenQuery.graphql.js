@@ -8,17 +8,13 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type SearchResultsList_me$ref = any;
 type SearchResultsList_search$ref = any;
 export type SearchScreenQueryVariables = {|
   q: string,
   first: number,
 |};
 export type SearchScreenQueryResponse = {|
-  +me: ?{|
-    +$fragmentRefs: SearchResultsList_me$ref
-  |},
-  +$fragmentRefs: SearchResultsList_search$ref,
+  +$fragmentRefs: SearchResultsList_search$ref
 |};
 export type SearchScreenQuery = {|
   variables: SearchScreenQueryVariables,
@@ -33,10 +29,6 @@ query SearchScreenQuery(
   $first: Int!
 ) {
   ...SearchResultsList_search_taE68
-  me {
-    ...SearchResultsList_me
-    id
-  }
 }
 
 fragment ProductItem_product on Product {
@@ -69,14 +61,8 @@ fragment ProductItem_product on Product {
   }
 }
 
-fragment SearchResultsList_me on User {
-  id
-  store {
-    id
-  }
-}
-
 fragment SearchResultsList_search_taE68 on Query {
+  myId
   myStoreId
   search(first: $first, q: $q) {
     edges {
@@ -153,22 +139,6 @@ return {
     "name": "SearchScreenQuery",
     "selections": [
       {
-        "alias": null,
-        "args": null,
-        "concreteType": "User",
-        "kind": "LinkedField",
-        "name": "me",
-        "plural": false,
-        "selections": [
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "SearchResultsList_me"
-          }
-        ],
-        "storageKey": null
-      },
-      {
         "args": (v2/*: any*/),
         "kind": "FragmentSpread",
         "name": "SearchResultsList_search"
@@ -186,6 +156,13 @@ return {
     "kind": "Operation",
     "name": "SearchScreenQuery",
     "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "myId",
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": null,
@@ -393,44 +370,20 @@ return {
         "key": "SearchResultsList_search",
         "kind": "LinkedHandle",
         "name": "search"
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "User",
-        "kind": "LinkedField",
-        "name": "me",
-        "plural": false,
-        "selections": [
-          (v3/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Store",
-            "kind": "LinkedField",
-            "name": "store",
-            "plural": false,
-            "selections": [
-              (v3/*: any*/)
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "85ee3adc55706f450e2253e548354e11",
+    "cacheID": "5f2e9cf185767d4ed4079ca64b512e77",
     "id": null,
     "metadata": {},
     "name": "SearchScreenQuery",
     "operationKind": "query",
-    "text": "query SearchScreenQuery(\n  $q: String!\n  $first: Int!\n) {\n  ...SearchResultsList_search_taE68\n  me {\n    ...SearchResultsList_me\n    id\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n\nfragment SearchResultsList_me on User {\n  id\n  store {\n    id\n  }\n}\n\nfragment SearchResultsList_search_taE68 on Query {\n  myStoreId\n  search(first: $first, q: $q) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+    "text": "query SearchScreenQuery(\n  $q: String!\n  $first: Int!\n) {\n  ...SearchResultsList_search_taE68\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n\nfragment SearchResultsList_search_taE68 on Query {\n  myId\n  myStoreId\n  search(first: $first, q: $q) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '54a102a543eff5230513ad9652c21f7a';
+(node/*: any*/).hash = '77f8f8118e65db3bae490e5de9b3adaa';
 
 module.exports = node;

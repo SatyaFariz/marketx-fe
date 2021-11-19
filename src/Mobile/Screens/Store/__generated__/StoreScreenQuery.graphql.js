@@ -12,6 +12,7 @@ type FixedAddressBar_me$ref = any;
 type StoreScreen_categories$ref = any;
 type StoreScreen_me$ref = any;
 type StoreScreen_products$ref = any;
+type StoreScreen_query$ref = any;
 type StoreScreen_store$ref = any;
 export type StoreScreenQueryVariables = {|
   id: string
@@ -28,7 +29,7 @@ export type StoreScreenQueryResponse = {|
   +categories: ?$ReadOnlyArray<?{|
     +$fragmentRefs: StoreScreen_categories$ref
   |}>,
-  +$fragmentRefs: StoreScreen_products$ref,
+  +$fragmentRefs: StoreScreen_query$ref & StoreScreen_products$ref,
 |};
 export type StoreScreenQuery = {|
   variables: StoreScreenQueryVariables,
@@ -41,6 +42,7 @@ export type StoreScreenQuery = {|
 query StoreScreenQuery(
   $id: String!
 ) {
+  ...StoreScreen_query
   me {
     id
     ...StoreScreen_me
@@ -69,10 +71,6 @@ fragment EditAddressView_store on Store {
 fragment FixedAddressBar_me on User {
   id
   isAdmin
-}
-
-fragment ProductItem_me on User {
-  id
 }
 
 fragment ProductItem_product on Product {
@@ -105,6 +103,10 @@ fragment ProductItem_product on Product {
   }
 }
 
+fragment ProductItem_query on Query {
+  myId
+}
+
 fragment SelectCategoryView_categories on Category {
   id
   name
@@ -122,7 +124,6 @@ fragment StoreScreen_categories on Category {
 
 fragment StoreScreen_me on User {
   id
-  ...ProductItem_me
 }
 
 fragment StoreScreen_products_9b7sY on Query {
@@ -140,6 +141,11 @@ fragment StoreScreen_products_9b7sY on Query {
       endCursor
     }
   }
+}
+
+fragment StoreScreen_query on Query {
+  myId
+  ...ProductItem_query
 }
 
 fragment StoreScreen_store on Store {
@@ -316,6 +322,11 @@ return {
         "storageKey": "categories(hasChild:false)"
       },
       {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "StoreScreen_query"
+      },
+      {
         "args": [
           (v4/*: any*/)
         ],
@@ -332,6 +343,13 @@ return {
     "kind": "Operation",
     "name": "StoreScreenQuery",
     "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "myId",
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": null,
@@ -673,16 +691,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "671b3df33295eca1ec73b9b4319c0028",
+    "cacheID": "4c008694d7f3ad640911f3a8a7c41756",
     "id": null,
     "metadata": {},
     "name": "StoreScreenQuery",
     "operationKind": "query",
-    "text": "query StoreScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    ...StoreScreen_me\n    ...FixedAddressBar_me\n  }\n  store(id: $id) {\n    id\n    ...StoreScreen_store\n  }\n  categories(hasChild: false) {\n    ...StoreScreen_categories\n    id\n  }\n  ...StoreScreen_products_9b7sY\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductItem_me on User {\n  id\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n\nfragment SelectCategoryView_categories on Category {\n  id\n  name\n  path\n  ancestors {\n    id\n    name\n  }\n}\n\nfragment StoreScreen_categories on Category {\n  id\n  ...SelectCategoryView_categories\n}\n\nfragment StoreScreen_me on User {\n  id\n  ...ProductItem_me\n}\n\nfragment StoreScreen_products_9b7sY on Query {\n  search(first: 10, q: \"\", storeId: $id) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  isVerified\n  merchantId\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n    city {\n      name\n    }\n    district {\n      name\n    }\n  }\n  ...EditAddressView_store\n}\n"
+    "text": "query StoreScreenQuery(\n  $id: String!\n) {\n  ...StoreScreen_query\n  me {\n    id\n    ...StoreScreen_me\n    ...FixedAddressBar_me\n  }\n  store(id: $id) {\n    id\n    ...StoreScreen_store\n  }\n  categories(hasChild: false) {\n    ...StoreScreen_categories\n    id\n  }\n  ...StoreScreen_products_9b7sY\n}\n\nfragment EditAddressView_store on Store {\n  id\n  address {\n    fullAddress\n    lat\n    lng\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n\nfragment ProductItem_query on Query {\n  myId\n}\n\nfragment SelectCategoryView_categories on Category {\n  id\n  name\n  path\n  ancestors {\n    id\n    name\n  }\n}\n\nfragment StoreScreen_categories on Category {\n  id\n  ...SelectCategoryView_categories\n}\n\nfragment StoreScreen_me on User {\n  id\n}\n\nfragment StoreScreen_products_9b7sY on Query {\n  search(first: 10, q: \"\", storeId: $id) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment StoreScreen_query on Query {\n  myId\n  ...ProductItem_query\n}\n\nfragment StoreScreen_store on Store {\n  id\n  name\n  whatsappNumber\n  isVerified\n  merchantId\n  profilePicture {\n    id\n    url\n  }\n  banner {\n    id\n    url\n  }\n  address {\n    fullAddress\n    city {\n      name\n    }\n    district {\n      name\n    }\n  }\n  ...EditAddressView_store\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '44ad1db7949d3b57136daa62dd0c4875';
+(node/*: any*/).hash = 'f55198123f36d01ec8f0b91a34e908f4';
 
 module.exports = node;
