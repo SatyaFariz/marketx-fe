@@ -4,9 +4,10 @@ import ProductItem from '../../Components/ProductItem'
 import { useBottomScrollListener } from 'react-bottom-scroll-listener'
 import { useState } from 'react'
 import { CircularProgress } from '@material-ui/core'
+import NotFoundIllustration from '../../../assets/results_not_found_illustration.png'
 
 const Component = props => {
-  const { showsListingType } = props
+  const { showsListingType, q } = props
   const [errorLoadingMore, setErrorLoadingMore] = useState(false)
   const { edges } = props.search.search
   
@@ -28,6 +29,29 @@ const Component = props => {
   const onEndReached = () => !errorLoadingMore && loadMore()
 
   const scrollRef = useBottomScrollListener(onEndReached, { offset: 100 })
+
+  if(edges.length === 0 && q?.length > 0) {
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%'
+      }}>
+        <div>
+          <img
+            src={NotFoundIllustration}
+            style={{
+              width: 250,
+              marginBottom: 15
+            }}
+          />
+
+          <p style={{ textAlign: 'center' }}>Oops... Tidak ditemukan 😱</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div 

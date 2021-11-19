@@ -101,7 +101,7 @@ const Component = props => {
               return null
             } else if(props) {
               return (
-                <SearchResultsList search={props}/>
+                <SearchResultsList search={props} q={searchTermDebounced}/>
               )
             }
 
