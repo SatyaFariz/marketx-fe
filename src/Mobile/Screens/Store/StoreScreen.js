@@ -20,7 +20,7 @@ import Link from '../../Components/Link'
 const Component = props => {
   const headerRef = useRef()
   const isMounted = useRef(true)
-  const { categories, me, store, products, query } = props
+  const { categories, me, store, products, userSession } = props
   const { edges } = products.search
   const { history, queryParams, pathname } = useAppContext()
   const { selectCategory } = queryParams
@@ -318,8 +318,7 @@ const Component = props => {
                     <ProductItem 
                       key={edge.node.id} 
                       product={edge.node}
-                      me={me}
-                      query={query}
+                      userSession={userSession}
                       showsViewsAndLeads
                     />
                   )
@@ -373,10 +372,10 @@ const Component = props => {
 }
 
 export default createPaginationContainer(Component, {
-  query: graphql`
-    fragment StoreScreen_query on Query {
-      myId,
-      ...ProductItem_query
+  userSession: graphql`
+    fragment StoreScreen_userSession on UserSession {
+      userId,
+      ...ProductItem_userSession
     }
   `,
   me: graphql`

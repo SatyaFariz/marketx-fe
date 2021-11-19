@@ -10,7 +10,7 @@ import NotFoundIllustration from '../../../assets/results_not_found_illustration
 import EmptyBoxIllustration from '../../../assets/empty_box_illustration.png'
 
 const Component = props => {
-  const { showsListingType, q, categoryId, search } = props
+  const { showsListingType, q, categoryId, search, userSession } = props
   const [errorLoadingMore, setErrorLoadingMore] = useState(false)
   const { edges } = search.search
   
@@ -34,8 +34,8 @@ const Component = props => {
   const scrollRef = useBottomScrollListener(onEndReached, { offset: 100 })
 
   const sellUrl = () => {
-    if(search.myId) {
-      if(search.myStoreId)
+    if(userSession.userId) {
+      if(userSession.storeId)
         return `/new/item/${categoryId}`
       
       return '/new/ad.account'
@@ -137,7 +137,7 @@ const Component = props => {
                 product={edge.node}
                 showsListingType={showsListingType}
                 showsLocation
-                me={null}
+                userSession={null}
               />
             )
           })}
@@ -159,6 +159,12 @@ const Component = props => {
 }
 
 export default createPaginationContainer(Component, {
+  userSession: graphql`
+    fragment SearchResultsList_userSession on UserSession {
+      userId,
+      storeId
+    }
+  `,
   search: graphql`
     fragment SearchResultsList_search on Query @argumentDefinitions(
       first: { type: "Int", defaultValue: 10 },
@@ -166,8 +172,6 @@ export default createPaginationContainer(Component, {
       q: { type: "String!" },
       categoryId: { type: "String" }
     ) {
-      myId,
-      myStoreId,
       search(
         first: $first,
         after: $after,

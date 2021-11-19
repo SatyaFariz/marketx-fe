@@ -28,8 +28,8 @@ const Component = props => {
           return (
             <ProductItem 
               product={item} 
-              key={item.id} 
-              me={null}
+              key={item.id}
+              userSession={null}
               showsLocation
             />
           )
