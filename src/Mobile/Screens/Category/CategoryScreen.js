@@ -3,7 +3,7 @@ import { createFragmentContainer } from 'react-relay'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
 import Color from '../../Constants/Color'
 import { IoCloseSharp } from 'react-icons/io5'
-import { LinearProgress, ButtonBase } from '@material-ui/core'
+import { LinearProgress, ButtonBase, IconButton } from '@material-ui/core'
 import { QueryRenderer } from 'react-relay'
 import useAppContext from '../../hooks/useAppContext'
 import { useState, useEffect } from 'react'
@@ -79,18 +79,11 @@ const Component = props => {
               onChange={e => setSearchTerm(e.target.value)}
             />
             {searchTerm.length > 0 &&
-            <div 
-            onClick={() => setSearchTerm('')}
-            style={{
-              height: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-              paddingLeft: 10,
-              paddingRight: 10,
-              display: 'flex'
-            }}>
-              <IoCloseSharp size={24}/>
-            </div>
+            <IconButton 
+              onClick={() => setSearchTerm('')}
+            >
+              <IoCloseSharp size={24} color="black"/>
+            </IconButton>
             }
           </div>
         </div>

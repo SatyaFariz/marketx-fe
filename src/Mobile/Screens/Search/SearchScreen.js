@@ -1,7 +1,7 @@
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import Color from '../../Constants/Color'
 import { IoCloseSharp } from 'react-icons/io5'
-import { LinearProgress } from '@material-ui/core'
+import { LinearProgress, IconButton } from '@material-ui/core'
 import graphql from 'babel-plugin-relay/macro'
 import { QueryRenderer } from 'react-relay'
 import useAppContext from '../../hooks/useAppContext'
@@ -71,18 +71,10 @@ const Component = props => {
             onChange={e => setSearchTerm(e.target.value)}
           />
           {searchTerm.length > 0 &&
-          <div 
-          onClick={() => setSearchTerm('')}
-          style={{
-            height: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingLeft: 10,
-            paddingRight: 10,
-            display: 'flex'
-          }}>
-            <IoCloseSharp size={24}/>
-          </div>
+          <IconButton 
+          onClick={() => setSearchTerm('')}>
+            <IoCloseSharp color="black" size={24}/>
+          </IconButton>
           }
         </div>
       </div>
