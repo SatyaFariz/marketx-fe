@@ -17,7 +17,7 @@ const chunk = {
   render: ([LoginScreen], data, context) => {
     
     return {
-      title: 'Rental App',
+      title: 'Market X',
       component: (
         <FixedAddressBar me={data?.me} desktopComingSoon={false}>
           <LoginScreen

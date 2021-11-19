@@ -30,7 +30,7 @@ const chunk = {
   render: ([CreateProductScreen], data, context) => {
     
     return {
-      title: 'Rental App',
+      title: 'Market X',
       component: (
         <FixedAddressBar me={data?.me}>
           <CreateProductScreen

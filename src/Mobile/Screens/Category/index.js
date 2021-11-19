@@ -20,7 +20,7 @@ const chunk = {
   render: ([CategoryScreen], data, context) => {
     
     return {
-      title: 'Rental App',
+      title: 'Market X',
       component: (
         <FixedAddressBar me={data?.me}>
           <CategoryScreen

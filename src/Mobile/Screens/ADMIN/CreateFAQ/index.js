@@ -16,7 +16,7 @@ const chunk = {
   render: ([CreateFAQPage], data, context) => {
     
     return {
-      title: 'Rental App',
+      title: 'Market X',
       component: (
         <FixedAddressBar>
           <CreateFAQPage

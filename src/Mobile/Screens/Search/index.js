@@ -16,7 +16,7 @@ const chunk = {
   render: ([SearchScreen], data, context) => {
     
     return {
-      title: 'Rental App',
+      title: 'Market X',
       component: (
         <FixedAddressBar me={data?.me}>
           <SearchScreen

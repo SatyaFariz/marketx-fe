@@ -21,7 +21,7 @@ const chunk = {
   render: ([AboutUsScreen], data, context) => {
     
     return {
-      title: 'Rental App',
+      title: 'Market X',
       component: (
         <FixedAddressBar me={data?.me}>
           <AboutUsScreen

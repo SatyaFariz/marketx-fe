@@ -21,7 +21,7 @@ const chunk = {
   render: ([AttributesListScreen], data, context) => {
     
     return {
-      title: 'Rental App',
+      title: 'Market X',
       component: (
         <FixedAddressBar me={data?.me}>
           {data.me?.isAdmin &&
