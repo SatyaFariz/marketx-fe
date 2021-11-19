@@ -8,7 +8,6 @@ const chunk = {
     query StoreScreenQuery($id: String!) {
       me {
         id,
-        ...StoreScreen_me,
         ...FixedAddressBar_me
       },
       userSession {

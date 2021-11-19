@@ -20,7 +20,7 @@ import Link from '../../Components/Link'
 const Component = props => {
   const headerRef = useRef()
   const isMounted = useRef(true)
-  const { categories, me, store, products, userSession } = props
+  const { categories, store, products, userSession } = props
   const { edges } = products.search
   const { history, queryParams, pathname } = useAppContext()
   const { selectCategory } = queryParams
@@ -111,7 +111,7 @@ const Component = props => {
               fontSize: 20,
               fontWeight: 500,
               textAlign: 'center',
-            }}>{store.merchantId === me?.id ? 'Iklan Anda' : 'Iklan'}</h1>
+            }}>{store.merchantId === userSession?.userId ? 'Iklan Anda' : 'Iklan'}</h1>
           </div>
         </div>
 
@@ -248,7 +248,7 @@ const Component = props => {
                 }
               </div>
 
-              {store.merchantId === me?.id &&
+              {store.merchantId === userSession?.userId &&
               <Button
                 label="Edit"
                 icon={<IoMdCreate/>}
@@ -273,7 +273,7 @@ const Component = props => {
               }
             </div>
             
-            {me &&
+            {userSession &&
             <span style={{
               color: 'rgb(83, 100, 113)',
               fontSize: 14,
@@ -301,7 +301,7 @@ const Component = props => {
                 display: 'block',
                 textAlign: 'center'
               }}>
-                {store.merchantId === me?.id ? "Anda belum menambahkan iklan." : "Akun ini belum menambahkan iklan."}
+                {store.merchantId === userSession?.userId ? "Anda belum menambahkan iklan." : "Akun ini belum menambahkan iklan."}
               </span>
             </div>
             :
@@ -354,7 +354,7 @@ const Component = props => {
       }}>
         <SelectCategoryView categories={categories}/>
       </div>
-      {store.merchantId === me?.id &&
+      {store.merchantId === userSession?.userId &&
       <Fab color="primary" aria-label="add" style={{
         zIndex: 99,
         position: 'absolute',
@@ -376,11 +376,6 @@ export default createPaginationContainer(Component, {
     fragment StoreScreen_userSession on UserSession {
       userId,
       ...ProductItem_userSession
-    }
-  `,
-  me: graphql`
-    fragment StoreScreen_me on User {
-      id
     }
   `,
   store: graphql`
