@@ -38,7 +38,7 @@ const Component = props => {
       if(me?.store?.id)
         return `/new/item/${categoryId}`
       
-      return '/new/ad.account'
+      return `/new/ad.account?redirect=/new/item/${categoryId}`
     }
     return `/login?redirect=/sell&categoryId=${categoryId}`
   }
