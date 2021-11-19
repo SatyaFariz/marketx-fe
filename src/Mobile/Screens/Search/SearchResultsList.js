@@ -34,8 +34,8 @@ const Component = props => {
   const scrollRef = useBottomScrollListener(onEndReached, { offset: 100 })
 
   const sellUrl = () => {
-    if(userSession.userId) {
-      if(userSession.storeId)
+    if(userSession?.userId) {
+      if(userSession?.storeId)
         return `/new/item/${categoryId}`
       
       return '/new/ad.account'
