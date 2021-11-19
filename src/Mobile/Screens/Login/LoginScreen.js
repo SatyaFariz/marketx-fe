@@ -70,7 +70,10 @@ const Component = props => {
           else
             history.replace(`/ad.account/${store.id}?selectCategory=1`)
         } else {
-          history.replace('/new/ad.account')
+          if(categoryId)
+            history.replace(`/new/ad.account?redirect=/new/item/${categoryId}`)
+          else
+            history.replace('/new/ad.account')
         }
       } else {
         history.replace(queryParams.redirect)

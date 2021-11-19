@@ -20,8 +20,8 @@ const nameFieldHelperText = 'Ini adalah nama yang akan muncul di halaman iklan A
 
 const Component = props => {
   const { provinces, me } = props
-  const _isMounted = useRef(true)
-  const { history, environment } = useAppContext()
+  const _isMounted = useRef(false)
+  const { history, environment, queryParams } = useAppContext()
   const areasLoader = useRef(new AdministrativeAreaLoader(environment))
   const [storeName, setStoreName] = useState('')
   const [whatsappNumber, setWhatsappNumber] = useState('')
@@ -42,7 +42,7 @@ const Component = props => {
 
   const sendVerificationCode = () => {
     if(!sendingVerificationCode) {
-      if(whatsappNumberStatus.number?.includes(whatsappNumber) && whatsappNumberStatus?.isNotRegistered) {
+      if(whatsappNumberStatus?.number?.includes(whatsappNumber) && whatsappNumberStatus?.isNotRegistered) {
         setValidation(prev => {
           const copy = { ...prev }
           copy.whatsappNumber = {
@@ -208,7 +208,11 @@ const Component = props => {
           alert(message)
           if(!hasError) {
             const { id } = payload.store
-            history.replace(`/ad.account/${id}`)
+            if(queryParams?.redirect) {
+              history.replace(queryParams.redirect)
+            } else {
+              history.replace(`/ad.account/${id}`)
+            }
           }
         }
 
@@ -252,10 +256,14 @@ const Component = props => {
   }, [city])
 
   useEffect(() => {
-    if(!me) {
-      history.replace(`/login?redirect=/new/ad.account`)
-    } else if(me.store) {
-      history.replace(`/ad.account/${me.store.id}`)
+    if(!_isMounted.current) {
+      if(!me) {
+        history.replace(`/login?redirect=/new/ad.account`)
+      } else if(me.store) {
+        history.replace(`/ad.account/${me.store.id}`)
+      }
+    } else {
+      _isMounted.current = true
     }
   }, [me, history])
 
