@@ -1,6 +1,7 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
+import Color from '../../Constants/Color'
 import { IoCloseSharp } from 'react-icons/io5'
 import { LinearProgress, ButtonBase } from '@material-ui/core'
 import { QueryRenderer } from 'react-relay'
@@ -72,7 +73,7 @@ const Component = props => {
                 border: 'none',
                 outline: 'none',
                 fontSize: 16,
-                caretColor: '#FF385C'
+                caretColor: Color.primary
               }}
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}

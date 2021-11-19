@@ -1,4 +1,5 @@
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
+import Color from '../../Constants/Color'
 import { IoCloseSharp } from 'react-icons/io5'
 import { LinearProgress } from '@material-ui/core'
 import graphql from 'babel-plugin-relay/macro'
@@ -64,7 +65,7 @@ const Component = props => {
               border: 'none',
               outline: 'none',
               fontSize: 16,
-              caretColor: '#FF385C'
+              caretColor: Color.primary
             }}
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}

@@ -30,18 +30,7 @@ const Component = (props) => {
           }}>
             <IoSearchOutline size={24} color={'#FF385C'}/>
           </div>
-          {/* <input
-            placeholder="What do you want to rent today?"
-            style={{
-              width: '100%',
-              borderRadius: 8,
-              lineHeight: 24,
-              border: 'none',
-              outline: 'none',
-              fontSize: 16,
-              caretColor: '#FF385C'
-            }}
-          /> */}
+          
           <div style={{
             display: 'flex',
             justifyContent: 'center',
