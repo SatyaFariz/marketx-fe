@@ -20,7 +20,8 @@ const nameFieldHelperText = 'Ini adalah nama yang akan muncul di halaman iklan A
 
 const Component = props => {
   const { provinces, me } = props
-  const _isMounted = useRef(false)
+  const _isMounted = useRef(true)
+  const shouldForceRedirect = useRef(true)
   const { history, environment, queryParams } = useAppContext()
   const areasLoader = useRef(new AdministrativeAreaLoader(environment))
   const [storeName, setStoreName] = useState('')
@@ -256,14 +257,15 @@ const Component = props => {
   }, [city])
 
   useEffect(() => {
-    if(!_isMounted.current) {
+    if(shouldForceRedirect.current) {
       if(!me) {
         history.replace(`/login?redirect=/new/ad.account`)
       } else if(me.store) {
         history.replace(`/ad.account/${me.store.id}`)
       }
+      shouldForceRedirect.current = false
     } else {
-      _isMounted.current = true
+      shouldForceRedirect.current = false
     }
   }, [me, history])
 
