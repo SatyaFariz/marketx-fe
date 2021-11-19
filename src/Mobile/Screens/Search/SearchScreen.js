@@ -12,7 +12,10 @@ import BackButton from '../../Components/BackButton'
 
 const query = graphql`
   query SearchScreenQuery($q: String!, $first: Int!) {
-    ...SearchResultsList_search @arguments(q: $q, first: $first)
+    ...SearchResultsList_search @arguments(q: $q, first: $first),
+    me {
+      ...SearchResultsList_me
+    }
   }
 `
 
@@ -93,7 +96,11 @@ const Component = props => {
               return null
             } else if(props) {
               return (
-                <SearchResultsList search={props} q={searchTermDebounced}/>
+                <SearchResultsList 
+                  search={props} 
+                  q={searchTermDebounced}
+                  me={props?.me}
+                />
               )
             }
 

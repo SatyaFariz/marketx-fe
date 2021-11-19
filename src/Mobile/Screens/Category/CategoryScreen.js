@@ -14,7 +14,10 @@ import Link from '../../Components/Link'
 
 const query = graphql`
   query CategoryScreenQuery($q: String!, $first: Int!, $categoryId: String!) {
-    ...SearchResultsList_search @arguments(q: $q, first: $first, categoryId: $categoryId)
+    ...SearchResultsList_search @arguments(q: $q, first: $first, categoryId: $categoryId),
+    me {
+      ...SearchResultsList_me
+    }
   }
 `
 
@@ -151,6 +154,10 @@ const Component = props => {
                 <SearchResultsList 
                   search={props} 
                   showsListingType={false}
+                  q={searchTermDebounced}
+                  screen="category"
+                  me={props?.me}
+                  categoryId={category.id}
                 />
               )
             }

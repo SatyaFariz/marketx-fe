@@ -61,10 +61,14 @@ const Component = props => {
   const redirectAfterLogin = (user) => {
     if(queryParams?.redirect) {
       if(queryParams.redirect === '/sell') {
+        const { categoryId } = queryParams
         // from clicking "JUAL" button in home screen
         const { store } = user
         if(store) {
-          history.replace(`/ad.account/${store.id}?selectCategory=1`)
+          if(categoryId)
+            history.replace(`/new/item/${categoryId}`)
+          else
+            history.replace(`/ad.account/${store.id}?selectCategory=1`)
         } else {
           history.replace('/new/ad.account')
         }

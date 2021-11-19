@@ -8,13 +8,17 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type SearchResultsList_me$ref = any;
 type SearchResultsList_search$ref = any;
 export type SearchScreenQueryVariables = {|
   q: string,
   first: number,
 |};
 export type SearchScreenQueryResponse = {|
-  +$fragmentRefs: SearchResultsList_search$ref
+  +me: ?{|
+    +$fragmentRefs: SearchResultsList_me$ref
+  |},
+  +$fragmentRefs: SearchResultsList_search$ref,
 |};
 export type SearchScreenQuery = {|
   variables: SearchScreenQueryVariables,
@@ -29,6 +33,10 @@ query SearchScreenQuery(
   $first: Int!
 ) {
   ...SearchResultsList_search_taE68
+  me {
+    ...SearchResultsList_me
+    id
+  }
 }
 
 fragment ProductItem_product on Product {
@@ -58,6 +66,13 @@ fragment ProductItem_product on Product {
       administrativeAreaId
       name
     }
+  }
+}
+
+fragment SearchResultsList_me on User {
+  id
+  store {
+    id
   }
 }
 
@@ -136,6 +151,22 @@ return {
     "metadata": null,
     "name": "SearchScreenQuery",
     "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "SearchResultsList_me"
+          }
+        ],
+        "storageKey": null
+      },
       {
         "args": (v2/*: any*/),
         "kind": "FragmentSpread",
@@ -354,20 +385,44 @@ return {
         "key": "SearchResultsList_search",
         "kind": "LinkedHandle",
         "name": "search"
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Store",
+            "kind": "LinkedField",
+            "name": "store",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "3dfe82e858b28bc430bb97dcb76f5252",
+    "cacheID": "8f38d8818e8fa2cbd2858fdd9a9271c0",
     "id": null,
     "metadata": {},
     "name": "SearchScreenQuery",
     "operationKind": "query",
-    "text": "query SearchScreenQuery(\n  $q: String!\n  $first: Int!\n) {\n  ...SearchResultsList_search_taE68\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n\nfragment SearchResultsList_search_taE68 on Query {\n  search(first: $first, q: $q) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+    "text": "query SearchScreenQuery(\n  $q: String!\n  $first: Int!\n) {\n  ...SearchResultsList_search_taE68\n  me {\n    ...SearchResultsList_me\n    id\n  }\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n\nfragment SearchResultsList_me on User {\n  id\n  store {\n    id\n  }\n}\n\nfragment SearchResultsList_search_taE68 on Query {\n  search(first: $first, q: $q) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '77f8f8118e65db3bae490e5de9b3adaa';
+(node/*: any*/).hash = '54a102a543eff5230513ad9652c21f7a';
 
 module.exports = node;

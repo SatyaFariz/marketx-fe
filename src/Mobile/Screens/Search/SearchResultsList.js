@@ -3,11 +3,14 @@ import graphql from 'babel-plugin-relay/macro'
 import ProductItem from '../../Components/ProductItem'
 import { useBottomScrollListener } from 'react-bottom-scroll-listener'
 import { useState } from 'react'
-import { CircularProgress } from '@material-ui/core'
+import { CircularProgress, ButtonBase } from '@material-ui/core'
+import Link from '../../Components/Link'
+import Color from '../../Constants/Color'
 import NotFoundIllustration from '../../../assets/results_not_found_illustration.png'
+import EmptyBoxIllustration from '../../../assets/empty_box_illustration.png'
 
 const Component = props => {
-  const { showsListingType, q } = props
+  const { showsListingType, q, screen, me, categoryId } = props
   const [errorLoadingMore, setErrorLoadingMore] = useState(false)
   const { edges } = props.search.search
   
@@ -30,7 +33,17 @@ const Component = props => {
 
   const scrollRef = useBottomScrollListener(onEndReached, { offset: 100 })
 
-  if(edges.length === 0 && q?.length > 0) {
+  const sellUrl = () => {
+    if(me) {
+      if(me.store)
+        return `/new/item/${categoryId}`
+      
+      return '/new/ad.account'
+    }
+    return `/login?redirect=/sell&categoryId=${categoryId}`
+  }
+
+  if(edges.length === 0 && q?.trim()?.length > 0) {
     return (
       <div style={{
         display: 'flex',
@@ -48,6 +61,44 @@ const Component = props => {
           />
 
           <p style={{ textAlign: 'center' }}>Oops... Tidak ditemukan 😱</p>
+        </div>
+      </div>
+    )
+  } else if(edges.length === 0 && q?.trim()?.length === 0 && screen === 'category') {
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%'
+      }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column'
+        }}>
+          <img
+            src={EmptyBoxIllustration}
+            style={{
+              width: 250,
+              marginBottom: 15
+            }}
+          />
+
+          <p style={{ textAlign: 'center', lineHeight: '20px' }}>
+            {'Kategori ini masih kosong. Jadilah yang pertama '}
+            <ButtonBase 
+              style={{ 
+                color: Color.primary,
+                verticalAlign: 'baseline'
+              }} 
+              component={Link} 
+              href={sellUrl()}
+            >
+              memasang iklan disini
+            </ButtonBase>.
+          </p>
         </div>
       </div>
     )
@@ -108,6 +159,14 @@ const Component = props => {
 }
 
 export default createPaginationContainer(Component, {
+  me: graphql`
+    fragment SearchResultsList_me on User {
+      id,
+      store {
+        id
+      }
+    }
+  `,
   search: graphql`
     fragment SearchResultsList_search on Query @argumentDefinitions(
       first: { type: "Int", defaultValue: 10 },
