@@ -62,6 +62,7 @@ const Component = props => {
   const { queryParams } = useAppContext()
   const [file, setFile] = useState(null)
   const [name, setName] = useState(category.name)
+  const [maxImageUpload, setMaxImageUpload] = useState(category.maxImageUpload?.toString() || '')
   const [rentalDurationIds, setRentalDurationIds] = useState(category.rentalDurationIds || [])
   const [showsProductConditionField, setShowsProductConditionField] = useState(category.showsProductConditionField || false)
   const [requiresProductCondition, setRequiresProductCondition] = useState(category.requiresProductCondition || false)
@@ -144,6 +145,7 @@ const Component = props => {
         forceLocationInput,
         isPublished,
         rentalDurationIds,
+        maxImageUpload: maxImageUpload.length > 0 ? parseInt(maxImageUpload, 10) : null,
         specFields: specFields.reduce((fields, field) => {
           if(!field.deleted) {
             fields.push({
@@ -391,6 +393,28 @@ const Component = props => {
             ))}
           </TextField>
           }
+
+          <NumberFormat
+            customInput={TextField}
+            variant="outlined"
+            label="Max Image Upload"
+            value={maxImageUpload}
+            onValueChange={({ value }) => setMaxImageUpload(value)}
+            fullWidth
+            disabled={loading}
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            inputProps={{
+              pattern: "[0-9]*",
+              type: "text",
+              inputMode: "numeric"
+            }}
+            allowNegative={false}
+            decimalSeparator={null}
+            thousandSeparator="."
+          />
           
           {!['rental_product', 'service'].includes(category.listingType) &&
           <>
@@ -789,6 +813,7 @@ export default createFragmentContainer(Component, {
       requiresProductCondition,
       forceLocationInput,
       rentalDurationIds,
+      maxImageUpload,
       listingType,
       ...CreateSpecificationFieldsModal_category,
       ancestors {

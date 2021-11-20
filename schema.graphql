@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sat Nov 20 2021 01:32:27 GMT+0700 (Western Indonesia Time)
+# timestamp: Sat Nov 20 2021 13:16:29 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -67,6 +67,7 @@ type Category {
   code: String
   path: String
   level: Int
+  maxImageUpload: Int
   isPublished: Boolean
   requiresProductCondition: Boolean
   showsProductConditionField: Boolean
@@ -382,6 +383,7 @@ input UpdateCategoryInput {
   showsProductConditionField: Boolean
   requiresProductCondition: Boolean
   forceLocationInput: Boolean
+  maxImageUpload: Int
   rentalDurationIds: [String]
   specFields: [SpecificationFieldInput!]!
 }

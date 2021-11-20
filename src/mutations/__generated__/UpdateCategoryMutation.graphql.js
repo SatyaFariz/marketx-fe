@@ -15,6 +15,7 @@ export type UpdateCategoryInput = {|
   showsProductConditionField?: ?boolean,
   requiresProductCondition?: ?boolean,
   forceLocationInput?: ?boolean,
+  maxImageUpload?: ?number,
   rentalDurationIds?: ?$ReadOnlyArray<?string>,
   specFields: $ReadOnlyArray<SpecificationFieldInput>,
 |};
