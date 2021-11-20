@@ -1,6 +1,6 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
-import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, MAX_IMAGE_UPLOAD } from '../../Constants'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
 import { IconButton, CircularProgress } from '@material-ui/core'
@@ -22,6 +22,8 @@ const Component = props => {
   const _isMounted = useRef(true)
   const { environment, history } = useAppContext()
   const { product, me } = props
+  const category = product.category[product.category.length - 1]
+  const maxImageUpload = category.maxImageUpload || MAX_IMAGE_UPLOAD
   const merchantId = product?.merchant?.id
   const [uploading, setUploading] = useState(false)
   const [updating, setUpdating] = useState(false)
@@ -48,10 +50,10 @@ const Component = props => {
   const { getRootProps, getInputProps } = useDropzone({
     // Disable click and keydown behavior
     accept: 'image/jpeg',
-    disabled: uploading || (maxImages === product.images.length),
+    disabled: uploading || (maxImageUpload === product.images.length),
     maxSize: 6 * megabytes,
     onDrop: async (acceptedFiles) => {
-      const maxFiles = maxImages - product.images.length
+      const maxFiles = maxImageUpload - product.images.length
       if(acceptedFiles.length > 0) {
         const images = await Promise.all(acceptedFiles.slice(0, maxFiles).map(file => {
           return new Promise(async (resolve) => {
@@ -234,6 +236,10 @@ export default createFragmentContainer(Component, {
       },
       merchant {
         id
+      },
+      category {
+        id,
+        maxImageUpload
       }
     }
   `,

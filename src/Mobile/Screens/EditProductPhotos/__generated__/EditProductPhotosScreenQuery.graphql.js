@@ -59,6 +59,10 @@ fragment EditProductPhotosScreen_product on Product {
   merchant {
     id
   }
+  category {
+    id
+    maxImageUpload
+  }
 }
 
 fragment FixedAddressBar_me on User {
@@ -184,6 +188,25 @@ return {
               (v2/*: any*/)
             ],
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Category",
+            "kind": "LinkedField",
+            "name": "category",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "maxImageUpload",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -210,12 +233,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d2db1b6e331457373d3d77a402dd56ed",
+    "cacheID": "f8a7e4bbd3bfd4afe5dca6a7c878f7fc",
     "id": null,
     "metadata": {},
     "name": "EditProductPhotosScreenQuery",
     "operationKind": "query",
-    "text": "query EditProductPhotosScreenQuery(\n  $productId: String!\n) {\n  product(id: $productId) {\n    id\n    ...EditProductPhotosScreen_product\n  }\n  me {\n    id\n    ...EditProductPhotosScreen_me\n    ...FixedAddressBar_me\n  }\n}\n\nfragment EditProductPhotosScreen_me on User {\n  id\n}\n\nfragment EditProductPhotosScreen_product on Product {\n  id\n  images {\n    id\n    url\n  }\n  merchant {\n    id\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
+    "text": "query EditProductPhotosScreenQuery(\n  $productId: String!\n) {\n  product(id: $productId) {\n    id\n    ...EditProductPhotosScreen_product\n  }\n  me {\n    id\n    ...EditProductPhotosScreen_me\n    ...FixedAddressBar_me\n  }\n}\n\nfragment EditProductPhotosScreen_me on User {\n  id\n}\n\nfragment EditProductPhotosScreen_product on Product {\n  id\n  images {\n    id\n    url\n  }\n  merchant {\n    id\n  }\n  category {\n    id\n    maxImageUpload\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();

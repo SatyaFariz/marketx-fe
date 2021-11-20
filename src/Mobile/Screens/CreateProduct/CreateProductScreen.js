@@ -26,6 +26,7 @@ const Component = props => {
   const [loading, setLoading] = useState(false)
   const [carouselPos, setCarouselPos] = useState(0)
   const [files, setFiles] = useState([])
+  const maxImageUpload = category.maxImageUpload || MAX_IMAGE_UPLOAD
   const { getRootProps, getInputProps, open } = useDropzone({
     // Disable click and keydown behavior
     accept: 'image/jpeg',
@@ -35,7 +36,7 @@ const Component = props => {
     maxSize: 6 * megabytes,
     onDrop: async (acceptedFiles) => {
       if(acceptedFiles.length > 0) {
-        const images = await Promise.all(acceptedFiles.slice(0, category.maxImageUpload || MAX_IMAGE_UPLOAD).map(file => {
+        const images = await Promise.all(acceptedFiles.slice(0, maxImageUpload).map(file => {
           return new Promise(async (resolve) => {
             const tool = await fromImage(file)
             const image = await tool.quality(0.4).toFile(file.name)
