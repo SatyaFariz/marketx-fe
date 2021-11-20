@@ -4,7 +4,7 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
 import formatCurrency from '../../../helpers/formatCurrency'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useCallback } from 'react'
 import Link from '../../Components/Link'
 import { ButtonBase, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress, TextField, MenuItem } from '@material-ui/core'
 import BackButton from '../../Components/BackButton'
@@ -59,7 +59,7 @@ const Component = props => {
     }
   }
 
-  const incrementViews = () => {
+  const incrementViews = useCallback(() => {
     if(!isMyProduct && !me?.isAdmin) {
       IncrementViews(environment, { productId: product.id }, (payload, error) => {
         if(error) {
@@ -67,7 +67,7 @@ const Component = props => {
         }
       })
     }
-  }
+  }, [environment, isMyProduct, me, product])
 
   const onActionButtonClick = () => {
     if(me?.id === product.store.merchantId) {
