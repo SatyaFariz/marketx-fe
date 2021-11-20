@@ -14,8 +14,8 @@ const Component = props => {
   const i = queryParams.question ? parseInt(queryParams.question) : null
 
   const handleContentClick = (e) => {
-    if(e.target?.parentElement?.nodeName === 'A') {
-      const { host, href } = e.target.parentElement
+    if(e.target?.nodeName === 'A') {
+      const { host, href } = e.target
       if(host === window.location.host) {
         const reg = /.+?\:\/\/.+?(\/.+?)?(?:#|\?|)?$/
         const pathname = reg.exec(href)[1] || '/'

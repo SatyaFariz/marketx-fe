@@ -11,10 +11,10 @@ const Component = props => {
   const post = posts[0]
 
   const handleContentClick = (e) => {
-    if(e.target?.parentElement?.nodeName === 'A') {
-      const { host, href } = e.target.parentElement
+    if(e.target?.nodeName === 'A') {
+      const { host, href } = e.target
       if(host === window.location.host) {
-        const reg = /.+?\:\/\/.+?(\/.+?)?(?:#|\?|)?$/
+        const reg = /.+?:\/\/.+?(\/.+?)?(?:#|\?|)?$/
         const pathname = reg.exec(href)[1] || '/'
         e.preventDefault()
         history.push(pathname)
