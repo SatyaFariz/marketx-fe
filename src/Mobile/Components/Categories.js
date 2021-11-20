@@ -1,12 +1,8 @@
 import { createFragmentContainer } from 'react-relay'
 import { DIVIDER_COLOR } from '../Constants'
-import { ButtonBase } from '@material-ui/core'
-import Color from '../Constants/Color'
 import graphql from 'babel-plugin-relay/macro'
-import Link from '../Components/Link'
 import useAppContext from '../hooks/useAppContext'
 import { useState, useEffect } from 'react'
-import { useLongPress } from 'use-long-press'
 import CategoryItem from './CategoryItem'
 
 const Component = props => {
@@ -14,10 +10,6 @@ const Component = props => {
   const { tab } = queryParams
   const { categories, me } = props
   const [currentTab, setCurrentTab] = useState(tab ? parseInt(tab, 10) : -1)
-
-  const handleLongPress = useLongPress(() => {
-    alert('Long pressed!')
-  })
 
   useEffect(() => {
     if(pathname === '/') {

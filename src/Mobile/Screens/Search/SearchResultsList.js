@@ -53,6 +53,7 @@ const Component = props => {
       }}>
         <div>
           <img
+            alt="Illustration not found"
             src={NotFoundIllustration}
             style={{
               width: 250,
@@ -79,6 +80,7 @@ const Component = props => {
           flexDirection: 'column'
         }}>
           <img
+            alt="Illustration category empty"
             src={EmptyBoxIllustration}
             style={{
               width: 250,

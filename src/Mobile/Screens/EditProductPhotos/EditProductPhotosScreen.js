@@ -16,7 +16,6 @@ import CameraIcon from '../../Components/CameraIcon'
 import Button from '../../Components/Button'
 
 const megabytes = 1048576
-const maxImages = 7
 
 const Component = props => {
   const _isMounted = useRef(true)

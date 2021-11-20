@@ -16,6 +16,7 @@ const Component = () => {
         marginTop: 25
       }}>
         <img
+          alt="Market X logo"
           src={Logo}
           style={{
             height: 80
