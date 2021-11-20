@@ -1,6 +1,6 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
-import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, PRODUCT_TITLE_MAX_LENGTH, PRODUCT_PRICE_MAX_LENGTH, PRODUCT_DESC_MAX_LENGTH, PRODUCT_SPEC_VALUE_MAX_LENGTH, PRODUCT_NUMERIC_SPEC_VALUE_MAX_LENGTH } from '../../Constants'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, PRODUCT_TITLE_MAX_LENGTH, PRODUCT_PRICE_MAX_LENGTH, PRODUCT_DESC_MAX_LENGTH, PRODUCT_SPEC_VALUE_MAX_LENGTH, PRODUCT_NUMERIC_SPEC_VALUE_MAX_LENGTH, MAX_IMAGE_UPLOAD } from '../../Constants'
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
@@ -12,7 +12,6 @@ import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
 import CreateProduct from '../../../mutations/CreateProduct'
 import BackButton from '../../Components/BackButton'
-import Link from '../../Components/Link'
 import Button from '../../Components/Button'
 import NumberFormat from 'react-number-format'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -36,7 +35,7 @@ const Component = props => {
     maxSize: 6 * megabytes,
     onDrop: async (acceptedFiles) => {
       if(acceptedFiles.length > 0) {
-        const images = await Promise.all(acceptedFiles.map(file => {
+        const images = await Promise.all(acceptedFiles.slice(0, category.maxImageUpload || MAX_IMAGE_UPLOAD).map(file => {
           return new Promise(async (resolve) => {
             const tool = await fromImage(file)
             const image = await tool.quality(0.4).toFile(file.name)
@@ -476,7 +475,7 @@ const Component = props => {
                 )
               })}
             </Swiper>
-            {files.length > 1 &&
+            {/* {files.length > 1 &&
             <div style={{
               position: 'absolute',
               width: '100%',
@@ -500,7 +499,25 @@ const Component = props => {
                 )
               })}
             </div>
-            }
+            } */}
+
+              {files.length > 1 &&
+              <div style={{
+                position: 'absolute',
+                right: 10,
+                bottom: 10,
+                borderRadius: 7,
+                backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                padding: '5px 10px'
+              }}>
+                <span style={{
+                  color: 'white',
+                  fontSize: 'small'
+                }}>
+                  {carouselPos + 1}/{files.length}
+                </span>
+              </div>
+              }
           </>
           :
           <img
@@ -525,7 +542,7 @@ const Component = props => {
                 color: 'black',
                 margin: 15,
                 position: 'absolute',
-                right: 0,
+                left: 0,
                 bottom: 0,
               }}
               onClick={open}
@@ -1060,6 +1077,7 @@ export default createFragmentContainer(Component, {
       showsProductConditionField,
       forceLocationInput,
       rentalDurationIds,
+      maxImageUpload,
       listingType,
       ancestors {
         id,

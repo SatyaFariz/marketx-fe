@@ -19,6 +19,7 @@ export type CreateProductScreen_category = {|
   +showsProductConditionField: ?boolean,
   +forceLocationInput: ?boolean,
   +rentalDurationIds: ?$ReadOnlyArray<?string>,
+  +maxImageUpload: ?number,
   +listingType: ?string,
   +ancestors: ?$ReadOnlyArray<?{|
     +id: ?string,
@@ -116,6 +117,13 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "rentalDurationIds",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "maxImageUpload",
       "storageKey": null
     },
     {
@@ -261,6 +269,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c1cb03fb01b5b3f685c9cf8068b4e8aa';
+(node/*: any*/).hash = '85544562b74e57c2e93bac34d3d5a625';
 
 module.exports = node;
