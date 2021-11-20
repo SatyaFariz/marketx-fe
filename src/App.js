@@ -122,7 +122,7 @@ class App extends Component {
           environment: relay,
           resetEnvironment: this.resetEnvironment,
           isMobile: this.props.isMobile,
-          isProduction: process.env.REACT_APP_ENV === 'development'
+          isProduction: process.env.REACT_APP_ENV === 'production'
         }}
       >
         <MuiThemeProvider theme={theme}>
