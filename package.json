@@ -62,6 +62,7 @@
     "build:image": "docker build -t satyafariz/marketplace:latest .",
     "build-image:staging": "docker build -t satyafariz/marketx-fe:staging .",
     "push-image:staging": "docker push satyafariz/marketx-fe:staging",
+    "pull-image:staging": "docker pull satyafariz/marketx-fe:staging",
     "docker:push": "docker push satyafariz/marketplace:latest",
     "docker:pull": "docker pull satyafariz/marketplace:latest"
   },
