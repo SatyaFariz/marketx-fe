@@ -1,7 +1,6 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import { useRef, useEffect, useState, lazy, Suspense } from 'react'
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 import { EditorState, convertToRaw } from 'draft-js'
 import { stateFromHTML } from 'draft-js-import-html'
 import draftToHtml from 'draftjs-to-html'
@@ -67,6 +66,7 @@ const Component = props => {
   }
 
   useEffect(() => {
+    import('react-draft-wysiwyg/dist/react-draft-wysiwyg.css')
     return () => isMounted.current = false
   }, [])
 

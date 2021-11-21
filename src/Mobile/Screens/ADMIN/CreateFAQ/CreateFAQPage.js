@@ -1,7 +1,6 @@
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 import { EditorState, convertToRaw } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
-import { useState, lazy, Suspense } from 'react'
+import { useState, lazy, Suspense, useEffect } from 'react'
 import { TextField, NoSsr } from '@material-ui/core'
 import CreatePost from '../../../../mutations/CreatePost'
 import useAppContext from '../../../hooks/useAppContext'
@@ -38,6 +37,11 @@ const Component = props => {
       setLoading(true)
     }
   }
+
+  useEffect(() => {
+    import('react-draft-wysiwyg/dist/react-draft-wysiwyg.css')
+  }, [])
+
   return (
     <div style={{
       padding: 20

@@ -4,7 +4,6 @@ import Button from '../../../Components/Button'
 import { TextField } from '@material-ui/core'
 import useAppContext from '../../../hooks/useAppContext'
 import { EditorState, convertToRaw } from 'draft-js'
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 import PublishPost from '../../../../mutations/PublishPost'
 import DeletePost from '../../../../mutations/DeletePost'
 import { stateFromHTML } from 'draft-js-import-html'
@@ -65,6 +64,7 @@ const Component = props => {
   }
 
   useEffect(() => {
+    import('react-draft-wysiwyg/dist/react-draft-wysiwyg.css')
     return () => isMounted.current = false
   }, [])
 
