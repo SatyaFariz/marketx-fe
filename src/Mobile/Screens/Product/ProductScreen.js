@@ -531,7 +531,15 @@ const Component = props => {
                         })}
                       </div>
                       :
-                      <span>{`${item.prefix?.length > 0 ? `${item.prefix} ` : ''}${item.value}${item.suffix?.length > 0 ? ` ${item.suffix}` : ''}`}</span>
+                      <div style={{
+                        maxWidth: '60%',
+                        display: 'flex',
+                        justifyContent: 'flex-end'
+                      }}>
+                        <span style={{ textAlign: 'right' }}>
+                          {`${item.prefix?.length > 0 ? `${item.prefix} ` : ''}${item.value}${item.suffix?.length > 0 ? ` ${item.suffix}` : ''}`}
+                        </span>
+                      </div>
                       }
 
                     </div>
