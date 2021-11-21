@@ -59,12 +59,9 @@
     "deploy": "rsync -avz /Users/workstation/projects/marketx-fe/ marketx_id@103.172.204.110:/home/marketx_id/marketx_fe/",
     "start-dev": "gulp set --env=dev && npm start",
     "docker:staging": "docker-compose -f docker-compose.yml -f docker-compose.staging.yml -p marketx_fe_staging up --remove-orphans --force-recreate --build",
-    "build:image": "docker build -t satyafariz/marketplace:latest .",
     "build-image:staging": "docker build -t satyafariz/marketx-fe:staging .",
     "push-image:staging": "docker push satyafariz/marketx-fe:staging",
-    "pull-image:staging": "docker pull satyafariz/marketx-fe:staging",
-    "docker:push": "docker push satyafariz/marketplace:latest",
-    "docker:pull": "docker pull satyafariz/marketplace:latest"
+    "pull-image:staging": "docker pull satyafariz/marketx-fe:staging"
   },
   "eslintConfig": {
     "extends": [
