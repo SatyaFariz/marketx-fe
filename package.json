@@ -57,7 +57,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "rsync -avz /Users/workstation/projects/marketx-fe/ marketx_id@103.172.204.110:/home/marketx_id/marketx_fe/",
     "start-dev": "gulp set --env=dev && npm start",
     "docker:staging": "docker-compose -f docker-compose.yml -f docker-compose.staging.yml -p marketx_fe up --remove-orphans --force-recreate --build",
     "build:image": "docker build -t satyafariz/marketplace:latest .",
