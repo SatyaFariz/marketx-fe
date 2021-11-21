@@ -1,8 +1,7 @@
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
-import { useRef, useEffect, useState } from 'react'
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { useRef, useEffect, useState, lazy, Suspense } from 'react'
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 import { EditorState, convertToRaw } from 'draft-js'
 import { stateFromHTML } from 'draft-js-import-html'
 import draftToHtml from 'draftjs-to-html'
@@ -10,6 +9,8 @@ import CreatePost from '../../../../mutations/CreatePost'
 import PublishPost from '../../../../mutations/PublishPost'
 import useAppContext from '../../../hooks/useAppContext'
 import { NoSsr } from '@material-ui/core'
+
+const Editor = lazy(() => import('react-draft-wysiwyg').then(module => ({ default: module.Editor })))
 
 const Component = props => {
   const { history, queryParams } = useAppContext()
@@ -81,12 +82,14 @@ const Component = props => {
 
               <div>
                 <NoSsr>
-                  <Editor
-                    editorState={editorState}
-                    wrapperClassName="demo-wrapper"
-                    editorClassName="demo-editor"
-                    onEditorStateChange={onChange}
-                  />
+                  <Suspense fallback={null}>
+                    <Editor
+                      editorState={editorState}
+                      wrapperClassName="demo-wrapper"
+                      editorClassName="demo-editor"
+                      onEditorStateChange={onChange}
+                    />
+                  </Suspense>
                 </NoSsr>
               </div>
 
@@ -109,12 +112,14 @@ const Component = props => {
 
             <div>
               <NoSsr>
-                <Editor
-                  editorState={editorState}
-                  wrapperClassName="demo-wrapper"
-                  editorClassName="demo-editor"
-                  onEditorStateChange={onChange}
-                />
+                <Suspense fallback={null}>
+                  <Editor
+                    editorState={editorState}
+                    wrapperClassName="demo-wrapper"
+                    editorClassName="demo-editor"
+                    onEditorStateChange={onChange}
+                  />
+                </Suspense>
               </NoSsr>
             </div>
 

@@ -1,11 +1,12 @@
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 import { EditorState, convertToRaw } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import { TextField, NoSsr } from '@material-ui/core'
 import CreatePost from '../../../../mutations/CreatePost'
 import useAppContext from '../../../hooks/useAppContext'
+
+const Editor = lazy(() => import('react-draft-wysiwyg').then(module => ({ default: module.Editor })))
 
 const Component = props => {
   const { environment, history } = useAppContext()
@@ -50,12 +51,14 @@ const Component = props => {
 
       <div>
         <NoSsr>
-          <Editor
-            editorState={editorState}
-            wrapperClassName="demo-wrapper"
-            editorClassName="demo-editor"
-            onEditorStateChange={onChange}
-          />
+          <Suspense fallback={null}>
+            <Editor
+              editorState={editorState}
+              wrapperClassName="demo-wrapper"
+              editorClassName="demo-editor"
+              onEditorStateChange={onChange}
+            />
+          </Suspense>
         </NoSsr>
       </div>
 

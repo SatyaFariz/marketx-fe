@@ -4,14 +4,15 @@ import Button from '../../../Components/Button'
 import { TextField } from '@material-ui/core'
 import useAppContext from '../../../hooks/useAppContext'
 import { EditorState, convertToRaw } from 'draft-js'
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 import PublishPost from '../../../../mutations/PublishPost'
 import DeletePost from '../../../../mutations/DeletePost'
 import { stateFromHTML } from 'draft-js-import-html'
 import draftToHtml from 'draftjs-to-html'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, lazy, Suspense } from 'react'
 import { NoSsr } from '@material-ui/core'
+
+const Editor = lazy(() => import('react-draft-wysiwyg').then(module => ({ default: module.Editor })))
 
 const Component = props => {
   const isMounted = useRef(true)
@@ -83,12 +84,14 @@ const Component = props => {
 
           <div>
             <NoSsr>
-              <Editor
-                editorState={editorState}
-                wrapperClassName="demo-wrapper"
-                editorClassName="demo-editor"
-                onEditorStateChange={onChange}
-              />
+              <Suspense fallback={null}>
+                <Editor
+                  editorState={editorState}
+                  wrapperClassName="demo-wrapper"
+                  editorClassName="demo-editor"
+                  onEditorStateChange={onChange}
+                />
+              </Suspense>
             </NoSsr>
           </div>
 
