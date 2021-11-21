@@ -9,6 +9,7 @@ import draftToHtml from 'draftjs-to-html'
 import CreatePost from '../../../../mutations/CreatePost'
 import PublishPost from '../../../../mutations/PublishPost'
 import useAppContext from '../../../hooks/useAppContext'
+import { NoSsr } from '@material-ui/core'
 
 const Component = props => {
   const { history, queryParams } = useAppContext()
@@ -79,12 +80,14 @@ const Component = props => {
             }}>
 
               <div>
-                <Editor
-                  editorState={editorState}
-                  wrapperClassName="demo-wrapper"
-                  editorClassName="demo-editor"
-                  onEditorStateChange={onChange}
-                />
+                <NoSsr>
+                  <Editor
+                    editorState={editorState}
+                    wrapperClassName="demo-wrapper"
+                    editorClassName="demo-editor"
+                    onEditorStateChange={onChange}
+                  />
+                </NoSsr>
               </div>
 
               <button onClick={save}>Save</button>
@@ -105,12 +108,14 @@ const Component = props => {
           }}>
 
             <div>
-              <Editor
-                editorState={editorState}
-                wrapperClassName="demo-wrapper"
-                editorClassName="demo-editor"
-                onEditorStateChange={onChange}
-              />
+              <NoSsr>
+                <Editor
+                  editorState={editorState}
+                  wrapperClassName="demo-wrapper"
+                  editorClassName="demo-editor"
+                  onEditorStateChange={onChange}
+                />
+              </NoSsr>
             </div>
 
             <button onClick={saveEdit}>Save</button>

@@ -21,6 +21,15 @@ import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader
 
 const autocompleteFilter = createFilterOptions()
 
+const isJSONString = (str) => {
+  try {
+      JSON.parse(str)
+  } catch (e) {
+      return false
+  }
+  return true
+}
+
 const Component = props => {
   const { me, product, productConditions, rentalDurations, provinces } = props
   const { history, environment } = useAppContext()
@@ -47,7 +56,7 @@ const Component = props => {
   const [specs, setSpecs] = useState(category.specFields.reduce((obj, currentVal) => {
     const value = product.specs.find(item => item.attribute.id === currentVal.attribute.id)?.value
     if(currentVal.isMulti) {
-      obj[currentVal.attribute.id] = value ? JSON.parse(value) : []
+      obj[currentVal.attribute.id] = value && isJSONString(value) ? JSON.parse(value) : []
     } else {
       obj[currentVal.attribute.id] = value || ''
     }
@@ -311,7 +320,7 @@ const Component = props => {
       if(Array.isArray(specs[attributeId])) {
         const values = specs[attributeId].slice()
         values.sort()
-        const prevValues = JSON.parse(value)
+        const prevValues = value && isJSONString(value) ? JSON.parse(value) : []
         prevValues.sort()
         if(JSON.stringify(values) !== JSON.stringify(prevValues)) {
           return false

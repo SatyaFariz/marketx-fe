@@ -3,7 +3,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertToRaw } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
 import { useState } from 'react'
-import { TextField } from '@material-ui/core'
+import { TextField, NoSsr } from '@material-ui/core'
 import CreatePost from '../../../../mutations/CreatePost'
 import createRelay from '../../../createRelay'
 
@@ -45,12 +45,14 @@ const Component = props => {
       />
 
       <div>
-        <Editor
-          editorState={editorState}
-          wrapperClassName="demo-wrapper"
-          editorClassName="demo-editor"
-          onEditorStateChange={onChange}
-        />
+        <NoSsr>
+          <Editor
+            editorState={editorState}
+            wrapperClassName="demo-wrapper"
+            editorClassName="demo-editor"
+            onEditorStateChange={onChange}
+          />
+        </NoSsr>
       </div>
 
       <button onClick={save}>Save</button>

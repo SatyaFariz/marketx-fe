@@ -11,6 +11,7 @@ import DeletePost from '../../../../mutations/DeletePost'
 import { stateFromHTML } from 'draft-js-import-html'
 import draftToHtml from 'draftjs-to-html'
 import { useRef, useEffect, useState } from 'react'
+import { NoSsr } from '@material-ui/core'
 
 const Component = props => {
   const isMounted = useRef(true)
@@ -81,12 +82,14 @@ const Component = props => {
         }}>
 
           <div>
-            <Editor
-              editorState={editorState}
-              wrapperClassName="demo-wrapper"
-              editorClassName="demo-editor"
-              onEditorStateChange={onChange}
-            />
+            <NoSsr>
+              <Editor
+                editorState={editorState}
+                wrapperClassName="demo-wrapper"
+                editorClassName="demo-editor"
+                onEditorStateChange={onChange}
+              />
+            </NoSsr>
           </div>
 
           <button onClick={saveEdit}>Save</button>
