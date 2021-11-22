@@ -452,23 +452,27 @@ const Component = props => {
               />
             </div>
 
-            <div style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginTop: 10,
-              marginBottom: 10
-            }}>
-              <span>Force Location Input</span>
-
-              <Switch
-                checked={forceLocationInput}
-                onChange={() => setForceLocationInput(prev => !prev)}
-                disabled={loading}
-              />
-            </div>
+            
           </>
+          }
+
+          {category.listingType !== 'service' &&
+          <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 10,
+            marginBottom: 10
+          }}>
+            <span>Force Location Input</span>
+
+            <Switch
+              checked={forceLocationInput}
+              onChange={() => setForceLocationInput(prev => !prev)}
+              disabled={loading}
+            />
+          </div>
           }
 
           <div style={{
