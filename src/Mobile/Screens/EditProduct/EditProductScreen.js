@@ -859,7 +859,13 @@ const Component = props => {
                     helperText={validation[field.attribute.id]?.message || (field.helperText?.trim()?.length > 0 && field.helperText)}
                     SelectProps={{
                       multiple: field.isMulti,
-                      renderValue: (selected) => selected.join(', '),
+                      renderValue: (selected) => {
+                        console.log('SELECTED', typeof selected, selected)
+                        if(!Array.isArray(selected))
+                          return ''
+                          
+                        return selected.join(', ')
+                      },
                       MenuProps: {
                         disableAutoFocusItem: true,
                         style: {
