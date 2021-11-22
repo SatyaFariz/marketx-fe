@@ -419,6 +419,7 @@ const Component = props => {
           options={provinces}
           getOptionLabel={(option) => option.name}
           noOptionsText="Pilihan tidak ditemukan"
+          loadingText="Memuat..."
           value={province}
           onChange={(_, value) => setProvince(value)}
           renderInput={(params) => 
@@ -444,6 +445,7 @@ const Component = props => {
           options={cities}
           getOptionLabel={(option) => option.name}
           noOptionsText="Pilihan tidak ditemukan"
+          loadingText="Memuat..."
           value={city}
           onChange={(_, value) => setCity(value)}
           renderInput={(params) => 
@@ -469,6 +471,7 @@ const Component = props => {
           options={districts}
           getOptionLabel={(option) => option.name}
           noOptionsText="Pilihan tidak ditemukan"
+          loadingText="Memuat..."
           value={district}
           onChange={(_, value) => setDistrict(value)}
           renderInput={(params) => 
