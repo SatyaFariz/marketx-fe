@@ -527,6 +527,7 @@ const Component = props => {
             options={provinces}
             getOptionLabel={(option) => option.name}
             getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
+            noOptionsText="Pilihan tidak ditemukan"
             value={province}
             onChange={(_, value) => setProvince(prev => {
               if(prev?.administrativeAreaId === value?.administrativeAreaId)
@@ -556,6 +557,7 @@ const Component = props => {
             options={cities}
             getOptionLabel={(option) => option.name}
             getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
+            noOptionsText="Pilihan tidak ditemukan"
             value={city}
             onChange={(_, value) => setCity(prev => {
               if(prev?.administrativeAreaId === value?.administrativeAreaId)
@@ -585,6 +587,7 @@ const Component = props => {
             options={districts}
             getOptionLabel={(option) => option.name}
             getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
+            noOptionsText="Pilihan tidak ditemukan"
             value={district}
             onChange={(_, value) => setDistrict(prev => {
               if(prev?.administrativeAreaId === value?.administrativeAreaId)

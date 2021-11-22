@@ -800,6 +800,7 @@ const Component = props => {
                       options={field.options}
                       getOptionLabel={(option) => option}
                       getOptionSelected={(option, value) => option === value}
+                      noOptionsText="Pilihan tidak ditemukan"
                       value={specs[field.attribute.id]}
                       onChange={(_, value) => _setSpecs(field)({ target: { value }})}
                       filterOptions={field.isEnum ? undefined : (options, params) => {
@@ -1019,6 +1020,7 @@ const Component = props => {
               options={provinces}
               getOptionLabel={(option) => option.name}
               getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
+              noOptionsText="Pilihan tidak ditemukan"
               value={syncLocation ? me?.store?.address?.province : province}
               onChange={(_, value) => setProvince(prev => {
                 if(prev?.administrativeAreaId === value?.administrativeAreaId)
@@ -1048,6 +1050,7 @@ const Component = props => {
               options={cities}
               getOptionLabel={(option) => option.name}
               getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
+              noOptionsText="Pilihan tidak ditemukan"
               value={syncLocation ? me?.store?.address?.city : city}
               onChange={(_, value) => setCity(prev => {
                 if(prev?.administrativeAreaId === value?.administrativeAreaId)
@@ -1077,6 +1080,7 @@ const Component = props => {
               options={districts}
               getOptionLabel={(option) => option.name}
               getOptionSelected={(option, value) => option.administrativeAreaId === value.administrativeAreaId}
+              noOptionsText="Pilihan tidak ditemukan"
               value={syncLocation ? me?.store?.address?.district : district}
               onChange={(_, value) => setDistrict(prev => {
                 if(prev?.administrativeAreaId === value?.administrativeAreaId)
