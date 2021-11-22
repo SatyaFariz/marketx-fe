@@ -860,11 +860,10 @@ const Component = props => {
                     SelectProps={{
                       multiple: field.isMulti,
                       renderValue: (selected) => {
-                        console.log('SELECTED', typeof selected, selected)
-                        if(!Array.isArray(selected))
-                          return ''
-                          
-                        return selected.join(', ')
+                        if(field.isMulti)
+                          return selected.join(', ')
+
+                        return selected
                       },
                       MenuProps: {
                         disableAutoFocusItem: true,
