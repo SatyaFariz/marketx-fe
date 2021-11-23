@@ -159,6 +159,16 @@ const Component = props => {
       return rules
     }, [])
 
+    if(category.pivotField) {
+      const { pivotField } = category
+      specsRules.push({
+        field: 'pivotFieldOptionId',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: pivotField.emptyErrorMessage?.trim()?.length > 0 ? pivotField.emptyErrorMessage : `${pivotField.attribute.name} harus diisi.`
+      })
+    }
+
     const validator = new Validator([
       ...specsRules,
       {
@@ -236,7 +246,8 @@ const Component = props => {
       ...(category.listingType === 'rental_product' ? { rentalDurationId } : {}),
       ...(!syncLocation ? { province } : {}),
       ...(!syncLocation ? { city } : {}),
-      ...(!syncLocation ? { district } : {})
+      ...(!syncLocation ? { district } : {}),
+      ...(category.pivotField ? { pivotFieldOptionId } : {})
     })
 
     setValidation(validation)
@@ -737,6 +748,8 @@ const Component = props => {
                 }
               }
             }}
+            error={validation?.pivotFieldOptionId?.isInvalid}
+            helperText={validation?.pivotFieldOptionId?.message || (category.pivotField?.helperText?.trim()?.length > 0 && category.pivotField?.helperText)}
           >
             {category.pivotField.options.map((option, i) => (
               <MenuItem key={i} value={option.id}>
