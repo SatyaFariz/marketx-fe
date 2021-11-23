@@ -63,6 +63,11 @@ const Component = props => {
     
     return obj
   }, {}))
+  const [tmpText, setTmpText] = useState(category.specFields.reduce((obj, currentVal) => {
+    const value = product.specs.find(item => item.attribute.id === currentVal.attribute.id)?.value
+    obj[currentVal.attribute.id] = value || ''
+    return obj
+  }, {}))
   const [specFields] = useState(category.specFields.reduce((obj, currentVal) => {
     obj[currentVal.attribute.id] = {
       prefix: currentVal.prefix,
@@ -81,6 +86,21 @@ const Component = props => {
 
   const handleSwipe = (obj) => {
     setCarouselPos(obj.activeIndex)
+  }
+
+  const _setTmpText = field => e => {
+    let value = ''
+    if(['int', 'float'].indexOf(field.type) > -1) {
+      value = e.value
+    } else {
+      if(field.isMulti) {
+        value = e.target.value
+        value.sort()
+      } else {
+        value = (e.target.value || '').trimLeft()
+      }
+    }
+    setTmpText(prev => ({ ...prev, [field.attribute.id]: value }))
   }
 
   const _setSpecs = field => e => {
@@ -805,11 +825,20 @@ const Component = props => {
                       forcePopupIcon={field.isEnum}
                       disableClearable={!field.isEnum}
                       value={specs[field.attribute.id]}
-                      // onInputChange={e => {
-                      //   const value = e?.target?.value
-                      //   // if(value)
-                      //   //   _setSpecs(field)(e)
-                      // }}
+                      onInputChange={e => {
+                        if(!field.isEnum) {
+                          const value = e?.target?.value
+                          if(value) {
+                            _setTmpText(field)(e)
+                          }
+                        }
+                      }}
+                      onClose={() => {
+                        if(!field.isEnum) {
+                          const value = tmpText[field.attribute.id]
+                          _setSpecs(field)({ target: { value }})
+                        }
+                      }}
                       onChange={(_, value) => _setSpecs(field)({ target: { value }})}
                       filterOptions={field.isEnum ? undefined : (options, params) => {
                         const inputValue = params.inputValue.trim().substr(0, MAX_LENGTH)
