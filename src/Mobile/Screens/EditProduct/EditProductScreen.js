@@ -797,14 +797,13 @@ const Component = props => {
                   return (
                     <Autocomplete
                       key={field.id}
-                      options={field.options.includes(specs[field.attribute.id]) ? field.options : [...field.options, specs[field.attribute.id]]}
+                      options={field.options.includes(specs[field.attribute.id]) ? field.options : [specs[field.attribute.id], ...field.options]}
                       getOptionLabel={(option) => option}
                       getOptionSelected={(option, value) => option === value}
                       noOptionsText="Pilihan tidak ditemukan"
                       selectOnFocus={field.isEnum}
                       forcePopupIcon={field.isEnum}
                       disableClearable={!field.isEnum}
-                      filterSelectedOptions={!field.isEnum && !field.options.includes(specs[field.attribute.id])}
                       value={specs[field.attribute.id]}
                       // onInputChange={e => {
                       //   const value = e?.target?.value
