@@ -19,8 +19,6 @@ import NumberFormat from 'react-number-format'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader'
 
-const autocompleteFilter = createFilterOptions()
-
 const isJSONString = (str) => {
   try {
       JSON.parse(str)
@@ -63,11 +61,6 @@ const Component = props => {
     
     return obj
   }, {}))
-  const [tmpText, setTmpText] = useState(category.specFields.reduce((obj, currentVal) => {
-    const value = product.specs.find(item => item.attribute.id === currentVal.attribute.id)?.value
-    obj[currentVal.attribute.id] = value || ''
-    return obj
-  }, {}))
   const [specFields] = useState(category.specFields.reduce((obj, currentVal) => {
     obj[currentVal.attribute.id] = {
       prefix: currentVal.prefix,
@@ -86,21 +79,6 @@ const Component = props => {
 
   const handleSwipe = (obj) => {
     setCarouselPos(obj.activeIndex)
-  }
-
-  const _setTmpText = field => e => {
-    let value = ''
-    if(['int', 'float'].indexOf(field.type) > -1) {
-      value = e.value
-    } else {
-      if(field.isMulti) {
-        value = e.target.value
-        value.sort()
-      } else {
-        value = (e.target.value || '').trimLeft()
-      }
-    }
-    setTmpText(prev => ({ ...prev, [field.attribute.id]: value }))
   }
 
   const _setSpecs = field => e => {
@@ -824,33 +802,20 @@ const Component = props => {
                       selectOnFocus={field.isEnum}
                       forcePopupIcon={field.isEnum}
                       disableClearable={!field.isEnum}
+                      freeSolo={!field.isEnum}
                       value={specs[field.attribute.id]}
-                      onInputChange={e => {
-                        if(!field.isEnum) {
-                          const value = e?.target?.value
-                          if(value) {
-                            _setTmpText(field)(e)
-                          }
-                        }
-                      }}
-                      onClose={() => {
-                        if(!field.isEnum) {
-                          const value = tmpText[field.attribute.id]
-                          _setSpecs(field)({ target: { value }})
-                        }
-                      }}
                       onChange={(_, value) => _setSpecs(field)({ target: { value }})}
-                      filterOptions={field.isEnum ? undefined : (options, params) => {
-                        const inputValue = params.inputValue.trim().substr(0, MAX_LENGTH)
-                        const filtered = autocompleteFilter(options, { ...params, inputValue })
+                      // filterOptions={field.isEnum ? undefined : (options, params) => {
+                      //   const inputValue = params.inputValue.trim().substr(0, MAX_LENGTH)
+                      //   const filtered = autocompleteFilter(options, { ...params, inputValue })
                 
-                        // Create a new value
-                        if (inputValue !== '' && !filtered.find(item => item.trim().toLowerCase() === inputValue.toLowerCase())) {
-                          filtered.push(inputValue)
-                        }
+                      //   // Create a new value
+                      //   if (inputValue !== '' && !filtered.find(item => item.trim().toLowerCase() === inputValue.toLowerCase())) {
+                      //     filtered.push(inputValue)
+                      //   }
                 
-                        return filtered
-                      }}
+                      //   return filtered
+                      // }}
                       renderInput={(params) => 
                         <TextField 
                           {...params} 
