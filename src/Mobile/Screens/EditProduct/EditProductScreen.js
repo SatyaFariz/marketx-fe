@@ -799,7 +799,6 @@ const Component = props => {
                       getOptionLabel={(option) => option}
                       getOptionSelected={(option, value) => option === value}
                       noOptionsText="Pilihan tidak ditemukan"
-                      selectOnFocus={field.isEnum}
                       forcePopupIcon={field.isEnum}
                       disableClearable={!field.isEnum}
                       freeSolo={!field.isEnum}
