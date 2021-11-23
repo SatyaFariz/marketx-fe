@@ -801,7 +801,15 @@ const Component = props => {
                       getOptionLabel={(option) => option}
                       getOptionSelected={(option, value) => option === value}
                       noOptionsText="Pilihan tidak ditemukan"
+                      selectOnFocus={field.isEnum}
+                      forcePopupIcon={field.isEnum}
+                      disableClearable={!field.isEnum}
                       value={specs[field.attribute.id]}
+                      // onInputChange={e => {
+                      //   const value = e?.target?.value
+                      //   // if(value)
+                      //   //   _setSpecs(field)(e)
+                      // }}
                       onChange={(_, value) => _setSpecs(field)({ target: { value }})}
                       filterOptions={field.isEnum ? undefined : (options, params) => {
                         const inputValue = params.inputValue.trim().substr(0, MAX_LENGTH)
