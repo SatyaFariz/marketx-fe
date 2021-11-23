@@ -29,6 +29,19 @@ export type CategoryDetailScreen_category = {|
   +icon: ?{|
     +url: ?string
   |},
+  +pivotField: ?{|
+    +id: ?string,
+    +attribute: ?{|
+      +id: ?string,
+      +name: ?string,
+    |},
+    +options: ?$ReadOnlyArray<?{|
+      +id: ?string,
+      +label: ?string,
+      +desc: ?string,
+      +isDefault: ?boolean,
+    |}>,
+  |},
   +specFields: ?$ReadOnlyArray<?{|
     +type: ?string,
     +isRequired: ?boolean,
@@ -48,6 +61,8 @@ export type CategoryDetailScreen_category = {|
       +id: ?string,
       +name: ?string,
     |},
+    +includePivotFieldOptionIds: ?string,
+    +excludePivotFieldOptionIds: ?string,
   |}>,
   +$fragmentRefs: CreateSpecificationFieldsModal_category$ref,
   +$refType: CategoryDetailScreen_category$ref,
@@ -79,7 +94,17 @@ v1 = {
 v2 = [
   (v0/*: any*/),
   (v1/*: any*/)
-];
+],
+v3 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Attribute",
+  "kind": "LinkedField",
+  "name": "attribute",
+  "plural": false,
+  "selections": (v2/*: any*/),
+  "storageKey": null
+};
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -160,6 +185,52 @@ return {
           "args": null,
           "kind": "ScalarField",
           "name": "url",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "PivotField",
+      "kind": "LinkedField",
+      "name": "pivotField",
+      "plural": false,
+      "selections": [
+        (v0/*: any*/),
+        (v3/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PivotFieldOption",
+          "kind": "LinkedField",
+          "name": "options",
+          "plural": true,
+          "selections": [
+            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "label",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "desc",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "isDefault",
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         }
       ],
@@ -271,14 +342,19 @@ return {
           "name": "helperText",
           "storageKey": null
         },
+        (v3/*: any*/),
         {
           "alias": null,
           "args": null,
-          "concreteType": "Attribute",
-          "kind": "LinkedField",
-          "name": "attribute",
-          "plural": false,
-          "selections": (v2/*: any*/),
+          "kind": "ScalarField",
+          "name": "includePivotFieldOptionIds",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "excludePivotFieldOptionIds",
           "storageKey": null
         }
       ],
@@ -295,6 +371,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '2c0de6c5035edf2e8ce8f09f26527d5f';
+(node/*: any*/).hash = 'a8efd94e61148c1d19a05bc85f8ee11d';
 
 module.exports = node;

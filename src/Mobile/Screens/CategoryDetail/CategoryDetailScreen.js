@@ -6,7 +6,7 @@ import BackButton from '../../Components/BackButton'
 import { FcStackOfPhotos } from 'react-icons/fc'
 import { useState, useEffect, useRef } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { TextField, ButtonBase, Switch, Accordion as MuiAccordion, AccordionSummary as MuiAccordionSummary, AccordionDetails, MenuItem } from '@material-ui/core'
+import { TextField, ButtonBase, Switch, Accordion as MuiAccordion, AccordionSummary as MuiAccordionSummary, AccordionDetails, MenuItem, ListItemText } from '@material-ui/core'
 import Button from '../../Components/Button'
 import Validator from '../../../helpers/validator'
 import UpdateCategory from '../../../mutations/UpdateCategory'
@@ -86,6 +86,8 @@ const Component = props => {
     suffix: field.suffix || '',
     emptyErrorMessage: field.emptyErrorMessage || '',
     helperText: field.helperText || '',
+    includePivotFieldOptionIds: field.includePivotFieldOptionIds || [],
+    excludePivotFieldOptionIds: field.excludePivotFieldOptionIds || [],
     key: i,
     expanded: false,
     deleted: false
@@ -167,7 +169,9 @@ const Component = props => {
               max: field.max.trim().length > 0 ? parseFloat(field.max, 10) : null,
               min: field.min.trim().length > 0 ? parseFloat(field.min, 10) : null,
               numberOfLines: field.numberOfLines.trim().length > 0 ? parseInt(field.numberOfLines, 10) : null,
-              maxLength: field.maxLength.trim().length > 0 ? parseInt(field.maxLength, 10) : null
+              maxLength: field.maxLength.trim().length > 0 ? parseInt(field.maxLength, 10) : null,
+              includePivotFieldOptionIds: field.includePivotFieldOptionIds,
+              excludePivotFieldOptionIds: field.excludePivotFieldOptionIds
             })
           }
           return fields
@@ -561,7 +565,8 @@ const Component = props => {
                                 </AccordionSummary>
                                 <AccordionDetails>
                                   <div style={{
-                                    flexGrow: 1
+                                    flexGrow: 1,
+                                    maxWidth: '100%'
                                   }}>
                                     <div>
                                       {field.prefix?.trim()?.length > 0 &&
@@ -717,6 +722,80 @@ const Component = props => {
                                       value={field.helperText}
                                     />
 
+                                    {category.pivotField &&
+                                    <TextField
+                                      variant="outlined"
+                                      select
+                                      label="Include Pivot Field Options"
+                                      fullWidth
+                                      disabled={loading}
+                                      value={field.includePivotFieldOptionIds}
+                                      onChange={e => setFields(i, 'includePivotFieldOptionIds', e.target.value)}
+                                      style={{
+                                        marginTop: 10,
+                                        marginBottom: 10,
+                                        maxWidth: '100%'
+                                      }}
+                                      SelectProps={{
+                                        multiple: true,
+                                        multiline: true,
+                                        renderValue: (selected) => (selected || []).map(item => {
+                                          const option = category.pivotField.options.find(option => option.id === item)
+                                          return option?.label || ''
+                                        }).join(', ') || '',
+                                        MenuProps: {
+                                          disableAutoFocusItem: true,
+                                          style: {
+                                            maxHeight: 500
+                                          }
+                                        }
+                                      }}
+                                    >
+                                      {category.pivotField.options.map((option, i) => (
+                                        <MenuItem key={i} value={option.id}>
+                                          <ListItemText primary={option.label}/>
+                                        </MenuItem>
+                                      ))}
+                                    </TextField>
+                                    }
+
+                                    {category.pivotField &&
+                                    <TextField
+                                      variant="outlined"
+                                      select
+                                      label="Exclude Pivot Field Options"
+                                      fullWidth
+                                      disabled={loading}
+                                      value={field.excludePivotFieldOptionIds}
+                                      onChange={e => setFields(i, 'excludePivotFieldOptionIds', e.target.value)}
+                                      style={{
+                                        marginTop: 10,
+                                        marginBottom: 10,
+                                        maxWidth: '100%'
+                                      }}
+                                      SelectProps={{
+                                        multiple: true,
+                                        multiline: true,
+                                        renderValue: (selected) => (selected || []).map(item => {
+                                          const option = category.pivotField.options.find(option => option.id === item)
+                                          return option?.label || ''
+                                        }).join(', ') || '',
+                                        MenuProps: {
+                                          disableAutoFocusItem: true,
+                                          style: {
+                                            maxHeight: 500
+                                          }
+                                        }
+                                      }}
+                                    >
+                                      {category.pivotField.options.map((option, i) => (
+                                        <MenuItem key={i} value={option.id}>
+                                          <ListItemText primary={option.label}/>
+                                        </MenuItem>
+                                      ))}
+                                    </TextField>
+                                    }
+
                                     <div style={{
                                       display: 'flex',
                                       flexDirection: 'row',
@@ -827,6 +906,19 @@ export default createFragmentContainer(Component, {
       icon {
         url
       },
+      pivotField {
+        id,
+        attribute {
+          id,
+          name
+        },
+        options {
+          id,
+          label,
+          desc,
+          isDefault
+        }
+      },
       specFields {
         type,
         isRequired,
@@ -845,7 +937,9 @@ export default createFragmentContainer(Component, {
         attribute {
           id,
           name
-        }
+        },
+        includePivotFieldOptionIds,
+        excludePivotFieldOptionIds
       }
     }
   `,

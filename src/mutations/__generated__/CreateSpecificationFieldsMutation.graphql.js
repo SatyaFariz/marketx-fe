@@ -24,6 +24,8 @@ export type SpecificationFieldInput = {|
   suffix?: ?string,
   emptyErrorMessage?: ?string,
   helperText?: ?string,
+  includePivotFieldOptionIds?: ?$ReadOnlyArray<string>,
+  excludePivotFieldOptionIds?: ?$ReadOnlyArray<string>,
 |};
 export type CreateSpecificationFieldsMutationVariables = {|
   categoryId: string,

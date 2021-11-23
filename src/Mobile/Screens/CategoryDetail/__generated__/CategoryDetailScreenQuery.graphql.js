@@ -86,6 +86,19 @@ fragment CategoryDetailScreen_category on Category {
     url
     id
   }
+  pivotField {
+    id
+    attribute {
+      id
+      name
+    }
+    options {
+      id
+      label
+      desc
+      isDefault
+    }
+  }
   specFields {
     type
     isRequired
@@ -105,6 +118,8 @@ fragment CategoryDetailScreen_category on Category {
       id
       name
     }
+    includePivotFieldOptionIds
+    excludePivotFieldOptionIds
     id
   }
 }
@@ -170,7 +185,17 @@ v4 = {
 v5 = [
   (v1/*: any*/),
   (v4/*: any*/)
-];
+],
+v6 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Attribute",
+  "kind": "LinkedField",
+  "name": "attribute",
+  "plural": false,
+  "selections": (v5/*: any*/),
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -359,6 +384,52 @@ return {
           {
             "alias": null,
             "args": null,
+            "concreteType": "PivotField",
+            "kind": "LinkedField",
+            "name": "pivotField",
+            "plural": false,
+            "selections": [
+              (v1/*: any*/),
+              (v6/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "PivotFieldOption",
+                "kind": "LinkedField",
+                "name": "options",
+                "plural": true,
+                "selections": [
+                  (v1/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "label",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "desc",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "isDefault",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "SpecificationField",
             "kind": "LinkedField",
             "name": "specFields",
@@ -462,14 +533,19 @@ return {
                 "name": "helperText",
                 "storageKey": null
               },
+              (v6/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Attribute",
-                "kind": "LinkedField",
-                "name": "attribute",
-                "plural": false,
-                "selections": (v5/*: any*/),
+                "kind": "ScalarField",
+                "name": "includePivotFieldOptionIds",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "excludePivotFieldOptionIds",
                 "storageKey": null
               },
               (v1/*: any*/)
@@ -519,12 +595,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "805e74aa0dc3d3153139e0fada1674c3",
+    "cacheID": "0e92d57ba858ebfb7bebec420a716eb3",
     "id": null,
     "metadata": {},
     "name": "CategoryDetailScreenQuery",
     "operationKind": "query",
-    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n    ...FixedAddressBar_me\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n  attributes {\n    id\n    ...CategoryDetailScreen_attributes\n  }\n  rentalDurations {\n    ...CategoryDetailScreen_rentalDurations\n    id\n  }\n}\n\nfragment CategoryDetailScreen_attributes on Attribute {\n  id\n  ...CreateSpecificationFieldsModal_attributes\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  forceLocationInput\n  rentalDurationIds\n  maxImageUpload\n  listingType\n  ...CreateSpecificationFieldsModal_category\n  ancestors {\n    id\n    name\n  }\n  icon {\n    url\n    id\n  }\n  specFields {\n    type\n    isRequired\n    isEnum\n    isMulti\n    suffix\n    prefix\n    isAutocomplete\n    options\n    max\n    min\n    numberOfLines\n    maxLength\n    emptyErrorMessage\n    helperText\n    attribute {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment CategoryDetailScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n\nfragment CreateSpecificationFieldsModal_attributes on Attribute {\n  id\n  name\n}\n\nfragment CreateSpecificationFieldsModal_category on Category {\n  id\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
+    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n    ...FixedAddressBar_me\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n  attributes {\n    id\n    ...CategoryDetailScreen_attributes\n  }\n  rentalDurations {\n    ...CategoryDetailScreen_rentalDurations\n    id\n  }\n}\n\nfragment CategoryDetailScreen_attributes on Attribute {\n  id\n  ...CreateSpecificationFieldsModal_attributes\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  forceLocationInput\n  rentalDurationIds\n  maxImageUpload\n  listingType\n  ...CreateSpecificationFieldsModal_category\n  ancestors {\n    id\n    name\n  }\n  icon {\n    url\n    id\n  }\n  pivotField {\n    id\n    attribute {\n      id\n      name\n    }\n    options {\n      id\n      label\n      desc\n      isDefault\n    }\n  }\n  specFields {\n    type\n    isRequired\n    isEnum\n    isMulti\n    suffix\n    prefix\n    isAutocomplete\n    options\n    max\n    min\n    numberOfLines\n    maxLength\n    emptyErrorMessage\n    helperText\n    attribute {\n      id\n      name\n    }\n    includePivotFieldOptionIds\n    excludePivotFieldOptionIds\n    id\n  }\n}\n\nfragment CategoryDetailScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n\nfragment CreateSpecificationFieldsModal_attributes on Attribute {\n  id\n  name\n}\n\nfragment CreateSpecificationFieldsModal_category on Category {\n  id\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();
