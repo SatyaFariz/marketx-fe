@@ -86,6 +86,7 @@ const Component = props => {
   }, {}))
 
   const [validation, setValidation] = useState({ isValid: false })
+  const [pivotFieldOptionId, setPivotFieldOptionId] = useState(null)
 
   const handleSwipe = (obj) => {
     setCarouselPos(obj.activeIndex)
@@ -710,7 +711,67 @@ const Component = props => {
           </TextField>
           }
 
+          {category.pivotField &&
+          <TextField
+            variant="outlined"
+            select
+            label={category.pivotField.attribute.name}
+            fullWidth
+            disabled={loading}
+            value={pivotFieldOptionId}
+            onChange={e => setPivotFieldOptionId(e.target.value)}
+            style={{
+              marginTop: 10,
+              marginBottom: 10,
+              maxWidth: '100%'
+            }}
+            SelectProps={{
+              renderValue: (selected) => {
+                const option = category.pivotField.options.find((item, i) => item.id === selected)
+                return option.label
+              },
+              MenuProps: {
+                disableAutoFocusItem: true,
+                style: {
+                  maxHeight: 500
+                }
+              }
+            }}
+          >
+            {category.pivotField.options.map((option, i) => (
+              <MenuItem key={i} value={option.id}>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column'
+                }}>
+                <ListItemText primary={option.label} style={{ margin: 0 }}/>
+                {option.desc?.length > 0 &&
+                <span style={{
+                  margin: 0,
+                  fontSize: 11
+                }}>
+                  {option.desc}
+                </span>
+                }
+                </div>
+              </MenuItem>
+            ))}
+          </TextField>
+          }
+
           {category.specFields.map((field) => {
+            if(category.pivotField) {
+              if(field.excludePivotFieldOptionIds?.includes(pivotFieldOptionId)) {
+                return null
+              }
+
+              if(
+                field.includePivotFieldOptionIds?.length > 0 && 
+                !field.includePivotFieldOptionIds?.includes(pivotFieldOptionId)
+              ) {
+                return null
+              }
+            }
             const MAX_LENGTH = field.maxLength || PRODUCT_SPEC_VALUE_MAX_LENGTH
             const NUMERIC_MAX_LENGTH = field.maxLength || PRODUCT_NUMERIC_SPEC_VALUE_MAX_LENGTH
 
@@ -1089,6 +1150,19 @@ export default createFragmentContainer(Component, {
         id,
         name
       },
+      pivotField {
+        id,
+        attribute {
+          id,
+          name
+        },
+        options {
+          id,
+          label,
+          desc,
+          isDefault
+        }
+      },
       specFields {
         id,
         attribute {
@@ -1108,7 +1182,9 @@ export default createFragmentContainer(Component, {
         numberOfLines,
         maxLength,
         emptyErrorMessage,
-        helperText
+        helperText,
+        excludePivotFieldOptionIds,
+        includePivotFieldOptionIds
       }
     }
   `,

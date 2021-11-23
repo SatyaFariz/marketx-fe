@@ -25,6 +25,19 @@ export type CreateProductScreen_category = {|
     +id: ?string,
     +name: ?string,
   |}>,
+  +pivotField: ?{|
+    +id: ?string,
+    +attribute: ?{|
+      +id: ?string,
+      +name: ?string,
+    |},
+    +options: ?$ReadOnlyArray<?{|
+      +id: ?string,
+      +label: ?string,
+      +desc: ?string,
+      +isDefault: ?boolean,
+    |}>,
+  |},
   +specFields: ?$ReadOnlyArray<?{|
     +id: ?string,
     +attribute: ?{|
@@ -45,6 +58,8 @@ export type CreateProductScreen_category = {|
     +maxLength: ?number,
     +emptyErrorMessage: ?string,
     +helperText: ?string,
+    +excludePivotFieldOptionIds: ?string,
+    +includePivotFieldOptionIds: ?string,
   |}>,
   +$refType: CreateProductScreen_category$ref,
 |};
@@ -75,7 +90,17 @@ v1 = {
 v2 = [
   (v0/*: any*/),
   (v1/*: any*/)
-];
+],
+v3 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Attribute",
+  "kind": "LinkedField",
+  "name": "attribute",
+  "plural": false,
+  "selections": (v2/*: any*/),
+  "storageKey": null
+};
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -146,22 +171,59 @@ return {
     {
       "alias": null,
       "args": null,
+      "concreteType": "PivotField",
+      "kind": "LinkedField",
+      "name": "pivotField",
+      "plural": false,
+      "selections": [
+        (v0/*: any*/),
+        (v3/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PivotFieldOption",
+          "kind": "LinkedField",
+          "name": "options",
+          "plural": true,
+          "selections": [
+            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "label",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "desc",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "isDefault",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "SpecificationField",
       "kind": "LinkedField",
       "name": "specFields",
       "plural": true,
       "selections": [
         (v0/*: any*/),
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "Attribute",
-          "kind": "LinkedField",
-          "name": "attribute",
-          "plural": false,
-          "selections": (v2/*: any*/),
-          "storageKey": null
-        },
+        (v3/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -259,6 +321,20 @@ return {
           "kind": "ScalarField",
           "name": "helperText",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "excludePivotFieldOptionIds",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "includePivotFieldOptionIds",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -269,6 +345,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '85544562b74e57c2e93bac34d3d5a625';
+(node/*: any*/).hash = '8120d8884c32b4a4f5de80dbfcd29fef';
 
 module.exports = node;
