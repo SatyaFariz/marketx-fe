@@ -795,7 +795,7 @@ const Component = props => {
                   return (
                     <Autocomplete
                       key={field.id}
-                      options={field.options.includes(specs[field.attribute.id]) ? field.options : [specs[field.attribute.id], ...field.options]}
+                      options={field.options}
                       getOptionLabel={(option) => option}
                       getOptionSelected={(option, value) => option === value}
                       noOptionsText="Pilihan tidak ditemukan"
@@ -805,17 +805,6 @@ const Component = props => {
                       freeSolo={!field.isEnum}
                       value={specs[field.attribute.id]}
                       onChange={(_, value) => _setSpecs(field)({ target: { value }})}
-                      // filterOptions={field.isEnum ? undefined : (options, params) => {
-                      //   const inputValue = params.inputValue.trim().substr(0, MAX_LENGTH)
-                      //   const filtered = autocompleteFilter(options, { ...params, inputValue })
-                
-                      //   // Create a new value
-                      //   if (inputValue !== '' && !filtered.find(item => item.trim().toLowerCase() === inputValue.toLowerCase())) {
-                      //     filtered.push(inputValue)
-                      //   }
-                
-                      //   return filtered
-                      // }}
                       renderInput={(params) => 
                         <TextField 
                           {...params} 
