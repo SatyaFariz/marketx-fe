@@ -258,7 +258,7 @@ const Component = props => {
     setValidation(validation)
     const { isValid } = validation
     formIsValid.current = isValid
-    
+
     if(files.length === 0) {
       if(alertImageError)
         alert('Tambahkan foto.')
@@ -339,7 +339,7 @@ const Component = props => {
     }
   }
 
-  useEffect(() => {console.log(formIsValid.current)
+  useEffect(() => {
     if(pivotFieldOptionId && formIsValid.current === false) {
       isValid(false)
     }
