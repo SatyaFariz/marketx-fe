@@ -115,47 +115,52 @@ const Component = props => {
 
   const isValid = () => {
     const specsRules = category.specFields.reduce((rules, currentVal) => {
-      if(currentVal.isRequired) {
-        rules.push({
-          field: currentVal.attribute.id,
-          method: Validator.isEmpty,
-          validWhen: false,
-          message: currentVal.emptyErrorMessage?.trim()?.length > 0 ? currentVal.emptyErrorMessage : `${currentVal.attribute.name} harus diisi.`
-        })
+      if(
+        !category.pivotField ||
+        (category.pivotField && !currentVal.excludePivotFieldOptionIds?.includes(pivotFieldOptionId) && (!currentVal.includePivotFieldOptionIds || currentVal.includePivotFieldOptionIds?.length === 0)) ||
+        (category.pivotField && !currentVal.excludePivotFieldOptionIds?.includes(pivotFieldOptionId) && currentVal.includePivotFieldOptionIds?.length > 0 && currentVal.includePivotFieldOptionIds?.includes(pivotFieldOptionId))
+      ) {
+        if(currentVal.isRequired) {
+          rules.push({
+            field: currentVal.attribute.id,
+            method: Validator.isEmpty,
+            validWhen: false,
+            message: currentVal.emptyErrorMessage?.trim()?.length > 0 ? currentVal.emptyErrorMessage : `${currentVal.attribute.name} harus diisi.`
+          })
+        }
+
+        if(['int', 'float'].indexOf(currentVal.type) > -1 && typeof currentVal.max === 'number') {
+          rules.push({
+            field: currentVal.attribute.id,
+            method: val => {
+              if(val.length === 0) {
+                return true
+              }
+
+              const value = parseFloat(val, 10)
+              return value <= currentVal.max
+            },
+            validWhen: true,
+            message: `${currentVal.attribute.name} maksimal ${currentVal.max}.`
+          })
+        }
+
+        if(['int', 'float'].indexOf(currentVal.type) > -1 && typeof currentVal.min === 'number') {
+          rules.push({
+            field: currentVal.attribute.id,
+            method: val => {
+              if(val.length === 0) {
+                return true
+              }
+
+              const value = parseFloat(val, 10)
+              return value >= currentVal.min
+            },
+            validWhen: true,
+            message: `${currentVal.attribute.name} minimal ${currentVal.min}.`
+          })
+        }
       }
-
-      if(['int', 'float'].indexOf(currentVal.type) > -1 && typeof currentVal.max === 'number') {
-        rules.push({
-          field: currentVal.attribute.id,
-          method: val => {
-            if(val.length === 0) {
-              return true
-            }
-
-            const value = parseFloat(val, 10)
-            return value <= currentVal.max
-          },
-          validWhen: true,
-          message: `${currentVal.attribute.name} maksimal ${currentVal.max}.`
-        })
-      }
-
-      if(['int', 'float'].indexOf(currentVal.type) > -1 && typeof currentVal.min === 'number') {
-        rules.push({
-          field: currentVal.attribute.id,
-          method: val => {
-            if(val.length === 0) {
-              return true
-            }
-
-            const value = parseFloat(val, 10)
-            return value >= currentVal.min
-          },
-          validWhen: true,
-          message: `${currentVal.attribute.name} minimal ${currentVal.min}.`
-        })
-      }
-      
       return rules
     }, [])
 
@@ -249,7 +254,7 @@ const Component = props => {
       ...(!syncLocation ? { district } : {}),
       ...(category.pivotField ? { pivotFieldOptionId } : {})
     })
-
+    
     setValidation(validation)
     if(files.length === 0) {
       alert('Tambahkan foto.')
