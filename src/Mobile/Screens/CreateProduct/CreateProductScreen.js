@@ -18,7 +18,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader'
 
 const megabytes = 1048576
-const autocompleteFilter = createFilterOptions()
 
 const Component = props => {
   const { category, me, productConditions, rentalDurations } = props
@@ -86,6 +85,7 @@ const Component = props => {
   }, {}))
 
   const [validation, setValidation] = useState({ isValid: false })
+  const formIsValid = useRef(null)
   const [pivotFieldOptionId, setPivotFieldOptionId] = useState(null)
 
   const handleSwipe = (obj) => {
@@ -113,7 +113,7 @@ const Component = props => {
     setPrice(value)
   }
 
-  const isValid = () => {
+  const isValid = (alertImageError = true) => {
     const specsRules = category.specFields.reduce((rules, currentVal) => {
       if(
         !category.pivotField ||
@@ -256,11 +256,17 @@ const Component = props => {
     })
     
     setValidation(validation)
+    const { isValid } = validation
+    formIsValid.current = isValid
+    
     if(files.length === 0) {
-      alert('Tambahkan foto.')
+      if(alertImageError)
+        alert('Tambahkan foto.')
+        
       return false
     }
-    return validation.isValid
+    
+    return isValid
   }
 
   const resetFormState = () => {
@@ -332,6 +338,12 @@ const Component = props => {
       })
     }
   }
+
+  useEffect(() => {console.log(formIsValid.current)
+    if(pivotFieldOptionId && formIsValid.current === false) {
+      isValid(false)
+    }
+  }, [pivotFieldOptionId])
 
   useEffect(() => {
     if(scrollRef.current) {
