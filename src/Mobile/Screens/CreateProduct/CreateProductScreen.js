@@ -86,7 +86,7 @@ const Component = props => {
 
   const [validation, setValidation] = useState({ isValid: false })
   const formIsValid = useRef(null)
-  const [pivotFieldOptionId, setPivotFieldOptionId] = useState(null)
+  const [pivotFieldOptionId, setPivotFieldOptionId] = useState('')
 
   const handleSwipe = (obj) => {
     setCarouselPos(obj.activeIndex)
@@ -340,7 +340,7 @@ const Component = props => {
   }
 
   useEffect(() => {
-    if(pivotFieldOptionId && formIsValid.current === false) {
+    if(pivotFieldOptionId.length > 0 && formIsValid.current === false) {
       isValid(false)
     }
   }, [pivotFieldOptionId])
