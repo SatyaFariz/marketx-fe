@@ -74,6 +74,7 @@ const Component = props => {
     ...field,
     type: field.type || 'string',
     isRequired: field.isRequired || false,
+    isPublished: field.isPublished || false,
     isAutocomplete: field.isAutocomplete || false,
     isMulti: field.isMulti || false,
     isEnum: field.isEnum || false,
@@ -159,6 +160,7 @@ const Component = props => {
                 return arr
               }, []) : [],
               isRequired: field.isRequired,
+              isPublished: field.isPublished,
               isAutocomplete: field.isAutocomplete,
               isEnum: field.isEnum,
               isMulti: field.isMulti,
@@ -795,6 +797,23 @@ const Component = props => {
                                       ))}
                                     </TextField>
                                     }
+
+                                    <div style={{
+                                      display: 'flex',
+                                      flexDirection: 'row',
+                                      justifyContent: 'space-between',
+                                      alignItems: 'center',
+                                      marginTop: 10,
+                                      marginBottom: 10
+                                    }}>
+                                      <span>Published</span>
+
+                                      <Switch
+                                        checked={field.isPublished}
+                                        onChange={() => setFields(i, 'isPublished', !field.isPublished)}
+                                        disabled={loading}
+                                      />
+                                    </div>
 
                                     <div style={{
                                       display: 'flex',
