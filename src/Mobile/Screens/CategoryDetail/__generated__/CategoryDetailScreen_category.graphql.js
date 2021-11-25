@@ -45,6 +45,7 @@ export type CategoryDetailScreen_category = {|
   +specFields: ?$ReadOnlyArray<?{|
     +type: ?string,
     +isRequired: ?boolean,
+    +isPublished: ?boolean,
     +isEnum: ?boolean,
     +isMulti: ?boolean,
     +suffix: ?string,
@@ -91,18 +92,25 @@ v1 = {
   "name": "name",
   "storageKey": null
 },
-v2 = [
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "isPublished",
+  "storageKey": null
+},
+v3 = [
   (v0/*: any*/),
   (v1/*: any*/)
 ],
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "concreteType": "Attribute",
   "kind": "LinkedField",
   "name": "attribute",
   "plural": false,
-  "selections": (v2/*: any*/),
+  "selections": (v3/*: any*/),
   "storageKey": null
 };
 return {
@@ -113,13 +121,7 @@ return {
   "selections": [
     (v0/*: any*/),
     (v1/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "isPublished",
-      "storageKey": null
-    },
+    (v2/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -169,7 +171,7 @@ return {
       "kind": "LinkedField",
       "name": "ancestors",
       "plural": true,
-      "selections": (v2/*: any*/),
+      "selections": (v3/*: any*/),
       "storageKey": null
     },
     {
@@ -199,7 +201,7 @@ return {
       "plural": false,
       "selections": [
         (v0/*: any*/),
-        (v3/*: any*/),
+        (v4/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -258,6 +260,7 @@ return {
           "name": "isRequired",
           "storageKey": null
         },
+        (v2/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -342,7 +345,7 @@ return {
           "name": "helperText",
           "storageKey": null
         },
-        (v3/*: any*/),
+        (v4/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -371,6 +374,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a8efd94e61148c1d19a05bc85f8ee11d';
+(node/*: any*/).hash = '095dcab5cd4309589065af33a7e84cc1';
 
 module.exports = node;

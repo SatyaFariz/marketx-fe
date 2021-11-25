@@ -941,6 +941,7 @@ export default createFragmentContainer(Component, {
       specFields {
         type,
         isRequired,
+        isPublished,
         isEnum,
         isMulti,
         suffix,
