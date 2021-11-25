@@ -1,4 +1,4 @@
-import { PASSWORD_MAX_LENGTH } from '../../Constants'
+import { PASSWORD_MAX_LENGTH, LOGO_URL } from '../../Constants'
 import { TextField, ButtonBase } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
@@ -8,7 +8,6 @@ import Button from '../../Components/Button'
 import Link from '../../Components/Link'
 import ResetPassword from '../../../mutations/ResetPassword'
 import Validator from '../../../helpers/validator'
-import Logo from '../../../assets/marketx_logo.jpg'
 
 const Component = props => {
   const { me } = props
@@ -118,9 +117,9 @@ const Component = props => {
         >
           <img
             alt="marketx-logo"
-            src={Logo}
+            src={LOGO_URL}
             style={{
-              height: 25
+              height: 24
             }}
           />
         </ButtonBase>

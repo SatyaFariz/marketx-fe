@@ -4,6 +4,7 @@ import useAppContext from '../../hooks/useAppContext'
 import SendOtpCode from '../../../mutations/SendOtpCode'
 import Link from '../../Components/Link'
 import Color from '../../Constants/Color'
+import { LOGO_URL } from '../../Constants'
 import OTPView from '../../Components/OTPView'
 import Login from '../../../mutations/Login'
 import LoginWithEmail from '../../../mutations/LoginWithEmail'
@@ -12,7 +13,6 @@ import { createFragmentContainer } from 'react-relay'
 import Button from '../../Components/Button'
 import App from '../../../app.json'
 import { isEmail } from 'validator'
-import Logo from '../../../assets/marketx_logo.jpg'
 
 const useEmail = true
 
@@ -157,9 +157,9 @@ const Component = props => {
         >
           <img
             alt="marketx-logo"
-            src={Logo}
+            src={LOGO_URL}
             style={{
-              height: 25
+              height: 24
             }}
           />
         </ButtonBase>

@@ -1,6 +1,6 @@
 import App from '../../app.json'
 import Color from '../Constants/Color'
-import Logo from '../../assets/marketx_logo.jpg'
+import { LOGO_URL } from '../Constants'
 
 const thisYear = new Date().getFullYear()
 
@@ -17,9 +17,9 @@ const Component = () => {
       }}>
         <img
           alt="Market X logo"
-          src={Logo}
+          src={LOGO_URL}
           style={{
-            height: 80
+            height: 50
           }}
         />
       </div>

@@ -1,4 +1,4 @@
-import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR } from '../../Constants'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR, LOGO_URL } from '../../Constants'
 import Color from '../../Constants/Color'
 import Categories from '../../Components/Categories'
 import FeaturedProductsList from '../../Components/FeaturedProductsList'
@@ -14,7 +14,6 @@ import { RiLockPasswordFill } from 'react-icons/ri'
 import { IoPeople, IoShieldCheckmark, IoHelpCircle, IoDocumentText, IoPersonOutline } from 'react-icons/io5'
 import { FcDocument } from 'react-icons/fc'
 import App from '../../../app.json'
-import Logo from '../../../assets/marketx_logo.jpg'
 
 const thisYear = new Date().getFullYear()
 
@@ -66,10 +65,10 @@ const Component = props => {
                 paddingLeft: 15
               }}>
                 <img
-                  src={Logo}
+                  src={LOGO_URL}
                   alt="app_logo"
                   style={{
-                    height: 25,
+                    height: 22,
                     marginLeft: 5
                   }}
                 />
@@ -368,10 +367,10 @@ const Component = props => {
                 <IoMenuOutline color="black"/>
               </IconButton>
               <img
-                src={Logo}
+                src={LOGO_URL}
                 alt="app_logo"
                 style={{
-                  height: 22,
+                  height: 20,
                   marginLeft: 10
                 }}
               />

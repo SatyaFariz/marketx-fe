@@ -1,4 +1,4 @@
-import { PASSWORD_MAX_LENGTH, USER_FULLNAME_MAX_LENGTH } from '../../Constants'
+import { PASSWORD_MAX_LENGTH, USER_FULLNAME_MAX_LENGTH, LOGO_URL } from '../../Constants'
 import Color from '../../Constants/Color'
 import { TextField, InputAdornment, ButtonBase } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
@@ -19,7 +19,6 @@ import SendVerificationCode from '../../../mutations/SendVerificationCode'
 import RegisterWithEmail from '../../../mutations/RegisterWithEmail'
 import Link from '../../Components/Link'
 import App from '../../../app.json'
-import Logo from '../../../assets/marketx_logo.jpg'
 
 const useEmail = true
 const emailAlreadyRegisteredErrorMessage = 'Email ini sudah terdaftar di sistem kami.'
@@ -326,9 +325,9 @@ const Component = props => {
         >
           <img
             alt="marketx-logo"
-            src={Logo}
+            src={LOGO_URL}
             style={{
-              height: 25
+              height: 24
             }}
           />
         </ButtonBase>

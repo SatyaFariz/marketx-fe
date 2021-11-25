@@ -4,9 +4,9 @@ import useAppContext from '../../hooks/useAppContext'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import Button from '../../Components/Button'
+import { LOGO_URL } from '../../Constants'
 import { isEmail } from 'validator'
 import RequestPasswordResetLink from '../../../mutations/RequestPasswordResetLink'
-import Logo from '../../../assets/marketx_logo.jpg'
 
 const Component = props => {
   const { me } = props
@@ -56,9 +56,9 @@ const Component = props => {
       }}>
         <img
           alt="marketx-logo"
-          src={Logo}
+          src={LOGO_URL}
           style={{
-            height: 25
+            height: 24
           }}
         />
 

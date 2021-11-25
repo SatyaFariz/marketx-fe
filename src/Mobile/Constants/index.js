@@ -1,7 +1,7 @@
 export const HEADER_HEIGHT = 56
 export const HEADER_BORDER_BOTTOM_COLOR = 'rgb(207, 217, 222)'
 export const DIVIDER_COLOR = 'rgb(239, 243, 244)'
-export const LOGO_URL = 'https://res.cloudinary.com/tuanrumah/image/upload/v1627058439/rental_app/twitter-logo.jpg'
+export const LOGO_URL = 'https://res.cloudinary.com/dohlqigjd/image/upload/v1637870694/static/6159dd97756052003ba6439f.jpg'
 export const PASSWORD_MAX_LENGTH = 30
 export const USER_FULLNAME_MAX_LENGTH = 50
 export const AD_ACCOUNT_NAME_MAX_LENGTH = 50
