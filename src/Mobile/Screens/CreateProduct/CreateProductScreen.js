@@ -5,8 +5,7 @@ import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
 import { useRef, useEffect, useState } from 'react'
 import { TextField, InputAdornment, MenuItem, ListItemText, Checkbox, Switch, ButtonBase } from '@material-ui/core'
-import { Autocomplete } from '@material-ui/lab'
-import { createFilterOptions } from '@material-ui/lab/Autocomplete'
+import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import Validator from '../../../helpers/validator'
 import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
@@ -17,6 +16,7 @@ import NumberFormat from 'react-number-format'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader'
 
+const filter = createFilterOptions()
 const megabytes = 1048576
 
 const Component = props => {
@@ -861,6 +861,9 @@ const Component = props => {
                     freeSolo={!field.isEnum}
                     value={specs[field.attribute.id]}
                     onChange={(_, value) => _setSpecs(field)({ target: { value }})}
+                    filterOptions={(options, params) => {
+                      return filter(options, { ...params, inputValue: specs[field.attribute.id] })
+                    }}
                     renderInput={(params) => 
                       <TextField 
                         {...params} 
@@ -872,6 +875,7 @@ const Component = props => {
                           marginTop: 10,
                           marginBottom: 10
                         }}
+                        onChange={!field.isEnum ? _setSpecs(field) : undefined}
                         error={validation[field.attribute.id]?.isInvalid}
                         helperText={validation[field.attribute.id]?.message || (field.helperText?.trim()?.length > 0 && field.helperText)}
                       />
