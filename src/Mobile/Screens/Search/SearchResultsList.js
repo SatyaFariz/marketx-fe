@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { CircularProgress, ButtonBase } from '@material-ui/core'
 import Link from '../../Components/Link'
 import Color from '../../Constants/Color'
-import { SEARCH_NOT_FOUND_ILLUSTRATION_URL } from '../../Constants'
+import { SEARCH_NOT_FOUND_ILLUSTRATION_URL, EMPTY_ILLUSTRATION_URL } from '../../Constants'
 
 const Component = props => {
   const { showsListingType, q, categoryId, search, me } = props
@@ -56,6 +56,7 @@ const Component = props => {
             src={SEARCH_NOT_FOUND_ILLUSTRATION_URL}
             style={{
               width: 250,
+              height: 250,
               marginBottom: 15
             }}
           />
@@ -80,9 +81,10 @@ const Component = props => {
         }}>
           <img
             alt="Illustration category empty"
-            src={EmptyBoxIllustration}
+            src={EMPTY_ILLUSTRATION_URL}
             style={{
               width: 250,
+              height: 250,
               marginBottom: 15
             }}
           />

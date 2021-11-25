@@ -15,3 +15,5 @@ export const PRODUCT_NUMERIC_SPEC_VALUE_MAX_LENGTH = 14
 export const PRODUCT_PRICE_MAX_LENGTH = 14
 export const MAX_IMAGE_UPLOAD = 7
 export const SEARCH_NOT_FOUND_ILLUSTRATION_URL = 'https://res.cloudinary.com/dohlqigjd/image/upload/v1637872403/static/61633d3bdff498009c33e798.jpg'
+export const EMPTY_ILLUSTRATION_URL = 'https://res.cloudinary.com/dohlqigjd/image/upload/v1637872952/static/616096b10b0709008bbef739.jpg'
+export const ERROR_ILLUSTRATION_URL = 'https://res.cloudinary.com/dohlqigjd/image/upload/v1637873033/static/619d06105ee7b100f6c1a5c7.jpg'
