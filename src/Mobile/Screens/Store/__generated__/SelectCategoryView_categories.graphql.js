@@ -15,6 +15,7 @@ export type SelectCategoryView_categories = $ReadOnlyArray<{|
   +id: ?string,
   +name: ?string,
   +path: ?string,
+  +isPublished: ?boolean,
   +ancestors: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
@@ -65,6 +66,13 @@ return {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "isPublished",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "Category",
       "kind": "LinkedField",
       "name": "ancestors",
@@ -81,6 +89,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '6faf2d9ce86f1e05401c134047c3659a';
+(node/*: any*/).hash = 'eabfe16294dfef77146ac3e94e7cba71';
 
 module.exports = node;

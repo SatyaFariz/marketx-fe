@@ -53,6 +53,7 @@ const Component = props => {
         <List
         >
           {categories.map((category, i) => {
+            if(!category.isPublished) return null
             const ancestors = category.ancestors?.length > 0 ? category.ancestors : [{
               id: `cat_${i}`,
               name: 'Jual'
@@ -82,6 +83,7 @@ export default createFragmentContainer(Component, {
       id,
       name,
       path,
+      isPublished,
       ancestors {
         id,
         name
