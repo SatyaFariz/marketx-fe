@@ -20,6 +20,7 @@ export type EditProductScreen_product = {|
   +isDeleted: ?boolean,
   +isSuspended: ?boolean,
   +syncLocationWithStoreAddress: ?boolean,
+  +pivotFieldOptionId: ?string,
   +images: ?$ReadOnlyArray<?{|
     +id: ?string,
     +url: ?string,
@@ -62,6 +63,19 @@ export type EditProductScreen_product = {|
     +forceLocationInput: ?boolean,
     +rentalDurationIds: ?$ReadOnlyArray<?string>,
     +listingType: ?string,
+    +pivotField: ?{|
+      +id: ?string,
+      +attribute: ?{|
+        +id: ?string,
+        +name: ?string,
+      |},
+      +options: ?$ReadOnlyArray<?{|
+        +id: ?string,
+        +label: ?string,
+        +desc: ?string,
+        +isDefault: ?boolean,
+      |}>,
+    |},
     +specFields: ?$ReadOnlyArray<?{|
       +id: ?string,
       +attribute: ?{|
@@ -82,6 +96,8 @@ export type EditProductScreen_product = {|
       +maxLength: ?number,
       +emptyErrorMessage: ?string,
       +helperText: ?string,
+      +excludePivotFieldOptionIds: ?$ReadOnlyArray<?string>,
+      +includePivotFieldOptionIds: ?$ReadOnlyArray<?string>,
     |}>,
   |}>,
   +$refType: EditProductScreen_product$ref,
@@ -110,10 +126,17 @@ v1 = {
   "name": "name",
   "storageKey": null
 },
-v2 = [
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "desc",
+  "storageKey": null
+},
+v3 = [
   (v0/*: any*/)
 ],
-v3 = [
+v4 = [
   {
     "alias": null,
     "args": null,
@@ -122,7 +145,20 @@ v3 = [
     "storageKey": null
   },
   (v1/*: any*/)
-];
+],
+v5 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Attribute",
+  "kind": "LinkedField",
+  "name": "attribute",
+  "plural": false,
+  "selections": [
+    (v0/*: any*/),
+    (v1/*: any*/)
+  ],
+  "storageKey": null
+};
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -138,13 +174,7 @@ return {
       "name": "price",
       "storageKey": null
     },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "desc",
-      "storageKey": null
-    },
+    (v2/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -171,6 +201,13 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "syncLocationWithStoreAddress",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "pivotFieldOptionId",
       "storageKey": null
     },
     {
@@ -208,7 +245,7 @@ return {
           "kind": "LinkedField",
           "name": "attribute",
           "plural": false,
-          "selections": (v2/*: any*/),
+          "selections": (v3/*: any*/),
           "storageKey": null
         },
         {
@@ -228,7 +265,7 @@ return {
       "kind": "LinkedField",
       "name": "condition",
       "plural": false,
-      "selections": (v2/*: any*/),
+      "selections": (v3/*: any*/),
       "storageKey": null
     },
     {
@@ -238,7 +275,7 @@ return {
       "kind": "LinkedField",
       "name": "rentalDuration",
       "plural": false,
-      "selections": (v2/*: any*/),
+      "selections": (v3/*: any*/),
       "storageKey": null
     },
     {
@@ -248,7 +285,7 @@ return {
       "kind": "LinkedField",
       "name": "merchant",
       "plural": false,
-      "selections": (v2/*: any*/),
+      "selections": (v3/*: any*/),
       "storageKey": null
     },
     {
@@ -266,7 +303,7 @@ return {
           "kind": "LinkedField",
           "name": "province",
           "plural": false,
-          "selections": (v3/*: any*/),
+          "selections": (v4/*: any*/),
           "storageKey": null
         },
         {
@@ -276,7 +313,7 @@ return {
           "kind": "LinkedField",
           "name": "city",
           "plural": false,
-          "selections": (v3/*: any*/),
+          "selections": (v4/*: any*/),
           "storageKey": null
         },
         {
@@ -286,7 +323,7 @@ return {
           "kind": "LinkedField",
           "name": "district",
           "plural": false,
-          "selections": (v3/*: any*/),
+          "selections": (v4/*: any*/),
           "storageKey": null
         }
       ],
@@ -340,25 +377,53 @@ return {
         {
           "alias": null,
           "args": null,
+          "concreteType": "PivotField",
+          "kind": "LinkedField",
+          "name": "pivotField",
+          "plural": false,
+          "selections": [
+            (v0/*: any*/),
+            (v5/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "PivotFieldOption",
+              "kind": "LinkedField",
+              "name": "options",
+              "plural": true,
+              "selections": [
+                (v0/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "label",
+                  "storageKey": null
+                },
+                (v2/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "isDefault",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "SpecificationField",
           "kind": "LinkedField",
           "name": "specFields",
           "plural": true,
           "selections": [
             (v0/*: any*/),
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "Attribute",
-              "kind": "LinkedField",
-              "name": "attribute",
-              "plural": false,
-              "selections": [
-                (v0/*: any*/),
-                (v1/*: any*/)
-              ],
-              "storageKey": null
-            },
+            (v5/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -456,6 +521,20 @@ return {
               "kind": "ScalarField",
               "name": "helperText",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "excludePivotFieldOptionIds",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "includePivotFieldOptionIds",
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -469,6 +548,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0f047dcf6d9ce68c0fd1563da92f0c17';
+(node/*: any*/).hash = 'd67e56c77080e59c08e5ebac87e37035';
 
 module.exports = node;

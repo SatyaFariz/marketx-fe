@@ -28,6 +28,25 @@ const isJSONString = (str) => {
   return true
 }
 
+const getPivotFieldOptionId = (id, pivotField) => {
+  if(id) return id
+
+  if(pivotField) {
+    const { options } = pivotField
+    let _id = options[0].id
+    for(let i = 0; i < options.length; i++) {
+      if(options[i].isDefault) {
+        _id = options[i].id
+        break
+      }
+    }
+
+    return _id
+  }
+
+  return null
+}
+
 const Component = props => {
   const { me, product, productConditions, rentalDurations, provinces } = props
   const { history, environment } = useAppContext()
@@ -76,6 +95,8 @@ const Component = props => {
   const [loading, setLoading] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [showBottomSheet, setShowBottomSheet] = useState(false)
+
+  const [pivotFieldOptionId, setPivotFieldOptionId] = useState(getPivotFieldOptionId(product.pivotFieldOptionId, category.pivotField))
 
   const handleSwipe = (obj) => {
     setCarouselPos(obj.activeIndex)
@@ -747,6 +768,19 @@ const Component = props => {
             }
 
             {category.specFields.map((field) => {
+              if(category.pivotField) {
+                if(field.excludePivotFieldOptionIds?.includes(pivotFieldOptionId)) {
+                  return null
+                }
+  
+                if(
+                  field.includePivotFieldOptionIds?.length > 0 && 
+                  !field.includePivotFieldOptionIds?.includes(pivotFieldOptionId)
+                ) {
+                  return null
+                }
+              }
+              
               const MAX_LENGTH = field.maxLength || PRODUCT_SPEC_VALUE_MAX_LENGTH
               const NUMERIC_MAX_LENGTH = field.maxLength || PRODUCT_NUMERIC_SPEC_VALUE_MAX_LENGTH
 
@@ -1207,6 +1241,7 @@ export default createFragmentContainer(Component, {
       isDeleted,
       isSuspended,
       syncLocationWithStoreAddress,
+      pivotFieldOptionId,
       images {
         id,
         url
@@ -1249,6 +1284,19 @@ export default createFragmentContainer(Component, {
         forceLocationInput,
         rentalDurationIds,
         listingType,
+        pivotField {
+          id,
+          attribute {
+            id,
+            name
+          },
+          options {
+            id,
+            label,
+            desc,
+            isDefault
+          }
+        },
         specFields {
           id,
           attribute {
@@ -1268,7 +1316,9 @@ export default createFragmentContainer(Component, {
           numberOfLines,
           maxLength,
           emptyErrorMessage,
-          helperText
+          helperText,
+          excludePivotFieldOptionIds,
+          includePivotFieldOptionIds
         }
       }
     }

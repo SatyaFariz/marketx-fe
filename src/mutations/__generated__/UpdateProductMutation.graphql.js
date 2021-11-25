@@ -18,6 +18,7 @@ export type ProductInput = {|
   specs: $ReadOnlyArray<SpecificationInput>,
   rentalDurationId?: ?string,
   productConditionId?: ?string,
+  pivotFieldOptionId?: ?string,
 |};
 export type LocationInput = {|
   provinceId: number,

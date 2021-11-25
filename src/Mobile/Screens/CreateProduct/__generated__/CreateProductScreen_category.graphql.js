@@ -58,8 +58,8 @@ export type CreateProductScreen_category = {|
     +maxLength: ?number,
     +emptyErrorMessage: ?string,
     +helperText: ?string,
-    +excludePivotFieldOptionIds: ?string,
-    +includePivotFieldOptionIds: ?string,
+    +excludePivotFieldOptionIds: ?$ReadOnlyArray<?string>,
+    +includePivotFieldOptionIds: ?$ReadOnlyArray<?string>,
   |}>,
   +$refType: CreateProductScreen_category$ref,
 |};

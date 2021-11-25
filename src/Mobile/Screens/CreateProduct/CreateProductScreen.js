@@ -312,6 +312,7 @@ const Component = props => {
           isPublished: true,
           productConditionId,
           rentalDurationId,
+          pivotFieldOptionId: pivotFieldOptionId?.length > 0 ? pivotFieldOptionId : null,
           syncLocationWithStoreAddress: syncLocation,
           specs: productSpecs,
           location: syncLocation ? null : {

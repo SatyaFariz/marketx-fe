@@ -13,6 +13,7 @@ export type SpecificationFieldInput = {|
   type: string,
   options: $ReadOnlyArray<string>,
   isRequired: boolean,
+  isPublished?: ?boolean,
   isAutocomplete?: ?boolean,
   isEnum?: ?boolean,
   isMulti?: ?boolean,

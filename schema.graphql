@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Tue Nov 23 2021 22:16:55 GMT+0700 (Western Indonesia Time)
+# timestamp: Thu Nov 25 2021 13:14:48 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -230,6 +230,7 @@ type Product {
   condition: ProductCondition
   category: [Category]
   merchantId: String
+  pivotFieldOptionId: String
   merchant: User
   store: Store
   isPublished: Boolean
@@ -283,6 +284,7 @@ input ProductInput {
   specs: [SpecificationInput!]!
   rentalDurationId: String
   productConditionId: String
+  pivotFieldOptionId: String
 }
 
 enum ProductTypeEnum {
@@ -345,8 +347,8 @@ type SpecificationField {
   suffix: String
   emptyErrorMessage: String
   helperText: String
-  includePivotFieldOptionIds: String
-  excludePivotFieldOptionIds: String
+  includePivotFieldOptionIds: [String]
+  excludePivotFieldOptionIds: [String]
 }
 
 input SpecificationFieldInput {
@@ -354,6 +356,7 @@ input SpecificationFieldInput {
   type: String!
   options: [String!]!
   isRequired: Boolean!
+  isPublished: Boolean
   isAutocomplete: Boolean
   isEnum: Boolean
   isMulti: Boolean
