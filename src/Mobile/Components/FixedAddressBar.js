@@ -8,7 +8,7 @@ const Component = ({ children, me, desktopComingSoon }) => {
 
   const comingSoon = desktopComingSoon === false ? false : true
 
-  if(!isMobile/* && isProduction && !me?.isAdmin && comingSoon*/) {
+  if(!isMobile && isProduction && !me?.isAdmin && comingSoon) {
     return (
       <ComingSoonPage/>
     )
