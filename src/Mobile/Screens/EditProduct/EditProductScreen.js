@@ -64,7 +64,7 @@ const Component = props => {
   const [loadingDistricts, setLoadingDistricts] = useState(false)
 
   const merchantId = product.merchant.id
-  const _isMounted = useRef()
+  const _isMounted = useRef(true)
   const scrollRef = useRef()
   const headerRef = useRef()
   const [name, setName] = useState(product.name)
@@ -373,7 +373,6 @@ console.log(specs)
   }
 
   useEffect(() => {
-    _isMounted.current = true
     if(scrollRef.current) {
       scrollRef.current.onscroll = () => {
         const pageYOffset = scrollRef.current?.scrollTop
@@ -845,12 +844,6 @@ console.log(specs)
                       disableClearable={!field.isEnum}
                       freeSolo={!field.isEnum}
                       value={specs[field.attribute.id]}
-                      onInputChange={e => {
-                        const value = e?.target?.value
-                        if(_isMounted.current) {
-                          _setSpecs(field)({ target: { value }})
-                        }
-                      }}
                       onChange={(_, value) => _setSpecs(field)({ target: { value }})}
                       renderInput={(params) => 
                         <TextField 
@@ -863,6 +856,7 @@ console.log(specs)
                             marginTop: 10,
                             marginBottom: 10
                           }}
+                          onChange={!field.isEnum ? _setSpecs(field) : undefined}
                           error={validation[field.attribute.id]?.isInvalid}
                           helperText={validation[field.attribute.id]?.message || (field.helperText?.trim()?.length > 0 && field.helperText)}
                         />
