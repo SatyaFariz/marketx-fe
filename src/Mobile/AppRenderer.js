@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import ErrorScreen from './Screens/ErrorScreen'
-import Logo from '../logo.svg'
+import { LOGO_URL } from './Constants'
 
 const LoadingView = () => {
   return (
@@ -17,7 +17,10 @@ const LoadingView = () => {
     }}>
       <img
         alt='applogo'
-        src={Logo}
+        src={LOGO_URL}
+        style={{
+          width: '65%'
+        }}
       />
     </div>
   )
