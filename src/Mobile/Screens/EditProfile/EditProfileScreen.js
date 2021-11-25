@@ -1,4 +1,4 @@
-import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, DIVIDER_COLOR, USER_FULLNAME_MAX_LENGTH } from '../../Constants'
+import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, /*DIVIDER_COLOR,*/ USER_FULLNAME_MAX_LENGTH } from '../../Constants'
 import { TextField } from '@material-ui/core'
 import useAppContext from '../../hooks/useAppContext'
 import OTPView from '../../Components/OTPView'
@@ -6,25 +6,25 @@ import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 import { useState, useEffect, useRef } from 'react'
 import Validator from '../../../helpers/validator'
-import CameraIcon from '../../Components/CameraIcon'
+// import CameraIcon from '../../Components/CameraIcon'
 import MobileNumberChecker from '../../../helpers/MobileNumberChecker'
 import { useDebounce } from 'use-debounce'
 import LogoutButton from '../../Components/LogoutButton'
-import { useDropzone } from 'react-dropzone'
-import { fromImage } from 'imtool'
+// import { useDropzone } from 'react-dropzone'
+// import { fromImage } from 'imtool'
 import SendOtpCode from '../../../mutations/SendOtpCode'
 import UpdateProfile from '../../../mutations/UpdateProfile'
 import BackButton from '../../Components/BackButton'
 import Button from '../../Components/Button'
 
-const megabytes = 1048576
+// const megabytes = 1048576
 
 const Component = props => {
   const _isMounted = useRef(true)
   const { me } = props
   const myCurrentMobileNumber = me?.mobileNumber || ''
-  const profilePictureUrl = me?.profilePicture?.url
-  const [url, setUrl] = useState(profilePictureUrl)
+  // const profilePictureUrl = me?.profilePicture?.url
+  // const [url, setUrl] = useState(profilePictureUrl)
   const { environment, history } = useAppContext()
   const [name, setName] = useState(me?.name)
   const [email] = useState(me?.email || '')
@@ -33,11 +33,11 @@ const Component = props => {
   const [validation, setValidation] = useState({ isValid: false })
   const [numberExistance, setNumberExistance] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [file, setFile] = useState(null)
+  // const [file, setFile] = useState(null)
   const [sendingOtpCode, setSendingOtpCode] = useState(false)
   const [expiry, setExpiry] = useState(null)
   const [showOTPView, setShowOTPView] = useState(false)
-
+/*
   const { getRootProps, getInputProps } = useDropzone({
     // Disable click and keydown behavior
     accept: 'image/jpeg',
@@ -54,7 +54,7 @@ const Component = props => {
       }
     },
     onDropRejected: () => console.log('Rejected')
-  })
+  })*/
 
   const _setName = (e) => {
     setName(e.target.value.trimLeft())
@@ -76,7 +76,7 @@ const Component = props => {
       }
       
       setLoading(true)
-      UpdateProfile(environment, { otpCode, input }, file, (payload, error) => {
+      UpdateProfile(environment, { otpCode, input }, /*file*/null, (payload, error) => {
         if(error) {
           console.log(error)
         } else if(payload) {
@@ -143,7 +143,7 @@ const Component = props => {
 
   const isClean = () => {
     const _isClean = (
-      file === null &&
+      // file === null &&
       name.trim() === me.name.trim() &&
       isMobileNumberClean()
     )
@@ -166,11 +166,11 @@ const Component = props => {
   useEffect(() => {
     return () => _isMounted.current = false
   }, [])
-
+/*
   useEffect(() => {
     if(profilePictureUrl)
       setUrl(profilePictureUrl)
-  }, [profilePictureUrl])
+  }, [profilePictureUrl])*/
 
   useEffect(() => {
     if(mobileNumberDebounced?.length < 12) {
@@ -233,7 +233,7 @@ const Component = props => {
       <div style={{
         marginTop: HEADER_HEIGHT
       }}>
-        <div style={{
+        {/* <div style={{
           display: 'flex',
           justifyContent: 'center',
           flexDirection: 'column',
@@ -261,11 +261,11 @@ const Component = props => {
             <CameraIcon/>
           </div>
           
-        </div>
+        </div> */}
 
         <div style={{
           padding: '20px 20px',
-          paddingTop: 0
+          // paddingTop: 0
         }}>
           <TextField
             variant="outlined"
