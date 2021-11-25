@@ -19,6 +19,8 @@ import NumberFormat from 'react-number-format'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader'
 
+const filter = createFilterOptions()
+
 const isJSONString = (str) => {
   try {
       JSON.parse(str)
@@ -845,6 +847,9 @@ console.log(specs)
                       freeSolo={!field.isEnum}
                       value={specs[field.attribute.id]}
                       onChange={(_, value) => _setSpecs(field)({ target: { value }})}
+                      filterOptions={(options, params) => {
+                        return filter(options, { ...params, inputValue: specs[field.attribute.id] })
+                      }}
                       renderInput={(params) => 
                         <TextField 
                           {...params} 
