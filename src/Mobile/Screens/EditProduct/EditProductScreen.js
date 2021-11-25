@@ -64,7 +64,7 @@ const Component = props => {
   const [loadingDistricts, setLoadingDistricts] = useState(false)
 
   const merchantId = product.merchant.id
-  const _isMounted = useRef(true)
+  const _isMounted = useRef()
   const scrollRef = useRef()
   const headerRef = useRef()
   const [name, setName] = useState(product.name)
@@ -247,7 +247,8 @@ const Component = props => {
       ...(!syncLocation ? { city } : {}),
       ...(!syncLocation ? { district } : {})
     })
-
+console.log('Validation:', validation)
+console.log(specs)
     setValidation(validation)
     return validation.isValid
   }
@@ -366,6 +367,7 @@ const Component = props => {
   }
 
   useEffect(() => {
+    _isMounted.current = true
     if(scrollRef.current) {
       scrollRef.current.onscroll = () => {
         const pageYOffset = scrollRef.current?.scrollTop
@@ -780,7 +782,7 @@ const Component = props => {
                   return null
                 }
               }
-              
+
               const MAX_LENGTH = field.maxLength || PRODUCT_SPEC_VALUE_MAX_LENGTH
               const NUMERIC_MAX_LENGTH = field.maxLength || PRODUCT_NUMERIC_SPEC_VALUE_MAX_LENGTH
 
@@ -837,6 +839,12 @@ const Component = props => {
                       disableClearable={!field.isEnum}
                       freeSolo={!field.isEnum}
                       value={specs[field.attribute.id]}
+                      onInputChange={e => {
+                        const value = e?.target?.value
+                        if(_isMounted.current) {
+                          _setSpecs(field)({ target: { value }})
+                        }
+                      }}
                       onChange={(_, value) => _setSpecs(field)({ target: { value }})}
                       renderInput={(params) => 
                         <TextField 
