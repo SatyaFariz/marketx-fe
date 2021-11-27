@@ -963,7 +963,7 @@ const Component = props => {
         opacity: queryParams?.action === 'editPivotField' ? 1 : 0,
         pointerEvents: queryParams?.action === 'editPivotField' ? undefined : 'none'
       }}>
-        <EditPivotFieldModal category={category}/>
+        <EditPivotFieldModal category={category} attributes={attributes}/>
       </div>
       
     </div>
@@ -1033,7 +1033,8 @@ export default createFragmentContainer(Component, {
   attributes: graphql`
     fragment CategoryDetailScreen_attributes on Attribute @relay(plural: true) {
       id,
-      ...CreateSpecificationFieldsModal_attributes
+      ...CreateSpecificationFieldsModal_attributes,
+      ...EditPivotFieldModal_attributes
     }
   `,
   rentalDurations: graphql`

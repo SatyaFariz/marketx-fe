@@ -11,14 +11,15 @@ import { Fab, ButtonBase } from '@material-ui/core'
 import Validator from '../../../helpers/validator'
 import useAppContext from '../../hooks/useAppContext'
 import SetPivotField from '../../../mutations/SetPivotField'
+import { Autocomplete } from '@material-ui/lab'
 
 const Component = props => {
   const isMounted = useRef(true)
   const { history } = useAppContext()
-  const { category, relay: { environment }} = props
+  const { category, attributes, relay: { environment }} = props
   const { pivotField } = category
   const [loading, setLoading] = useState(false)
-  const [attributeId, setAttributeId] = useState(pivotField?.attribute?.id || '')
+  const [attribute, setAttribute] = useState(pivotField?.attribute)
   const [emptyErrorMessage, setEmptyErrorMessage] = useState(pivotField?.emptyErrorMessage || '')
   const [helperText, setHelperText] = useState(pivotField?.pivotField || '')
   const [options, setOptions] = useState(!pivotField ? [
@@ -57,13 +58,13 @@ const Component = props => {
   const isValid = () => {
     const rules = [
       {
-        field: 'attributeId',
+        field: 'attribute',
         method: Validator.isEmpty,
         validWhen: false,
         message: 'This field is required.' 
       }
     ]
-    const fields = { attributeId }
+    const fields = { attribute }
     options.forEach(item => {
       const key = `option_label_${item.key}`
       rules.push({
@@ -91,7 +92,7 @@ const Component = props => {
       const variables = {
         categoryId: category.id,
           pivotField: {
-          attributeId: attributeId,
+          attributeId: attribute.id,
           emptyErrorMessage,
           helperText,
           options: options.map(option => ({
@@ -225,7 +226,27 @@ const Component = props => {
                 }}
               />
               :
-              null
+              <Autocomplete
+                options={attributes}
+                getOptionLabel={(option) => option.name}
+                value={attribute}
+                onChange={(_, value) => setAttribute(value)}
+                renderInput={(params) => 
+                  <TextField 
+                    {...params} 
+                    label='Attribute'
+                    fullWidth
+                    disabled={loading} 
+                    variant="outlined"
+                    style={{
+                      marginTop: 10,
+                      marginBottom: 10
+                    }}
+                    error={validation[`attribute`]?.isInvalid}
+                    helperText={validation[`attribute`]?.message}
+                  />
+                }
+              />
               }
 
               <TextField
@@ -383,6 +404,12 @@ export default createFragmentContainer(Component, {
           isDefault
         }
       }
+    }
+  `,
+  attributes: graphql`
+    fragment EditPivotFieldModal_attributes on Attribute @relay(plural: true) {
+      id,
+      name
     }
   `
 })
