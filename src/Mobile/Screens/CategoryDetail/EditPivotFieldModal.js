@@ -9,10 +9,13 @@ import Button from '../../Components/Button'
 import { Add } from '@material-ui/icons'
 import { Fab, ButtonBase } from '@material-ui/core'
 import Validator from '../../../helpers/validator'
+import useAppContext from '../../hooks/useAppContext'
+import SetPivotField from '../../../mutations/SetPivotField'
 
 const Component = props => {
   const isMounted = useRef(true)
-  const { category } = props
+  const { history } = useAppContext()
+  const { category, relay: { environment }} = props
   const { pivotField } = category
   const [loading, setLoading] = useState(false)
   const [emptyErrorMessage, setEmptyErrorMessage] = useState(pivotField?.emptyErrorMessage || '')
@@ -53,23 +56,42 @@ const Component = props => {
     const validator = new Validator(rules)
     const validation = validator.validate(fields)
     setValidation(validation)
+    if(options.length < 2) {
+      alert('Minimum 2 options!')
+      return false
+    }
     return validation.isValid
   }
 
   const save = () => {
     if(!loading && isValid()) {
       const variables = {
-        attributeId: pivotField.attribute.id,
-        emptyErrorMessage,
-        helperText,
-        options: options.map(option => ({
-          id: option.id,
-          label: option.label,
-          desc: option.desc,
-          isDefault: option.isDefault
-        }))
+        categoryId: category.id,
+          pivotField: {
+          attributeId: pivotField.attribute.id,
+          emptyErrorMessage,
+          helperText,
+          options: options.map(option => ({
+            id: option.id,
+            label: option.label,
+            desc: option.desc,
+            isDefault: option.isDefault
+          }))
+        }
       }
-      alert(JSON.stringify(variables, null, 2))
+      SetPivotField(environment, variables, (payload, error) => {
+        if(error) {
+          console.log(error)
+        } else if(payload) {
+          const { message, hasError } = payload.actionInfo
+          alert(message)
+          if(!hasError)
+            history.goBack()
+        }
+
+        isMounted.current && setLoading(false)
+      })
+      setLoading(true)
     }
   }
 
