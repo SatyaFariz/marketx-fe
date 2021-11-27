@@ -504,6 +504,55 @@ const Component = props => {
             alignItems: 'center',
             justifyContent: 'space-between'
           }}>
+            <h3>Pivot Field</h3>
+            {!category.pivotField &&
+            <ButtonBase
+              component={Link}
+              href={`/category/${category.id}/detail?action=createPivotField`}
+              style={{ color: Color.primary }}
+            >
+              <span>
+                Add
+              </span>
+            </ButtonBase>
+            }
+          </div>
+
+          {category.pivotField &&
+          <Accordion
+            style={{ paddingBottom: 10, backgroundColor: 'transparent' }}
+            expanded={false}
+            onChange={() => {}}
+          >
+            <AccordionSummary>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexGrow: 1
+              }}>
+                <span>{category.pivotField.attribute.name}</span>
+                <Button
+                  label={'Edit'}
+                  onClick={(e) => {
+                  }}
+                  disabled={loading}
+                />
+              </div>
+            </AccordionSummary>
+            <AccordionDetails>
+              <div/>
+            </AccordionDetails>
+          </Accordion>
+          }
+
+          <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}>
             <h3>Specification Fields</h3>
             <ButtonBase
               component={Link}
