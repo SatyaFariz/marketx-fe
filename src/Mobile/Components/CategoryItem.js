@@ -62,8 +62,8 @@ const Component = props => {
             alt={category.name}
             src={category.icon?.url}
             style={{
-              height: 70 - (highlight ? 6 : 0),
-              width: 70 - (highlight ? 6 : 0),
+              height: 55 - (highlight ? 6 : 0),
+              width: 55 - (highlight ? 6 : 0),
               marginBottom: 10,
               borderRadius: '50%',
               border: highlight ? `3px solid ${Color.primary}` : undefined
