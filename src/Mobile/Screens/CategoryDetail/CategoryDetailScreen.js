@@ -952,7 +952,6 @@ const Component = props => {
         <CreateSpecificationFieldsModal attributes={attributes} category={category}/>
       </div>
 
-      {category.pivotField &&
       <div style={{
         position: 'absolute',
         left: 0,
@@ -966,7 +965,7 @@ const Component = props => {
       }}>
         <EditPivotFieldModal category={category}/>
       </div>
-      }
+      
     </div>
   )
 }
