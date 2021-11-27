@@ -132,7 +132,7 @@ const Component = props => {
   }
 
   const deleteItem = (i) => {
-    const confirmed = confirm("You sure want to delete this?")
+    const confirmed = window.confirm("You sure want to delete this?")
     if(confirmed) {
       setOptions(prev => {
         const copy = prev.slice()

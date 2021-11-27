@@ -97,7 +97,7 @@ const Component = props => {
   const [deleting, setDeleting] = useState(false)
   const [showBottomSheet, setShowBottomSheet] = useState(false)
 
-  const [pivotFieldOptionId, setPivotFieldOptionId] = useState(getPivotFieldOptionId(product.pivotFieldOptionId, category.pivotField))
+  const [pivotFieldOptionId] = useState(getPivotFieldOptionId(product.pivotFieldOptionId, category.pivotField))
 
   const handleSwipe = (obj) => {
     setCarouselPos(obj.activeIndex)

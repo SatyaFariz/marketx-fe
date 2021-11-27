@@ -256,8 +256,7 @@ const Component = props => {
     })
     
     setValidation(validation)
-    const { isValid } = validation
-    formIsValid.current = isValid
+    formIsValid.current = validation.isValid
 
     if(files.length === 0) {
       if(alertImageError)
@@ -266,7 +265,7 @@ const Component = props => {
       return false
     }
     
-    return isValid
+    return validation.isValid
   }
 
   const resetFormState = () => {
@@ -342,6 +341,7 @@ const Component = props => {
 
   useEffect(() => {
     if(pivotFieldOptionId.length > 0 && formIsValid.current === false) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       isValid(false)
     }
   }, [pivotFieldOptionId])
@@ -854,7 +854,6 @@ const Component = props => {
                     options={field.options}
                     getOptionLabel={(option) => option}
                     getOptionSelected={(option, value) => option === value}
-                    value={specs[field.attribute.id]?.trim() === '' ? null : specs[field.attribute.id]}
                     noOptionsText="Pilihan tidak ditemukan"
                     forcePopupIcon={field.isEnum}
                     disableClearable={!field.isEnum}
