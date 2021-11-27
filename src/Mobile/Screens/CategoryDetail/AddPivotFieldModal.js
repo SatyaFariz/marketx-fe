@@ -317,23 +317,8 @@ const Component = props => {
 
 export default createFragmentContainer(Component, {
   category: graphql`
-    fragment EditPivotFieldModal_category on Category {
-      id,
-      pivotField {
-        id,
-        emptyErrorMessage,
-        helperText,
-        attribute {
-          id,
-          name
-        },
-        options {
-          id,
-          label,
-          desc,
-          isDefault
-        }
-      }
+    fragment AddPivotFieldModal_category on Category {
+      id
     }
   `
 })

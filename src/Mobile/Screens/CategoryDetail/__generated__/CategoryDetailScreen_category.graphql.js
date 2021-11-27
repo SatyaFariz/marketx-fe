@@ -8,8 +8,9 @@
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
+type AddPivotFieldModal_category$ref = any;
 type CreateSpecificationFieldsModal_category$ref = any;
-type EditPivotFieldModal_pivotField$ref = any;
+type EditPivotFieldModal_category$ref = any;
 import type { FragmentReference } from "relay-runtime";
 declare export opaque type CategoryDetailScreen_category$ref: FragmentReference;
 declare export opaque type CategoryDetailScreen_category$fragmentType: CategoryDetailScreen_category$ref;
@@ -42,7 +43,6 @@ export type CategoryDetailScreen_category = {|
       +desc: ?string,
       +isDefault: ?boolean,
     |}>,
-    +$fragmentRefs: EditPivotFieldModal_pivotField$ref,
   |},
   +specFields: ?$ReadOnlyArray<?{|
     +type: ?string,
@@ -67,7 +67,7 @@ export type CategoryDetailScreen_category = {|
     +includePivotFieldOptionIds: ?$ReadOnlyArray<?string>,
     +excludePivotFieldOptionIds: ?$ReadOnlyArray<?string>,
   |}>,
-  +$fragmentRefs: CreateSpecificationFieldsModal_category$ref,
+  +$fragmentRefs: CreateSpecificationFieldsModal_category$ref & AddPivotFieldModal_category$ref & EditPivotFieldModal_category$ref,
   +$refType: CategoryDetailScreen_category$ref,
 |};
 export type CategoryDetailScreen_category$data = CategoryDetailScreen_category;
@@ -236,11 +236,6 @@ return {
             }
           ],
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "EditPivotFieldModal_pivotField"
         }
       ],
       "storageKey": null
@@ -374,6 +369,16 @@ return {
       "args": null,
       "kind": "FragmentSpread",
       "name": "CreateSpecificationFieldsModal_category"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "AddPivotFieldModal_category"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "EditPivotFieldModal_category"
     }
   ],
   "type": "Category",
@@ -381,6 +386,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a22e187ae24285b59cb80357af9c1fb9';
+(node/*: any*/).hash = '722ea455f837b11eeacbff3fbb6ccb66';
 
 module.exports = node;

@@ -62,6 +62,10 @@ query CategoryDetailScreenQuery(
   }
 }
 
+fragment AddPivotFieldModal_category on Category {
+  id
+}
+
 fragment CategoryDetailScreen_attributes on Attribute {
   id
   ...CreateSpecificationFieldsModal_attributes
@@ -78,6 +82,8 @@ fragment CategoryDetailScreen_category on Category {
   maxImageUpload
   listingType
   ...CreateSpecificationFieldsModal_category
+  ...AddPivotFieldModal_category
+  ...EditPivotFieldModal_category
   ancestors {
     id
     name
@@ -87,7 +93,6 @@ fragment CategoryDetailScreen_category on Category {
     id
   }
   pivotField {
-    ...EditPivotFieldModal_pivotField
     id
     attribute {
       id
@@ -142,19 +147,22 @@ fragment CreateSpecificationFieldsModal_category on Category {
   id
 }
 
-fragment EditPivotFieldModal_pivotField on PivotField {
+fragment EditPivotFieldModal_category on Category {
   id
-  emptyErrorMessage
-  helperText
-  attribute {
+  pivotField {
     id
-    name
-  }
-  options {
-    id
-    label
-    desc
-    isDefault
+    emptyErrorMessage
+    helperText
+    attribute {
+      id
+      name
+    }
+    options {
+      id
+      label
+      desc
+      isDefault
+    }
   }
 }
 
@@ -207,24 +215,24 @@ v5 = {
   "name": "isPublished",
   "storageKey": null
 },
-v6 = [
-  (v1/*: any*/),
-  (v4/*: any*/)
-],
-v7 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "emptyErrorMessage",
   "storageKey": null
 },
-v8 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "helperText",
   "storageKey": null
 },
+v8 = [
+  (v1/*: any*/),
+  (v4/*: any*/)
+],
 v9 = {
   "alias": null,
   "args": null,
@@ -232,7 +240,7 @@ v9 = {
   "kind": "LinkedField",
   "name": "attribute",
   "plural": false,
-  "selections": (v6/*: any*/),
+  "selections": (v8/*: any*/),
   "storageKey": null
 };
 return {
@@ -388,43 +396,14 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "Category",
-            "kind": "LinkedField",
-            "name": "ancestors",
-            "plural": true,
-            "selections": (v6/*: any*/),
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Image",
-            "kind": "LinkedField",
-            "name": "icon",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "url",
-                "storageKey": null
-              },
-              (v1/*: any*/)
-            ],
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
             "concreteType": "PivotField",
             "kind": "LinkedField",
             "name": "pivotField",
             "plural": false,
             "selections": [
               (v1/*: any*/),
+              (v6/*: any*/),
               (v7/*: any*/),
-              (v8/*: any*/),
               (v9/*: any*/),
               {
                 "alias": null,
@@ -459,6 +438,35 @@ return {
                 ],
                 "storageKey": null
               }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Category",
+            "kind": "LinkedField",
+            "name": "ancestors",
+            "plural": true,
+            "selections": (v8/*: any*/),
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Image",
+            "kind": "LinkedField",
+            "name": "icon",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "url",
+                "storageKey": null
+              },
+              (v1/*: any*/)
             ],
             "storageKey": null
           },
@@ -555,8 +563,8 @@ return {
                 "name": "maxLength",
                 "storageKey": null
               },
+              (v6/*: any*/),
               (v7/*: any*/),
-              (v8/*: any*/),
               (v9/*: any*/),
               {
                 "alias": null,
@@ -586,7 +594,7 @@ return {
         "kind": "LinkedField",
         "name": "attributes",
         "plural": true,
-        "selections": (v6/*: any*/),
+        "selections": (v8/*: any*/),
         "storageKey": null
       },
       {
@@ -619,12 +627,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4b12341138a8afacd7def107cd6a10e5",
+    "cacheID": "1e81c02adbb0892617cf565e59997206",
     "id": null,
     "metadata": {},
     "name": "CategoryDetailScreenQuery",
     "operationKind": "query",
-    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n    ...FixedAddressBar_me\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n  attributes {\n    id\n    ...CategoryDetailScreen_attributes\n  }\n  rentalDurations {\n    ...CategoryDetailScreen_rentalDurations\n    id\n  }\n}\n\nfragment CategoryDetailScreen_attributes on Attribute {\n  id\n  ...CreateSpecificationFieldsModal_attributes\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  forceLocationInput\n  rentalDurationIds\n  maxImageUpload\n  listingType\n  ...CreateSpecificationFieldsModal_category\n  ancestors {\n    id\n    name\n  }\n  icon {\n    url\n    id\n  }\n  pivotField {\n    ...EditPivotFieldModal_pivotField\n    id\n    attribute {\n      id\n      name\n    }\n    options {\n      id\n      label\n      desc\n      isDefault\n    }\n  }\n  specFields {\n    type\n    isRequired\n    isPublished\n    isEnum\n    isMulti\n    suffix\n    prefix\n    isAutocomplete\n    options\n    max\n    min\n    numberOfLines\n    maxLength\n    emptyErrorMessage\n    helperText\n    attribute {\n      id\n      name\n    }\n    includePivotFieldOptionIds\n    excludePivotFieldOptionIds\n    id\n  }\n}\n\nfragment CategoryDetailScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n\nfragment CreateSpecificationFieldsModal_attributes on Attribute {\n  id\n  name\n}\n\nfragment CreateSpecificationFieldsModal_category on Category {\n  id\n}\n\nfragment EditPivotFieldModal_pivotField on PivotField {\n  id\n  emptyErrorMessage\n  helperText\n  attribute {\n    id\n    name\n  }\n  options {\n    id\n    label\n    desc\n    isDefault\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
+    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n    ...FixedAddressBar_me\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n  attributes {\n    id\n    ...CategoryDetailScreen_attributes\n  }\n  rentalDurations {\n    ...CategoryDetailScreen_rentalDurations\n    id\n  }\n}\n\nfragment AddPivotFieldModal_category on Category {\n  id\n}\n\nfragment CategoryDetailScreen_attributes on Attribute {\n  id\n  ...CreateSpecificationFieldsModal_attributes\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  forceLocationInput\n  rentalDurationIds\n  maxImageUpload\n  listingType\n  ...CreateSpecificationFieldsModal_category\n  ...AddPivotFieldModal_category\n  ...EditPivotFieldModal_category\n  ancestors {\n    id\n    name\n  }\n  icon {\n    url\n    id\n  }\n  pivotField {\n    id\n    attribute {\n      id\n      name\n    }\n    options {\n      id\n      label\n      desc\n      isDefault\n    }\n  }\n  specFields {\n    type\n    isRequired\n    isPublished\n    isEnum\n    isMulti\n    suffix\n    prefix\n    isAutocomplete\n    options\n    max\n    min\n    numberOfLines\n    maxLength\n    emptyErrorMessage\n    helperText\n    attribute {\n      id\n      name\n    }\n    includePivotFieldOptionIds\n    excludePivotFieldOptionIds\n    id\n  }\n}\n\nfragment CategoryDetailScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n\nfragment CreateSpecificationFieldsModal_attributes on Attribute {\n  id\n  name\n}\n\nfragment CreateSpecificationFieldsModal_category on Category {\n  id\n}\n\nfragment EditPivotFieldModal_category on Category {\n  id\n  pivotField {\n    id\n    emptyErrorMessage\n    helperText\n    attribute {\n      id\n      name\n    }\n    options {\n      id\n      label\n      desc\n      isDefault\n    }\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();

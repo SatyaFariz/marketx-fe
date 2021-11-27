@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sat Nov 27 2021 14:42:38 GMT+0700 (Western Indonesia Time)
+# timestamp: Sat Nov 27 2021 16:31:02 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -162,7 +162,7 @@ type Mutation {
   deletePost(id: String!): ActionOnPostPayload
   incrementViews(productId: String!): ActionOnProductPayload
   incrementLeads(productId: String!): ActionOnProductPayload
-  setPivotField(categoryId: String!, pivotField: PivotFieldInput!): Boolean
+  setPivotField(categoryId: String!, pivotField: PivotFieldInput!): ActionOnCategoryPayload
 }
 
 """Information about pagination in a connection."""
@@ -204,6 +204,7 @@ type PivotFieldOption {
 
 input PivotFieldOptionInput {
   label: String!
+  id: String
   isDefault: Boolean
   desc: String
 }

@@ -964,7 +964,7 @@ const Component = props => {
         opacity: queryParams?.action === 'editPivotField' ? 1 : 0,
         pointerEvents: queryParams?.action === 'editPivotField' ? undefined : 'none'
       }}>
-        <EditPivotFieldModal pivotField={category.pivotField}/>
+        <EditPivotFieldModal category={category}/>
       </div>
       }
     </div>
@@ -984,6 +984,8 @@ export default createFragmentContainer(Component, {
       maxImageUpload,
       listingType,
       ...CreateSpecificationFieldsModal_category,
+      ...AddPivotFieldModal_category,
+      ...EditPivotFieldModal_category,
       ancestors {
         id,
         name
@@ -992,7 +994,6 @@ export default createFragmentContainer(Component, {
         url
       },
       pivotField {
-        ...EditPivotFieldModal_pivotField,
         id,
         attribute {
           id,
