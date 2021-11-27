@@ -17,6 +17,7 @@ import Link from '../../Components/Link'
 import useAppContext from '../../hooks/useAppContext'
 import CreateSpecificationFieldsModal from './CreateSpecificationFieldsModal'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import EditPivotFieldModal from './EditPivotFieldModal'
 
 const megabytes = 1048576
 
@@ -535,8 +536,8 @@ const Component = props => {
                 <span>{category.pivotField.attribute.name}</span>
                 <Button
                   label={'Edit'}
-                  onClick={(e) => {
-                  }}
+                  component={Link}
+                  href={`/category/${category.id}/detail?action=editPivotField`}
                   disabled={loading}
                 />
               </div>
@@ -950,6 +951,22 @@ const Component = props => {
       }}>
         <CreateSpecificationFieldsModal attributes={attributes} category={category}/>
       </div>
+
+      {category.pivotField &&
+      <div style={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        backgroundColor: 'white',
+        zIndex: 9999,
+        opacity: queryParams?.action === 'editPivotField' ? 1 : 0,
+        pointerEvents: queryParams?.action === 'editPivotField' ? undefined : 'none'
+      }}>
+        <EditPivotFieldModal pivotField={category.pivotField}/>
+      </div>
+      }
     </div>
   )
 }
