@@ -4,12 +4,9 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import Color from '../../Constants/Color'
 import BackButton from '../../Components/BackButton'
 import { useState, useEffect, useRef } from 'react'
-import { TextField, MenuItem, Switch } from '@material-ui/core'
+import { TextField, Switch } from '@material-ui/core'
 import Button from '../../Components/Button'
-import NumberFormat from 'react-number-format'
-import useAppContext from '../../hooks/useAppContext'
 import { Add } from '@material-ui/icons'
-import { Autocomplete } from '@material-ui/lab'
 import { Fab, ButtonBase } from '@material-ui/core'
 import Validator from '../../../helpers/validator'
 
@@ -21,11 +18,13 @@ const Component = props => {
   const [helperText, setHelperText] = useState(pivotField?.pivotField || '')
   const [options, setOptions] = useState(pivotField.options.map((field, i) => ({
     key: i,
+    id: field.id || '',
     label: field.label || '',
     desc: field.desc || '',
     isDefault: field.isDefault || false
   })))
   const [fieldId, setFieldId] = useState(options.length)
+  const [validation, setValidation] = useState({ isValid: false })
 
   const setFields = (i, key, value) => {
     setOptions(prev => {
@@ -35,8 +34,42 @@ const Component = props => {
     })
   }
 
-  const save = () => {
+  const isValid = () => {
+    const rules = []
+    const fields = {}
+    options.forEach(item => {
+      const key = `option_label_${item.key}`
+      rules.push({
+        field: key,
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'This field is required.'
+      })
 
+      fields[key] = item.label
+    })
+
+    const validator = new Validator(rules)
+    const validation = validator.validate(fields)
+    setValidation(validation)
+    return validation.isValid
+  }
+
+  const save = () => {
+    if(!loading && isValid()) {
+      const variables = {
+        attributeId: pivotField.attribute.id,
+        emptyErrorMessage,
+        helperText,
+        options: options.map(option => ({
+          id: option.id,
+          label: option.label,
+          desc: option.desc,
+          isDefault: option.isDefault
+        }))
+      }
+      alert(JSON.stringify(variables, null, 2))
+    }
   }
 
   const addItem = () => {
@@ -44,6 +77,7 @@ const Component = props => {
     setFieldId(nextId)
     setOptions(prev => [...prev, {
       key: nextId,
+      id: null,
       label: '',
       desc: '',
       isDefault: false
@@ -219,6 +253,8 @@ const Component = props => {
                         marginTop: 10,
                         marginBottom: 10
                       }}
+                      error={validation[`option_label_${option.key}`]?.isInvalid}
+                      helperText={validation[`option_label_${option.key}`]?.message}
                     />
 
                     <TextField
