@@ -975,6 +975,7 @@ export default createFragmentContainer(Component, {
         url
       },
       pivotField {
+        ...EditPivotFieldModal_pivotField,
         id,
         attribute {
           id,

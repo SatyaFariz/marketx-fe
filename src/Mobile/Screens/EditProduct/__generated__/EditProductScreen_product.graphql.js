@@ -65,6 +65,8 @@ export type EditProductScreen_product = {|
     +listingType: ?string,
     +pivotField: ?{|
       +id: ?string,
+      +emptyErrorMessage: ?string,
+      +helperText: ?string,
       +attribute: ?{|
         +id: ?string,
         +name: ?string,
@@ -147,6 +149,20 @@ v4 = [
   (v1/*: any*/)
 ],
 v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "emptyErrorMessage",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "helperText",
+  "storageKey": null
+},
+v7 = {
   "alias": null,
   "args": null,
   "concreteType": "Attribute",
@@ -384,6 +400,8 @@ return {
           "selections": [
             (v0/*: any*/),
             (v5/*: any*/),
+            (v6/*: any*/),
+            (v7/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -423,7 +441,7 @@ return {
           "plural": true,
           "selections": [
             (v0/*: any*/),
-            (v5/*: any*/),
+            (v7/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -508,20 +526,8 @@ return {
               "name": "maxLength",
               "storageKey": null
             },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "emptyErrorMessage",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "helperText",
-              "storageKey": null
-            },
+            (v5/*: any*/),
+            (v6/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -548,6 +554,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'd67e56c77080e59c08e5ebac87e37035';
+(node/*: any*/).hash = 'a05a7bd05b9a5ccc17d9d5604dd9a257';
 
 module.exports = node;

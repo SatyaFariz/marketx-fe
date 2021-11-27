@@ -1187,6 +1187,8 @@ export default createFragmentContainer(Component, {
       },
       pivotField {
         id,
+        emptyErrorMessage,
+        helperText,
         attribute {
           id,
           name

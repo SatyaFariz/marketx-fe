@@ -85,6 +85,8 @@ fragment CreateProductScreen_category on Category {
   }
   pivotField {
     id
+    emptyErrorMessage
+    helperText
     attribute {
       id
       name
@@ -201,6 +203,20 @@ v4 = [
 v5 = {
   "alias": null,
   "args": null,
+  "kind": "ScalarField",
+  "name": "emptyErrorMessage",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "helperText",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
   "concreteType": "Attribute",
   "kind": "LinkedField",
   "name": "attribute",
@@ -208,7 +224,7 @@ v5 = {
   "selections": (v4/*: any*/),
   "storageKey": null
 },
-v6 = [
+v8 = [
   {
     "alias": null,
     "args": null,
@@ -218,7 +234,7 @@ v6 = [
   },
   (v3/*: any*/)
 ],
-v7 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -408,6 +424,8 @@ return {
             "selections": [
               (v2/*: any*/),
               (v5/*: any*/),
+              (v6/*: any*/),
+              (v7/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -453,7 +471,7 @@ return {
             "plural": true,
             "selections": [
               (v2/*: any*/),
-              (v5/*: any*/),
+              (v7/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -538,20 +556,8 @@ return {
                 "name": "maxLength",
                 "storageKey": null
               },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "emptyErrorMessage",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "helperText",
-                "storageKey": null
-              },
+              (v5/*: any*/),
+              (v6/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -605,7 +611,7 @@ return {
                     "kind": "LinkedField",
                     "name": "province",
                     "plural": false,
-                    "selections": (v6/*: any*/),
+                    "selections": (v8/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -615,7 +621,7 @@ return {
                     "kind": "LinkedField",
                     "name": "city",
                     "plural": false,
-                    "selections": (v6/*: any*/),
+                    "selections": (v8/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -625,7 +631,7 @@ return {
                     "kind": "LinkedField",
                     "name": "district",
                     "plural": false,
-                    "selections": (v6/*: any*/),
+                    "selections": (v8/*: any*/),
                     "storageKey": null
                   }
                 ],
@@ -653,7 +659,7 @@ return {
         "plural": true,
         "selections": [
           (v2/*: any*/),
-          (v7/*: any*/)
+          (v9/*: any*/)
         ],
         "storageKey": null
       },
@@ -666,7 +672,7 @@ return {
         "plural": true,
         "selections": [
           (v2/*: any*/),
-          (v7/*: any*/),
+          (v9/*: any*/),
           (v3/*: any*/),
           {
             "alias": null,
@@ -685,18 +691,18 @@ return {
         "kind": "LinkedField",
         "name": "administrativeAreas",
         "plural": true,
-        "selections": (v6/*: any*/),
+        "selections": (v8/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "33c34fc4cab96c6aaee6c73a56aa5a80",
+    "cacheID": "134c9b8f21b0a803f28281cfcd462552",
     "id": null,
     "metadata": {},
     "name": "CreateProductScreenQuery",
     "operationKind": "query",
-    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n    ...FixedAddressBar_me\n  }\n  productConditions {\n    ...CreateProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...CreateProductScreen_rentalDurations\n    id\n  }\n  administrativeAreas {\n    ...CreateProductScreen_provinces\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  requiresProductCondition\n  showsProductConditionField\n  forceLocationInput\n  rentalDurationIds\n  maxImageUpload\n  listingType\n  ancestors {\n    id\n    name\n  }\n  pivotField {\n    id\n    attribute {\n      id\n      name\n    }\n    options {\n      id\n      label\n      desc\n      isDefault\n    }\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n    isMulti\n    prefix\n    suffix\n    numberOfLines\n    maxLength\n    emptyErrorMessage\n    helperText\n    excludePivotFieldOptionIds\n    includePivotFieldOptionIds\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n    address {\n      province {\n        administrativeAreaId\n        name\n      }\n      city {\n        administrativeAreaId\n        name\n      }\n      district {\n        administrativeAreaId\n        name\n      }\n    }\n  }\n}\n\nfragment CreateProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment CreateProductScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment CreateProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
+    "text": "query CreateProductScreenQuery(\n  $categoryId: String!\n) {\n  category(id: $categoryId) {\n    id\n    ...CreateProductScreen_category\n  }\n  me {\n    id\n    ...CreateProductScreen_me\n    ...FixedAddressBar_me\n  }\n  productConditions {\n    ...CreateProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...CreateProductScreen_rentalDurations\n    id\n  }\n  administrativeAreas {\n    ...CreateProductScreen_provinces\n  }\n}\n\nfragment CreateProductScreen_category on Category {\n  id\n  name\n  path\n  requiresProductCondition\n  showsProductConditionField\n  forceLocationInput\n  rentalDurationIds\n  maxImageUpload\n  listingType\n  ancestors {\n    id\n    name\n  }\n  pivotField {\n    id\n    emptyErrorMessage\n    helperText\n    attribute {\n      id\n      name\n    }\n    options {\n      id\n      label\n      desc\n      isDefault\n    }\n  }\n  specFields {\n    id\n    attribute {\n      id\n      name\n    }\n    isAutocomplete\n    isRequired\n    type\n    max\n    min\n    options\n    isEnum\n    isMulti\n    prefix\n    suffix\n    numberOfLines\n    maxLength\n    emptyErrorMessage\n    helperText\n    excludePivotFieldOptionIds\n    includePivotFieldOptionIds\n  }\n}\n\nfragment CreateProductScreen_me on User {\n  id\n  store {\n    id\n    address {\n      province {\n        administrativeAreaId\n        name\n      }\n      city {\n        administrativeAreaId\n        name\n      }\n      district {\n        administrativeAreaId\n        name\n      }\n    }\n  }\n}\n\nfragment CreateProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment CreateProductScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment CreateProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();

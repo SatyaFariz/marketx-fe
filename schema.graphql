@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Thu Nov 25 2021 18:56:04 GMT+0700 (Western Indonesia Time)
+# timestamp: Sat Nov 27 2021 14:42:38 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -183,11 +183,15 @@ type PageInfo {
 type PivotField {
   id: ID
   attribute: Attribute
+  emptyErrorMessage: String
+  helperText: String
   options: [PivotFieldOption]
 }
 
 input PivotFieldInput {
   attributeId: String!
+  emptyErrorMessage: String
+  helperText: String
   options: [PivotFieldOptionInput!]!
 }
 

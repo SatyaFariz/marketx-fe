@@ -143,6 +143,8 @@ fragment EditProductScreen_product on Product {
     listingType
     pivotField {
       id
+      emptyErrorMessage
+      helperText
       attribute {
         id
         name
@@ -294,6 +296,20 @@ v8 = [
 v9 = {
   "alias": null,
   "args": null,
+  "kind": "ScalarField",
+  "name": "emptyErrorMessage",
+  "storageKey": null
+},
+v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "helperText",
+  "storageKey": null
+},
+v11 = {
+  "alias": null,
+  "args": null,
   "concreteType": "Attribute",
   "kind": "LinkedField",
   "name": "attribute",
@@ -304,7 +320,7 @@ v9 = {
   ],
   "storageKey": null
 },
-v10 = {
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -604,6 +620,8 @@ return {
                 "selections": [
                   (v2/*: any*/),
                   (v9/*: any*/),
+                  (v10/*: any*/),
+                  (v11/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -643,7 +661,7 @@ return {
                 "plural": true,
                 "selections": [
                   (v2/*: any*/),
-                  (v9/*: any*/),
+                  (v11/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -728,20 +746,8 @@ return {
                     "name": "maxLength",
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "emptyErrorMessage",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "helperText",
-                    "storageKey": null
-                  },
+                  (v9/*: any*/),
+                  (v10/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -774,7 +780,7 @@ return {
         "plural": true,
         "selections": [
           (v2/*: any*/),
-          (v10/*: any*/)
+          (v12/*: any*/)
         ],
         "storageKey": null
       },
@@ -787,7 +793,7 @@ return {
         "plural": true,
         "selections": [
           (v2/*: any*/),
-          (v10/*: any*/),
+          (v12/*: any*/),
           (v3/*: any*/),
           (v6/*: any*/)
         ],
@@ -847,12 +853,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "00c59381c682217a486c4a9496bb3f6f",
+    "cacheID": "e3d87bfa557af54d7b86b43402ab0df5",
     "id": null,
     "metadata": {},
     "name": "EditProductScreenQuery",
     "operationKind": "query",
-    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n  productConditions {\n    ...EditProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...EditProductScreen_rentalDurations\n    id\n  }\n  me {\n    ...EditProductScreen_me\n    ...FixedAddressBar_me\n    id\n  }\n  administrativeAreas {\n    ...EditProductScreen_provinces\n  }\n}\n\nfragment EditProductScreen_me on User {\n  id\n  store {\n    id\n    address {\n      province {\n        administrativeAreaId\n        name\n      }\n      city {\n        administrativeAreaId\n        name\n      }\n      district {\n        administrativeAreaId\n        name\n      }\n    }\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  isPublished\n  isDeleted\n  isSuspended\n  syncLocationWithStoreAddress\n  pivotFieldOptionId\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  condition {\n    id\n  }\n  rentalDuration {\n    id\n  }\n  merchant {\n    id\n  }\n  location {\n    province {\n      administrativeAreaId\n      name\n    }\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n  category {\n    id\n    name\n    requiresProductCondition\n    showsProductConditionField\n    forceLocationInput\n    rentalDurationIds\n    listingType\n    pivotField {\n      id\n      attribute {\n        id\n        name\n      }\n      options {\n        id\n        label\n        desc\n        isDefault\n      }\n    }\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isAutocomplete\n      isRequired\n      type\n      max\n      min\n      options\n      isEnum\n      isMulti\n      prefix\n      suffix\n      numberOfLines\n      maxLength\n      emptyErrorMessage\n      helperText\n      excludePivotFieldOptionIds\n      includePivotFieldOptionIds\n    }\n  }\n}\n\nfragment EditProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment EditProductScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment EditProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
+    "text": "query EditProductScreenQuery(\n  $id: String!\n) {\n  product(id: $id) {\n    id\n    ...EditProductScreen_product\n  }\n  productConditions {\n    ...EditProductScreen_productConditions\n    id\n  }\n  rentalDurations {\n    ...EditProductScreen_rentalDurations\n    id\n  }\n  me {\n    ...EditProductScreen_me\n    ...FixedAddressBar_me\n    id\n  }\n  administrativeAreas {\n    ...EditProductScreen_provinces\n  }\n}\n\nfragment EditProductScreen_me on User {\n  id\n  store {\n    id\n    address {\n      province {\n        administrativeAreaId\n        name\n      }\n      city {\n        administrativeAreaId\n        name\n      }\n      district {\n        administrativeAreaId\n        name\n      }\n    }\n  }\n}\n\nfragment EditProductScreen_product on Product {\n  id\n  name\n  price\n  desc\n  isPublished\n  isDeleted\n  isSuspended\n  syncLocationWithStoreAddress\n  pivotFieldOptionId\n  images {\n    id\n    url\n  }\n  specs {\n    id\n    attribute {\n      id\n    }\n    value\n  }\n  condition {\n    id\n  }\n  rentalDuration {\n    id\n  }\n  merchant {\n    id\n  }\n  location {\n    province {\n      administrativeAreaId\n      name\n    }\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n  category {\n    id\n    name\n    requiresProductCondition\n    showsProductConditionField\n    forceLocationInput\n    rentalDurationIds\n    listingType\n    pivotField {\n      id\n      emptyErrorMessage\n      helperText\n      attribute {\n        id\n        name\n      }\n      options {\n        id\n        label\n        desc\n        isDefault\n      }\n    }\n    specFields {\n      id\n      attribute {\n        id\n        name\n      }\n      isAutocomplete\n      isRequired\n      type\n      max\n      min\n      options\n      isEnum\n      isMulti\n      prefix\n      suffix\n      numberOfLines\n      maxLength\n      emptyErrorMessage\n      helperText\n      excludePivotFieldOptionIds\n      includePivotFieldOptionIds\n    }\n  }\n}\n\nfragment EditProductScreen_productConditions on ProductCondition {\n  id\n  display\n}\n\nfragment EditProductScreen_provinces on AdministrativeArea {\n  administrativeAreaId\n  name\n}\n\nfragment EditProductScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();
