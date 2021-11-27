@@ -339,10 +339,24 @@ const Component = props => {
       }
     }
 
-    for(let i = 0; i < product.specs.length; i++) {
-      const spec = product.specs[i]
-      const attributeId = spec.attribute.id
-      const { value } = spec
+    const currentSpecs = product.specs.reduce((obj, val) => {
+      obj[val.attribute.id] = val.value
+      return obj
+    }, {})
+
+    const expectedKeys = category.specFields.reduce((obj, currentVal) => {
+      if(
+        !category.pivotField ||
+        (category.pivotField && !currentVal.excludePivotFieldOptionIds?.includes(pivotFieldOptionId) && (!currentVal.includePivotFieldOptionIds || currentVal.includePivotFieldOptionIds?.length === 0)) ||
+        (category.pivotField && !currentVal.excludePivotFieldOptionIds?.includes(pivotFieldOptionId) && currentVal.includePivotFieldOptionIds?.length > 0 && currentVal.includePivotFieldOptionIds?.includes(pivotFieldOptionId))
+      ) {
+        obj[currentVal.attribute.id] = true
+      }
+      return obj
+    }, {})
+
+    for(const attributeId in expectedKeys) {
+      const value = currentSpecs[attributeId]
       if(Array.isArray(specs[attributeId])) {
         const values = specs[attributeId].slice()
         values.sort()
