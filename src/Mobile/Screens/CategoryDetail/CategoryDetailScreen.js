@@ -983,7 +983,6 @@ export default createFragmentContainer(Component, {
       maxImageUpload,
       listingType,
       ...CreateSpecificationFieldsModal_category,
-      ...AddPivotFieldModal_category,
       ...EditPivotFieldModal_category,
       ancestors {
         id,

@@ -8,7 +8,6 @@
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
-type AddPivotFieldModal_category$ref = any;
 type CreateSpecificationFieldsModal_category$ref = any;
 type EditPivotFieldModal_category$ref = any;
 import type { FragmentReference } from "relay-runtime";
@@ -67,7 +66,7 @@ export type CategoryDetailScreen_category = {|
     +includePivotFieldOptionIds: ?$ReadOnlyArray<?string>,
     +excludePivotFieldOptionIds: ?$ReadOnlyArray<?string>,
   |}>,
-  +$fragmentRefs: CreateSpecificationFieldsModal_category$ref & AddPivotFieldModal_category$ref & EditPivotFieldModal_category$ref,
+  +$fragmentRefs: CreateSpecificationFieldsModal_category$ref & EditPivotFieldModal_category$ref,
   +$refType: CategoryDetailScreen_category$ref,
 |};
 export type CategoryDetailScreen_category$data = CategoryDetailScreen_category;
@@ -373,11 +372,6 @@ return {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "AddPivotFieldModal_category"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
       "name": "EditPivotFieldModal_category"
     }
   ],
@@ -386,6 +380,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '722ea455f837b11eeacbff3fbb6ccb66';
+(node/*: any*/).hash = 'a53020a450c3c85fe711e3b50d39f629';
 
 module.exports = node;
