@@ -18,9 +18,25 @@ const Component = props => {
   const { category, relay: { environment }} = props
   const { pivotField } = category
   const [loading, setLoading] = useState(false)
+  const [attributeId, setAttributeId] = useState(pivotField?.attribute?.id || '')
   const [emptyErrorMessage, setEmptyErrorMessage] = useState(pivotField?.emptyErrorMessage || '')
   const [helperText, setHelperText] = useState(pivotField?.pivotField || '')
-  const [options, setOptions] = useState(pivotField.options.map((field, i) => ({
+  const [options, setOptions] = useState(!pivotField ? [
+    {
+      key: 1,
+      id: '',
+      label: '',
+      desc: '',
+      isDefault: false
+    },
+    {
+      key: 1,
+      id: '',
+      label: '',
+      desc: '',
+      isDefault: false
+    }
+  ] : pivotField.options.map((field, i) => ({
     key: i,
     id: field.id || '',
     label: field.label || '',
@@ -39,8 +55,15 @@ const Component = props => {
   }
 
   const isValid = () => {
-    const rules = []
-    const fields = {}
+    const rules = [
+      {
+        field: 'attributeId',
+        method: Validator.isEmpty,
+        validWhen: false,
+        message: 'This field is required.' 
+      }
+    ]
+    const fields = { attributeId }
     options.forEach(item => {
       const key = `option_label_${item.key}`
       rules.push({
@@ -68,7 +91,7 @@ const Component = props => {
       const variables = {
         categoryId: category.id,
           pivotField: {
-          attributeId: pivotField.attribute.id,
+          attributeId: attributeId,
           emptyErrorMessage,
           helperText,
           options: options.map(option => ({
@@ -189,6 +212,7 @@ const Component = props => {
               paddingLeft: 20,
               paddingRight: 20
             }}>
+              {pivotField ?
               <TextField
                 variant="outlined"
                 label="Attribute"
@@ -200,6 +224,9 @@ const Component = props => {
                   marginBottom: 10
                 }}
               />
+              :
+              null
+              }
 
               <TextField
                 variant="outlined"

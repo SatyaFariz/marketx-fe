@@ -509,7 +509,7 @@ const Component = props => {
             {!category.pivotField &&
             <ButtonBase
               component={Link}
-              href={`/category/${category.id}/detail?action=createPivotField`}
+              href={`/category/${category.id}/detail?action=editPivotField`}
               style={{ color: Color.primary }}
             >
               <span>
