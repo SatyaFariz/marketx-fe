@@ -25,6 +25,7 @@ const Component = props => {
     desc: field.desc || '',
     isDefault: field.isDefault || false
   })))
+  const [fieldId, setFieldId] = useState(options.length)
 
   const setFields = (i, key, value) => {
     setOptions(prev => {
@@ -36,6 +37,17 @@ const Component = props => {
 
   const save = () => {
 
+  }
+
+  const addItem = () => {
+    const nextId = fieldId + 1
+    setFieldId(nextId)
+    setOptions(prev => [...prev, {
+      key: nextId,
+      label: '',
+      desc: '',
+      isDefault: false
+    }])
   }
 
   const deleteItem = (i) => {
@@ -242,6 +254,23 @@ const Component = props => {
                 </div>
               )
             })}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignContent: 'center',
+              paddingTop: 20,
+              paddingBottom: 20
+            }}>
+              <Fab
+                color="primary"
+                style={{
+                  boxShadow: 'none'
+                }}
+                onClick={addItem}
+              >
+                <Add />
+              </Fab>
+            </div>
           </div>
         </div>
       </div>
