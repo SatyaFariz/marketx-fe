@@ -17,3 +17,4 @@ export const MAX_IMAGE_UPLOAD = 7
 export const SEARCH_NOT_FOUND_ILLUSTRATION_URL = 'https://res.cloudinary.com/dohlqigjd/image/upload/v1637872403/static/61633d3bdff498009c33e798.jpg'
 export const EMPTY_ILLUSTRATION_URL = 'https://res.cloudinary.com/dohlqigjd/image/upload/v1637872952/static/616096b10b0709008bbef739.jpg'
 export const ERROR_ILLUSTRATION_URL = 'https://res.cloudinary.com/dohlqigjd/image/upload/v1637873033/static/619d06105ee7b100f6c1a5c7.jpg'
+export const BUY_ICON_URL = 'https://res.cloudinary.com/dohlqigjd/image/upload/v1638009843/static/6159e0f56fd0e20049560730.jpg'

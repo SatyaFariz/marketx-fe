@@ -1,5 +1,5 @@
 import { createFragmentContainer } from 'react-relay'
-import { DIVIDER_COLOR } from '../Constants'
+import { DIVIDER_COLOR, BUY_ICON_URL } from '../Constants'
 import graphql from 'babel-plugin-relay/macro'
 import useAppContext from '../hooks/useAppContext'
 import { useState, useEffect } from 'react'
@@ -31,7 +31,7 @@ const Component = props => {
           category={{
             name: 'Beli',
             icon: {
-              url: 'https://www.cumi.id/static/media/categoryClothingBeauty.f3b1100b.svg'
+              url: BUY_ICON_URL
             }
           }}
           me={me}
