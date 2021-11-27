@@ -38,6 +38,16 @@ const Component = props => {
 
   }
 
+  const deleteItem = (i) => {
+    const confirmed = confirm("You sure want to delete this?")
+    if(confirmed) {
+      setOptions(prev => {
+        const copy = prev.slice()
+        return copy.filter((item, j) => i !== j)
+      })
+    }
+  }
+
   useEffect(() => {
     return () => isMounted.current = false
   }, [])
@@ -177,10 +187,7 @@ const Component = props => {
                     >
                       <ButtonBase
                         style={{ color: Color.primary }}
-                        onClick={() => setOptions(prev => {
-                          const copy = prev.slice()
-                          return copy.filter((item, j) => idx !== j)
-                        })}
+                        onClick={() => deleteItem(idx)}
                       >
                         <span>
                           Delete
