@@ -254,8 +254,7 @@ const Component = props => {
       ...(!syncLocation ? { city } : {}),
       ...(!syncLocation ? { district } : {})
     })
-console.log('Validation:', validation)
-console.log(specs)
+    
     setValidation(validation)
     return validation.isValid
   }
