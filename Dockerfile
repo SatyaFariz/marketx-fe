@@ -1,5 +1,6 @@
 FROM node
 
+ARG env=prod
 EXPOSE 3000
 
 WORKDIR /usr/src/app

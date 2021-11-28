@@ -62,7 +62,7 @@
     "build-image:staging": "docker build -t satyafariz/marketx-fe:staging --build-arg env=staging .",
     "push-image:staging": "docker push satyafariz/marketx-fe:staging",
     "pull-image:staging": "docker pull satyafariz/marketx-fe:staging",
-    "build-image:prod": "docker build -t satyafariz/marketx-fe:production --build-arg env=prod .",
+    "build-image:prod": "docker build -t satyafariz/marketx-fe:production .",
     "push-image:prod": "docker push satyafariz/marketx-fe:production",
     "pull-image:prod": "docker pull satyafariz/marketx-fe:production"
   },
