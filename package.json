@@ -38,7 +38,7 @@
     "subscriptions-transport-ws": "^0.9.19",
     "swiper": "^6.8.4",
     "truncate": "^3.0.0",
-    "universal-router": "^6.0.0",
+    "universal-router": "^9.1.0",
     "use-debounce": "^7.0.0",
     "use-long-press": "^1.1.1",
     "validator": "^13.6.0",

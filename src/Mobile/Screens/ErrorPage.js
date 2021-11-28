@@ -51,17 +51,17 @@ const Component = props => {
             <div style={{
               marginTop: 40
             }}>
-              {error.code &&
+              {error.status &&
               <>
                 <h4 style={{
                   fontSize: 48,
                   margin: 0
                 }}>
-                  {error.code}
+                  {error.status}
                 </h4>
                 
                 <h6 style={{ margin: 0, fontSize: 20 }}>
-                  {error.code?.toString() === '404' ? 'Halaman tidak ditemukan!' : 'Oops... Error!!!'}
+                  {error.status?.toString() === '404' ? 'Halaman tidak ditemukan!' : 'Oops... Error!!!'}
                 </h6>
               </>
               }
@@ -84,7 +84,7 @@ const Component = props => {
                   marginBottom: 15
                 }}
               />
-              {!error.code &&
+              {!error.status &&
               <h6 style={{ margin: 0, fontSize: 20 }}>
                 Oops... Error!!!
               </h6>
