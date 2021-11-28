@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import ErrorScreen from './Screens/ErrorScreen'
+import ErrorPage from './Screens/ErrorPage'
 import { LOGO_URL } from './Constants'
 
 const LoadingView = () => {
@@ -66,7 +66,7 @@ class AppRenderer extends Component {
 
   render() {
     return /*this.state.error*/ false ? (
-      <ErrorScreen error={this.state.error} />
+      <ErrorPage error={this.state.error} />
     ) : this.state.component ? (
       this.state.component
     ) : (
