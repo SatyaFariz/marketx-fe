@@ -86,10 +86,14 @@ routes.forEach(route => {
 })
 
 expressRouter.use((req, res, next) => {
-  if (!req.route) {
-    return res.status(500).send('Oops, better luck next time!')
+  if(!req.route) {
+    const indexFile = path.resolve('./build/index.html')
+    fs.readFile(indexFile, 'utf8', (err, data) => {
+      return res.status(404).send(data)
+    })
+  } else {
+    next()
   }
-  next()
 })
 
 app.use(express.static('build'))
