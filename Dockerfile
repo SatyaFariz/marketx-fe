@@ -12,7 +12,7 @@ RUN npm install
 
 COPY . .
 
-RUN gulp set --env=staging
+RUN gulp set --env=${env}
 RUN npm run build
 RUN webpack --config webpack.server.js
 
