@@ -48,12 +48,23 @@ const Component = props => {
               />
             </ButtonBase>
 
-            <div>
-              <h4 style={{
-                fontSize: 48,
-                marginBottom: 0
-              }}>{error.code}</h4>
-              <h6 style={{ margin: 0, fontSize: 20 }}>{error.code?.toString() === '404' ? 'Halaman tidak ditemukan!' : 'Oops... Error!!!'}</h6>
+            <div style={{
+              marginTop: 40
+            }}>
+              {error.code &&
+              <>
+                <h4 style={{
+                  fontSize: 48,
+                  margin: 0
+                }}>
+                  {error.code}
+                </h4>
+                
+                <h6 style={{ margin: 0, fontSize: 20 }}>
+                  {error.code?.toString() === '404' ? 'Halaman tidak ditemukan!' : 'Oops... Error!!!'}
+                </h6>
+              </>
+              }
             </div>
 
             <div style={{
@@ -61,7 +72,8 @@ const Component = props => {
               flexGrow: 1,
               justifyContent: 'center',
               alignItems: 'center',
-              width: '100%'
+              width: '100%',
+              flexDirection: 'column'
             }}>
               <img
                 alt="Illustration not found"
@@ -72,6 +84,11 @@ const Component = props => {
                   marginBottom: 15
                 }}
               />
+              {!error.code &&
+              <h6 style={{ margin: 0, fontSize: 20 }}>
+                Oops... Error!!!
+              </h6>
+              }
             </div>
           </div>
         </div>

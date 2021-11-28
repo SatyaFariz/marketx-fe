@@ -65,7 +65,7 @@ class AppRenderer extends Component {
   };
 
   render() {
-    return /*this.state.error*/ false ? (
+    return this.state.error ? (
       <ErrorPage error={this.state.error} />
     ) : this.state.component ? (
       this.state.component
