@@ -30,50 +30,53 @@ const Component = props => {
 
   return (
     <div>
-      <div style={{
-        height: HEADER_HEIGHT,
-        backgroundColor: 'white',
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        position: 'sticky',
-        top: 0,
-        zIndex: 9999,
-        borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
-      }}>
-        <BackButton/>
-        
+      {post &&
+      <>
         <div style={{
-          position: 'absolute',
-          height: '100%',
+          height: HEADER_HEIGHT,
+          backgroundColor: 'white',
           width: '100%',
           display: 'flex',
-          justifyContent: 'center',
           alignItems: 'center',
-          zIndex: 0
+          position: 'sticky',
+          top: 0,
+          zIndex: 9999,
+          borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
         }}>
-          <h1 style={{
-            margin: 0,
-            fontSize: 20,
-            fontWeight: 500,
-            textAlign: 'center',
-          }}>{post.title}</h1>
-        </div>
-      </div>
-
-      <div 
-        onClick={handleContentClick}
-        style={{
-          padding: '20px 15px'
-        }}
-      >
-        <div
+          <BackButton/>
           
-          dangerouslySetInnerHTML={{ __html: post.content }} 
-        >
+          <div style={{
+            position: 'absolute',
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 0
+          }}>
+            <h1 style={{
+              margin: 0,
+              fontSize: 20,
+              fontWeight: 500,
+              textAlign: 'center',
+            }}>{post.title}</h1>
+          </div>
         </div>
-      </div>
-      
+
+        <div 
+          onClick={handleContentClick}
+          style={{
+            padding: '20px 15px'
+          }}
+        >
+          <div
+            
+            dangerouslySetInnerHTML={{ __html: post.content }} 
+          >
+          </div>
+        </div>
+      </>
+      }
     </div>
   )
 }
