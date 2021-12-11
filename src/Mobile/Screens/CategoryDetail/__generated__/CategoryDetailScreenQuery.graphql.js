@@ -154,6 +154,7 @@ fragment EditPivotFieldModal_category on Category {
     id
     emptyErrorMessage
     helperText
+    showsInProductDetail
     attribute {
       id
       name
@@ -405,6 +406,13 @@ return {
               (v1/*: any*/),
               (v6/*: any*/),
               (v7/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "showsInProductDetail",
+                "storageKey": null
+              },
               (v9/*: any*/),
               {
                 "alias": null,
@@ -628,12 +636,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e79f9844c2b3e75361adc9ba93fc0904",
+    "cacheID": "522f1a2e5fc726491a5388dec767bfd5",
     "id": null,
     "metadata": {},
     "name": "CategoryDetailScreenQuery",
     "operationKind": "query",
-    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n    ...FixedAddressBar_me\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n  attributes {\n    id\n    ...CategoryDetailScreen_attributes\n  }\n  rentalDurations {\n    ...CategoryDetailScreen_rentalDurations\n    id\n  }\n}\n\nfragment CategoryDetailScreen_attributes on Attribute {\n  id\n  ...CreateSpecificationFieldsModal_attributes\n  ...EditPivotFieldModal_attributes\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  forceLocationInput\n  rentalDurationIds\n  maxImageUpload\n  listingType\n  ...CreateSpecificationFieldsModal_category\n  ...EditPivotFieldModal_category\n  ancestors {\n    id\n    name\n  }\n  icon {\n    url\n    id\n  }\n  pivotField {\n    id\n    attribute {\n      id\n      name\n    }\n    options {\n      id\n      label\n      desc\n      isDefault\n    }\n  }\n  specFields {\n    type\n    isRequired\n    isPublished\n    isEnum\n    isMulti\n    suffix\n    prefix\n    isAutocomplete\n    options\n    max\n    min\n    numberOfLines\n    maxLength\n    emptyErrorMessage\n    helperText\n    attribute {\n      id\n      name\n    }\n    includePivotFieldOptionIds\n    excludePivotFieldOptionIds\n    id\n  }\n}\n\nfragment CategoryDetailScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n\nfragment CreateSpecificationFieldsModal_attributes on Attribute {\n  id\n  name\n}\n\nfragment CreateSpecificationFieldsModal_category on Category {\n  id\n}\n\nfragment EditPivotFieldModal_attributes on Attribute {\n  id\n  name\n}\n\nfragment EditPivotFieldModal_category on Category {\n  id\n  pivotField {\n    id\n    emptyErrorMessage\n    helperText\n    attribute {\n      id\n      name\n    }\n    options {\n      id\n      label\n      desc\n      isDefault\n    }\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
+    "text": "query CategoryDetailScreenQuery(\n  $id: String!\n) {\n  me {\n    id\n    isAdmin\n    ...FixedAddressBar_me\n  }\n  category(id: $id) {\n    ...CategoryDetailScreen_category\n    id\n  }\n  attributes {\n    id\n    ...CategoryDetailScreen_attributes\n  }\n  rentalDurations {\n    ...CategoryDetailScreen_rentalDurations\n    id\n  }\n}\n\nfragment CategoryDetailScreen_attributes on Attribute {\n  id\n  ...CreateSpecificationFieldsModal_attributes\n  ...EditPivotFieldModal_attributes\n}\n\nfragment CategoryDetailScreen_category on Category {\n  id\n  name\n  isPublished\n  showsProductConditionField\n  requiresProductCondition\n  forceLocationInput\n  rentalDurationIds\n  maxImageUpload\n  listingType\n  ...CreateSpecificationFieldsModal_category\n  ...EditPivotFieldModal_category\n  ancestors {\n    id\n    name\n  }\n  icon {\n    url\n    id\n  }\n  pivotField {\n    id\n    attribute {\n      id\n      name\n    }\n    options {\n      id\n      label\n      desc\n      isDefault\n    }\n  }\n  specFields {\n    type\n    isRequired\n    isPublished\n    isEnum\n    isMulti\n    suffix\n    prefix\n    isAutocomplete\n    options\n    max\n    min\n    numberOfLines\n    maxLength\n    emptyErrorMessage\n    helperText\n    attribute {\n      id\n      name\n    }\n    includePivotFieldOptionIds\n    excludePivotFieldOptionIds\n    id\n  }\n}\n\nfragment CategoryDetailScreen_rentalDurations on Unit {\n  id\n  display\n  name\n  value\n}\n\nfragment CreateSpecificationFieldsModal_attributes on Attribute {\n  id\n  name\n}\n\nfragment CreateSpecificationFieldsModal_category on Category {\n  id\n}\n\nfragment EditPivotFieldModal_attributes on Attribute {\n  id\n  name\n}\n\nfragment EditPivotFieldModal_category on Category {\n  id\n  pivotField {\n    id\n    emptyErrorMessage\n    helperText\n    showsInProductDetail\n    attribute {\n      id\n      name\n    }\n    options {\n      id\n      label\n      desc\n      isDefault\n    }\n  }\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n"
   }
 };
 })();

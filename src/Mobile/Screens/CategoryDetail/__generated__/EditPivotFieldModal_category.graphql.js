@@ -17,6 +17,7 @@ export type EditPivotFieldModal_category = {|
     +id: ?string,
     +emptyErrorMessage: ?string,
     +helperText: ?string,
+    +showsInProductDetail: ?boolean,
     +attribute: ?{|
       +id: ?string,
       +name: ?string,
@@ -80,6 +81,13 @@ return {
         {
           "alias": null,
           "args": null,
+          "kind": "ScalarField",
+          "name": "showsInProductDetail",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "Attribute",
           "kind": "LinkedField",
           "name": "attribute",
@@ -138,6 +146,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '406fe10eaa4e56b33c88eba65a3d5205';
+(node/*: any*/).hash = 'd54c703ea6e2ac89c7821626710ee414';
 
 module.exports = node;

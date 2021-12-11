@@ -12,6 +12,7 @@ export type PivotFieldInput = {|
   attributeId: string,
   emptyErrorMessage?: ?string,
   helperText?: ?string,
+  showsInProductDetail?: ?boolean,
   options: $ReadOnlyArray<PivotFieldOptionInput>,
 |};
 export type PivotFieldOptionInput = {|

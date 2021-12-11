@@ -22,6 +22,7 @@ const Component = props => {
   const [attribute, setAttribute] = useState(pivotField?.attribute)
   const [emptyErrorMessage, setEmptyErrorMessage] = useState(pivotField?.emptyErrorMessage || '')
   const [helperText, setHelperText] = useState(pivotField?.pivotField || '')
+  const [showsInProductDetail, setShowsInProductDetail] = useState(pivotField?.showsInProductDetail || false)
   const [options, setOptions] = useState(!pivotField ? [
     {
       key: 1,
@@ -95,6 +96,7 @@ const Component = props => {
           attributeId: attribute.id,
           emptyErrorMessage,
           helperText,
+          showsInProductDetail,
           options: options.map(option => ({
             id: option.id,
             label: option.label,
@@ -275,6 +277,23 @@ const Component = props => {
                 }}
               />
 
+              <div style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginTop: 10,
+                marginBottom: 10
+              }}>
+                <span>Shows in product detail</span>
+
+                <Switch
+                  checked={showsInProductDetail}
+                  onChange={() => setShowsInProductDetail(val => !val)}
+                  disabled={loading}
+                />
+              </div>
+
               <h3>Options</h3>
             </div>
             {options.map((option, idx) => {
@@ -393,6 +412,7 @@ export default createFragmentContainer(Component, {
         id,
         emptyErrorMessage,
         helperText,
+        showsInProductDetail,
         attribute {
           id,
           name
