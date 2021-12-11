@@ -29,6 +29,7 @@ const Component = props => {
   const headerRef = useRef()
   const { history, environment, pathname } = useAppContext()
   const { product, me, suspensionReasons } = props
+  const category = product?.category[(product?.category?.length || 0) - 1]
   const [carouselPos, setCarouselPos] = useState(0)
   const [showBottomSheet, setShowBottomSheet] = useState(false)
   const [updatingFeaturedStatus, setUpdatingFeaturedStatus] = useState(false)
@@ -37,6 +38,8 @@ const Component = props => {
   const [suspensionReasonId, setSuspensionReasonId] = useState(null)
   const productLocation = `${product.location.district.name}, ${product.location.city.name}, ${product.location.province.name}`
   const isMyProduct = me?.id === product.store.merchantId
+
+  const pivotFieldOptionValue = category?.pivotField?.options?.find(option => option.id === product?.pivotFieldOptionId)?.label
 
   let viewsText = ''
   if(product.views > 0)
@@ -469,6 +472,26 @@ const Component = props => {
               }}>Detail</span>
               
               <div style={{ marginTop: 16 }}>
+                {product.pivotFieldOptionId && category?.pivotField?.showsInProductDetail && pivotFieldOptionValue &&
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingTop: 10,
+                  paddingBottom: 10
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                  }}>
+                    <span>{category.pivotField.attribute.name}</span>
+                  </div>
+                  <span>{pivotFieldOptionValue}</span>
+                </div>
+                }
+
                 {product.condition &&
                 <div style={{
                   display: 'flex',
@@ -859,6 +882,7 @@ export default createFragmentContainer(Component, {
       renewedAt,
       views,
       leads,
+      pivotFieldOptionId,
       condition {
         display
       },
@@ -868,7 +892,19 @@ export default createFragmentContainer(Component, {
       },
       category {
         id,
-        name
+        name,
+        pivotField {
+          id,
+          showsInProductDetail,
+          attribute {
+            id,
+            name
+          },
+          options {
+            id,
+            label
+          }
+        }
       },
       rentalDuration {
         display
