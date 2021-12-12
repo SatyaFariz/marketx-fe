@@ -48,6 +48,7 @@ export type UpdateProductMutationResponse = {|
       +desc: ?string,
       +price: ?number,
       +isPublished: ?boolean,
+      +pivotFieldOptionId: ?string,
       +syncLocationWithStoreAddress: ?boolean,
       +images: ?$ReadOnlyArray<?{|
         +id: ?string,
@@ -129,6 +130,7 @@ mutation UpdateProductMutation(
       desc
       price
       isPublished
+      pivotFieldOptionId
       syncLocationWithStoreAddress
       images {
         id
@@ -310,6 +312,13 @@ v5 = [
             "args": null,
             "kind": "ScalarField",
             "name": "isPublished",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "pivotFieldOptionId",
             "storageKey": null
           },
           {
@@ -524,16 +533,16 @@ return {
     "selections": (v5/*: any*/)
   },
   "params": {
-    "cacheID": "e692b214cc489eea21c762f3714fa382",
+    "cacheID": "4972c15f7227eee5c57b3a2f920c071b",
     "id": null,
     "metadata": {},
     "name": "UpdateProductMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateProductMutation(\n  $id: String!\n  $input: ProductInput!\n) {\n  updateProduct(id: $id, input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      name\n      desc\n      price\n      isPublished\n      syncLocationWithStoreAddress\n      images {\n        id\n        url\n      }\n      category {\n        id\n        name\n      }\n      condition {\n        id\n      }\n      rentalDuration {\n        id\n        display\n      }\n      location {\n        province {\n          administrativeAreaId\n          name\n        }\n        city {\n          administrativeAreaId\n          name\n        }\n        district {\n          administrativeAreaId\n          name\n        }\n      }\n      specs {\n        id\n        attribute {\n          id\n          name\n          icon {\n            id\n            url\n          }\n        }\n        value\n      }\n      merchant {\n        id\n        name\n        profilePicture {\n          id\n          url\n        }\n      }\n      store {\n        id\n        name\n        whatsappUrl\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateProductMutation(\n  $id: String!\n  $input: ProductInput!\n) {\n  updateProduct(id: $id, input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    product {\n      id\n      name\n      desc\n      price\n      isPublished\n      pivotFieldOptionId\n      syncLocationWithStoreAddress\n      images {\n        id\n        url\n      }\n      category {\n        id\n        name\n      }\n      condition {\n        id\n      }\n      rentalDuration {\n        id\n        display\n      }\n      location {\n        province {\n          administrativeAreaId\n          name\n        }\n        city {\n          administrativeAreaId\n          name\n        }\n        district {\n          administrativeAreaId\n          name\n        }\n      }\n      specs {\n        id\n        attribute {\n          id\n          name\n          icon {\n            id\n            url\n          }\n        }\n        value\n      }\n      merchant {\n        id\n        name\n        profilePicture {\n          id\n          url\n        }\n      }\n      store {\n        id\n        name\n        whatsappUrl\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'f8a669ff1ed235221eb77e1f15c1aa30';
+(node/*: any*/).hash = 'a1be7c51d134ae965875bdf1c46949e4';
 
 module.exports = node;

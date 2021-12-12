@@ -279,6 +279,7 @@ const Component = props => {
         isPublished,
         productConditionId,
         rentalDurationId,
+        pivotFieldOptionId,
         syncLocationWithStoreAddress: syncLocation,
         specs: productSpecs,
         location: syncLocation ? null : {
@@ -376,7 +377,8 @@ const Component = props => {
       product.desc.trim() === desc.trim() &&
       product.price === parseFloat(price) &&
       (product.condition?.id || '') === (productConditionId || '') &&
-      (product.rentalDuration?.id || '') === (rentalDurationId || '')
+      (product.rentalDuration?.id || '') === (rentalDurationId || '') &&
+      product.pivotFieldOptionId === pivotFieldOptionId
     )
 
     if(_isClean) {

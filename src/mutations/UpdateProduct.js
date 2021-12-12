@@ -14,6 +14,7 @@ const mutation = graphql`
         desc,
         price,
         isPublished,
+        pivotFieldOptionId,
         syncLocationWithStoreAddress,
         images {
           id,
