@@ -1,4 +1,4 @@
-import { TextField, ButtonBase } from '@material-ui/core'
+import { TextField, ButtonBase, IconButton } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import SendOtpCode from '../../../mutations/SendOtpCode'
@@ -13,6 +13,7 @@ import { createFragmentContainer } from 'react-relay'
 import Button from '../../Components/Button'
 import App from '../../../app.json'
 import { isEmail } from 'validator'
+import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
 
 const useEmail = true
 
@@ -21,6 +22,7 @@ const Component = props => {
   const _isMounted = useRef(true)
   const { history, environment, resetEnvironment, queryParams } = useAppContext()
   const [mobileNumber, setPhoneNumber] = useState('')
+  const [passwordFieldType, setPasswordFieldType] = useState('password')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -196,7 +198,24 @@ const Component = props => {
             }}
             onChange={(e) => setPassword(e.target.value.trim())}
             value={password}
-            type="password"
+            type={passwordFieldType}
+            InputProps={{
+              endAdornment: (
+                <div style={{ paddingLeft: 10 }}>
+                  <IconButton 
+                    onClick={() => setPasswordFieldType(prev => prev === 'password' ? 'text' : 'password' )}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onMouseUp={(e) => e.preventDefault()}
+                  >
+                    {passwordFieldType === 'password' ?
+                    <IoMdEyeOff/>
+                    :
+                    <IoMdEye/>
+                    }
+                  </IconButton>
+                </div>
+              )
+            }}
           />
 
           <div style={{

@@ -1,6 +1,6 @@
 import { PASSWORD_MAX_LENGTH, USER_FULLNAME_MAX_LENGTH, LOGO_URL } from '../../Constants'
 import Color from '../../Constants/Color'
-import { TextField, InputAdornment, ButtonBase } from '@material-ui/core'
+import { TextField, InputAdornment, ButtonBase, IconButton } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import SendOtpCode from '../../../mutations/SendOtpCode'
@@ -19,9 +19,11 @@ import SendVerificationCode from '../../../mutations/SendVerificationCode'
 import RegisterWithEmail from '../../../mutations/RegisterWithEmail'
 import Link from '../../Components/Link'
 import App from '../../../app.json'
+import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
 
 const useEmail = true
 const emailAlreadyRegisteredErrorMessage = 'Email ini sudah terdaftar di sistem kami.'
+const emailVerificationCodeHelperText = 'Masukkan kode yang kami kirim ke email Anda setelah Anda klik tombol "Kirim Kode" di atas.'
 
 const Component = props => {
   const { me } = props
@@ -32,6 +34,8 @@ const Component = props => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [repassword, setRepassword] = useState('')
+  const [passwordFieldType, setPasswordFieldType] = useState('password')
+  const [confirmPasswordFieldType, setConfirmPasswordFieldType] = useState('password')
   const [emailVerificationCode, setEmailVerificationCode] = useState('')
   const [sendingEmailVerificationCode, setSendingEmailVerificationCode] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -401,7 +405,24 @@ const Component = props => {
             disabled={loading}
             error={validation?.password?.isInvalid}
             helperText={validation?.password?.message}
-            type="password"
+            type={passwordFieldType}
+            InputProps={{
+              endAdornment: (
+                <div style={{ paddingLeft: 10 }}>
+                  <IconButton 
+                    onClick={() => setPasswordFieldType(prev => prev === 'password' ? 'text' : 'password' )}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onMouseUp={(e) => e.preventDefault()}
+                  >
+                    {passwordFieldType === 'password' ?
+                    <IoMdEyeOff/>
+                    :
+                    <IoMdEye/>
+                    }
+                  </IconButton>
+                </div>
+              )
+            }}
           />
 
           <TextField
@@ -420,7 +441,24 @@ const Component = props => {
             disabled={loading}
             error={validation?.repassword?.isInvalid}
             helperText={validation?.repassword?.message}
-            type="password"
+            type={confirmPasswordFieldType}
+            InputProps={{
+              endAdornment: (
+                <div style={{ paddingLeft: 10 }}>
+                  <IconButton 
+                    onClick={() => setConfirmPasswordFieldType(prev => prev === 'password' ? 'text' : 'password' )}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onMouseUp={(e) => e.preventDefault()}
+                  >
+                    {confirmPasswordFieldType === 'password' ?
+                    <IoMdEyeOff/>
+                    :
+                    <IoMdEye/>
+                    }
+                  </IconButton>
+                </div>
+              )
+            }}
           />
 
           <TextField
@@ -435,7 +473,7 @@ const Component = props => {
             value={emailVerificationCode}
             disabled={loading}
             error={validation?.emailVerificationCode?.isInvalid}
-            helperText={validation?.emailVerificationCode?.message}
+            helperText={validation?.emailVerificationCode?.message || emailVerificationCodeHelperText}
             inputProps={{
               pattern: "[0-9]*",
               type: "text",

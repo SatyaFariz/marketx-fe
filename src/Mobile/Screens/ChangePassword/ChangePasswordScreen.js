@@ -1,5 +1,5 @@
 import { PASSWORD_MAX_LENGTH, LOGO_URL } from '../../Constants'
-import { TextField, ButtonBase } from '@material-ui/core'
+import { TextField, ButtonBase, IconButton } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
 import graphql from 'babel-plugin-relay/macro'
@@ -8,6 +8,7 @@ import Button from '../../Components/Button'
 import Link from '../../Components/Link'
 import ChangePassword from '../../../mutations/ChangePassword'
 import Validator from '../../../helpers/validator'
+import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
 
 const Component = props => {
   const { me } = props
@@ -18,6 +19,9 @@ const Component = props => {
   const [repassword, setRepassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [validation, setValidation] = useState({ isValid: false })
+  const [passwordFieldType, setPasswordFieldType] = useState('password')
+  const [confirmPasswordFieldType, setConfirmPasswordFieldType] = useState('password')
+  const [currentPasswordFieldType, setCurrentPasswordFieldType] = useState('password')
 
   const isValid = () => {
     const validator = new Validator([
@@ -149,7 +153,24 @@ const Component = props => {
           value={currentPassword}
           error={validation?.currentPassword?.isInvalid}
           helperText={validation?.currentPassword?.message}
-          type="password"
+          type={currentPasswordFieldType}
+          InputProps={{
+            endAdornment: (
+              <div style={{ paddingLeft: 10 }}>
+                <IconButton 
+                  onClick={() => setCurrentPasswordFieldType(prev => prev === 'password' ? 'text' : 'password' )}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onMouseUp={(e) => e.preventDefault()}
+                >
+                  {currentPasswordFieldType === 'password' ?
+                  <IoMdEyeOff/>
+                  :
+                  <IoMdEye/>
+                  }
+                </IconButton>
+              </div>
+            )
+          }}
         />
 
         <TextField
@@ -168,7 +189,24 @@ const Component = props => {
           value={password}
           error={validation?.password?.isInvalid}
           helperText={validation?.password?.message}
-          type="password"
+          type={passwordFieldType}
+          InputProps={{
+            endAdornment: (
+              <div style={{ paddingLeft: 10 }}>
+                <IconButton 
+                  onClick={() => setPasswordFieldType(prev => prev === 'password' ? 'text' : 'password' )}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onMouseUp={(e) => e.preventDefault()}
+                >
+                  {passwordFieldType === 'password' ?
+                  <IoMdEyeOff/>
+                  :
+                  <IoMdEye/>
+                  }
+                </IconButton>
+              </div>
+            )
+          }}
         />
 
         <TextField
@@ -187,7 +225,24 @@ const Component = props => {
           value={repassword}
           error={validation?.repassword?.isInvalid}
           helperText={validation?.repassword?.message}
-          type="password"
+          type={confirmPasswordFieldType}
+          InputProps={{
+            endAdornment: (
+              <div style={{ paddingLeft: 10 }}>
+                <IconButton 
+                  onClick={() => setConfirmPasswordFieldType(prev => prev === 'password' ? 'text' : 'password' )}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onMouseUp={(e) => e.preventDefault()}
+                >
+                  {confirmPasswordFieldType === 'password' ?
+                  <IoMdEyeOff/>
+                  :
+                  <IoMdEye/>
+                  }
+                </IconButton>
+              </div>
+            )
+          }}
         />
 
         <Button

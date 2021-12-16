@@ -344,7 +344,7 @@ const Component = props => {
               backgroundColor: Color.primary,
               fontSize: 11
             }}>
-              <span style={{ color: 'white' }}>Copyright © {App.year_founded}{App.year_founded === thisYear ? '' : ` - ${thisYear}`} {App.name}</span>
+              <span style={{ color: 'white' }}>Copyright © {App.year_founded}{thisYear > App.year_founded ? ` - ${thisYear}` : ''} {App.name}</span>
             </div>
           </div>
         </SwipeableDrawer>
