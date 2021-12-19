@@ -9,6 +9,9 @@ const chunk = {
       me {
         id,
         ...FixedAddressBar_me
+      },
+      administrativeAreas(isPopular: true) {
+        ...SearchScreen_popularLocations
       }
     }
   `,
@@ -18,8 +21,11 @@ const chunk = {
     return {
       title: 'Market X',
       component: (
-        <FixedAddressBar me={data?.me}>
+        <FixedAddressBar 
+          me={data?.me}
+        >
           <SearchScreen
+            popularLocations={data.administrativeAreas}
           />
         </FixedAddressBar>
         

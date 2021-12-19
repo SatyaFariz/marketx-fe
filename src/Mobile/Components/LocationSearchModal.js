@@ -1,24 +1,37 @@
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../Constants'
 import Color from '../Constants/Color'
 import { IoCloseSharp } from 'react-icons/io5'
-import { LinearProgress, IconButton } from '@material-ui/core'
+import { createFragmentContainer } from 'react-relay'
+import { LinearProgress, IconButton, List, ListItem, ListItemText } from '@material-ui/core'
 import graphql from 'babel-plugin-relay/macro'
 import useAppContext from '../hooks/useAppContext'
 import { useState, useEffect } from 'react'
 import { useDebounce } from 'use-debounce'
 import BackButton from './BackButton'
+import qs from 'query-string'
 
 const Component = props => {
+  const { popularLocations, setLocationText } = props 
   const { environment, history, queryParams } = useAppContext()
   const [searchTerm, setSearchTerm] = useState(queryParams.q || '')
   const [searchTermDebounced] = useDebounce(searchTerm, 500)
+
+  const setLocation = (locationId, text) => {
+    const { pathname } = window.location
+    const params = { ...queryParams, locationId }
+    delete params.action
+    history.replace(`${pathname}?${qs.stringify(params)}`)
+    setLocationText(text)
+  }
+
   return (
     <div style={{
       display: 'flex',
       flexDirection: 'column',
       height: '100%',
       overflow: 'auto',
-      overscrollBehavior: 'contain'
+      overscrollBehavior: 'contain',
+      backgroundColor: 'white'
     }}>
       <div style={{
         height: HEADER_HEIGHT,
@@ -70,12 +83,40 @@ const Component = props => {
 
       <div style={{
         backgroundColor: 'white',
-        flexGrow: 1
+        flexGrow: 1,
+        overflow: 'auto',
+        overscrollBehavior: 'contain',
       }}>
-
+        <List>
+          {popularLocations.map(location => {
+            const ancestors = location.ancestors.slice()
+            ancestors.reverse()
+            const text = [location, ...ancestors].map(item => item.name).join(', ')
+            return (
+              <ListItem
+                button
+                onClick={() => setLocation(location.administrativeAreaId, text)}
+                key={location.administrativeAreaId}
+              >
+                <ListItemText primary={text} />
+              </ListItem>
+            )
+          })}
+        </List>
       </div>
     </div>
   )
 }
 
-export default Component
+export default createFragmentContainer(Component, {
+  popularLocations: graphql`
+    fragment LocationSearchModal_popularLocations on AdministrativeArea @relay(plural: true) {
+      administrativeAreaId,
+      name, 
+      ancestors {
+        administrativeAreaId,
+        name
+      }
+    }
+  `
+})

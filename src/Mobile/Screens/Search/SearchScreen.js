@@ -3,14 +3,15 @@ import Color from '../../Constants/Color'
 import { IoCloseSharp, IoLocationOutline } from 'react-icons/io5'
 import { LinearProgress, IconButton, ButtonBase } from '@material-ui/core'
 import graphql from 'babel-plugin-relay/macro'
+import { createFragmentContainer } from 'react-relay'
 import { QueryRenderer } from 'react-relay'
 import useAppContext from '../../hooks/useAppContext'
 import SearchResultsList from './SearchResultsList'
 import { useState, useEffect } from 'react'
 import qs from 'query-string'
 import { useDebounce } from 'use-debounce'
-import BackButton from '../../Components/BackButton'
 import LocationSearchModel from '../../Components/LocationSearchModal'
+import truncate from 'truncate'
 
 const query = graphql`
   query SearchScreenQuery($q: String!, $first: Int!) {
@@ -22,9 +23,11 @@ const query = graphql`
 `
 
 const Component = props => {
-  const { environment, history, queryParams, ...rest } = useAppContext()
+  const { popularLocations } = props
+  const { environment, history, queryParams } = useAppContext()
   const [searchTerm, setSearchTerm] = useState(queryParams.q || '')
   const [searchTermDebounced] = useDebounce(searchTerm, 500)
+  const [locationText, setLocationText] = useState('Pilih lokasi')
 
   const selectLocation = () => {
     history.push(`/search?${qs.stringify({ ...queryParams, action: 'search_location'})}`)
@@ -78,7 +81,7 @@ const Component = props => {
               display: 'flex',
               alignItems: 'center'
             }}>
-              <span style={{ fontSize: 15 }}>Pilih lokasi</span>
+              <span style={{ fontSize: 15 }}>{truncate(locationText, 17)}</span>
               <IoLocationOutline size={18} style={{ marginLeft: 5 }}/>
             </div>
           </ButtonBase>
@@ -163,10 +166,18 @@ const Component = props => {
         display: queryParams?.action === 'search_location' ? undefined : 'none'
       }}>
         <LocationSearchModel
+          setLocationText={setLocationText}
+          popularLocations={popularLocations}
         />
       </div>
     </div>
   )
 }
 
-export default Component
+export default createFragmentContainer(Component, {
+  popularLocations: graphql`
+    fragment SearchScreen_popularLocations on AdministrativeArea @relay(plural: true) {
+      ...LocationSearchModal_popularLocations
+    }
+  `
+})
