@@ -9,7 +9,7 @@ import Color from '../../Constants/Color'
 import { SEARCH_NOT_FOUND_ILLUSTRATION_URL, EMPTY_ILLUSTRATION_URL } from '../../Constants'
 
 const Component = props => {
-  const { showsListingType, q, categoryId, search, me, locationId } = props
+  const { showsListingType, q, categoryId, search, me, locationId, category } = props
   const [errorLoadingMore, setErrorLoadingMore] = useState(false)
   const { edges } = search.search
   
@@ -109,22 +109,71 @@ const Component = props => {
 
   return (
     <div 
-    ref={scrollRef}
-    style={{
-      overflow: 'auto',
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      bottom: 0,
-      top: 0
-    }}>
-      <div
+      ref={scrollRef}
       style={{
-        paddingTop: 20,
-        paddingBottom: 20,
-        paddingLeft: 20,
-        paddingRight: 20,
-      }}>
+        overflow: 'auto',
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        top: 0
+      }}
+    >
+      <div
+        style={{
+          paddingTop: category ? 15 : 20,
+          paddingBottom: 20,
+          paddingLeft: 20,
+          paddingRight: 20,
+        }}
+      >
+        {category &&
+        <div style={{
+          // height: 48,
+          marginBottom: 20,
+          display: 'flex',
+          alignItems: 'center'
+        }}>
+          {category.level > 1 ?
+          <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+            {category.ancestors.map((item, i) => {
+              return (
+                <div key={i} style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                  {i > 0 &&
+                  <span style={{ margin: '0 5px' }}>{'/'}</span>
+                  }
+                  <ButtonBase key={item.id} href={`/category/${item.id}`} component={Link}>
+                    <span style={{ fontWeight: '700' }}>{item.name}</span>
+                  </ButtonBase>
+                </div>
+              )
+            })}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+              <span style={{ margin: '0 5px' }}>{' / '}</span>
+              <span style={{ fontWeight: '700' }}>{category.name}</span>
+            </div>
+          </div>
+          :
+          <span style={{
+            fontSize: 24,
+            fontWeight: '700',
+            margin: 0
+          }}>{category.name}</span>
+          }
+        </div>
+        }
 
         <div style={{
           display: 'grid',

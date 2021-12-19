@@ -11,7 +11,7 @@ import { useState, useEffect, useRef } from 'react'
 import qs from 'query-string'
 import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreaLoader'
 import { useDebounce } from 'use-debounce'
-import LocationSearchModel from '../../Components/LocationSearchModal'
+import LocationSearchModal from '../../Components/LocationSearchModal'
 import truncate from 'truncate'
 
 const query = graphql`
@@ -195,7 +195,7 @@ const Component = props => {
         zIndex: 99,
         display: selectLocation ? undefined : 'none'
       }}>
-        <LocationSearchModel
+        <LocationSearchModal
           goBack={() => setSelectLocation(false)}
           setLocationText={setLocationText}
           popularLocations={popularLocations}
