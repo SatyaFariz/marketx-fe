@@ -2,19 +2,24 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../Constants'
 import Color from '../Constants/Color'
 import { IoCloseSharp } from 'react-icons/io5'
 import { createFragmentContainer } from 'react-relay'
-import { LinearProgress, IconButton, List, ListItem, ListItemText } from '@material-ui/core'
+import { IconButton, List, ListItem, ListItemText } from '@material-ui/core'
 import graphql from 'babel-plugin-relay/macro'
 import useAppContext from '../hooks/useAppContext'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useDebounce } from 'use-debounce'
 import BackButton from './BackButton'
 import qs from 'query-string'
+import AdministrativeAreasSearch from '../../helpers/AdministrativeAreasSearch'
 
 const Component = props => {
+  const isMounted = useRef(true)
   const { popularLocations, setLocationText, goBack } = props 
   const { environment, history, queryParams } = useAppContext()
-  const [searchTerm, setSearchTerm] = useState(queryParams.q || '')
-  const [searchTermDebounced] = useDebounce(searchTerm, 500)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTermDebounced] = useDebounce(searchTerm.trim(), 500)
+  const [locations, setLocations] = useState([])
+
+  const locationSearch = useRef(new AdministrativeAreasSearch(environment))
 
   const setLocation = (locationId, text) => {
     const { pathname } = window.location
@@ -24,6 +29,20 @@ const Component = props => {
     goBack()
     setLocationText(text)
   }
+
+  useEffect(() => {
+    if(searchTermDebounced.length >= 3) {
+      locationSearch.current.load(searchTermDebounced, locations => {
+        isMounted.current && setLocations(locations)
+      })
+    } else {
+      setLocations([])
+    }
+  }, [searchTermDebounced])
+
+  useEffect(() => {
+    return () => isMounted.current = false
+  }, [])
 
   return (
     <div style={{
@@ -89,7 +108,7 @@ const Component = props => {
         overscrollBehavior: 'contain',
       }}>
         <List>
-          {popularLocations.map(location => {
+          {(searchTermDebounced.length < 3 ? popularLocations : locations).map(location => {
             const ancestors = location.ancestors.slice()
             ancestors.reverse()
             const text = [location, ...ancestors].map(item => item.name).join(', ')

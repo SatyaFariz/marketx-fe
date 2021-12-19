@@ -24,6 +24,7 @@ const query = graphql`
 `
 
 const Component = props => {
+  const isMounted = useRef(true)
   const { popularLocations } = props
   const { environment, history, queryParams } = useAppContext()
   const [searchTerm, setSearchTerm] = useState(queryParams.q || '')
@@ -40,7 +41,7 @@ const Component = props => {
         const ancestors = location?.ancestors?.slice()
         ancestors.reverse()
         const text = [location, ...ancestors].map(item => item.name).join(', ')
-        setLocationText(text)
+        isMounted.current && setLocationText(text)
       })
     }
   }, [locationId, locationText])
@@ -48,6 +49,10 @@ const Component = props => {
   useEffect(() => {
     history.replace(`/search?${qs.stringify({ ...queryParams, q: searchTermDebounced})}`)
   }, [searchTermDebounced, history])
+
+  useEffect(() => {
+    return () => isMounted.current = false
+  }, [])
   
   return (
     <div style={{
