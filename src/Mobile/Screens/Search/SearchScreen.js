@@ -199,6 +199,7 @@ const Component = props => {
           goBack={() => setSelectLocation(false)}
           setLocationText={setLocationText}
           popularLocations={popularLocations}
+          isVisible={selectLocation}
         />
       </div>
     </div>
