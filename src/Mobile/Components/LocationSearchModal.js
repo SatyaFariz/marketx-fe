@@ -52,14 +52,17 @@ const Component = props => {
   useEffect(() => {
     return () => {
       isMounted.current = false
+      // enable pull to refresh
       document.documentElement.style = undefined
     }
   }, [])
 
   useEffect(() => {
     if(isVisible) {
+      // disable pull to refresh
       document.documentElement.style.overflow = 'hidden'
     } else {
+      // enable pull to refresh
       document.documentElement.style = undefined
     }
   }, [isVisible])
@@ -99,11 +102,9 @@ const Component = props => {
             style={{
               height: '100%',
               backgroundColor: 'transparent',
-              // paddingRight: 10,
               paddingLeft: 10,
               flexGrow: 1,
               borderRadius: 8,
-            //  lineHeight: 24,
               border: 'none',
               outline: 'none',
               fontSize: 16,
