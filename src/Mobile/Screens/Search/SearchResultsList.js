@@ -9,7 +9,7 @@ import Color from '../../Constants/Color'
 import { SEARCH_NOT_FOUND_ILLUSTRATION_URL, EMPTY_ILLUSTRATION_URL } from '../../Constants'
 
 const Component = props => {
-  const { showsListingType, q, categoryId, search, me } = props
+  const { showsListingType, q, categoryId, search, me, locationId } = props
   const [errorLoadingMore, setErrorLoadingMore] = useState(false)
   const { edges } = search.search
   
@@ -42,7 +42,7 @@ const Component = props => {
     return `/login?redirect=/sell&categoryId=${categoryId}`
   }
 
-  if(edges.length === 0 && q?.trim()?.length > 0) {
+  if(edges.length === 0 && (q?.trim()?.length > 0 || locationId)) {
     return (
       <div style={{
         display: 'flex',

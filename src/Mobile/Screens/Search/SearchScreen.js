@@ -32,6 +32,7 @@ const Component = props => {
   const [locationText, setLocationText] = useState(null)
   const [selectLocation, setSelectLocation] = useState(false)
   const locationId = parseInt(queryParams?.locationId, 10)
+  const _locationId = isNaN(locationId) ? null : locationId
 
   const locationLoader = useRef(new AdministrativeAreaLoader(environment))
   
@@ -154,7 +155,7 @@ const Component = props => {
           environment={environment}
           variables={{ 
             q: searchTermDebounced || '', first: 24,
-            locationId: isNaN(locationId) ? null : locationId
+            locationId: _locationId
           }}
           query={query}
           render={({ error, props }) => {
@@ -167,6 +168,7 @@ const Component = props => {
                   search={props}
                   me={props.me}
                   q={searchTermDebounced}
+                  locationId={_locationId}
                 />
               )
             }
