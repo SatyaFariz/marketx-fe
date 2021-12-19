@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sun Dec 19 2021 14:45:54 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Dec 19 2021 17:47:48 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -317,6 +317,7 @@ type Query {
   store(id: String!): Store
   featuredProducts: [Product]
   search(q: String!, categoryId: String, storeId: String, published: Boolean, after: String, first: Int): ProductConnection
+  administrativeArea(id: Int): AdministrativeArea
   administrativeAreas(parentId: Int, searchTerm: String, isPopular: Boolean): [AdministrativeArea]
   suspensionReasons: [SuspensionReason]
   productConditions: [ProductCondition]

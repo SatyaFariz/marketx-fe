@@ -12,7 +12,7 @@ const query = graphql`
 
 var cache = {}
 
-class MobileNumberChecker {
+class AdministrativeAreasLoader {
   constructor(environment) {
     this.environment = environment
     this.waitingFor = null
@@ -48,4 +48,4 @@ class MobileNumberChecker {
   }
 }
 
-export default MobileNumberChecker
+export default AdministrativeAreasLoader

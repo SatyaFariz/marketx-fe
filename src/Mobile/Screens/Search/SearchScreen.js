@@ -7,8 +7,9 @@ import { createFragmentContainer } from 'react-relay'
 import { QueryRenderer } from 'react-relay'
 import useAppContext from '../../hooks/useAppContext'
 import SearchResultsList from './SearchResultsList'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import qs from 'query-string'
+import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreaLoader'
 import { useDebounce } from 'use-debounce'
 import LocationSearchModel from '../../Components/LocationSearchModal'
 import truncate from 'truncate'
@@ -27,11 +28,25 @@ const Component = props => {
   const { environment, history, queryParams } = useAppContext()
   const [searchTerm, setSearchTerm] = useState(queryParams.q || '')
   const [searchTermDebounced] = useDebounce(searchTerm, 500)
-  const [locationText, setLocationText] = useState('Pilih lokasi')
+  const [locationText, setLocationText] = useState(null)
   const [selectLocation, setSelectLocation] = useState(false)
+  const locationId = queryParams?.locationId
+
+  const locationLoader = useRef(new AdministrativeAreaLoader(environment))
+  
+  useEffect(() => {
+    if(locationId && !locationText) {
+      locationLoader.current.load(parseInt(locationId, 10), location => {
+        const ancestors = location?.ancestors?.slice()
+        ancestors.reverse()
+        const text = [location, ...ancestors].map(item => item.name).join(', ')
+        setLocationText(text)
+      })
+    }
+  }, [locationId, locationText])
 
   useEffect(() => {
-    history.replace(`/search?q=${searchTermDebounced}`)
+    history.replace(`/search?${qs.stringify({ ...queryParams, q: searchTermDebounced})}`)
   }, [searchTermDebounced, history])
   
   return (
@@ -78,7 +93,7 @@ const Component = props => {
               display: 'flex',
               alignItems: 'center'
             }}>
-              <span style={{ fontSize: 15 }}>{truncate(locationText, 17)}</span>
+              <span style={{ fontSize: 15 }}>{truncate(locationText || 'Pilih lokasi', 17)}</span>
               <IoLocationOutline size={18} style={{ marginLeft: 5 }}/>
             </div>
           </ButtonBase>
