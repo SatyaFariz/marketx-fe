@@ -11,7 +11,7 @@ import BackButton from './BackButton'
 import qs from 'query-string'
 
 const Component = props => {
-  const { popularLocations, setLocationText } = props 
+  const { popularLocations, setLocationText, goBack } = props 
   const { environment, history, queryParams } = useAppContext()
   const [searchTerm, setSearchTerm] = useState(queryParams.q || '')
   const [searchTermDebounced] = useDebounce(searchTerm, 500)
@@ -21,6 +21,7 @@ const Component = props => {
     const params = { ...queryParams, locationId }
     delete params.action
     history.replace(`${pathname}?${qs.stringify(params)}`)
+    goBack()
     setLocationText(text)
   }
 
@@ -44,7 +45,7 @@ const Component = props => {
         top: 0,
         borderBottom: `1px solid ${HEADER_BORDER_BOTTOM_COLOR}`
       }}>
-        <BackButton/>
+        <BackButton onClick={goBack}/>
 
         <div style={{
           height: 42,

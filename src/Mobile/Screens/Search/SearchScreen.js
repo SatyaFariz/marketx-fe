@@ -28,10 +28,7 @@ const Component = props => {
   const [searchTerm, setSearchTerm] = useState(queryParams.q || '')
   const [searchTermDebounced] = useDebounce(searchTerm, 500)
   const [locationText, setLocationText] = useState('Pilih lokasi')
-
-  const selectLocation = () => {
-    history.push(`/search?${qs.stringify({ ...queryParams, action: 'search_location'})}`)
-  }
+  const [selectLocation, setSelectLocation] = useState(false)
 
   useEffect(() => {
     history.replace(`/search?q=${searchTermDebounced}`)
@@ -75,7 +72,7 @@ const Component = props => {
           />
 
           <ButtonBase
-            onClick={selectLocation}
+            onClick={() => setSelectLocation(true)}
           >
             <div style={{
               display: 'flex',
@@ -163,9 +160,10 @@ const Component = props => {
         top: 0,
         bottom: 0,
         zIndex: 99,
-        display: queryParams?.action === 'search_location' ? undefined : 'none'
+        display: selectLocation ? undefined : 'none'
       }}>
         <LocationSearchModel
+          goBack={() => setSelectLocation(false)}
           setLocationText={setLocationText}
           popularLocations={popularLocations}
         />
