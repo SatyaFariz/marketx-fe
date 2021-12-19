@@ -11,6 +11,7 @@ import { useState, useEffect, useRef } from 'react'
 import qs from 'query-string'
 import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreaLoader'
 import { useDebounce } from 'use-debounce'
+import useDisablePullToRefresh from '../../hooks/useDisablePullToRefresh'
 import LocationSearchModal from '../../Components/LocationSearchModal'
 import truncate from 'truncate'
 
@@ -35,6 +36,8 @@ const Component = props => {
   const [_locationId, setLocationId] = useState(isNaN(locationId) ? null : locationId)
 
   const locationLoader = useRef(new AdministrativeAreaLoader(environment))
+
+  useDisablePullToRefresh(selectLocation)
   
   useEffect(() => {
     if(!isNaN(locationId) && !locationText) {
@@ -60,16 +63,6 @@ const Component = props => {
       setLocationId(isNaN(locationId) ? null : locationId)
     }
   }, [pathname, locationId])
-
-  useEffect(() => {
-    if(selectLocation) {
-      // disable pull to refresh
-      document.documentElement.style.overflow = 'hidden'
-    } else {
-      // enable pull to refresh
-      document.documentElement.style = undefined
-    }
-  }, [selectLocation])
   
   return (
     <div style={{
