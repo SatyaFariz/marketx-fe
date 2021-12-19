@@ -42,92 +42,9 @@ const Component = props => {
     return `/login?redirect=/sell&categoryId=${categoryId}`
   }
 
-  if(edges.length === 0 && (q?.trim()?.length > 0 || locationId)) {
-    return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%'
-      }}>
-        <div>
-          <img
-            alt="Illustration not found"
-            src={SEARCH_NOT_FOUND_ILLUSTRATION_URL}
-            style={{
-              width: 250,
-              height: 250,
-              marginBottom: 15
-            }}
-          />
-
-          <p style={{ textAlign: 'center' }}>Oops... Tidak ditemukan 😱</p>
-        </div>
-      </div>
-    )
-  } else if(edges.length === 0 && q?.trim()?.length === 0 && categoryId) {
-    return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%'
-      }}>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}>
-          <img
-            alt="Illustration category empty"
-            src={EMPTY_ILLUSTRATION_URL}
-            style={{
-              width: 250,
-              height: 250,
-              marginBottom: 15
-            }}
-          />
-
-          <p style={{ textAlign: 'center', lineHeight: '20px' }}>
-            {'Kategori ini masih kosong. Jadilah yang pertama '}
-            <ButtonBase 
-              style={{ 
-                color: Color.primary,
-                verticalAlign: 'baseline'
-              }} 
-              component={Link} 
-              href={sellUrl()}
-            >
-              memasang iklan disini
-            </ButtonBase>.
-          </p>
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <div 
-      ref={scrollRef}
-      style={{
-        overflow: 'auto',
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0,
-        top: 0
-      }}
-    >
-      <div
-        style={{
-          paddingTop: category ? 15 : 20,
-          paddingBottom: 20,
-          paddingLeft: 20,
-          paddingRight: 20,
-        }}
-      >
-        {category &&
+  const renderCategoryBreadcrumbs = () => {
+    if(category) {
+      return (
         <div style={{
           // height: 48,
           marginBottom: 20,
@@ -173,7 +90,107 @@ const Component = props => {
           }}>{category.name}</span>
           }
         </div>
-        }
+      )
+    }
+    return null
+  }
+
+  if(edges.length === 0 && (q?.trim()?.length > 0 || locationId)) {
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%'
+      }}>
+        <div>
+          <img
+            alt="Illustration not found"
+            src={SEARCH_NOT_FOUND_ILLUSTRATION_URL}
+            style={{
+              width: 250,
+              height: 250,
+              marginBottom: 15
+            }}
+          />
+
+          <p style={{ textAlign: 'center' }}>Oops... Tidak ditemukan 😱</p>
+        </div>
+      </div>
+    )
+  } else if(edges.length === 0 && q?.trim()?.length === 0 && categoryId) {
+    return (
+      <div style={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
+        <div style={{ padding: 15 }}>
+          {renderCategoryBreadcrumbs()}
+        </div>
+        
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexGrow: 1
+        }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column'
+          }}>
+            <img
+              alt="Illustration category empty"
+              src={EMPTY_ILLUSTRATION_URL}
+              style={{
+                width: 250,
+                height: 250,
+                marginBottom: 15
+              }}
+            />
+
+            <p style={{ textAlign: 'center', lineHeight: '20px' }}>
+              {'Kategori ini masih kosong. Jadilah yang pertama '}
+              <ButtonBase 
+                style={{ 
+                  color: Color.primary,
+                  verticalAlign: 'baseline'
+                }} 
+                component={Link} 
+                href={sellUrl()}
+              >
+                memasang iklan disini
+              </ButtonBase>.
+            </p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div 
+      ref={scrollRef}
+      style={{
+        overflow: 'auto',
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        top: 0
+      }}
+    >
+      <div
+        style={{
+          paddingTop: category ? 15 : 20,
+          paddingBottom: 20,
+          paddingLeft: 20,
+          paddingRight: 20,
+        }}
+      >
+        {renderCategoryBreadcrumbs()}
 
         <div style={{
           display: 'grid',
