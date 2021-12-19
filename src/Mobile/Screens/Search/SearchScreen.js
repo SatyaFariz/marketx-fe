@@ -26,13 +26,13 @@ const query = graphql`
 const Component = props => {
   const isMounted = useRef(true)
   const { popularLocations } = props
-  const { environment, history, queryParams } = useAppContext()
+  const { environment, history, queryParams, pathname } = useAppContext()
   const [searchTerm, setSearchTerm] = useState(queryParams.q || '')
   const [searchTermDebounced] = useDebounce(searchTerm, 500)
   const [locationText, setLocationText] = useState(null)
   const [selectLocation, setSelectLocation] = useState(false)
   const locationId = parseInt(queryParams?.locationId, 10)
-  const _locationId = isNaN(locationId) ? null : locationId
+  const [_locationId, setLocationId] = useState(isNaN(locationId) ? null : locationId)
 
   const locationLoader = useRef(new AdministrativeAreaLoader(environment))
   
@@ -54,6 +54,12 @@ const Component = props => {
   useEffect(() => {
     return () => isMounted.current = false
   }, [])
+
+  useEffect(() => {
+    if(pathname === '/search') {
+      setLocationId(isNaN(locationId) ? null : locationId)
+    }
+  }, [pathname, locationId])
   
   return (
     <div style={{
