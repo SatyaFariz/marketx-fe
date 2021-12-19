@@ -98,23 +98,34 @@ const Component = props => {
   if(edges.length === 0 && (q?.trim()?.length > 0 || locationId)) {
     return (
       <div style={{
+        height: '100%',
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%'
+        flexDirection: 'column'
       }}>
-        <div>
-          <img
-            alt="Illustration not found"
-            src={SEARCH_NOT_FOUND_ILLUSTRATION_URL}
-            style={{
-              width: 250,
-              height: 250,
-              marginBottom: 15
-            }}
-          />
+        {category &&
+        <div style={{ padding: 15 }}>
+          {renderCategoryBreadcrumbs()}
+        </div>
+        }
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexGrow: 1
+        }}>
+          <div>
+            <img
+              alt="Illustration not found"
+              src={SEARCH_NOT_FOUND_ILLUSTRATION_URL}
+              style={{
+                width: 250,
+                height: 250,
+                marginBottom: 15
+              }}
+            />
 
-          <p style={{ textAlign: 'center' }}>Oops... Tidak ditemukan 😱</p>
+            <p style={{ textAlign: 'center' }}>Oops... Tidak ditemukan 😱</p>
+          </div>
         </div>
       </div>
     )
