@@ -1,5 +1,5 @@
 # source: http://localhost:4000/graphql
-# timestamp: Sat Dec 11 2021 13:43:08 GMT+0700 (Western Indonesia Time)
+# timestamp: Sun Dec 19 2021 14:45:54 GMT+0700 (Western Indonesia Time)
 
 type ActionInfo {
   hasError: Boolean
@@ -53,6 +53,7 @@ input AddressInput {
 type AdministrativeArea {
   administrativeAreaId: Int
   name: String
+  ancestors: [AdministrativeArea]
 }
 
 type Attribute {
@@ -316,7 +317,7 @@ type Query {
   store(id: String!): Store
   featuredProducts: [Product]
   search(q: String!, categoryId: String, storeId: String, published: Boolean, after: String, first: Int): ProductConnection
-  administrativeAreas(parentId: Int): [AdministrativeArea]
+  administrativeAreas(parentId: Int, searchTerm: String, isPopular: Boolean): [AdministrativeArea]
   suspensionReasons: [SuspensionReason]
   productConditions: [ProductCondition]
   posts(type: PostTypeEnum!, limit: Int!): [Post]
