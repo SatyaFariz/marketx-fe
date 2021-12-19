@@ -2,7 +2,7 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../Constants'
 import Color from '../Constants/Color'
 import { IoCloseSharp } from 'react-icons/io5'
 import { createFragmentContainer } from 'react-relay'
-import { IconButton, List, ListItem, ListItemText } from '@material-ui/core'
+import { IconButton, List, ListItem, ListItemText, ButtonBase } from '@material-ui/core'
 import graphql from 'babel-plugin-relay/macro'
 import useAppContext from '../hooks/useAppContext'
 import { useState, useEffect, useRef } from 'react'
@@ -28,6 +28,15 @@ const Component = props => {
     history.replace(`${pathname}?${qs.stringify(params)}`)
     goBack()
     setLocationText(text)
+  }
+
+  const removeFilter = () => {
+    const { pathname } = window.location
+    const params = { ...queryParams }
+    delete params.locationId
+    history.replace(`${pathname}?${qs.stringify(params)}`)
+    goBack()
+    setLocationText(null)
   }
 
   useEffect(() => {
@@ -107,6 +116,21 @@ const Component = props => {
         overflow: 'auto',
         overscrollBehavior: 'contain',
       }}>
+        {queryParams?.locationId &&
+        <div>
+          <ButtonBase
+            onClick={removeFilter}
+            style={{
+              marginLeft: 15,
+              marginTop: 15,
+              color: Color.primary,
+              fontSize: 15
+            }}
+          >
+            <span>Hapus filter lokasi</span>
+          </ButtonBase>
+        </div>
+        }
         <List>
           {(searchTermDebounced.length < 3 ? popularLocations : locations).map(location => {
             const ancestors = location.ancestors.slice()
