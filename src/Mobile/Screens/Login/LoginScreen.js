@@ -1,6 +1,7 @@
 import { TextField, ButtonBase, IconButton } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
+import useDisablePullToRefresh from '../../hooks/useDisablePullToRefresh'
 import SendOtpCode from '../../../mutations/SendOtpCode'
 import Link from '../../Components/Link'
 import Color from '../../Constants/Color'
@@ -18,6 +19,7 @@ import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
 const useEmail = true
 
 const Component = props => {
+  useDisablePullToRefresh()
   const { me } = props
   const _isMounted = useRef(true)
   const { history, environment, resetEnvironment, queryParams } = useAppContext()

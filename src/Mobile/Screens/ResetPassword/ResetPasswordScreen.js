@@ -2,6 +2,7 @@ import { PASSWORD_MAX_LENGTH, LOGO_URL } from '../../Constants'
 import { TextField, ButtonBase, IconButton } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
+import useDisablePullToRefresh from '../../hooks/useDisablePullToRefresh'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import Button from '../../Components/Button'
@@ -11,6 +12,7 @@ import Validator from '../../../helpers/validator'
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
 
 const Component = props => {
+  useDisablePullToRefresh()
   const { me } = props
   const _isMounted = useRef(true)
   const { history, environment, queryParams } = useAppContext()

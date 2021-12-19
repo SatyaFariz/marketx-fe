@@ -9,6 +9,13 @@ const useDisablePullToRefresh = (disable) => {
         document.documentElement.style = undefined
       }
     }
+
+    if(typeof disable === 'undefined') {
+      document.documentElement.style.overscrollBehavior = 'contain'
+      return () => {
+        document.documentElement.style = undefined
+      }
+    }
   }, [disable])
 }
 

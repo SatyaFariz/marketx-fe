@@ -1,6 +1,7 @@
 import { TextField } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
+import useDisablePullToRefresh from '../../hooks/useDisablePullToRefresh'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import Button from '../../Components/Button'
@@ -9,6 +10,7 @@ import { isEmail } from 'validator'
 import RequestPasswordResetLink from '../../../mutations/RequestPasswordResetLink'
 
 const Component = props => {
+  useDisablePullToRefresh()
   const { me } = props
   const _isMounted = useRef(true)
   const { history, environment } = useAppContext()

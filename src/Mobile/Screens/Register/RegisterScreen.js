@@ -3,6 +3,7 @@ import Color from '../../Constants/Color'
 import { TextField, InputAdornment, ButtonBase, IconButton } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
+import useDisablePullToRefresh from '../../hooks/useDisablePullToRefresh'
 import SendOtpCode from '../../../mutations/SendOtpCode'
 import Validator from '../../../helpers/validator'
 import MobileNumberChecker from '../../../helpers/MobileNumberChecker'
@@ -26,6 +27,7 @@ const emailAlreadyRegisteredErrorMessage = 'Email ini sudah terdaftar di sistem 
 const emailVerificationCodeHelperText = 'Masukkan kode yang kami kirim ke email Anda setelah Anda klik tombol "Kirim Kode" di atas.'
 
 const Component = props => {
+  useDisablePullToRefresh()
   const { me } = props
   const _isMounted = useRef(true)
   const { history, environment, resetEnvironment, queryParams } = useAppContext()
