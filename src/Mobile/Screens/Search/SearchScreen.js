@@ -1,4 +1,4 @@
-import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, LOGO_URL } from '../../Constants'
+import { HEADER_BORDER_BOTTOM_COLOR, LOGO_URL } from '../../Constants'
 import Color from '../../Constants/Color'
 import { IoCloseSharp, IoLocationOutline } from 'react-icons/io5'
 import { LinearProgress, IconButton, ButtonBase } from '@material-ui/core'
@@ -70,12 +70,8 @@ const Component = props => {
       <div style={{
         paddingRight: 15,
         paddingLeft: 15,
-        paddingBottom: 5, 
-        // height: HEADER_HEIGHT,
+        paddingBottom: 5,
         backgroundColor: 'white',
-        // width: '100%',
-        // display: 'flex',
-        // flexDirection: 'column',
         zIndex: 99,
         alignItems: 'center',
         position: 'sticky',
@@ -115,13 +111,11 @@ const Component = props => {
           alignItems: 'center',
           flexGrow: 1
         }}>
-          {/* <BackButton/> */}
 
           <div style={{
             height: 42,
             backgroundColor: '#f1f1f1',
             flexGrow: 1,
-            // marginRight: 15,
             display: 'flex',
             borderRadius: 6
           }}>
@@ -130,11 +124,9 @@ const Component = props => {
               style={{
                 height: '100%',
                 backgroundColor: 'transparent',
-                // paddingRight: 10,
                 paddingLeft: 10,
                 flexGrow: 1,
                 borderRadius: 8,
-              //  lineHeight: 24,
                 border: 'none',
                 outline: 'none',
                 fontSize: 16,
