@@ -14,6 +14,7 @@ export type SearchResultsListPaginationQueryVariables = {|
   after?: ?string,
   q: string,
   categoryId?: ?string,
+  locationId?: ?number,
 |};
 export type SearchResultsListPaginationQueryResponse = {|
   +$fragmentRefs: SearchResultsList_search$ref
@@ -31,8 +32,9 @@ query SearchResultsListPaginationQuery(
   $after: String
   $q: String!
   $categoryId: String
+  $locationId: Int
 ) {
-  ...SearchResultsList_search_3dEwcg
+  ...SearchResultsList_search_Z6LbC
 }
 
 fragment ProductItem_product on Product {
@@ -65,8 +67,8 @@ fragment ProductItem_product on Product {
   }
 }
 
-fragment SearchResultsList_search_3dEwcg on Query {
-  search(first: $first, after: $after, q: $q, categoryId: $categoryId) {
+fragment SearchResultsList_search_Z6LbC on Query {
+  search(first: $first, after: $after, q: $q, categoryId: $categoryId, locationId: $locationId) {
     edges {
       cursor
       node {
@@ -102,9 +104,14 @@ v2 = {
 v3 = {
   "defaultValue": null,
   "kind": "LocalArgument",
+  "name": "locationId"
+},
+v4 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
   "name": "q"
 },
-v4 = [
+v5 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -122,25 +129,30 @@ v4 = [
   },
   {
     "kind": "Variable",
+    "name": "locationId",
+    "variableName": "locationId"
+  },
+  {
+    "kind": "Variable",
     "name": "q",
     "variableName": "q"
   }
 ],
-v5 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v6 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v7 = [
+v8 = [
   {
     "alias": null,
     "args": null,
@@ -148,7 +160,7 @@ v7 = [
     "name": "administrativeAreaId",
     "storageKey": null
   },
-  (v6/*: any*/)
+  (v7/*: any*/)
 ];
 return {
   "fragment": {
@@ -156,14 +168,15 @@ return {
       (v0/*: any*/),
       (v1/*: any*/),
       (v2/*: any*/),
-      (v3/*: any*/)
+      (v3/*: any*/),
+      (v4/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
     "name": "SearchResultsListPaginationQuery",
     "selections": [
       {
-        "args": (v4/*: any*/),
+        "args": (v5/*: any*/),
         "kind": "FragmentSpread",
         "name": "SearchResultsList_search"
       }
@@ -176,15 +189,16 @@ return {
     "argumentDefinitions": [
       (v2/*: any*/),
       (v0/*: any*/),
-      (v3/*: any*/),
-      (v1/*: any*/)
+      (v4/*: any*/),
+      (v1/*: any*/),
+      (v3/*: any*/)
     ],
     "kind": "Operation",
     "name": "SearchResultsListPaginationQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v4/*: any*/),
+        "args": (v5/*: any*/),
         "concreteType": "ProductConnection",
         "kind": "LinkedField",
         "name": "search",
@@ -213,7 +227,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v5/*: any*/),
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -221,7 +235,7 @@ return {
                     "name": "merchantId",
                     "storageKey": null
                   },
-                  (v6/*: any*/),
+                  (v7/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -272,7 +286,7 @@ return {
                     "name": "mainImage",
                     "plural": false,
                     "selections": [
-                      (v5/*: any*/),
+                      (v6/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -298,7 +312,7 @@ return {
                         "name": "display",
                         "storageKey": null
                       },
-                      (v5/*: any*/)
+                      (v6/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -317,7 +331,7 @@ return {
                         "kind": "LinkedField",
                         "name": "city",
                         "plural": false,
-                        "selections": (v7/*: any*/),
+                        "selections": (v8/*: any*/),
                         "storageKey": null
                       },
                       {
@@ -327,7 +341,7 @@ return {
                         "kind": "LinkedField",
                         "name": "district",
                         "plural": false,
-                        "selections": (v7/*: any*/),
+                        "selections": (v8/*: any*/),
                         "storageKey": null
                       }
                     ],
@@ -376,7 +390,7 @@ return {
       },
       {
         "alias": null,
-        "args": (v4/*: any*/),
+        "args": (v5/*: any*/),
         "filters": [],
         "handle": "connection",
         "key": "SearchResultsList_search",
@@ -386,16 +400,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "80f8f9515f93d94120089bb6182f70a8",
+    "cacheID": "b9e0849f21228ad0f351e7d836dc9e4f",
     "id": null,
     "metadata": {},
     "name": "SearchResultsListPaginationQuery",
     "operationKind": "query",
-    "text": "query SearchResultsListPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n  $categoryId: String\n) {\n  ...SearchResultsList_search_3dEwcg\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n\nfragment SearchResultsList_search_3dEwcg on Query {\n  search(first: $first, after: $after, q: $q, categoryId: $categoryId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+    "text": "query SearchResultsListPaginationQuery(\n  $first: Int\n  $after: String\n  $q: String!\n  $categoryId: String\n  $locationId: Int\n) {\n  ...SearchResultsList_search_Z6LbC\n}\n\nfragment ProductItem_product on Product {\n  id\n  merchantId\n  name\n  price\n  listingType\n  isPublished\n  isSuspended\n  views\n  leads\n  mainImage {\n    id\n    url\n  }\n  rentalDuration {\n    display\n    id\n  }\n  location {\n    city {\n      administrativeAreaId\n      name\n    }\n    district {\n      administrativeAreaId\n      name\n    }\n  }\n}\n\nfragment SearchResultsList_search_Z6LbC on Query {\n  search(first: $first, after: $after, q: $q, categoryId: $categoryId, locationId: $locationId) {\n    edges {\n      cursor\n      node {\n        id\n        ...ProductItem_product\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'dc2a2f5cea32518469ff913d16f882af';
+(node/*: any*/).hash = '36d16120016ba593420e79272e2c8239';
 
 module.exports = node;

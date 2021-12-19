@@ -15,8 +15,8 @@ import LocationSearchModel from '../../Components/LocationSearchModal'
 import truncate from 'truncate'
 
 const query = graphql`
-  query SearchScreenQuery($q: String!, $first: Int!) {
-    ...SearchResultsList_search @arguments(q: $q, first: $first),
+  query SearchScreenQuery($q: String!, $first: Int!, $locationId: Int) {
+    ...SearchResultsList_search @arguments(q: $q, first: $first, locationId: $locationId),
     me {
       ...SearchResultsList_me
     }
@@ -31,13 +31,13 @@ const Component = props => {
   const [searchTermDebounced] = useDebounce(searchTerm, 500)
   const [locationText, setLocationText] = useState(null)
   const [selectLocation, setSelectLocation] = useState(false)
-  const locationId = queryParams?.locationId
+  const locationId = parseInt(queryParams?.locationId, 10)
 
   const locationLoader = useRef(new AdministrativeAreaLoader(environment))
   
   useEffect(() => {
-    if(locationId && !locationText) {
-      locationLoader.current.load(parseInt(locationId, 10), location => {
+    if(!isNaN(locationId) && !locationText) {
+      locationLoader.current.load(locationId, location => {
         const ancestors = location?.ancestors?.slice()
         ancestors.reverse()
         const text = [location, ...ancestors].map(item => item.name).join(', ')
@@ -152,7 +152,10 @@ const Component = props => {
       }}>
         <QueryRenderer
           environment={environment}
-          variables={{ q: searchTermDebounced || '', first: 24 }}
+          variables={{ 
+            q: searchTermDebounced || '', first: 24,
+            locationId: isNaN(locationId) ? null : locationId
+          }}
           query={query}
           render={({ error, props }) => {
             if(error) {

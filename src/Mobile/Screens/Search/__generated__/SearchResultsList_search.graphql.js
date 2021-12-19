@@ -57,6 +57,11 @@ const node/*: ReaderFragment*/ = {
     {
       "defaultValue": null,
       "kind": "LocalArgument",
+      "name": "locationId"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
       "name": "q"
     }
   ],
@@ -164,6 +169,6 @@ const node/*: ReaderFragment*/ = {
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = 'c0de1eaeafe6e0172f4d647a90284657';
+(node/*: any*/).hash = 'c177a5a6c6249db796d9876c8e8f2513';
 
 module.exports = node;

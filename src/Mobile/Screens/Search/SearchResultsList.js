@@ -175,13 +175,15 @@ export default createPaginationContainer(Component, {
       first: { type: "Int", defaultValue: 10 },
       after: { type: "String", defaultValue: null },
       q: { type: "String!" },
-      categoryId: { type: "String" }
+      categoryId: { type: "String" },
+      locationId: { type: "Int" }
     ) {
       search(
         first: $first,
         after: $after,
         q: $q,
-        categoryId: $categoryId
+        categoryId: $categoryId,
+        locationId: $locationId
       ) @connection(key: "SearchResultsList_search", filters: []){
         edges {
           cursor,
@@ -216,8 +218,8 @@ export default createPaginationContainer(Component, {
     }
   },
   query: graphql`
-    query SearchResultsListPaginationQuery($first: Int, $after: String, $q: String!, $categoryId: String) {      
-      ...SearchResultsList_search @arguments(first: $first, after: $after, q: $q, categoryId: $categoryId)        
+    query SearchResultsListPaginationQuery($first: Int, $after: String, $q: String!, $categoryId: String, $locationId: Int) {      
+      ...SearchResultsList_search @arguments(first: $first, after: $after, q: $q, categoryId: $categoryId, locationId: $locationId)        
     }
   `
 })
