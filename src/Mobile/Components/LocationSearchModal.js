@@ -13,7 +13,7 @@ import AdministrativeAreasSearch from '../../helpers/AdministrativeAreasSearch'
 
 const Component = props => {
   const isMounted = useRef(true)
-  const { popularLocations, setLocationText, goBack, isVisible } = props 
+  const { popularLocations, setLocationText, goBack } = props 
   const { environment, history, queryParams } = useAppContext()
   const [searchTerm, setSearchTerm] = useState('')
   const [searchTermDebounced] = useDebounce(searchTerm.trim(), 500)
@@ -50,22 +50,10 @@ const Component = props => {
   }, [searchTermDebounced])
 
   useEffect(() => {
-    return () => {
-      isMounted.current = false
-      // enable pull to refresh
-      document.documentElement.style = undefined
-    }
+    return () => isMounted.current = false
   }, [])
 
-  useEffect(() => {
-    if(isVisible) {
-      // disable pull to refresh
-      document.documentElement.style.overflow = 'hidden'
-    } else {
-      // enable pull to refresh
-      document.documentElement.style = undefined
-    }
-  }, [isVisible])
+  
 
   return (
     <div style={{

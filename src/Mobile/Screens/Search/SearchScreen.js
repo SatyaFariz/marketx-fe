@@ -60,6 +60,16 @@ const Component = props => {
       setLocationId(isNaN(locationId) ? null : locationId)
     }
   }, [pathname, locationId])
+
+  useEffect(() => {
+    if(selectLocation) {
+      // disable pull to refresh
+      document.documentElement.style.overflow = 'hidden'
+    } else {
+      // enable pull to refresh
+      document.documentElement.style = undefined
+    }
+  }, [selectLocation])
   
   return (
     <div style={{
@@ -199,7 +209,6 @@ const Component = props => {
           goBack={() => setSelectLocation(false)}
           setLocationText={setLocationText}
           popularLocations={popularLocations}
-          isVisible={selectLocation}
         />
       </div>
     </div>
