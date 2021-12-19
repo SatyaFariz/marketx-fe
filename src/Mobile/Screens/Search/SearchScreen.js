@@ -82,8 +82,8 @@ const Component = props => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          paddingTop: 10,
-          paddingBottom: 10
+          paddingTop: 15,
+          paddingBottom: 15
         }}>
           <img
             src={LOGO_URL}
