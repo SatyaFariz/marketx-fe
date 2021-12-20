@@ -12,7 +12,7 @@ import Validator from '../../../helpers/validator'
 import UpdateCategory from '../../../mutations/UpdateCategory'
 import NumberFormat from 'react-number-format'
 import { useDropzone } from 'react-dropzone'
-import { fromImage } from 'imtool'
+import compressImage from '../../../helpers/compressImage'
 import Link from '../../Components/Link'
 import useAppContext from '../../hooks/useAppContext'
 import CreateSpecificationFieldsModal from './CreateSpecificationFieldsModal'
@@ -104,9 +104,7 @@ const Component = props => {
     onDrop: async (acceptedFiles) => {
       if(acceptedFiles.length > 0) {
         const file = acceptedFiles[0]
-        const tool = await fromImage(file)
-        const image = await tool.quality(0.4).toFile(file.name)
-        image.preview = URL.createObjectURL(image)
+        const image = await compressImage(file)
         setFile(image)
       }
     },
