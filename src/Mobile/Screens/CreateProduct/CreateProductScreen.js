@@ -10,6 +10,8 @@ import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete
 import Validator from '../../../helpers/validator'
 import { useDropzone } from 'react-dropzone'
 import { fromImage } from 'imtool'
+import { compressAccurately } from 'image-conversion'
+import compressImage from '../../../helpers/compressImage'
 import CreateProduct from '../../../mutations/CreateProduct'
 import BackButton from '../../Components/BackButton'
 import Button from '../../Components/Button'
@@ -18,7 +20,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import AdministrativeAreaLoader from '../../../helpers/AdministrativeAreasLoader'
 
 const filter = createFilterOptions()
-const megabytes = 1048576
+const megabytes = 1000000
 
 const Component = props => {
   useDisablePullToRefresh()
@@ -34,14 +36,12 @@ const Component = props => {
     disabled: loading,
     noClick: true,
     noKeyboard: true,
-    maxSize: 6 * megabytes,
+    maxSize: 10 * megabytes,
     onDrop: async (acceptedFiles) => {
       if(acceptedFiles.length > 0) {
         const images = await Promise.all(acceptedFiles.slice(0, maxImageUpload).map(file => {
           return new Promise(async (resolve) => {
-            const tool = await fromImage(file)
-            const image = await tool.quality(0.4).toFile(file.name)
-            image.preview = URL.createObjectURL(image)
+            const image = await compressImage(file)
             resolve(image)
           })
         }))
@@ -49,7 +49,7 @@ const Component = props => {
         setFiles(images)
       }
     },
-    onDropRejected: () => console.log('Rejected')
+    onDropRejected: () => alert('Rejected')
   })
 
   const citiesFirstLoaded = useRef(true)
