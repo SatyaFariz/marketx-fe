@@ -74,7 +74,7 @@ const Component = props => {
     // Disable click and keydown behavior
     accept: 'image/jpeg',
     disabled: loading,
-    maxSize: 6 * megabytes,
+    maxSize: 10 * megabytes,
     maxFiles: 1,
     onDrop: async (acceptedFiles) => {
       if(acceptedFiles.length > 0) {
