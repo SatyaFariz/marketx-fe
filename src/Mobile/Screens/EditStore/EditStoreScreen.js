@@ -7,7 +7,7 @@ import useDisablePullToRefresh from '../../hooks/useDisablePullToRefresh'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import { useDropzone } from 'react-dropzone'
-import { fromImage } from 'imtool'
+import compressImage from '../../../helpers/compressImage'
 import UpdateStore from '../../../mutations/UpdateStore'
 import Validator from '../../../helpers/validator'
 import CameraIcon from '../../Components/CameraIcon'
@@ -18,7 +18,7 @@ import Button from '../../Components/Button'
 import NumberFormat from 'react-number-format'
 import SendVerificationCode from '../../../mutations/SendVerificationCode'
 
-const megabytes = 1048576
+const megabytes = 1000000
 const whatsappNumberNotRegisteredErrorMessage = 'Nomor ini tidak terdaftar di WhatsApp.'
 const verificationCodeFieldHelperText = 'Diisi jika nomor WhatsApp berubah.'
 const nameFieldHelperText = 'Ini adalah nama yang akan muncul di halaman iklan Anda.'
@@ -58,14 +58,12 @@ const Component = props => {
     // Disable click and keydown behavior
     accept: 'image/jpeg',
     disabled: loading,
-    maxSize: 6 * megabytes,
+    maxSize: 10 * megabytes,
     maxFiles: 1,
     onDrop: async (acceptedFiles) => {
       if(acceptedFiles.length > 0) {
         const file = acceptedFiles[0]
-        const tool = await fromImage(file)
-        const image = await tool.quality(0.4).toFile(file.name)
-        image.preview = URL.createObjectURL(image)
+        const image = await compressImage(file)
         setBanner(image)
       }
     },
@@ -81,9 +79,7 @@ const Component = props => {
     onDrop: async (acceptedFiles) => {
       if(acceptedFiles.length > 0) {
         const file = acceptedFiles[0]
-        const tool = await fromImage(file)
-        const image = await tool.quality(0.4).toFile(file.name)
-        image.preview = URL.createObjectURL(image)
+        const image = await compressImage(file)
         setProfilePicture(image)
       }
     },
