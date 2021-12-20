@@ -10,13 +10,13 @@ import DeleteProductImages from '../../../mutations/DeleteProductImages'
 import AddProductImages from '../../../mutations/AddProductImages'
 import UpdateMainProductImage from '../../../mutations/UpdateMainProductImage'
 import { useDropzone } from 'react-dropzone'
-import { fromImage } from 'imtool'
+import compressImage from '../../../helpers/compressImage'
 import BackButton from '../../Components/BackButton'
 import { IoCloseOutline } from 'react-icons/io5'
 import CameraIcon from '../../Components/CameraIcon'
 import Button from '../../Components/Button'
 
-const megabytes = 1048576
+const megabytes = 1000000
 
 const Component = props => {
   useDisablePullToRefresh()
@@ -52,15 +52,13 @@ const Component = props => {
     // Disable click and keydown behavior
     accept: 'image/jpeg',
     disabled: uploading || (maxImageUpload === product.images.length),
-    maxSize: 6 * megabytes,
+    maxSize: 10 * megabytes,
     onDrop: async (acceptedFiles) => {
       const maxFiles = maxImageUpload - product.images.length
       if(acceptedFiles.length > 0) {
         const images = await Promise.all(acceptedFiles.slice(0, maxFiles).map(file => {
           return new Promise(async (resolve) => {
-            const tool = await fromImage(file)
-            const image = await tool.quality(0.4).toFile(file.name)
-            image.preview = URL.createObjectURL(image)
+            const image = await compressImage(file)
             resolve(image)
           })
         }))
