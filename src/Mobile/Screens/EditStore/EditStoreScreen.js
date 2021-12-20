@@ -3,6 +3,7 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, ADDRESS_MAX_LENGTH, AD_ACCOU
 import { TextField, InputAdornment } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
+import useDisablePullToRefresh from '../../hooks/useDisablePullToRefresh'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import { useDropzone } from 'react-dropzone'
@@ -24,6 +25,7 @@ const nameFieldHelperText = 'Ini adalah nama yang akan muncul di halaman iklan A
 const PHONE_MIN_CHAR_LEN = 10
 
 const Component = props => {
+  useDisablePullToRefresh()
   const citiesFirstLoaded = useRef(true)
   const districtsFirstLoaded = useRef(true)
   const _isMounted = useRef(true)

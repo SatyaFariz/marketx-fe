@@ -2,6 +2,7 @@ import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, MAX_IMAGE_UPLOAD } from '../../Constants'
 import useAppContext from '../../hooks/useAppContext'
+import useDisablePullToRefresh from '../../hooks/useDisablePullToRefresh'
 import { useRef, useEffect, useState } from 'react'
 import { IconButton, CircularProgress } from '@material-ui/core'
 import ImageItem from './ImageItem'
@@ -18,6 +19,7 @@ import Button from '../../Components/Button'
 const megabytes = 1048576
 
 const Component = props => {
+  useDisablePullToRefresh()
   const _isMounted = useRef(true)
   const { environment, history } = useAppContext()
   const { product, me } = props

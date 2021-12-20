@@ -2,6 +2,7 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, ADDRESS_MAX_LENGTH, AD_ACCOU
 import { TextField, InputAdornment, Switch } from '@material-ui/core'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
+import useDisablePullToRefresh from '../../hooks/useDisablePullToRefresh'
 import CreateStore from '../../../mutations/CreateStore'
 import Validator from '../../../helpers/validator'
 import BackButton from '../../Components/BackButton'
@@ -19,6 +20,7 @@ const PHONE_MIN_CHAR_LEN = 10
 const nameFieldHelperText = 'Ini adalah nama yang akan muncul di halaman iklan Anda.'
 
 const Component = props => {
+  useDisablePullToRefresh()
   const { provinces, me } = props
   const _isMounted = useRef(true)
   const shouldForceRedirect = useRef(true)

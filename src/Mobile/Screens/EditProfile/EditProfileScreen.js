@@ -1,6 +1,7 @@
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, /*DIVIDER_COLOR,*/ USER_FULLNAME_MAX_LENGTH } from '../../Constants'
 import { TextField } from '@material-ui/core'
 import useAppContext from '../../hooks/useAppContext'
+import useDisablePullToRefresh from '../../hooks/useDisablePullToRefresh'
 import OTPView from '../../Components/OTPView'
 import { createFragmentContainer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
@@ -20,6 +21,7 @@ import Button from '../../Components/Button'
 // const megabytes = 1048576
 
 const Component = props => {
+  useDisablePullToRefresh()
   const _isMounted = useRef(true)
   const { me } = props
   const myCurrentMobileNumber = me?.mobileNumber || ''

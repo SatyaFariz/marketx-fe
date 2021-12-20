@@ -4,6 +4,7 @@ import { Fab } from '@material-ui/core'
 import { Add } from '@material-ui/icons'
 import { useState, useRef, useEffect } from 'react'
 import useAppContext from '../../hooks/useAppContext'
+import useDisablePullToRefresh from '../../hooks/useDisablePullToRefresh'
 import graphql from 'babel-plugin-relay/macro'
 import SelectCategoryView from './SelectCategoryView'
 import { useBottomScrollListener } from 'react-bottom-scroll-listener'
@@ -18,6 +19,7 @@ import Button from '../../Components/Button'
 import Link from '../../Components/Link'
 
 const Component = props => {
+  useDisablePullToRefresh()
   const headerRef = useRef()
   const isMounted = useRef(true)
   const { categories, store, products, me } = props
@@ -26,6 +28,9 @@ const Component = props => {
   const { selectCategory } = queryParams
   const [errorLoadingMore, setErrorLoadingMore] = useState(false)
   const [showCategory, setShowCategory] = useState(selectCategory === '1')
+
+  // call this again to disable/enable when toggling select category
+  useDisablePullToRefresh(showCategory)
 
   const loadMore = () => {
     const { relay } = props

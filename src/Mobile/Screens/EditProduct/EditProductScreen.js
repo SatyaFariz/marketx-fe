@@ -3,6 +3,7 @@ import { createFragmentContainer } from 'react-relay'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR, PRODUCT_TITLE_MAX_LENGTH, PRODUCT_PRICE_MAX_LENGTH, PRODUCT_DESC_MAX_LENGTH, PRODUCT_SPEC_VALUE_MAX_LENGTH, PRODUCT_NUMERIC_SPEC_VALUE_MAX_LENGTH } from '../../Constants'
 import Color from '../../Constants/Color'
 import useAppContext from '../../hooks/useAppContext'
+import useDisablePullToRefresh from '../../hooks/useDisablePullToRefresh'
 import { useRef, useEffect, useState } from 'react'
 import { TextField, InputAdornment, MenuItem, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, CircularProgress, Checkbox, Switch, ButtonBase } from '@material-ui/core'
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
@@ -49,6 +50,7 @@ const getPivotFieldOptionId = (id, pivotField) => {
 }
 
 const Component = props => {
+  useDisablePullToRefresh()
   const { me, product, productConditions, rentalDurations, provinces } = props
   const { history, environment } = useAppContext()
   const category = product.category[product.category.length - 1]
