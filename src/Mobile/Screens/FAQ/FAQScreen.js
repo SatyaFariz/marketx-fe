@@ -5,9 +5,11 @@ import BackButton from '../../Components/BackButton'
 import { List, ListItem, ListItemText } from '@material-ui/core'
 import Link from '../../Components/Link'
 import useAppContext from '../../hooks/useAppContext'
+import useDisablePullToRefresh from '../../hooks/useDisablePullToRefresh'
 import FAQPage from './Desktop/FAQPage'
 
 const Component = props => {
+  useDisablePullToRefresh()
   const { posts, me, history } = props
   const { queryParams, isMobile } = useAppContext()
 

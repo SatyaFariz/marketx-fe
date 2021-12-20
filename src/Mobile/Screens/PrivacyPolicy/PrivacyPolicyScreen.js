@@ -4,9 +4,11 @@ import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import BackButton from '../../Components/BackButton'
 import moment from 'moment'
 import useAppContext from '../../hooks/useAppContext'
+import useDisablePullToRefresh from '../../hooks/useDisablePullToRefresh'
 import PrivacyPolicyPage from './Desktop/PrivacyPolicyPage'
 
 const Component = props => {
+  useDisablePullToRefresh()
   const { isMobile, history } = useAppContext()
   const { posts, me } = props
   const post = posts[0]

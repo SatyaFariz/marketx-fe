@@ -3,9 +3,11 @@ import { createFragmentContainer } from 'react-relay'
 import { HEADER_HEIGHT, HEADER_BORDER_BOTTOM_COLOR } from '../../Constants'
 import BackButton from '../../Components/BackButton'
 import useAppContext from '../../hooks/useAppContext'
+import useDisablePullToRefresh from '../../hooks/useDisablePullToRefresh'
 import AboutUsPage from './Desktop/AboutUsPage'
 
 const Component = props => {
+  useDisablePullToRefresh()
   const { isMobile, history } = useAppContext()
   const { posts, me } = props
   const post = posts[0]
