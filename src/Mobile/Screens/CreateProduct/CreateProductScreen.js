@@ -9,8 +9,6 @@ import { TextField, InputAdornment, MenuItem, ListItemText, Checkbox, Switch, Bu
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import Validator from '../../../helpers/validator'
 import { useDropzone } from 'react-dropzone'
-import { fromImage } from 'imtool'
-import { compressAccurately } from 'image-conversion'
 import compressImage from '../../../helpers/compressImage'
 import CreateProduct from '../../../mutations/CreateProduct'
 import BackButton from '../../Components/BackButton'
@@ -49,7 +47,7 @@ const Component = props => {
         setFiles(images)
       }
     },
-    onDropRejected: () => alert('Rejected')
+    onDropRejected: () => console.log('Rejected')
   })
 
   const citiesFirstLoaded = useRef(true)
