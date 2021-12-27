@@ -4,6 +4,7 @@ import { HEADER_BORDER_BOTTOM_COLOR, LOGO_URL } from '../../Constants'
 import Color from '../../Constants/Color'
 import { IoCloseSharp, IoLocationOutline } from 'react-icons/io5'
 import { LinearProgress, ButtonBase, IconButton, } from '@material-ui/core'
+import Link from '../../Components/Link'
 import { QueryRenderer } from 'react-relay'
 import useAppContext from '../../hooks/useAppContext'
 import { useState, useEffect, useRef } from 'react'
@@ -87,14 +88,20 @@ const Component = props => {
           paddingTop: 15,
           paddingBottom: 15
         }}>
-          <img
-            src={LOGO_URL}
-            alt="app_logo"
-            style={{
-              height: 22,
-              marginLeft: 5
-            }}
-          />
+          <ButtonBase
+            component={Link}
+            href='/'
+            disableRipple
+          >
+            <img
+              src={LOGO_URL}
+              alt="app_logo"
+              style={{
+                height: 22,
+                marginLeft: 5
+              }}
+            />
+          </ButtonBase>
 
           <ButtonBase
             onClick={() => setSelectLocation(true)}
