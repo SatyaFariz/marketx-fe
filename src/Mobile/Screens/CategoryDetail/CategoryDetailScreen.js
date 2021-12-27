@@ -63,6 +63,7 @@ const Component = props => {
   const { queryParams } = useAppContext()
   const [file, setFile] = useState(null)
   const [name, setName] = useState(category.name)
+  const [slug, setSlug] = useState(category.slug || '')
   const [maxImageUpload, setMaxImageUpload] = useState(category.maxImageUpload?.toString() || '')
   const [rentalDurationIds, setRentalDurationIds] = useState(category.rentalDurationIds || [])
   const [showsProductConditionField, setShowsProductConditionField] = useState(category.showsProductConditionField || false)
@@ -142,6 +143,7 @@ const Component = props => {
       const input = {
         id: category.id,
         name,
+        slug,
         showsProductConditionField,
         requiresProductCondition,
         forceLocationInput,
@@ -357,6 +359,21 @@ const Component = props => {
             value={name}
             error={validation?.name?.isInvalid}
             helperText={validation?.name?.message}
+          />
+
+          <TextField
+            variant="outlined"
+            label="Slug"
+            fullWidth
+            disabled={loading}
+            style={{
+              marginTop: 10,
+              marginBottom: 10
+            }}
+            onChange={e => setSlug(e.target.value.trimLeft())}
+            value={slug}
+            error={validation?.slug?.isInvalid}
+            helperText={validation?.slug?.message}
           />
 
           {category.listingType === 'rental_product' &&
@@ -973,6 +990,7 @@ export default createFragmentContainer(Component, {
     fragment CategoryDetailScreen_category on Category {
       id,
       name,
+      slug,
       isPublished,
       showsProductConditionField,
       requiresProductCondition,

@@ -11,6 +11,7 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type UpdateCategoryInput = {|
   id: string,
   name: string,
+  slug?: ?string,
   isPublished: boolean,
   showsProductConditionField?: ?boolean,
   requiresProductCondition?: ?boolean,
@@ -51,6 +52,7 @@ export type UpdateCategoryMutationResponse = {|
     +category: ?{|
       +id: ?string,
       +name: ?string,
+      +slug: ?string,
       +isPublished: ?boolean,
       +showsProductConditionField: ?boolean,
       +requiresProductCondition: ?boolean,
@@ -102,6 +104,7 @@ mutation UpdateCategoryMutation(
     category {
       id
       name
+      slug
       isPublished
       showsProductConditionField
       requiresProductCondition
@@ -196,143 +199,150 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isPublished",
+  "name": "slug",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "showsProductConditionField",
+  "name": "isPublished",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "requiresProductCondition",
+  "name": "showsProductConditionField",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "requiresProductCondition",
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "listingType",
   "storageKey": null
 },
-v9 = [
+v10 = [
   (v3/*: any*/),
   (v4/*: any*/)
 ],
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "concreteType": "Category",
   "kind": "LinkedField",
   "name": "ancestors",
   "plural": true,
-  "selections": (v9/*: any*/),
-  "storageKey": null
-},
-v11 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "url",
+  "selections": (v10/*: any*/),
   "storageKey": null
 },
 v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "type",
+  "name": "url",
   "storageKey": null
 },
 v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isRequired",
+  "name": "type",
   "storageKey": null
 },
 v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isEnum",
+  "name": "isRequired",
   "storageKey": null
 },
 v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isMulti",
+  "name": "isEnum",
   "storageKey": null
 },
 v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "suffix",
+  "name": "isMulti",
   "storageKey": null
 },
 v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "prefix",
+  "name": "suffix",
   "storageKey": null
 },
 v18 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isAutocomplete",
+  "name": "prefix",
   "storageKey": null
 },
 v19 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "options",
+  "name": "isAutocomplete",
   "storageKey": null
 },
 v20 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "max",
+  "name": "options",
   "storageKey": null
 },
 v21 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "min",
+  "name": "max",
   "storageKey": null
 },
 v22 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "numberOfLines",
+  "name": "min",
   "storageKey": null
 },
 v23 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "maxLength",
+  "name": "numberOfLines",
   "storageKey": null
 },
 v24 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "maxLength",
+  "storageKey": null
+},
+v25 = {
   "alias": null,
   "args": null,
   "concreteType": "Attribute",
   "kind": "LinkedField",
   "name": "attribute",
   "plural": false,
-  "selections": (v9/*: any*/),
+  "selections": (v10/*: any*/),
   "storageKey": null
 };
 return {
@@ -365,7 +375,8 @@ return {
               (v6/*: any*/),
               (v7/*: any*/),
               (v8/*: any*/),
-              (v10/*: any*/),
+              (v9/*: any*/),
+              (v11/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -374,7 +385,7 @@ return {
                 "name": "icon",
                 "plural": false,
                 "selections": [
-                  (v11/*: any*/)
+                  (v12/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -386,7 +397,6 @@ return {
                 "name": "specFields",
                 "plural": true,
                 "selections": [
-                  (v12/*: any*/),
                   (v13/*: any*/),
                   (v14/*: any*/),
                   (v15/*: any*/),
@@ -398,7 +408,8 @@ return {
                   (v21/*: any*/),
                   (v22/*: any*/),
                   (v23/*: any*/),
-                  (v24/*: any*/)
+                  (v24/*: any*/),
+                  (v25/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -441,7 +452,8 @@ return {
               (v6/*: any*/),
               (v7/*: any*/),
               (v8/*: any*/),
-              (v10/*: any*/),
+              (v9/*: any*/),
+              (v11/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -450,7 +462,7 @@ return {
                 "name": "icon",
                 "plural": false,
                 "selections": [
-                  (v11/*: any*/),
+                  (v12/*: any*/),
                   (v3/*: any*/)
                 ],
                 "storageKey": null
@@ -463,7 +475,6 @@ return {
                 "name": "specFields",
                 "plural": true,
                 "selections": [
-                  (v12/*: any*/),
                   (v13/*: any*/),
                   (v14/*: any*/),
                   (v15/*: any*/),
@@ -476,6 +487,7 @@ return {
                   (v22/*: any*/),
                   (v23/*: any*/),
                   (v24/*: any*/),
+                  (v25/*: any*/),
                   (v3/*: any*/)
                 ],
                 "storageKey": null
@@ -489,16 +501,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a22974cc21f7875b7c0c520705dc485b",
+    "cacheID": "800c01454dd09eba85c28a329191aaa5",
     "id": null,
     "metadata": {},
     "name": "UpdateCategoryMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateCategoryMutation(\n  $input: UpdateCategoryInput!\n) {\n  updateCategory(input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    category {\n      id\n      name\n      isPublished\n      showsProductConditionField\n      requiresProductCondition\n      listingType\n      ancestors {\n        id\n        name\n      }\n      icon {\n        url\n        id\n      }\n      specFields {\n        type\n        isRequired\n        isEnum\n        isMulti\n        suffix\n        prefix\n        isAutocomplete\n        options\n        max\n        min\n        numberOfLines\n        maxLength\n        attribute {\n          id\n          name\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateCategoryMutation(\n  $input: UpdateCategoryInput!\n) {\n  updateCategory(input: $input) {\n    actionInfo {\n      hasError\n      message\n    }\n    category {\n      id\n      name\n      slug\n      isPublished\n      showsProductConditionField\n      requiresProductCondition\n      listingType\n      ancestors {\n        id\n        name\n      }\n      icon {\n        url\n        id\n      }\n      specFields {\n        type\n        isRequired\n        isEnum\n        isMulti\n        suffix\n        prefix\n        isAutocomplete\n        options\n        max\n        min\n        numberOfLines\n        maxLength\n        attribute {\n          id\n          name\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'b932edf8d6c2e7b456f9776b74d7ceba';
+(node/*: any*/).hash = '03d60624917318a6fca444e834e4a2cf';
 
 module.exports = node;

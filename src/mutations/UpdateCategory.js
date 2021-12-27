@@ -11,6 +11,7 @@ const mutation = graphql`
       category {
         id,
         name,
+        slug,
         isPublished,
         showsProductConditionField,
         requiresProductCondition,
