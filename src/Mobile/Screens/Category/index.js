@@ -12,6 +12,7 @@ const chunk = {
       },
       me {
         id,
+        ...CategoryScreen_me,
         ...FixedAddressBar_me
       },
       administrativeAreas(isPopular: true) {
@@ -29,6 +30,7 @@ const chunk = {
           <CategoryScreen
             category={data.category}
             popularLocations={data.administrativeAreas}
+            me={data.me}
           />
         </FixedAddressBar>
       )

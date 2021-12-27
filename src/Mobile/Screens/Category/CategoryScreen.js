@@ -25,8 +25,9 @@ const query = graphql`
 
 const Component = props => {
   const isMounted = useRef(true)
-  const { category, popularLocations } = props
-  const { id } = category
+  const { category, popularLocations, me } = props
+  const { id, slug } = category
+  const isAdmin = me?.isAdmin
   const { environment, history, queryParams, pathname } = useAppContext()
   const [searchTerm, setSearchTerm] = useState(queryParams.q || '')
   const [searchTermDebounced] = useDebounce(searchTerm, 500)
@@ -49,18 +50,18 @@ const Component = props => {
   }, [locationId, locationText])
 
   useEffect(() => {
-    history.replace(`/category/${id}?${qs.stringify({ ...queryParams, q: searchTermDebounced})}`)
-  }, [searchTermDebounced, id, history])
+    history.replace(`/category/${isAdmin ? id : (slug || id)}?${qs.stringify({ ...queryParams, q: searchTermDebounced})}`)
+  }, [searchTermDebounced, id, history, isAdmin])
 
   useEffect(() => {
     return () => isMounted.current = false
   }, [])
 
   useEffect(() => {
-    if(pathname === `/category/${id}`) {
+    if(pathname === `/category/${isAdmin ? id : (slug || id)}`) {
       setLocationId(isNaN(locationId) ? null : locationId)
     }
-  }, [pathname, locationId])
+  }, [pathname, locationId, isAdmin])
 
   return (
     <div style={{
@@ -217,11 +218,18 @@ export default createFragmentContainer(Component, {
     fragment CategoryScreen_category on Category {
       id,
       name,
+      slug,
       level,
       ancestors {
         id,
         name
       }
+    }
+  `,
+  me: graphql`
+    fragment CategoryScreen_me on User {
+      id,
+      isAdmin
     }
   `,
   popularLocations: graphql`

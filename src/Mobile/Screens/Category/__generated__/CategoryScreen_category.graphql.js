@@ -14,6 +14,7 @@ declare export opaque type CategoryScreen_category$fragmentType: CategoryScreen_
 export type CategoryScreen_category = {|
   +id: ?string,
   +name: ?string,
+  +slug: ?string,
   +level: ?number,
   +ancestors: ?$ReadOnlyArray<?{|
     +id: ?string,
@@ -57,6 +58,13 @@ return {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "slug",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "level",
       "storageKey": null
     },
@@ -79,6 +87,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a686e9a90635a1a64a828048db12ec0c';
+(node/*: any*/).hash = '7cf967fa6a6fe5fffb3c967de4716f8d';
 
 module.exports = node;

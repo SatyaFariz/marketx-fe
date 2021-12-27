@@ -73,7 +73,7 @@ const Component = props => {
           return (
             <CategoryItem
               key={item.id}
-              href={`/category/${item.id}`} 
+              href={`/category/${item.slug || item.id}`} 
               category={item}
               me={me}
               style={{
@@ -97,6 +97,7 @@ export default createFragmentContainer(Component, {
   categories: graphql`
     fragment Categories_categories on Category @relay(plural: true) {
       id,
+      slug,
       name,
       level,
       isPublished,

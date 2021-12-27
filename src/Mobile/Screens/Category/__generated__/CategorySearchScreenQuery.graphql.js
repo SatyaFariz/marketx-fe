@@ -9,6 +9,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type CategoryScreen_category$ref = any;
+type CategoryScreen_me$ref = any;
 type CategoryScreen_popularLocations$ref = any;
 type FixedAddressBar_me$ref = any;
 export type CategorySearchScreenQueryVariables = {|
@@ -21,7 +22,7 @@ export type CategorySearchScreenQueryResponse = {|
   |},
   +me: ?{|
     +id: ?string,
-    +$fragmentRefs: FixedAddressBar_me$ref,
+    +$fragmentRefs: CategoryScreen_me$ref & FixedAddressBar_me$ref,
   |},
   +administrativeAreas: ?$ReadOnlyArray<?{|
     +$fragmentRefs: CategoryScreen_popularLocations$ref
@@ -44,6 +45,7 @@ query CategorySearchScreenQuery(
   }
   me {
     id
+    ...CategoryScreen_me
     ...FixedAddressBar_me
   }
   administrativeAreas(isPopular: true) {
@@ -54,11 +56,17 @@ query CategorySearchScreenQuery(
 fragment CategoryScreen_category on Category {
   id
   name
+  slug
   level
   ancestors {
     id
     name
   }
+}
+
+fragment CategoryScreen_me on User {
+  id
+  isAdmin
 }
 
 fragment CategoryScreen_popularLocations on AdministrativeArea {
@@ -159,6 +167,11 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
+            "name": "CategoryScreen_me"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
             "name": "FixedAddressBar_me"
           }
         ],
@@ -200,6 +213,13 @@ return {
         "selections": [
           (v2/*: any*/),
           (v4/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "slug",
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": null,
@@ -271,16 +291,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a85b1c142f371c251917e6d7fc4e7f8a",
+    "cacheID": "bfc71050212d1300c7673af471549c17",
     "id": null,
     "metadata": {},
     "name": "CategorySearchScreenQuery",
     "operationKind": "query",
-    "text": "query CategorySearchScreenQuery(\n  $id: String!\n) {\n  category(id: $id) {\n    id\n    ...CategoryScreen_category\n  }\n  me {\n    id\n    ...FixedAddressBar_me\n  }\n  administrativeAreas(isPopular: true) {\n    ...CategoryScreen_popularLocations\n  }\n}\n\nfragment CategoryScreen_category on Category {\n  id\n  name\n  level\n  ancestors {\n    id\n    name\n  }\n}\n\nfragment CategoryScreen_popularLocations on AdministrativeArea {\n  ...LocationSearchModal_popularLocations\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment LocationSearchModal_popularLocations on AdministrativeArea {\n  administrativeAreaId\n  name\n  ancestors {\n    administrativeAreaId\n    name\n  }\n}\n"
+    "text": "query CategorySearchScreenQuery(\n  $id: String!\n) {\n  category(id: $id) {\n    id\n    ...CategoryScreen_category\n  }\n  me {\n    id\n    ...CategoryScreen_me\n    ...FixedAddressBar_me\n  }\n  administrativeAreas(isPopular: true) {\n    ...CategoryScreen_popularLocations\n  }\n}\n\nfragment CategoryScreen_category on Category {\n  id\n  name\n  slug\n  level\n  ancestors {\n    id\n    name\n  }\n}\n\nfragment CategoryScreen_me on User {\n  id\n  isAdmin\n}\n\nfragment CategoryScreen_popularLocations on AdministrativeArea {\n  ...LocationSearchModal_popularLocations\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment LocationSearchModal_popularLocations on AdministrativeArea {\n  administrativeAreaId\n  name\n  ancestors {\n    administrativeAreaId\n    name\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5d67a9b6f35513b2168224e8b3e4255a';
+(node/*: any*/).hash = 'c4acfb65cf5dd327c827f1d632bb4d32';
 
 module.exports = node;

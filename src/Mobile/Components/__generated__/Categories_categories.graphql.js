@@ -13,6 +13,7 @@ declare export opaque type Categories_categories$ref: FragmentReference;
 declare export opaque type Categories_categories$fragmentType: Categories_categories$ref;
 export type Categories_categories = $ReadOnlyArray<{|
   +id: ?string,
+  +slug: ?string,
   +name: ?string,
   +level: ?number,
   +isPublished: ?boolean,
@@ -96,6 +97,13 @@ return {
   "name": "Categories_categories",
   "selections": [
     (v0/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "slug",
+      "storageKey": null
+    },
     (v1/*: any*/),
     (v2/*: any*/),
     (v3/*: any*/),
@@ -129,6 +137,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '073f9c93547b22c77aae702baf7fc175';
+(node/*: any*/).hash = '829de1617154b9d5767e927b7943c1d9';
 
 module.exports = node;
