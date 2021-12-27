@@ -35,6 +35,7 @@ export type ProductScreen_product = {|
   +category: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
+    +slug: ?string,
     +pivotField: ?{|
       +id: ?string,
       +showsInProductDetail: ?boolean,
@@ -275,6 +276,13 @@ return {
       "selections": [
         (v0/*: any*/),
         (v1/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "slug",
+          "storageKey": null
+        },
         {
           "alias": null,
           "args": null,
@@ -534,6 +542,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a00282405ce5fc374e551b9b0937b7fe';
+(node/*: any*/).hash = '5d2ae8a8fead9fe4c32bd09a5a186caf';
 
 module.exports = node;

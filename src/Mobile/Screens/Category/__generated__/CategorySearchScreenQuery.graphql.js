@@ -61,6 +61,7 @@ fragment CategoryScreen_category on Category {
   ancestors {
     id
     name
+    slug
   }
 }
 
@@ -125,6 +126,13 @@ v4 = {
   "storageKey": null
 },
 v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -213,13 +221,7 @@ return {
         "selections": [
           (v2/*: any*/),
           (v4/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "slug",
-            "storageKey": null
-          },
+          (v5/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -236,7 +238,8 @@ return {
             "plural": true,
             "selections": [
               (v2/*: any*/),
-              (v4/*: any*/)
+              (v4/*: any*/),
+              (v5/*: any*/)
             ],
             "storageKey": null
           }
@@ -270,7 +273,7 @@ return {
         "name": "administrativeAreas",
         "plural": true,
         "selections": [
-          (v5/*: any*/),
+          (v6/*: any*/),
           (v4/*: any*/),
           {
             "alias": null,
@@ -280,7 +283,7 @@ return {
             "name": "ancestors",
             "plural": true,
             "selections": [
-              (v5/*: any*/),
+              (v6/*: any*/),
               (v4/*: any*/)
             ],
             "storageKey": null
@@ -291,12 +294,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "bfc71050212d1300c7673af471549c17",
+    "cacheID": "aa8a15a11764eb1394663055ac074e39",
     "id": null,
     "metadata": {},
     "name": "CategorySearchScreenQuery",
     "operationKind": "query",
-    "text": "query CategorySearchScreenQuery(\n  $id: String!\n) {\n  category(id: $id) {\n    id\n    ...CategoryScreen_category\n  }\n  me {\n    id\n    ...CategoryScreen_me\n    ...FixedAddressBar_me\n  }\n  administrativeAreas(isPopular: true) {\n    ...CategoryScreen_popularLocations\n  }\n}\n\nfragment CategoryScreen_category on Category {\n  id\n  name\n  slug\n  level\n  ancestors {\n    id\n    name\n  }\n}\n\nfragment CategoryScreen_me on User {\n  id\n  isAdmin\n}\n\nfragment CategoryScreen_popularLocations on AdministrativeArea {\n  ...LocationSearchModal_popularLocations\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment LocationSearchModal_popularLocations on AdministrativeArea {\n  administrativeAreaId\n  name\n  ancestors {\n    administrativeAreaId\n    name\n  }\n}\n"
+    "text": "query CategorySearchScreenQuery(\n  $id: String!\n) {\n  category(id: $id) {\n    id\n    ...CategoryScreen_category\n  }\n  me {\n    id\n    ...CategoryScreen_me\n    ...FixedAddressBar_me\n  }\n  administrativeAreas(isPopular: true) {\n    ...CategoryScreen_popularLocations\n  }\n}\n\nfragment CategoryScreen_category on Category {\n  id\n  name\n  slug\n  level\n  ancestors {\n    id\n    name\n    slug\n  }\n}\n\nfragment CategoryScreen_me on User {\n  id\n  isAdmin\n}\n\nfragment CategoryScreen_popularLocations on AdministrativeArea {\n  ...LocationSearchModal_popularLocations\n}\n\nfragment FixedAddressBar_me on User {\n  id\n  isAdmin\n}\n\nfragment LocationSearchModal_popularLocations on AdministrativeArea {\n  administrativeAreaId\n  name\n  ancestors {\n    administrativeAreaId\n    name\n  }\n}\n"
   }
 };
 })();

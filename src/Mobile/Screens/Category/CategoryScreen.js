@@ -229,7 +229,8 @@ export default createFragmentContainer(Component, {
       level,
       ancestors {
         id,
-        name
+        name,
+        slug
       }
     }
   `,

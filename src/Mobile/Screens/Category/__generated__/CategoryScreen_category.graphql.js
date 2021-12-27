@@ -19,6 +19,7 @@ export type CategoryScreen_category = {|
   +ancestors: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
+    +slug: ?string,
   |}>,
   +$refType: CategoryScreen_category$ref,
 |};
@@ -45,6 +46,13 @@ v1 = {
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
 };
 return {
   "argumentDefinitions": [],
@@ -54,13 +62,7 @@ return {
   "selections": [
     (v0/*: any*/),
     (v1/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "slug",
-      "storageKey": null
-    },
+    (v2/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -77,7 +79,8 @@ return {
       "plural": true,
       "selections": [
         (v0/*: any*/),
-        (v1/*: any*/)
+        (v1/*: any*/),
+        (v2/*: any*/)
       ],
       "storageKey": null
     }
@@ -87,6 +90,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '7cf967fa6a6fe5fffb3c967de4716f8d';
+(node/*: any*/).hash = '81db8b1a07b6a808a4a4ddcd48c9662e';
 
 module.exports = node;

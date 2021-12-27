@@ -24,6 +24,7 @@ export type Categories_categories = $ReadOnlyArray<{|
   +children: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
+    +slug: ?string,
     +isPublished: ?boolean,
     +level: ?number,
     +icon: ?{|
@@ -53,24 +54,31 @@ v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "slug",
   "storageKey": null
 },
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "level",
+  "name": "name",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isPublished",
+  "name": "level",
   "storageKey": null
 },
 v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "isPublished",
+  "storageKey": null
+},
+v5 = {
   "alias": null,
   "args": null,
   "concreteType": "Image",
@@ -97,16 +105,10 @@ return {
   "name": "Categories_categories",
   "selections": [
     (v0/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "slug",
-      "storageKey": null
-    },
     (v1/*: any*/),
     (v2/*: any*/),
     (v3/*: any*/),
+    (v4/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -114,7 +116,7 @@ return {
       "name": "listingType",
       "storageKey": null
     },
-    (v4/*: any*/),
+    (v5/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -124,10 +126,11 @@ return {
       "plural": true,
       "selections": [
         (v0/*: any*/),
-        (v1/*: any*/),
-        (v3/*: any*/),
         (v2/*: any*/),
-        (v4/*: any*/)
+        (v1/*: any*/),
+        (v4/*: any*/),
+        (v3/*: any*/),
+        (v5/*: any*/)
       ],
       "storageKey": null
     }
@@ -137,6 +140,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '829de1617154b9d5767e927b7943c1d9';
+(node/*: any*/).hash = '92226ee892e5d75309618b5614467f08';
 
 module.exports = node;
