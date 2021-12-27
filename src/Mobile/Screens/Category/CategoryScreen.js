@@ -50,7 +50,7 @@ const Component = props => {
   }, [locationId, locationText])
 
   useEffect(() => {
-    history.replace(`/category/${isAdmin ? id : (slug || id)}?${qs.stringify({ ...queryParams, q: searchTermDebounced})}`)
+    history.replace(`/c/${isAdmin ? id : (slug || id)}?${qs.stringify({ ...queryParams, q: searchTermDebounced})}`)
   }, [searchTermDebounced, id, history, isAdmin])
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const Component = props => {
   }, [])
 
   useEffect(() => {
-    if(pathname === `/category/${isAdmin ? id : (slug || id)}`) {
+    if(pathname === `/c/${isAdmin ? id : (slug || id)}`) {
       setLocationId(isNaN(locationId) ? null : locationId)
     }
   }, [pathname, locationId, isAdmin])

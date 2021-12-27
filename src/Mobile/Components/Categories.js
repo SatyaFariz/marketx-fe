@@ -73,7 +73,7 @@ const Component = props => {
           return (
             <CategoryItem
               key={item.id}
-              href={`/category/${item.slug || item.id}`} 
+              href={`/c/${item.slug || item.id}`} 
               category={item}
               me={me}
               style={{

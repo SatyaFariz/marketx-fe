@@ -67,7 +67,7 @@ const Component = props => {
                   {i > 0 &&
                   <span style={{ margin: '0 5px' }}>{'/'}</span>
                   }
-                  <ButtonBase key={item.id} href={`/category/${item.id}`} component={Link}>
+                  <ButtonBase key={item.id} href={`/c/${item.id}`} component={Link}>
                     <span style={{ fontWeight: '700' }}>{item.name}</span>
                   </ButtonBase>
                 </div>

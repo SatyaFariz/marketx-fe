@@ -2,7 +2,7 @@ import graphql from 'babel-plugin-relay/macro'
 import FixedAddressBar from '../../Components/FixedAddressBar'
 
 const chunk = {
-  path: '/category/:id',
+  path: '/c/:id',
   components: () => [import('./CategoryScreen')],
   query: graphql`
     query CategorySearchScreenQuery($id: String!) {

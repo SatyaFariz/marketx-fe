@@ -34,7 +34,7 @@ const Component = props => {
       >
         <MenuItem 
           component={Link}
-          href={`/category/${category.id}/detail`}
+          href={`/c/${category.id}/detail`}
         >
           Edit
         </MenuItem>

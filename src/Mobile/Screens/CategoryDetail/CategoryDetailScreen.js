@@ -524,7 +524,7 @@ const Component = props => {
             {!category.pivotField &&
             <ButtonBase
               component={Link}
-              href={`/category/${category.id}/detail?action=editPivotField`}
+              href={`/c/${category.id}/detail?action=editPivotField`}
               style={{ color: Color.primary }}
             >
               <span>
@@ -552,7 +552,7 @@ const Component = props => {
                 <Button
                   label={'Edit'}
                   component={Link}
-                  href={`/category/${category.id}/detail?action=editPivotField`}
+                  href={`/c/${category.id}/detail?action=editPivotField`}
                   disabled={loading}
                 />
               </div>
@@ -572,7 +572,7 @@ const Component = props => {
             <h3>Specification Fields</h3>
             <ButtonBase
               component={Link}
-              href={`/category/${category.id}/detail?action=createFields`}
+              href={`/c/${category.id}/detail?action=createFields`}
               style={{ color: Color.primary }}
             >
               <span>
